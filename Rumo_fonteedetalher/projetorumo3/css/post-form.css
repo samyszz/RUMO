@@ -1,0 +1,236 @@
+/* =================================================================
+   CSS FINAL para Formulários (Integrado com seu base.css)
+   ================================================================= */
+
+/* Container principal da página */
+.form-page-container {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2rem;
+}
+
+/* A caixa do formulário com o fundo "verdinho" */
+.form-box {
+    background-color: var(--card-hub-bg);
+    border: 1px solid var(--card-hub-border);
+    border-radius: 12px;
+    padding: 2.5rem 3rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Títulos */
+.form-box h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+.form-box .subtitle {
+    font-size: 1rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 2.5rem;
+    text-align: left;
+}
+
+/* Grupos de campos com efeito de elevação */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--form-input-border);
+    border-radius: 8px;
+    background-color: var(--form-input-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--text-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Estilização do Quill com os mesmos efeitos */
+.ql-toolbar, .ql-container {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    transition: all 0.3s ease;
+}
+.ql-toolbar {
+    border-radius: 8px 8px 0 0 !important;
+    border: 1px solid var(--form-input-border) !important;
+    background-color: var(--form-input-bg);
+}
+.ql-container {
+    border-radius: 0 0 8px 8px !important;
+    border: 1px solid var(--form-input-border) !important;
+    border-top: none !important;
+    background-color: var(--card-bg);
+    min-height: 250px;
+    font-size: 1rem;
+}
+.ql-container:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border-radius: 8px !important;
+}
+
+/* --- CORREÇÃO DE ALINHAMENTO DOS BOTÕES --- */
+.form-actions {
+    display: flex;
+    justify-content: center; /* <<< ALTERADO DE flex-end PARA center */
+    align-items: center; /* Garante alinhamento vertical */
+    gap: 1.5rem; /* Aumenta o espaço entre os itens */
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--card-hub-border);
+    padding-top: 1.5rem;
+}
+
+/* Botão principal */
+.btn {
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+.btn-primary {
+    background-color: #0a4849;
+    color: #ffffff;
+    box-shadow: 0 4px 15px -5px #0a4849;
+}
+.btn-primary:hover {
+    background-color: #083b3c;
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px -7px #0a4849;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .form-page-container { margin: 1rem auto; padding: 1rem; }
+    .form-box { padding: 1.5rem; }
+    .form-actions { flex-direction: column-reverse; }
+    .btn { width: 100%; }
+}
+/* ==========================================================
+   EXTRAS PARA A PÁGINA DE EDITAR PERFIL
+   ========================================================== */
+
+.profile-photo-area {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+    background-color: var(--form-input-bg);
+    border: 1px dashed var(--form-input-border);
+    border-radius: 12px;
+}
+
+.profile-photo-area img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--card-bg);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.btn-photo-upload {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: 1px solid var(--form-input-border);
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.btn-photo-upload:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border-color: var(--text-color);
+}
+
+.form-actions .delete-account-link {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #c0392b; /* Vermelho alerta */
+    text-decoration: none;
+    margin-right: auto; /* Joga o link para a esquerda */
+    align-self: center; /* Centraliza verticalmente */
+    transition: all 0.3s ease;
+}
+
+.form-actions .delete-account-link:hover {
+    opacity: 0.7;
+    text-decoration: underline;
+}
+/* Estilo para a "caixinha" de Sair/Excluir conta */
+.account-actions-box {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    border: 1px solid #e74c3c; /* Borda em tom de alerta */
+    border-radius: 12px;
+    background-color: rgba(231, 76, 60, 0.05); /* Fundo avermelhado bem sutil */
+    text-align: center;
+}
+
+.account-actions-box h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+}
+
+.account-actions-box p {
+    margin: 0 0 1rem 0;
+    color: var(--text-secondary-color);
+    font-size: 0.9rem;
+}
+
+.btn-delete-account {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: #e74c3c;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-delete-account:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(192, 57, 43, 0.3);
+}
+
+/* Ajusta o link antigo que não vamos mais usar */
+.form-actions .delete-account-link {
+    display: none;
+}

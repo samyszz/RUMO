@@ -1,0 +1,251 @@
+/* css/editar-perfil.css */
+
+/* --- CONTAINER PRINCIPAL E LINK DE VOLTAR --- */
+
+.form-main-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinha no topo */
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.containerform {
+    width: 100%;
+    max-width: 650px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #217473; /* Um pouco mais escuro no hover */
+}
+
+.back-link i {
+    margin-right: 8px;
+}
+
+/* --- CARD DE FORMULÁRIO --- */
+
+.form-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 30px 40px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-header h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.form-header h2 i {
+    margin-right: 12px;
+    color: #137577;
+}
+
+/* Dark Mode para o ícone do header */
+body.dark-mode .form-header h2 i {
+    color: #85cbcb;
+}
+
+
+/* --- SEÇÃO DE UPLOAD DE FOTO --- */
+
+.form-group-photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.profile-avatar-edit {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--form-input-border);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.btn-upload-photo {
+    background-color: #e0f4f2;
+    color: #0a4849;
+    border: 2px solid #5a9a9a;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-upload-photo:hover {
+    background-color: #cce5e2;
+    border-color: #217473;
+}
+
+/* Dark Mode para o botão de upload */
+body.dark-mode .btn-upload-photo {
+    background-color: var(--form-input-bg);
+    color: var(--text-color);
+    border-color: var(--form-input-border);
+}
+
+body.dark-mode .btn-upload-photo:hover {
+    background-color: #2a5a5a;
+}
+
+
+/* --- GRUPOS DE FORMULÁRIO PADRÃO --- */
+
+/* Herda de forms.css, mas adiciona mais espaçamento */
+.form-card .form-group {
+    margin-bottom: 25px;
+}
+
+.form-card .form-group label {
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+/* Garante que o textarea seja expansível apenas verticalmente */
+.form-group textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+
+/* --- BOTÕES DE AÇÃO (CONFIRMAR E EXCLUIR) --- */
+
+.form-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas pequenas */
+}
+
+/* O botão .btn-submit já é estilizado pelo forms.css */
+.form-actions .btn-submit {
+    flex-grow: 1; /* Faz o botão crescer para preencher o espaço */
+    min-width: 200px; /* Largura mínima para evitar que fique muito pequeno */
+}
+
+.btn-delete-account {
+    color: #c0392b; /* Tom de vermelho para alerta */
+    background-color: transparent;
+    border: 2px solid #c0392b;
+    padding: 14px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    flex-grow: 1;
+    min-width: 200px;
+}
+
+.btn-delete-account:hover {
+    background-color: #c0392b;
+    color: #ffffff;
+}
+
+/* Dark Mode para o botão de excluir */
+body.dark-mode .btn-delete-account {
+    color: #e74c3c;
+    border-color: #e74c3c;
+}
+body.dark-mode .btn-delete-account:hover {
+    background-color: #e74c3c;
+    color: #ffffff;
+}
+
+/* --- RESPONSIVIDADE --- */
+
+@media (max-width: 600px) {
+    .form-card {
+        padding: 25px 20px;
+    }
+
+    .form-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .profile-avatar-edit {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* Empilha os botões de ação em telas pequenas */
+    .form-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-actions .btn-submit,
+    .form-actions .btn-delete-account {
+        width: 100%; /* Faz ambos os botões ocuparem 100% da largura */
+    }
+}
+/* --- LÓGICA RESPONSIVA PARA EDITAR PERFIL --- */
+
+/* Para TABLETS (até 992px) */
+@media (max-width: 992px) {
+    .edit-profile-card {
+        padding: 25px;
+    }
+}
+
+/* Para TELEMÓVEIS (até 768px) */
+@media (max-width: 768px) {
+    .main-edit-profile {
+        margin: 20px 0;
+    }
+
+    .edit-profile-card {
+        padding: 20px 15px; /* Menos padding lateral */
+    }
+
+    .avatar-upload-section {
+        flex-direction: column; /* Empilha a imagem e o texto */
+        gap: 15px;
+    }
+    
+    .avatar-preview {
+        width: 100px;
+        height: 100px;
+    }
+
+    .avatar-actions {
+        text-align: center;
+    }
+
+    .form-actions {
+        flex-direction: column; /* Empilha os botões */
+        gap: 10px;
+    }
+
+    .btn-save, .btn-cancel {
+        width: 100%; /* Botões ocupam a largura total */
+    }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "projetorumo3-tests",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "jest --runInBand"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "jsdom": "^21.1.0"
+  }
+}

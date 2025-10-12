@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>R.U.M.O - Autenticação</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/auth-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<header id="main-header">
+    <div class="container">
+        <a href="index.html"><img src="logo.png" alt="Logo R.U.M.O" class="logo"></a>
+
+       <nav id="main-nav">
+    
+    <ul>
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="hub.html" data-i18n="nav.hub">HUB</a></li>
+        <li><a href="utilitarios.html" data-i18n="nav.tools">Ultilidades</a></li>
+        <li><a href="sobre.html" data-i18n="nav.about">Sobre nós</a></li>
+        <li id="nav-profile-item" style="display: none;"><a href="perfil.html" class="create-account-btn" data-i18n="nav.profile">Meu Perfil</a></li>
+        <li id="nav-login-item"><a href="auth.html" class="create-account-btn" data-i18n="nav.create_account">Criar conta</a></li>
+    </ul>
+</nav>
+
+        <div class="header-right-icons">
+            <button id="accessibility-btn" class="accessibility-btn" aria-label="Abrir menu de acessibilidade">
+                <i class="fas fa-universal-access"></i>
+            </button>
+            <div class="header-lang-container" id="header-lang-container">
+                <button id="lang-dropdown-btn" class="lang-dropdown-btn" aria-label="Alterar idioma">
+                    <i class="fas fa-language"></i>
+                </button>
+                <div id="lang-dropdown-content" class="lang-dropdown-content" style="display: none;">
+                    <p data-i18n="header.lang.current">Idioma atual: <strong data-i18n="header.lang.pt_br">Português (Brasil)</strong></p>
+                    <form>
+                        <label for="language-select-header" data-i18n="header.lang.select">Selecione o idioma de sua preferência:</label>
+                        <select id="language-select-header"></select>
+                    </form>
+                </div>
+            </div>
+            <button id="theme-toggle-btn-desktop" class="theme-toggle-btn" aria-label="Alternar tema">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+            <a href="perfil.html" id="profile-bubble" class="profile-bubble" style="display: none;">
+                <img src="assets/imagens/avatar-padrao.png" alt="Foto de Perfil" id="profile-bubble-img">
+            </a>
+        </div>
+
+        <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu" aria-controls="main-nav" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+<main class="form-main">
+    <div class="container-wrapper" id="container-wrapper">
+        <div class="form-container register-container">
+            <div class="form-panel">
+                <h2 data-i18n="form.register">Cadastre-se</h2>
+                <div class="doc-tabs">
+                    <button class="tab-button active" data-tab="pf" data-i18n="cadastro.pf">Pessoa Física</button>
+                    <button class="tab-button" data-tab="pj" data-i18n="cadastro.pj">Pessoa Jurídica</button>
+                </div>
+
+                <form class="tab-content active" id="pf" style="width:100%;">
+                    <div class="form-group"><i class="fas fa-user"></i><input type="text" name="nome" placeholder="Nome Completo..." data-i18n="cadastro.pf.name_placeholder" required></div>
+                    <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email" placeholder="Email..." data-i18n="cadastro.pf.email_placeholder" required></div>
+                    <div class="form-group"><i class="fas fa-globe"></i><select id="language-select-pf" name="idioma" class="language-dropdown" required></select></div>
+                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="senha" placeholder="Senha..." data-i18n="cadastro.pf.password_placeholder" required></div>
+                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="confirmar_senha" placeholder="Repita a senha..." data-i18n="cadastro.pf.confirm_password_placeholder" required></div>
+                    <button type="submit" class="btn-submit" data-i18n="cadastro.pf.submit">Cadastrar</button>
+                </form>
+
+                <form class="tab-content" id="pj" style="width:100%;">
+                    <div class="form-group"><i class="fas fa-building"></i><input type="text" name="nome_empresa" placeholder="Nome da Empresa/ONG..." data-i18n="cadastro.pj.company_placeholder" required></div>
+                    <div class="form-group"><i class="fas fa-id-card"></i><input type="text" name="cnpj" placeholder="CNPJ..." data-i18n="cadastro.pj.cnpj_placeholder" required></div>
+                    <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email_comercial" placeholder="Email Comercial..." data-i18n="cadastro.pj.email_placeholder" required></div>
+                    <div class="form-group"><i class="fas fa-globe"></i><select id="language-select-pj" name="idioma_pj" class="language-dropdown" required></select></div>
+                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="senha_pj" placeholder="Senha..." data-i18n="cadastro.pj.password_placeholder" required></div>
+                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="confirmar_senha_pj" placeholder="Confirmar Senha..." data-i18n="cadastro.pj.confirm_password_placeholder" required></div>
+                    <button type="submit" class="btn-submit" data-i18n="cadastro.pj.submit">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="form-container login-container">
+             <div class="form-panel">
+                <h2 data-i18n="form.login">Login</h2>
+                <form id="login-form-main" style="width: 100%;">
+                    <div class="form-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" name="email" placeholder="Email" data-i18n="login.email_placeholder" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="password" placeholder="Senha" data-i18n="login.password_placeholder" required>
+                    </div>
+                    <button type="submit" class="btn-submit" data-i18n="login.submit">Entrar</button>
+                </form>
+                <div class="forgot-password">
+                    <span data-i18n="login.forgot_question">Esqueceu a senha? </span><a href="#" data-i18n="login.recover">Recuperar senha</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <img src="logo.png" alt="Logo R.U.M.O">
+                    <h3 data-i18n="login.overlay_title">Já tem uma conta?</h3>
+                    <p>Faça login para acessar a plataforma</p>
+                    <button class="btn-overlay" id="signIn">Login</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <img src="logo.png" alt="Logo R.U.M.O">
+                    <h3 data-i18n="cadastro.overlay_title">Ainda não tem conta?</h3>
+                    <p>Cadastre-se para começar sua jornada conosco</p>
+                    <button class="btn-overlay" id="signUp">Cadastro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<img src="ondacima.png" class="ondacima" id="onda-cima">
+    <footer class="ondinha">
+        <img src="ondabaixo.png" class="ondabaixo" id="onda-baixo">
+    </footer>
+    <footer>
+        <div class="footer-container">
+            <img src="logo.png" alt="Logo R.U.M.O no rodapé" class="footer-logo">
+
+            <div class="footer-social">
+                <h4 data-i18n="footer.social.title">Redes Sociais</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+                    <a href="#"><i class="fab fa-linkedin fa-2x"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-contact">
+                <h4 data-i18n="footer.contact.title">Vamos conversar?</h4>
+                <form>
+                    <input type="email" name="email" placeholder="Seu e-mail@exemplo.com" data-i18n="footer.contact.email_placeholder" required>
+
+                    <div class="input-with-button">
+                        <input type="text" name="assunto" placeholder="Sobre o que quer falar?" data-i18n="footer.contact.subject_placeholder" required>
+                        <button type="submit" aria-label="Enviar"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/auth-slider.js"></script>
+<script src="js/login.js"></script>
+<script src="js/cadastro.js"></script>
+
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+</body>
+</html>

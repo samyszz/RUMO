@@ -1,0 +1,341 @@
+/* --- ESTILOS GERAIS PARA PÁGINAS DE FORMULÁRIO --- */
+main.form-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 15px;
+}
+
+.form-container {
+    background-color: #cdede0;
+    border: 1px solid rgba(46, 107, 95, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.form-header-tabs {
+    display: flex;
+}
+
+.form-header-tabs a {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #5B7D8A;
+    background-color: #cdede0;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.form-header-tabs a.active {
+    color: #cdede0;
+    background-color: #137577;
+    border-bottom-color: #137577;
+}
+
+.form-body {
+    padding: 25px 35px 35px 35px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #28363b;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    background-color: #ffffff;
+    /* Fundo branco para melhor contraste com a sombra */
+    font-size: 1rem;
+    color: #14312b;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* Sombra para efeito elevado */
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #137577;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(19, 117, 119, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Sombra mais destacada no foco */
+}
+
+
+.btn-submit {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    background-color: #135f60;
+    color: #FFFFFF;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #0e4a4b;
+}
+
+/* --- ESTILOS CADASTRO --- */
+.doc-tabs {
+    display: flex;
+    margin-bottom: 25px;
+    background-color: #b0dee6;
+    color: #000000;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-weight: 700;
+    /* Aumentei o peso da fonte */
+    color: #333333;
+    /* Cor do texto mais escura */
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+}
+
+.tab-button.active {
+    background-color: #6a969c;
+    /*muda acor da parte pj e pf*/
+    color: #ffffff;
+    /* Cor branca para o texto ativo */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* --- ESTILOS LOGIN --- */
+.forgot-password {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.forgot-password a {
+    text-decoration: none;
+    color: #5B7D8A;
+    font-weight: 600;
+}
+
+/* --- ESTILOS NOVO POST --- */
+.new-post-form {
+    background-color: #ade6ec;
+    border: 4px solid #739d9f;
+    border-radius: 28px;
+    padding: 50px 45px;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.new-post-form h2 {
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: #053536;
+    margin: 0 0 25px 0;
+}
+
+.photo-upload-area {
+    border: 4px dashed #5B7D8A;
+    border-radius: 22px;
+    background-color: #d7f9ff;
+    padding: 70px 30px;
+    text-align: center;
+    color: #2E6B5F;
+    font-weight: 800;
+    font-size: 1.2rem;
+    min-height: 150px;
+}
+
+.upload-buttons {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-upload {
+    flex: 1 1 200px;
+    padding: 20px;
+    border-radius: 20px;
+    border: 4px solid #2E6B5F;
+    background-color: #ffffff;
+    color: #2E6B5F;
+    font-weight: 800;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+/* --- ESTILO PARA BOTÃO GOOGLE E DIVISOR --- */
+.btn-google {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d1d5db;
+    background-color: #FFFFFF;
+    color: #2E6B5F;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background-color 0.2s;
+    font-family: 'Nunito-Black', sans-serif;
+}
+
+.btn-google:hover {
+    background-color: #f9fafb;
+}
+
+.form-divider {
+    text-align: center;
+    color: #9ca3af;
+    font-weight: 500;
+    margin: 20px 0;
+}
+
+
+/* Dark Mode Styles */
+
+body.dark-mode .tab-button {
+    color: #e0f7fa;
+    /* azul clarinho quase branco */
+}
+
+body.dark-mode .tab-button.active {
+    background-color: #518284;
+    color: #e0f7fa;
+    /* ativo também branco no modo escuro */
+}
+
+body.dark-mode .form-container {
+    background-color: #518284;
+    border-color: #3b6a6c;
+    border-radius: 60px solid #134d50;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .form-header-tabs a {
+    background-color: #3d6b6f;
+    color: #e0f7fa;
+    border-radius: 60px solid #134d50;
+}
+
+body.dark-mode .form-header-tabs a.active {
+    background-color: #518284;
+    color: #e0f7fa;
+    border-bottom-color: #bde5e7;
+}
+
+body.dark-mode .form-group label {
+    color: #e0f7fa;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group select,
+body.dark-mode .form-group textarea {
+    background-color: #9dcad1;
+    color: #0a4849;
+    border-radius: 60px solid #134d50;
+    border-color: #bde5e7;
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group select:focus,
+body.dark-mode .form-group textarea:focus {
+    background-color: #c1e2e8;
+    border-color: #bde5e7;
+    border-radius: 60px solid #134d50;
+    box-shadow: 0 0 0 3px rgba(189, 229, 231, 0.4);
+}
+
+body.dark-mode .btn-submit {
+    background-color: #0a4849;
+    color: #e0f7fa;
+    border: 2px solid #bde5e7;
+}
+
+body.dark-mode .btn-submit:hover {
+    background-color: #0d5c5c;
+}
+
+body.dark-mode .forgot-password a {
+    color: #e0f7fa;
+}
+
+body.dark-mode .new-post-form {
+    background-color: #518284;
+    border-color: #1c6348;
+}
+
+body.dark-mode .new-post-form h2 {
+    color: #e0f7fa;
+}
+
+body.dark-mode .photo-upload-area {
+    background-color: #3d6b6f;
+    border-color: #9dcad1;
+    color: #e0f7fa;
+}
+
+body.dark-mode .btn-upload {
+    background-color: #9dcad1;
+    color: #0a4849;
+    border-color: #0a4849;
+}
+
+body.dark-mode .btn-google {
+    background-color: #9dcad1;
+    color: #0a4849;
+    border-color: #bde5e7;
+}
+
+body.dark-mode .btn-google:hover {
+    background-color: #b7dce3;
+}
+
+body.dark-mode .form-divider {
+    color: #bde5e7;
+}
