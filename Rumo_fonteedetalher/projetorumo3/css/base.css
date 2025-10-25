@@ -1339,3 +1339,12 @@ body.dark-mode .phone-list li a:hover { background-color: rgba(255,255,255,0.08)
         right: 8px; /* Mantendo a consistência */
     }
 }
+/* ============================================= */
+/* FIXA O WIDGET DO VLIBRAS                      */
+/* ============================================= */
+#vlibras_plugin {
+    position: fixed !important;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999 !important; /* z-index alto para ficar sobre outros widgets */
+}
