@@ -1,38 +1,49 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // --- LÓGICA DO ACORDEÃO (DROPDOWNS) ---
+    // --- VARIÁVEIS GLOBAIS ---
     const dropdownHeaders = document.querySelectorAll('.tool-header');
     let map; 
     let userMarker;
     let searchMarkers = [];
-    let userCoords;
-    let routingControl = null; // Variável para guardar o controlo da rota
+    let userCoords = null; // Inicializa como null
+    let routingControl = null; 
+    let mapInitialized = false; // Flag para controlar a inicialização
 
+    // --- LÓGICA DO ACORDEÃO (DROPDOWNS) ---
     dropdownHeaders.forEach(header => {
         header.addEventListener('click', function () {
             const content = this.nextElementSibling;
             const isActive = this.classList.contains('active');
 
+            // Fecha outros acordeões
             dropdownHeaders.forEach(h => {
                 if (h !== this) {
                     h.classList.remove('active');
-                    h.nextElementSibling.style.display = 'none';
+                    if (h.nextElementSibling) h.nextElementSibling.style.display = 'none';
                 }
             });
 
+            // Abre ou fecha o atual
             if (isActive) {
                 this.classList.remove('active');
-                content.style.display = 'none';
+                if (content) content.style.display = 'none';
             } else {
                 this.classList.add('active');
-                content.style.display = this.classList.contains('docs-header') ? 'flex' : 'block';
+                if (content) {
+                    content.style.display = this.classList.contains('docs-header') ? 'flex' : 'block';
+                }
                 
-                // Inicializa o mapa apenas quando necessário e se o Leaflet estiver carregado
-                // Garante que L (Leaflet) está definido globalmente
-                if (this.classList.contains('location-header') && typeof L !== 'undefined' && !map) { 
-                    initMap();
+                // Inicializa o mapa APENAS SE for o de localização e ainda não foi inicializado
+                if (this.classList.contains('location-header') && !mapInitialized) {
+                    // Verifica se Leaflet está carregado antes de chamar initMap
+                    if (typeof L !== 'undefined') { 
+                        initMap(); 
+                    } else {
+                        console.error("Leaflet (L) não carregado ao abrir o acordeão.");
+                        // Opcional: Tentar carregar o script aqui ou mostrar mensagem
+                    }
                 } else if (this.classList.contains('location-header') && map) {
-                    // Se o mapa já existe, apenas invalida o tamanho para garantir a renderização
+                    // Se já inicializado, apenas ajusta o tamanho
                     setTimeout(() => map.invalidateSize(), 10);
                 }
             }
@@ -41,31 +52,35 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // --- INÍCIO DA SEÇÃO DO MAPA ---
     function initMap() {
+        // Previne múltiplas inicializações
+        if (mapInitialized) return; 
+
         const mapContainer = document.getElementById('map');
         if (!mapContainer) {
             console.error("Elemento 'map' não encontrado no DOM.");
             return; 
         }
-         // Garante que L exista antes de criar o mapa
         if (typeof L === 'undefined') {
-             console.error("Leaflet (L) não está definido. Verifique a ordem de carregamento dos scripts.");
+             console.error("Leaflet (L) não está definido em initMap.");
              return;
         }
 
+        console.log("Inicializando o mapa..."); // Log para depuração
         map = L.map('map').setView([0, 0], 2);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        mapInitialized = true; // Marca como inicializado
+
+        // Tenta obter a localização
         if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(onLocationSuccess, onLocationError);
         } else {
              const addressSpan = document.getElementById('user-address');
              if (addressSpan) addressSpan.textContent = 'Geolocalização não suportada.';
+             setupSearchForm(); // Configura a busca mesmo sem localização (mas a busca falhará)
         }
-        
-        // Ativa o formulário de busca APÓS inicializar o mapa base
-        setupSearchForm(); 
     }
 
     function onLocationSuccess(position) {
@@ -73,11 +88,16 @@ document.addEventListener('DOMContentLoaded', function () {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };
-        if (!map) return; // Garante que o mapa existe
+        console.log("Localização obtida:", userCoords); // Log
+
+        if (!map) {
+             console.error("Mapa não definido em onLocationSuccess");
+             return; 
+        }
 
         map.setView([userCoords.lat, userCoords.lng], 15);
         
-        if (userMarker) map.removeLayer(userMarker); // Remove marcador antigo
+        if (userMarker) map.removeLayer(userMarker); 
         userMarker = L.marker([userCoords.lat, userCoords.lng]).addTo(map)
             .bindPopup('<b>Você está aqui!</b>').openPopup();
         
@@ -85,12 +105,11 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${userCoords.lat}&lon=${userCoords.lng}&addressdetails=1`, {
             referrerPolicy: "strict-origin-when-cross-origin",
             headers: { 
-              'User-Agent': 'RUMO/1.0 (https://redeunificadademobilidadeeorientacao.netlify.app/; contact@example.com)' // Substitua pelo seu URL/email
+              'User-Agent': 'RUMO/1.0 (https://redeunificadademobilidadeeorientacao.netlify.app/; contact@example.com)' 
             } 
         })
             .then(response => { 
                 if (!response.ok) {
-                    // Não mostra alert, apenas loga o erro no console
                     console.error(`HTTP error! status: ${response.status} ao buscar endereço.`);
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -113,22 +132,31 @@ document.addEventListener('DOMContentLoaded', function () {
                     addressSpan.textContent = data.display_name || 'Endereço não encontrado.';
                 }
             }).catch(error => {
-                // Não mostra alert, apenas loga o erro no console
                 console.error('Catch: Erro ao buscar endereço:', error.message);
                  const addressSpan = document.getElementById('user-address');
                  if(addressSpan) addressSpan.textContent = 'Não foi possível obter o endereço.';
+            }).finally(() => {
+                // Configura a busca APÓS a tentativa de geolocalização e geocoding reverso
+                setupSearchForm(); 
             });
     }
 
     function onLocationError(error) {
-        // alert(`Erro ao obter localização: ${error.message}`); // Comentado
         console.warn(`Erro ao obter localização: ${error.message}`);
          const addressSpan = document.getElementById('user-address');
          if(addressSpan) addressSpan.textContent = 'Não foi possível obter sua localização.';
+         // Configura a busca mesmo se a localização falhar
+         setupSearchForm(); 
     }
     
+    // Flag para garantir que o setupSearchForm só rode uma vez
+    let searchFormSetupDone = false; 
+
     // Função separada para configurar o formulário de busca
     function setupSearchForm() {
+        // Previne múltiplas configurações
+        if (searchFormSetupDone) return; 
+
         const searchForm = document.getElementById('search-form-map');
         const resultsList = document.getElementById('search-results-list');
         
@@ -136,20 +164,22 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error("Formulário de busca ou lista de resultados não encontrados.");
             return;
         }
+        
+        console.log("Configurando o formulário de busca..."); // Log
 
         searchForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const query = document.getElementById('search-input-map').value;
             
-            if (!query) {
-                // alert('Digite um termo de busca.'); // Usar notificação mais suave se tiver
-                return;
-            }
+            if (!query) return; // Não faz nada se a busca estiver vazia
+            
              if (!userCoords) {
-                alert('Aguarde até obtermos sua localização para buscar.'); // Mantém este alerta
-                return;
+                // Este alerta só deve aparecer se a geolocalização falhou E o usuário tentou buscar
+                alert('Sua localização não foi obtida. A busca pode não ser precisa.');
+                // Poderia continuar a busca sem o viewbox, mas mantemos assim por enquanto
+                // return; 
             }
-            if (!map) { // Garante que o mapa existe
+            if (!map) { 
                  console.error("Variável 'map' não está definida ao tentar buscar.");
                  return;
             }
@@ -164,19 +194,23 @@ document.addEventListener('DOMContentLoaded', function () {
             
             resultsList.innerHTML = '<p style="padding: 10px; text-align: center;">Buscando...</p>';
 
-            const viewbox = [userCoords.lng - 0.1, userCoords.lat + 0.1, userCoords.lng + 0.1, userCoords.lat - 0.1].join(',');
-            const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&viewbox=${viewbox}&bounded=1&limit=10&addressdetails=1`;
-            
+            // Monta a URL da busca
+            let url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=10&addressdetails=1`;
+            // Adiciona viewbox apenas se tivermos as coordenadas do usuário
+            if (userCoords) {
+                const viewbox = [userCoords.lng - 0.1, userCoords.lat + 0.1, userCoords.lng + 0.1, userCoords.lat - 0.1].join(',');
+                url += `&viewbox=${viewbox}&bounded=1`;
+            }
+
             // Fetch da busca - Versão Netlify
             fetch(url, {
                 referrerPolicy: "strict-origin-when-cross-origin",
                 headers: { 
-                  'User-Agent': 'RUMO/1.0 (https://redeunificadademobilidadeeorientacao.netlify.app/; contact@example.com)' // Substitua pelo seu URL/email
+                  'User-Agent': 'RUMO/1.0 (https://redeunificadademobilidadeeorientacao.netlify.app/; contact@example.com)' 
                 } 
             })
             .then(response => { 
                 if (!response.ok) {
-                     // Não mostra alert, apenas loga o erro no console
                      console.error(`HTTP error! status: ${response.status} ao buscar locais.`);
                      throw new Error(`HTTP error! status: ${response.status}`);
                  }
@@ -184,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(data => {
                 if (data.length === 0) {
-                    resultsList.innerHTML = '<p style="padding: 10px; text-align: center;">Nenhum resultado encontrado perto de você.</p>';
+                    resultsList.innerHTML = `<p style="padding: 10px; text-align: center;">Nenhum resultado encontrado ${userCoords ? 'perto de você' : ''}.</p>`;
                     return;
                 }
                 resultsList.innerHTML = ''; // Limpa o "Buscando..."
@@ -193,20 +227,25 @@ document.addEventListener('DOMContentLoaded', function () {
                     const placeName = place.address.amenity || place.address.shop || place.address.tourism || place.display_name.split(',')[0];
                     
                     const listItem = document.createElement('div');
-                    listItem.className = 'result-item'; // Usa a classe CSS de utils.css
+                    listItem.className = 'result-item'; 
                     listItem.innerHTML = `<h5>${placeName}</h5><p>${place.display_name}</p>`;
                     
                     // Evento de clique no resultado
                     listItem.addEventListener('click', () => {
-                        // *** VERIFICAÇÃO ADICIONADA AQUI ***
-                        if (!map || typeof L.Routing === 'undefined') {
-                             console.error("Mapa ou Routing Machine não inicializados ao clicar no resultado.");
-                             alert("O mapa ainda não está pronto para traçar rotas. Tente novamente em alguns segundos."); // Informa o usuário
-                             return; // Impede a execução do resto do código
+                        // Verifica se L.Routing está carregado
+                        if (typeof L.Routing === 'undefined') {
+                             console.error("Leaflet Routing Machine (L.Routing) não está definido ao clicar no resultado.");
+                             alert("A função de rotas ainda não está pronta. Tente novamente em alguns segundos."); 
+                             return; 
                         }
+                        // Verifica novamente userCoords e map
                          if (!userCoords) {
                             alert('Sua localização ainda não foi encontrada para traçar a rota.');
                             return;
+                        }
+                        if (!map) {
+                             console.error("Mapa não definido ao clicar no resultado.");
+                             return;
                         }
 
                         // Limpa rotas e marcadores de busca antigos
@@ -243,11 +282,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
             }).catch(error => {
-                // Não mostra alert, apenas loga o erro no console
                 console.error('Catch: Erro na busca de locais:', error.message);
                 resultsList.innerHTML = '<p style="padding: 10px; text-align: center;">Ocorreu um erro ao buscar.</p>';
             });
         });
+        
+        searchFormSetupDone = true; // Marca que o setup foi feito
+        console.log("Formulário de busca configurado."); // Log
     }
     // --- FIM DA SEÇÃO DO MAPA ---
 
@@ -454,6 +495,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
     renderDocs(); 
+
+    // --- Estilos para o Painel de Rotas ---
+    // (Movido para utils.css na resposta anterior, pode remover daqui se moveu)
+     /* const styleSheet = document.createElement("style");
+     styleSheet.type = "text/css";
+     styleSheet.innerText = `...`; // Estilos CSS do painel
+     document.head.appendChild(styleSheet); */
+
+
 
     // --- Estilos para o Painel de Rotas (Opcional, pode ir no CSS) ---
      const styleSheet = document.createElement("style");
