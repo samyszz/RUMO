@@ -2,10 +2,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- LÓGICA DO ACORDEÃO (DROPDOWNS) ---
     const dropdownHeaders = document.querySelectorAll('.tool-header');
-    let map; // Mova a declaração do mapa para um escopo mais amplo
+    let map; 
     let userMarker;
     let searchMarkers = [];
     let userCoords;
+    let routingControl = null; // Variável para guardar o controlo da rota
 
     dropdownHeaders.forEach(header => {
         header.addEventListener('click', function () {
@@ -26,8 +27,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.classList.add('active');
                 content.style.display = this.classList.contains('docs-header') ? 'flex' : 'block';
                 
-                if (this.classList.contains('location-header') && !map) {
+                // Inicializa o mapa apenas quando necessário e se o Leaflet estiver carregado
+                if (this.classList.contains('location-header') && typeof L !== 'undefined' && !map) {
                     initMap();
+                } else if (this.classList.contains('location-header') && map) {
+                    // Se o mapa já existe, apenas invalida o tamanho para garantir a renderização
+                    setTimeout(() => map.invalidateSize(), 10);
                 }
             }
         });
@@ -35,6 +40,13 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // --- INÍCIO DA SEÇÃO DO MAPA ---
     function initMap() {
+        // Verifica se o elemento 'map' existe antes de criar o mapa
+        const mapContainer = document.getElementById('map');
+        if (!mapContainer) {
+            console.error("Elemento 'map' não encontrado no DOM.");
+            return; 
+        }
+
         map = L.map('map').setView([0, 0], 2);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -45,6 +57,9 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             document.getElementById('user-address').textContent = 'Geolocalização não suportada.';
         }
+        
+        // Ativa o formulário de busca APÓS inicializar o mapa
+        setupSearchForm(); 
     }
 
     function onLocationSuccess(position) {
@@ -52,85 +67,161 @@ document.addEventListener('DOMContentLoaded', function () {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };
+        if (!map) return; // Garante que o mapa existe
+
         map.setView([userCoords.lat, userCoords.lng], 15);
+        
+        if (userMarker) map.removeLayer(userMarker); // Remove marcador antigo
         userMarker = L.marker([userCoords.lat, userCoords.lng]).addTo(map)
             .bindPopup('<b>Você está aqui!</b>').openPopup();
         
-        // A busca pelo endereço foi modificada aqui
-        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${userCoords.lat}&lon=${userCoords.lng}&addressdetails=1`)
+        // Busca de endereço (Geocoding reverso)
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${userCoords.lat}&lon=${userCoords.lng}&addressdetails=1`, {
+            referrerPolicy: "strict-origin-when-cross-origin" 
+        })
             .then(response => response.json())
             .then(data => {
+                const addressSpan = document.getElementById('user-address');
+                if(!addressSpan) return; // Verifica se o elemento existe
+
                 if (data && data.address) {
                     const addr = data.address;
-                    // Constrói o endereço de forma mais precisa, verificando se cada parte existe
                     const rua = addr.road || "";
                     const numero = addr.house_number || "";
                     const bairro = addr.suburb || "";
                     const cidade = addr.city || addr.town || "";
-
-                    // Junta as partes do endereço que existem para formar uma string limpa
                     const parte1 = `${rua}${numero ? ', ' + numero : ''}`;
                     const enderecoFinal = [parte1, bairro, cidade].filter(Boolean).join(' - ');
-
-                    document.getElementById('user-address').textContent = enderecoFinal || data.display_name;
+                    addressSpan.textContent = enderecoFinal || data.display_name;
                 } else {
-                    document.getElementById('user-address').textContent = data.display_name || 'Endereço não encontrado.';
+                    addressSpan.textContent = data.display_name || 'Endereço não encontrado.';
                 }
             }).catch(error => {
                 console.error('Erro ao buscar endereço:', error);
-                document.getElementById('user-address').textContent = 'Não foi possível obter o endereço.';
+                 const addressSpan = document.getElementById('user-address');
+                 if(addressSpan) addressSpan.textContent = 'Não foi possível obter o endereço.';
             });
     }
 
     function onLocationError(error) {
         alert(`Erro ao obter localização: ${error.message}`);
-        document.getElementById('user-address').textContent = 'Não foi possível obter sua localização.';
+         const addressSpan = document.getElementById('user-address');
+         if(addressSpan) addressSpan.textContent = 'Não foi possível obter sua localização.';
     }
     
-    const searchForm = document.getElementById('search-form-map');
-    if(searchForm) {
+    // Função separada para configurar o formulário de busca
+    function setupSearchForm() {
+        const searchForm = document.getElementById('search-form-map');
+        const resultsList = document.getElementById('search-results-list');
+        
+        if (!searchForm || !resultsList) {
+            console.error("Formulário de busca ou lista de resultados não encontrados.");
+            return;
+        }
+
         searchForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const query = document.getElementById('search-input-map').value;
-            const resultsList = document.getElementById('search-results-list');
-            if (!query || !userCoords) {
-                alert('Digite um termo de busca e permita o acesso à localização.');
+            
+            if (!query) {
+                alert('Digite um termo de busca.');
                 return;
             }
+             if (!userCoords) {
+                alert('Aguarde até obtermos sua localização para buscar.');
+                return;
+            }
+            if (!map) return; // Garante que o mapa existe
+
+            // Limpa marcadores e rotas anteriores
             searchMarkers.forEach(marker => map.removeLayer(marker));
             searchMarkers = [];
-            resultsList.innerHTML = '';
+            if (routingControl) {
+                map.removeControl(routingControl);
+                routingControl = null;
+            }
+            
+            resultsList.innerHTML = '<p style="padding: 10px; text-align: center;">Buscando...</p>';
+
             const viewbox = [userCoords.lng - 0.1, userCoords.lat + 0.1, userCoords.lng + 0.1, userCoords.lat - 0.1].join(',');
             const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&viewbox=${viewbox}&bounded=1&limit=10&addressdetails=1`;
-            fetch(url).then(response => response.json()).then(data => {
+            
+            fetch(url, {
+                referrerPolicy: "strict-origin-when-cross-origin" 
+            })
+            .then(response => response.json())
+            .then(data => {
                 if (data.length === 0) {
-                    alert('Nenhum resultado encontrado perto de você.');
-                    resultsList.innerHTML = '<p style="padding: 10px;">Nenhum resultado encontrado.</p>';
+                    resultsList.innerHTML = '<p style="padding: 10px; text-align: center;">Nenhum resultado encontrado perto de você.</p>';
                     return;
                 }
+                resultsList.innerHTML = ''; // Limpa o "Buscando..."
+
                 data.forEach(place => {
-                    const marker = L.marker([place.lat, place.lon]).addTo(map).bindPopup(`<b>${place.display_name}</b>`);
-                    searchMarkers.push(marker);
-                    const listItem = document.createElement('div');
-                    listItem.className = 'result-item';
                     const placeName = place.address.amenity || place.address.shop || place.address.tourism || place.display_name.split(',')[0];
+                    
+                    const listItem = document.createElement('div');
+                    listItem.className = 'result-item'; // Usa a classe CSS de utils.css
                     listItem.innerHTML = `<h5>${placeName}</h5><p>${place.display_name}</p>`;
+                    
+                    // *** A LÓGICA DE CLIQUE FOI ATUALIZADA AQUI ***
                     listItem.addEventListener('click', () => {
-                        map.setView([place.lat, place.lon], 17);
-                        marker.openPopup();
+                        if (!userCoords) {
+                            alert('Sua localização ainda não foi encontrada para traçar a rota.');
+                            return;
+                        }
+                        if (!map || typeof L.Routing === 'undefined') {
+                             console.error("Mapa ou Routing Machine não inicializados.");
+                             return;
+                        }
+                        
+                        // Limpa rotas e marcadores de busca antigos
+                        if (routingControl) {
+                            map.removeControl(routingControl);
+                        }
+                        searchMarkers.forEach(marker => map.removeLayer(marker));
+                        searchMarkers = [];
+                        resultsList.innerHTML = ''; // Esconde a lista de resultados
+
+                        // Cria a rota
+                        routingControl = L.Routing.control({
+                            waypoints: [
+                                L.latLng(userCoords.lat, userCoords.lng), // Ponto A (Usuário)
+                                L.latLng(place.lat, place.lon)           // Ponto B (Destino)
+                            ],
+                            routeWhileDragging: false, 
+                            language: 'pt', 
+                            router: L.Routing.osrmv1({
+                                serviceUrl: 'https://router.project-osrm.org/route/v1'
+                            }),
+                            createMarker: function() { return null; }, // Não cria marcadores A e B padrão
+                            show: true // Mostra o painel de instruções da rota
+                        }).addTo(map);
+
+                        // Ajusta o zoom para a rota (opcional, pode ser automático)
+                        map.fitBounds([
+                            [userCoords.lat, userCoords.lng],
+                            [place.lat, place.lon]
+                        ], { padding: [50, 50] });
                     });
+
                     resultsList.appendChild(listItem);
                 });
-                const group = new L.featureGroup(searchMarkers.concat(userMarker));
-                map.fitBounds(group.getBounds().pad(0.5));
+                
+                // Opcional: ajustar o zoom para mostrar os resultados iniciais
+                // const initialMarkersGroup = L.featureGroup(data.map(p => L.marker([p.lat, p.lon])));
+                // if (userMarker) initialMarkersGroup.addLayer(userMarker);
+                // if (initialMarkersGroup.getLayers().length > 0) {
+                //     map.fitBounds(initialMarkersGroup.getBounds().pad(0.3));
+                // }
+
             }).catch(error => {
                 console.error('Erro na busca de locais:', error);
-                alert('Ocorreu um erro ao buscar os locais.');
+                resultsList.innerHTML = '<p style="padding: 10px; text-align: center;">Ocorreu um erro ao buscar.</p>';
             });
         });
     }
     // --- FIM DA SEÇÃO DO MAPA ---
-
     // --- LÓGICA DO CONVERSOR DE MOEDA ---
     const currencyForm = document.querySelector('.currency-content .converter-form');
     if (currencyForm) {
