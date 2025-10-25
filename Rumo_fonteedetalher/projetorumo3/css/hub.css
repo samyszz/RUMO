@@ -48,7 +48,11 @@
   /* Permite crescer */
   max-width: 450px;
   /* Define um tamanho máximo */
+  /* Adicione esta linha para a animação funcionar */
+  transition: max-width 0.3s ease-in-out, flex-grow 0.3s ease-in-out;
 }
+
+
 
 .hub-actions .search-bar input {
   border: none;
@@ -308,6 +312,8 @@
 }
 
 @media (max-width: 400px) {
+
+  
   .hub-feed {
     display: flex;
     flex-direction: column;
@@ -321,6 +327,7 @@
   }
 }
 
+/* --- LÓGICA RESPONSIVA --- */
 @media (max-width: 768px) {
   .container {
     padding: 0 15px;
@@ -333,11 +340,68 @@
     row-gap: 20px;
     padding-bottom: 20px;
   }
-
+  
   .info-card-wrapper {
     width: 100%;
     max-width: 400px;
   }
+
+  .hub-actions {
+    gap: 8px; /* Reduz o espaçamento entre os itens */
+    /* Garante que o container possa lidar com a barra de pesquisa crescendo */
+    position: relative; 
+  }
+
+  .filter-container {
+    margin-left: 0; /* Remove a margem automática */
+  }
+
+  .btn-new-post {
+    /* Estado NORMAL do botão no telemóvel */
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    flex-shrink: 1; 
+    white-space: nowrap;
+    /* Adicionamos transição para a opacidade e visibilidade */
+    transition: all 0.3s ease, opacity 0.2s ease, visibility 0.2s ease;
+  }
+  
+  /* --- EFEITO DE FOCO NO TELEMÓVEL --- */
+
+  /* Quando a pesquisa está focada NO TELEMÓVEL */
+  .hub-actions:focus-within .search-bar {
+    flex-grow: 1; /* Garante que ela possa crescer */
+    max-width: 100%; /* Deixa expandir totalmente */
+  }
+
+  /* ...esconde o botão "Nova Publicação" e o Filtro */
+  .hub-actions:focus-within .btn-new-post,
+  .hub-actions:focus-within .filter-container {
+    opacity: 0;
+    visibility: hidden;
+    flex-shrink: 1;
+    /* Reduzimos o tamanho a zero para a barra de pesquisa ocupar o espaço */
+    max-width: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    overflow: hidden;
+  }
+}
+
+
+/* --- EFEITO DE FOCO PARA DESKTOP (Fora da media query) --- */
+
+.hub-actions:focus-within .search-bar {
+    flex-grow: 2;
+    max-width: 700px;
+}
+
+.hub-actions:focus-within .btn-new-post {
+    flex-shrink: 1;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 0.85rem;
 }
 
 /* ============================================= */

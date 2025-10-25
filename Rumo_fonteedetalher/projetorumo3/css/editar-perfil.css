@@ -1,251 +1,273 @@
-/* css/editar-perfil.css */
-
-/* --- CONTAINER PRINCIPAL E LINK DE VOLTAR --- */
-
-.form-main-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Alinha no topo */
-    padding: 40px 20px;
-    box-sizing: border-box;
+body {
+  font-family: 'Nunito', sans-serif;
+  letter-spacing: 0.3px;
+  line-height: 1.6;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  scroll-behavior: smooth;
 }
 
-.containerform {
-    width: 100%;
-    max-width: 650px;
+/* Cabeçalho */
+#main-header {
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-.back-link {
-    display: inline-block;
-    margin-bottom: 20px;
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 700;
-    font-size: 1rem;
-    transition: color 0.3s ease;
+#main-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 2rem;
 }
 
-.back-link:hover {
-    color: #217473; /* Um pouco mais escuro no hover */
+.logo {
+  height: 55px;
+  transition: transform 0.3s ease;
+}
+.logo:hover {
+  transform: scale(1.05);
 }
 
-.back-link i {
-    margin-right: 8px;
+/* Navegação */
+#main-nav ul {
+  display: flex;
+  gap: 1.5rem;
 }
 
-/* --- CARD DE FORMULÁRIO --- */
-
-.form-card {
-    background-color: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    padding: 30px 40px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+#main-nav ul li a {
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+#main-nav ul li a:hover {
+  transform: translateY(-2px);
+  text-shadow: 0 1px 8px rgba(255, 255, 255, 0.3);
 }
 
-.form-header {
-    text-align: center;
-    margin-bottom: 30px;
+/* Botões no cabeçalho */
+.header-right-icons button,
+.header-right-icons a {
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+.header-right-icons button:hover,
+.header-right-icons a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 
-.form-header h2 {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--text-color);
-    margin: 0;
+/* Formulário principal */
+.form-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 1rem;
 }
 
-.form-header h2 i {
-    margin-right: 12px;
-    color: #137577;
+.form-box {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  max-width: 700px;
+  width: 100%;
+  transition: all 0.3s ease;
 }
 
-/* Dark Mode para o ícone do header */
-body.dark-mode .form-header h2 i {
-    color: #85cbcb;
+.form-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
 }
 
-
-/* --- SEÇÃO DE UPLOAD DE FOTO --- */
-
-.form-group-photo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 30px;
+.form-box h1 {
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.5px;
 }
 
-.profile-avatar-edit {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid var(--form-input-border);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+.subtitle {
+  text-align: center;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  opacity: 0.85;
 }
 
-.btn-upload-photo {
-    background-color: #e0f4f2;
-    color: #0a4849;
-    border: 2px solid #5a9a9a;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
+/* Foto de perfil */
+.profile-photo-area {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.profile-photo-area img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.profile-photo-area img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
-.btn-upload-photo:hover {
-    background-color: #cce5e2;
-    border-color: #217473;
+.btn-photo-upload {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  font-weight: 700;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-photo-upload:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Dark Mode para o botão de upload */
-body.dark-mode .btn-upload-photo {
-    background-color: var(--form-input-bg);
-    color: var(--text-color);
-    border-color: var(--form-input-border);
+/* Campos do formulário */
+.form-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
-body.dark-mode .btn-upload-photo:hover {
-    background-color: #2a5a5a;
+.form-group label {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
 }
 
-
-/* --- GRUPOS DE FORMULÁRIO PADRÃO --- */
-
-/* Herda de forms.css, mas adiciona mais espaçamento */
-.form-card .form-group {
-    margin-bottom: 25px;
-}
-
-.form-card .form-group label {
-    font-weight: 700;
-    font-size: 1.05rem;
-}
-
-/* Garante que o textarea seja expansível apenas verticalmente */
+.form-group input,
 .form-group textarea {
-    resize: vertical;
-    min-height: 110px;
+  padding: 0.9rem 1.1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+  background-color: #fff;
 }
 
-
-/* --- BOTÕES DE AÇÃO (CONFIRMAR E EXCLUIR) --- */
-
-.form-actions {
-    margin-top: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas pequenas */
+.form-group input:focus,
+.form-group textarea:focus {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  transform: scale(1.01);
 }
 
-/* O botão .btn-submit já é estilizado pelo forms.css */
-.form-actions .btn-submit {
-    flex-grow: 1; /* Faz o botão crescer para preencher o espaço */
-    min-width: 200px; /* Largura mínima para evitar que fique muito pequeno */
+/* Botões */
+.btn {
+  font-weight: 700;
+  border-radius: 30px;
+  padding: 0.8rem 1.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+  color: #fff;
 }
 
 .btn-delete-account {
-    color: #c0392b; /* Tom de vermelho para alerta */
-    background-color: transparent;
-    border: 2px solid #c0392b;
-    padding: 14px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1rem;
-    text-align: center;
-    transition: all 0.3s ease;
-    flex-grow: 1;
-    min-width: 200px;
+  display: inline-block;
+  margin-left: 1rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.3s ease, transform 0.2s ease;
 }
-
 .btn-delete-account:hover {
-    background-color: #c0392b;
-    color: #ffffff;
+  opacity: 0.85;
+  transform: translateY(-2px);
 }
 
-/* Dark Mode para o botão de excluir */
-body.dark-mode .btn-delete-account {
-    color: #e74c3c;
-    border-color: #e74c3c;
-}
-body.dark-mode .btn-delete-account:hover {
-    background-color: #e74c3c;
-    color: #ffffff;
+/* Rodapé */
+footer {
+  transition: all 0.3s ease;
 }
 
-/* --- RESPONSIVIDADE --- */
-
-@media (max-width: 600px) {
-    .form-card {
-        padding: 25px 20px;
-    }
-
-    .form-header h2 {
-        font-size: 1.5rem;
-    }
-
-    .profile-avatar-edit {
-        width: 100px;
-        height: 100px;
-    }
-
-    /* Empilha os botões de ação em telas pequenas */
-    .form-actions {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .form-actions .btn-submit,
-    .form-actions .btn-delete-account {
-        width: 100%; /* Faz ambos os botões ocuparem 100% da largura */
-    }
-}
-/* --- LÓGICA RESPONSIVA PARA EDITAR PERFIL --- */
-
-/* Para TABLETS (até 992px) */
-@media (max-width: 992px) {
-    .edit-profile-card {
-        padding: 25px;
-    }
+.footer-container {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 
-/* Para TELEMÓVEIS (até 768px) */
+.footer-logo {
+  height: 50px;
+  transition: transform 0.3s ease;
+}
+.footer-logo:hover {
+  transform: scale(1.05);
+}
+
+.footer-social h4,
+.footer-contact h4 {
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+}
+
+.social-icons a {
+  margin-right: 0.8rem;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.social-icons a:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.2);
+}
+
+/* Inputs do rodapé */
+.footer-contact input {
+  width: 100%;
+  margin-bottom: 0.8rem;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: all 0.25s ease;
+}
+.footer-contact input:focus {
+  transform: scale(1.02);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-with-button {
+  display: flex;
+  align-items: center;
+}
+
+.input-with-button button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: -2.5rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.input-with-button button:hover {
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+
+/* Suavidade geral de interação */
+a, button, input, textarea {
+  transition: all 0.25s ease-in-out;
+}
+
+/* Responsividade leve */
 @media (max-width: 768px) {
-    .main-edit-profile {
-        margin: 20px 0;
-    }
-
-    .edit-profile-card {
-        padding: 20px 15px; /* Menos padding lateral */
-    }
-
-    .avatar-upload-section {
-        flex-direction: column; /* Empilha a imagem e o texto */
-        gap: 15px;
-    }
-    
-    .avatar-preview {
-        width: 100px;
-        height: 100px;
-    }
-
-    .avatar-actions {
-        text-align: center;
-    }
-
-    .form-actions {
-        flex-direction: column; /* Empilha os botões */
-        gap: 10px;
-    }
-
-    .btn-save, .btn-cancel {
-        width: 100%; /* Botões ocupam a largura total */
-    }
+  .form-box {
+    padding: 2rem;
+  }
+  #main-nav ul {
+    gap: 1rem;
+  }
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 }

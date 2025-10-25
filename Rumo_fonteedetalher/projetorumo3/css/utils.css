@@ -545,6 +545,163 @@ main.utils-main {
     background-color: #135f60;
 }
 
+/* --- ESTILOS ATUALIZADOS PARA BARRA DE PESQUISA (MAPA) --- */
+.search-bar-map {
+    display: flex;
+    align-items: center;
+    background-color: #ffea97;
+    border: 2px solid #cdbc7b;
+    border-radius: 25px;
+    padding: 8px 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex-grow: 1;
+    max-width: 100%;
+    position: relative; /* Adicionado para responsividade */
+}
+
+.search-bar-map i {
+    color: #8c7f4a;
+    margin-right: 10px;
+}
+
+.search-bar-map input[type="text"] {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    font-size: 15px; /* <-- FONTE DIMINUÍDA */
+    background-color: transparent;
+    font-family: 'Nunito-Black', sans-serif; /* <-- FONTE APLICADA */
+    color: #826414; /* Cor do texto (para combinar com o dark mode do widget) */
+}
+
+/* Adicionado para o placeholder */
+.search-bar-map input[type="text"]::placeholder {
+    color: #8c7f4a;
+    opacity: 0.8;
+}
+
+.search-bar-map .btn-search-map {
+    border: none;
+    background-color: #053536;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s;
+    font-family: 'Nunito-Black', sans-serif; /* <-- FONTE APLICADA */
+}
+
+.search-bar-map .btn-search-map:hover {
+    background-color: #042a2b;
+}
+
+/* Borda arredondada para o mapa */
+#map {
+    border: 1px solid #dddddd;
+    border-radius: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    z-index: 0;
+}
+
+/* Estilos para a lista de resultados da busca */
+#search-results-list {
+    margin-top: 15px;
+    max-height: 250px; /* Altura máxima antes de mostrar a barra de rolagem */
+    overflow-y: auto; /* Adiciona rolagem se a lista for muito grande */
+    padding: 5px; /* Pequeno espaçamento interno */
+}
+
+.result-item {
+    background-color: #cae8ff; /* Fundo solicitado */
+    border: 2px solid #739d9f; /* Borda solicitada */
+    border-radius: 12px;       /* Retângulo arredondado */
+    padding: 12px 15px;
+    margin-bottom: 10px;       /* Espaçamento entre os cards */
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.result-item:last-child {
+    margin-bottom: 0; /* Remove a margem do último card */
+}
+
+.result-item:hover {
+    background-color: #b8d9f2; /* Um tom um pouco mais escuro ao passar o mouse */
+    transform: translateY(-2px); /* Efeito de elevação sutil */
+}
+
+.result-item h5 {
+    margin: 0 0 5px 0;
+    color: #053536;
+    font-size: 1rem;
+}
+
+.result-item p {
+    margin: 0;
+    font-size: 0.85em;
+    color: #333; /* Cor um pouco mais escura para melhor leitura */
+}
+
+/* Ajustes para o Tema Escuro */
+body.dark-mode .search-bar-map {
+    background-color: #4f4a3a;
+    border-color: #8c7f4a;
+}
+body.dark-mode .search-bar-map i,
+body.dark-mode .search-bar-map input[type="text"] { /* Aplicado ao input também */
+    color: #f0e6c5;
+}
+body.dark-mode .search-bar-map input::placeholder {
+    color: #f0e6c5;
+}
+
+body.dark-mode #map {
+    border-color: #444;
+}
+
+body.dark-mode .result-item {
+    background-color: #3a4f60;
+    border-color: #739d9f;
+}
+
+body.dark-mode .result-item:hover {
+    background-color: #4a637a;
+}
+
+body.dark-mode .result-item h5 {
+    color: #cae8ff;
+}
+
+body.dark-mode .result-item p {
+    color: #ccc;
+}
+
+/* --- CORREÇÃO RESPONSIVA (SOBREPOSIÇÃO) --- */
+@media (max-width: 480px) {
+    .search-bar-map {
+        /* position: relative; (Já adicionado acima) */
+        padding: 6px 10px;  /* Padding um pouco menor */
+    }
+
+    .search-bar-map input[type="text"] {
+        /* Adiciona espaço à direita para o botão não sobrepor o texto */
+        padding-right: 90px; 
+    }
+
+    .search-bar-map .btn-search-map {
+        position: absolute;   /* Sobrepõe a barra */
+        right: 8px;           /* Alinha à direita, dentro da barra */
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 0;       /* Remove a margem antiga */
+        padding: 6px 12px;    /* Botão um pouco menor */
+        font-size: 0.85rem;   /* Texto do botão menor */
+    }
+}
+
 /* Adicione ou substitua no final do seu arquivo css/utils.css */
 
 /* Estilos para a barra de pesquisa do mapa (conforme solicitado) */
