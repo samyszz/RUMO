@@ -24,3 +24,16 @@ remove the export statement and rely on global variables.
 */
 
 // Export { auth, db }; // Removed to avoid syntax error
+// --- HABILITA O MODO OFFLINE DO FIRESTORE ---
+// (Adicione esta linha!)
+db.enablePersistence({ synchronizeTabs: true }) // synchronizeTabs é bom se o usuário abrir várias abas
+    .catch((err) => {
+        if (err.code == 'failed-precondition') {
+            // Provavelmente múltiplas abas abertas, o que é ok.
+            console.warn('Persistência do Firestore falhou, talvez por múltiplas abas.');
+        } else if (err.code == 'unimplemented') {
+            // Navegador não suporta (muito raro hoje em dia)
+            console.warn('Este navegador não suporta persistência offline do Firestore.');
+        }
+    });
+// --- FIM DA MUDANÇA ---
