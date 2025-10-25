@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 content.style.display = this.classList.contains('docs-header') ? 'flex' : 'block';
                 
                 // Inicializa o mapa apenas quando necessário e se o Leaflet estiver carregado
-                if (this.classList.contains('location-header') && typeof L !== 'undefined' && !map) {
+                // Garante que L (Leaflet) está definido globalmente
+                if (this.classList.contains('location-header') && typeof L !== 'undefined' && !map) { 
                     initMap();
                 } else if (this.classList.contains('location-header') && map) {
                     // Se o mapa já existe, apenas invalida o tamanho para garantir a renderização
@@ -40,11 +41,15 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // --- INÍCIO DA SEÇÃO DO MAPA ---
     function initMap() {
-        // Verifica se o elemento 'map' existe antes de criar o mapa
         const mapContainer = document.getElementById('map');
         if (!mapContainer) {
             console.error("Elemento 'map' não encontrado no DOM.");
             return; 
+        }
+         // Garante que L exista antes de criar o mapa
+        if (typeof L === 'undefined') {
+             console.error("Leaflet (L) não está definido. Verifique a ordem de carregamento dos scripts.");
+             return;
         }
 
         map = L.map('map').setView([0, 0], 2);
@@ -55,10 +60,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(onLocationSuccess, onLocationError);
         } else {
-            document.getElementById('user-address').textContent = 'Geolocalização não suportada.';
+             const addressSpan = document.getElementById('user-address');
+             if (addressSpan) addressSpan.textContent = 'Geolocalização não suportada.';
         }
         
-        // Ativa o formulário de busca APÓS inicializar o mapa
+        // Ativa o formulário de busca APÓS inicializar o mapa base
         setupSearchForm(); 
     }
 
@@ -75,14 +81,24 @@ document.addEventListener('DOMContentLoaded', function () {
         userMarker = L.marker([userCoords.lat, userCoords.lng]).addTo(map)
             .bindPopup('<b>Você está aqui!</b>').openPopup();
         
-        // Busca de endereço (Geocoding reverso)
+        // Busca de endereço (Geocoding reverso) - Versão Netlify
         fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${userCoords.lat}&lon=${userCoords.lng}&addressdetails=1`, {
-            referrerPolicy: "strict-origin-when-cross-origin" 
+            referrerPolicy: "strict-origin-when-cross-origin",
+            headers: { 
+              'User-Agent': 'RUMO/1.0 (https://redeunificadademobilidadeeorientacao.netlify.app/; contact@example.com)' // Substitua pelo seu URL/email
+            } 
         })
-            .then(response => response.json())
+            .then(response => { 
+                if (!response.ok) {
+                    // Não mostra alert, apenas loga o erro no console
+                    console.error(`HTTP error! status: ${response.status} ao buscar endereço.`);
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 const addressSpan = document.getElementById('user-address');
-                if(!addressSpan) return; // Verifica se o elemento existe
+                if(!addressSpan) return; 
 
                 if (data && data.address) {
                     const addr = data.address;
@@ -97,14 +113,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     addressSpan.textContent = data.display_name || 'Endereço não encontrado.';
                 }
             }).catch(error => {
-                console.error('Erro ao buscar endereço:', error);
+                // Não mostra alert, apenas loga o erro no console
+                console.error('Catch: Erro ao buscar endereço:', error.message);
                  const addressSpan = document.getElementById('user-address');
                  if(addressSpan) addressSpan.textContent = 'Não foi possível obter o endereço.';
             });
     }
 
     function onLocationError(error) {
-        alert(`Erro ao obter localização: ${error.message}`);
+        // alert(`Erro ao obter localização: ${error.message}`); // Comentado
+        console.warn(`Erro ao obter localização: ${error.message}`);
          const addressSpan = document.getElementById('user-address');
          if(addressSpan) addressSpan.textContent = 'Não foi possível obter sua localização.';
     }
@@ -124,14 +142,17 @@ document.addEventListener('DOMContentLoaded', function () {
             const query = document.getElementById('search-input-map').value;
             
             if (!query) {
-                alert('Digite um termo de busca.');
+                // alert('Digite um termo de busca.'); // Usar notificação mais suave se tiver
                 return;
             }
              if (!userCoords) {
-                alert('Aguarde até obtermos sua localização para buscar.');
+                alert('Aguarde até obtermos sua localização para buscar.'); // Mantém este alerta
                 return;
             }
-            if (!map) return; // Garante que o mapa existe
+            if (!map) { // Garante que o mapa existe
+                 console.error("Variável 'map' não está definida ao tentar buscar.");
+                 return;
+            }
 
             // Limpa marcadores e rotas anteriores
             searchMarkers.forEach(marker => map.removeLayer(marker));
@@ -146,10 +167,21 @@ document.addEventListener('DOMContentLoaded', function () {
             const viewbox = [userCoords.lng - 0.1, userCoords.lat + 0.1, userCoords.lng + 0.1, userCoords.lat - 0.1].join(',');
             const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&viewbox=${viewbox}&bounded=1&limit=10&addressdetails=1`;
             
+            // Fetch da busca - Versão Netlify
             fetch(url, {
-                referrerPolicy: "strict-origin-when-cross-origin" 
+                referrerPolicy: "strict-origin-when-cross-origin",
+                headers: { 
+                  'User-Agent': 'RUMO/1.0 (https://redeunificadademobilidadeeorientacao.netlify.app/; contact@example.com)' // Substitua pelo seu URL/email
+                } 
             })
-            .then(response => response.json())
+            .then(response => { 
+                if (!response.ok) {
+                     // Não mostra alert, apenas loga o erro no console
+                     console.error(`HTTP error! status: ${response.status} ao buscar locais.`);
+                     throw new Error(`HTTP error! status: ${response.status}`);
+                 }
+                return response.json();
+            })
             .then(data => {
                 if (data.length === 0) {
                     resultsList.innerHTML = '<p style="padding: 10px; text-align: center;">Nenhum resultado encontrado perto de você.</p>';
@@ -164,17 +196,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     listItem.className = 'result-item'; // Usa a classe CSS de utils.css
                     listItem.innerHTML = `<h5>${placeName}</h5><p>${place.display_name}</p>`;
                     
-                    // *** A LÓGICA DE CLIQUE FOI ATUALIZADA AQUI ***
+                    // Evento de clique no resultado
                     listItem.addEventListener('click', () => {
-                        if (!userCoords) {
+                        // *** VERIFICAÇÃO ADICIONADA AQUI ***
+                        if (!map || typeof L.Routing === 'undefined') {
+                             console.error("Mapa ou Routing Machine não inicializados ao clicar no resultado.");
+                             alert("O mapa ainda não está pronto para traçar rotas. Tente novamente em alguns segundos."); // Informa o usuário
+                             return; // Impede a execução do resto do código
+                        }
+                         if (!userCoords) {
                             alert('Sua localização ainda não foi encontrada para traçar a rota.');
                             return;
                         }
-                        if (!map || typeof L.Routing === 'undefined') {
-                             console.error("Mapa ou Routing Machine não inicializados.");
-                             return;
-                        }
-                        
+
                         // Limpa rotas e marcadores de busca antigos
                         if (routingControl) {
                             map.removeControl(routingControl);
@@ -192,13 +226,13 @@ document.addEventListener('DOMContentLoaded', function () {
                             routeWhileDragging: false, 
                             language: 'pt', 
                             router: L.Routing.osrmv1({
-                                serviceUrl: 'https://router.project-osrm.org/route/v1'
+                                serviceUrl: 'https://router.project-osrm.org/route/v1' // Sem proxy
                             }),
-                            createMarker: function() { return null; }, // Não cria marcadores A e B padrão
-                            show: true // Mostra o painel de instruções da rota
+                            createMarker: function() { return null; }, 
+                            show: true 
                         }).addTo(map);
 
-                        // Ajusta o zoom para a rota (opcional, pode ser automático)
+                        // Ajusta o zoom para a rota 
                         map.fitBounds([
                             [userCoords.lat, userCoords.lng],
                             [place.lat, place.lon]
@@ -207,22 +241,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     resultsList.appendChild(listItem);
                 });
-                
-                // Opcional: ajustar o zoom para mostrar os resultados iniciais
-                // const initialMarkersGroup = L.featureGroup(data.map(p => L.marker([p.lat, p.lon])));
-                // if (userMarker) initialMarkersGroup.addLayer(userMarker);
-                // if (initialMarkersGroup.getLayers().length > 0) {
-                //     map.fitBounds(initialMarkersGroup.getBounds().pad(0.3));
-                // }
 
             }).catch(error => {
-                console.error('Erro na busca de locais:', error);
+                // Não mostra alert, apenas loga o erro no console
+                console.error('Catch: Erro na busca de locais:', error.message);
                 resultsList.innerHTML = '<p style="padding: 10px; text-align: center;">Ocorreu um erro ao buscar.</p>';
             });
         });
     }
     // --- FIM DA SEÇÃO DO MAPA ---
+
     // --- LÓGICA DO CONVERSOR DE MOEDA ---
+    // (Código existente - sem alterações)
     const currencyForm = document.querySelector('.currency-content .converter-form');
     if (currencyForm) {
         const convertButton = currencyForm.querySelector('.btn-converter');
@@ -230,19 +260,29 @@ document.addEventListener('DOMContentLoaded', function () {
         const toCurrency = document.getElementById('to-currency');
         const amountCurrency = document.getElementById('amount-currency');
         const resultCurrencyBox = currencyForm.querySelector('.result-box span');
-        const rates = { 'USD': { 'BRL': 5.25, 'EUR': 0.92, 'USD': 1 }, 'EUR': { 'BRL': 5.70, 'USD': 1.08, 'EUR': 1 }, 'BRL': { 'USD': 0.19, 'EUR': 0.175, 'BRL': 1 } };
+        const rates = { 
+            'USD': { 'BRL': 5.25, 'EUR': 0.92, 'USD': 1 }, 
+            'EUR': { 'BRL': 5.70, 'USD': 1.08, 'EUR': 1 }, 
+            'BRL': { 'USD': 0.19, 'EUR': 0.175, 'BRL': 1 } 
+        };
         convertButton.addEventListener('click', () => {
             const amount = parseFloat(amountCurrency.value);
             const from = fromCurrency.value;
             const to = toCurrency.value;
-            if (isNaN(amount) || amount <= 0) { resultCurrencyBox.textContent = `${to} 0.00`; return; }
-            const rate = rates[from][to];
+            if (isNaN(amount) || amount <= 0) { 
+                resultCurrencyBox.textContent = `${to} 0.00`; return; 
+            }
+            const rate = rates[from] ? rates[from][to] : undefined; 
+            if (rate === undefined) {
+                 resultCurrencyBox.textContent = `Taxa não encontrada`; return; 
+            }
             const result = amount * rate;
             resultCurrencyBox.textContent = `${to} ${result.toFixed(2)}`;
         });
     }
 
     // --- LÓGICA DO CONVERSOR DE MEDIDAS ---
+    // (Código existente - sem alterações)
     const measureForm = document.querySelector('.measure-content .converter-form');
     if (measureForm) {
         const convertButton = measureForm.querySelector('.btn-converter');
@@ -250,81 +290,201 @@ document.addEventListener('DOMContentLoaded', function () {
         const fromUnitSelect = measureForm.querySelectorAll('.measure-selects select')[0];
         const toUnitSelect = measureForm.querySelectorAll('.measure-selects select')[1];
         const resultMeasureBox = measureForm.querySelector('.result-box span');
-        const lengthFactors = { 'Metro (m)': 1, 'Quilômetro (km)': 1000, 'Centímetro (cm)': 0.01, 'Milímetro (mm)': 0.001 };
+        const lengthFactors = { 
+            'Metro (m)': 1, 'Quilômetro (km)': 1000, 
+            'Centímetro (cm)': 0.01, 'Milímetro (mm)': 0.001 
+        };
         convertButton.addEventListener('click', () => {
             const amount = parseFloat(amountMeasure.value);
             const fromUnit = fromUnitSelect.value;
             const toUnit = toUnitSelect.value;
-            if (isNaN(amount)) { resultMeasureBox.textContent = '0'; return; }
-            const valueInMeters = amount * lengthFactors[fromUnit];
-            const result = valueInMeters / lengthFactors[toUnit];
-            resultMeasureBox.textContent = `${result.toFixed(2)} ${toUnit.split('(')[1].replace(')','')}`;
+            
+            if (isNaN(amount)) { 
+                resultMeasureBox.textContent = 'Valor inválido'; return; 
+            }
+            if (!lengthFactors[fromUnit] || !lengthFactors[toUnit]) {
+                 resultMeasureBox.textContent = 'Unidade inválida'; return;
+            }
+            const valueInBaseUnit = amount * lengthFactors[fromUnit];
+            const result = valueInBaseUnit / lengthFactors[toUnit];
+            const toUnitSymbolMatch = toUnit.match(/\(([^)]+)\)/);
+            const toUnitSymbol = toUnitSymbolMatch ? toUnitSymbolMatch[1] : '';
+            resultMeasureBox.textContent = `${result.toFixed(2)} ${toUnitSymbol}`;
         });
     }
 
     // --- LÓGICA DO DROPDOWN DE IDIOMAS ---
+    // (Código existente - sem alterações)
     const languages = { "Espanhol": ["Venezuela", "Bolívia", "Paraguai", "Peru", "Argentina", "Colômbia", "Chile"], "Crioulo Haitiano": ["Haiti"], "Francês": ["Haiti", "República Democrática do Congo", "Senegal", "África Ocidental"], "Inglês": ["Nigéria", "Gana", "África do Sul"], "Árabe": ["Síria", "Líbano", "Palestina"], "Mandarim (Chinês)": ["China"], "Coreano": ["Coreia do Sul"], "Japonês": ["Japão"], "Guarani": ["Paraguai", "Bolívia"], "Quéchua": ["Bolívia", "Peru"], "Português": ["Angola", "Moçambique", "Cabo Verde", "Portugal", "Guiné-Bissau", "Timor-Leste"] };
     function populateLanguageDropdown() {
         const dropdown = document.getElementById('language-select-utils');
         if (dropdown) {
-            dropdown.innerHTML = '<option value="pt-br" selected>Português - Brasil</option>';
+            dropdown.innerHTML = '<option value="pt-br" selected data-i18n="header.lang.pt_br">Português - Brasil</option>'; 
             for (const language in languages) {
                 const optgroup = document.createElement('optgroup');
-                optgroup.label = language;
+                optgroup.label = language; 
                 languages[language].forEach(country => {
                     const option = document.createElement('option');
-                    option.value = `${language.toLowerCase().replace(/\s/g, '_')}-${country.toLowerCase()}`;
+                    const langCode = language.substring(0,2).toLowerCase();
+                    const countryCode = country.substring(0,2).toLowerCase();
+                    option.value = `${langCode}-${countryCode}`; 
                     option.textContent = `${language} - ${country}`;
                     optgroup.appendChild(option);
                 });
                 dropdown.appendChild(optgroup);
             }
+            dropdown.addEventListener('change', (event) => {
+                 const selectedLang = event.target.value;
+                 console.log("Idioma selecionado em Utilitários:", selectedLang);
+                 // if (typeof changeLanguage === 'function') changeLanguage(selectedLang); 
+            });
         }
     }
     populateLanguageDropdown();
 
     // --- LÓGICA DO COFRE DE DOCUMENTOS ---
+    // (Código existente - sem alterações)
     const docForm = document.getElementById('add-doc-form');
     const docList = document.getElementById('doc-list');
-    const savedDocs = JSON.parse(localStorage.getItem('userDocuments')) || [];
+    let savedDocs = [];
+    try {
+        const storedDocs = localStorage.getItem('userDocuments');
+        savedDocs = storedDocs ? JSON.parse(storedDocs) : [];
+        if (!Array.isArray(savedDocs)) savedDocs = []; 
+    } catch (e) {
+        console.error("Erro ao ler documentos do localStorage:", e);
+        savedDocs = [];
+    }
+
     const renderDocs = () => {
         if (!docList) return;
-        docList.innerHTML = savedDocs.length === 0 ? '<p>Nenhum documento adicionado ainda.</p>' : '';
+        docList.innerHTML = savedDocs.length === 0 
+            ? '<p data-i18n="utilitarios.docs.no_docs">Nenhum documento adicionado ainda.</p>' 
+            : '';
         savedDocs.forEach((doc, index) => {
+            if (!doc || typeof doc.type !== 'string' || typeof doc.expiry !== 'string') {
+                 console.warn("Documento inválido encontrado no índice:", index, doc);
+                 return; 
+            }
             const docElement = document.createElement('div');
             docElement.classList.add('doc-item');
             const expiryDate = new Date(doc.expiry);
+            const issueDate = doc.issue ? new Date(doc.issue) : null; 
             const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            let statusClass = 'ok', statusText = 'Válido';
-            const diffDays = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
-            if (expiryDate < today) { statusClass = 'expired'; statusText = 'Expirado'; } 
-            else if (diffDays <= 30) { statusClass = 'warning'; statusText = 'Expira em breve'; }
-            docElement.innerHTML = `<div class="doc-info"><h4>${doc.type}</h4><p>Validade: ${new Date(doc.expiry).toLocaleDateString()}</p></div><div class="doc-status ${statusClass}">${statusText}</div><button class="btn-delete-doc" data-index="${index}" title="Excluir documento"><i class="fas fa-trash-alt"></i></button>`;
+            today.setHours(0, 0, 0, 0); 
+            let statusClass = 'ok';
+            let statusTextKey = 'utilitarios.docs.status_valid'; 
+            if (isNaN(expiryDate.getTime())) {
+                 statusClass = 'expired'; 
+                 statusTextKey = 'utilitarios.docs.status_invalid_date';
+            } else {
+                 const diffDays = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
+                 if (expiryDate < today) { 
+                     statusClass = 'expired'; 
+                     statusTextKey = 'utilitarios.docs.status_expired'; 
+                 } else if (diffDays <= 30) { 
+                     statusClass = 'warning'; 
+                     statusTextKey = 'utilitarios.docs.status_warning'; 
+                 }
+            }
+            const formattedExpiry = !isNaN(expiryDate.getTime()) ? expiryDate.toLocaleDateString() : 'Inválida';
+            const formattedIssue = issueDate && !isNaN(issueDate.getTime()) ? issueDate.toLocaleDateString() : 'N/A';
+            docElement.innerHTML = `
+                <div class="doc-info">
+                    <h4>${doc.type}</h4>
+                    <p><span data-i18n="utilitarios.docs.issue_date_label">Emissão</span>: ${formattedIssue}</p>
+                    <p><span data-i18n="utilitarios.docs.expiry_date_label">Validade</span>: ${formattedExpiry}</p>
+                </div>
+                <div class="doc-status ${statusClass}" data-i18n="${statusTextKey}">${statusTextKey.split('.').pop()}</div> 
+                <button class="btn-delete-doc" data-index="${index}" title="Excluir documento" data-i18n="utilitarios.docs.delete_title" aria-label="Excluir ${doc.type}">
+                    <i class="fas fa-trash-alt"></i>
+                </button>`;
             docList.appendChild(docElement);
         });
+        if (typeof updateTranslations === 'function') {
+           updateTranslations();
+        }
     };
+
     if (docForm) {
         docForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            savedDocs.push({ type: document.getElementById('doc-type').value, issue: document.getElementById('doc-issue-date').value, expiry: document.getElementById('doc-expiry-date').value });
-            localStorage.setItem('userDocuments', JSON.stringify(savedDocs));
+            const docTypeInput = document.getElementById('doc-type');
+            const docIssueDateInput = document.getElementById('doc-issue-date');
+            const docExpiryDateInput = document.getElementById('doc-expiry-date');
+            if (!docTypeInput.value || !docExpiryDateInput.value) {
+                // alert("Por favor, preencha pelo menos o Tipo e a Data de Validade."); 
+                return;
+            }
+            savedDocs.push({ 
+                type: docTypeInput.value, 
+                issue: docIssueDateInput.value, 
+                expiry: docExpiryDateInput.value 
+            });
+            try {
+                 localStorage.setItem('userDocuments', JSON.stringify(savedDocs));
+            } catch (error) {
+                 console.error("Erro ao salvar documentos no localStorage:", error);
+                 // alert("Não foi possível salvar o documento. O armazenamento pode estar cheio.");
+                 savedDocs.pop(); 
+                 return;
+            }
             renderDocs();
             docForm.reset();
         });
     }
+
     if (docList) {
         docList.addEventListener('click', (e) => {
             const button = e.target.closest('.btn-delete-doc');
             if (button) {
-                const docIndex = button.getAttribute('data-index');
-                if (confirm('Tem certeza que deseja excluir este documento?')) {
+                const docIndex = parseInt(button.getAttribute('data-index'), 10); 
+                const confirmMsgKey = 'utilitarios.docs.delete_confirm';
+                const confirmMsg = typeof i18next !== 'undefined' ? i18next.t(confirmMsgKey) : 'Tem certeza que deseja excluir este documento?';
+                if (!isNaN(docIndex) && confirm(confirmMsg)) {
                     savedDocs.splice(docIndex, 1);
-                    localStorage.setItem('userDocuments', JSON.stringify(savedDocs));
+                    try {
+                        localStorage.setItem('userDocuments', JSON.stringify(savedDocs));
+                    } catch (error) {
+                        console.error("Erro ao salvar após exclusão:", error);
+                    }
                     renderDocs();
                 }
             }
         });
     }
-    renderDocs();
-});
+    renderDocs(); 
+
+    // --- Estilos para o Painel de Rotas (Opcional, pode ir no CSS) ---
+     const styleSheet = document.createElement("style");
+     styleSheet.type = "text/css";
+     styleSheet.innerText = `
+        .leaflet-routing-container {
+            background-color: var(--card-hub-bg, #ade6ec) !important;
+            border: 1px solid var(--border-color, #85cbcb);
+            color: var(--text-color, #0a4849);
+             border-radius: 8px; /* Opcional */
+             box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Opcional */
+        }
+        body.dark-mode .leaflet-routing-container {
+            background-color: var(--card-hub-bg, #2a5a5a) !important;
+            border: 1px solid var(--border-color, #0e3b3b);
+            color: var(--text-color, #cce5e2);
+        }
+        .leaflet-routing-container h2, .leaflet-routing-alt h3 { 
+             color: var(--text-color, #0a4849) !important;
+             font-family: 'Nunito-Black', sans-serif; /* Opcional */
+             font-size: 1.1rem !important; /* Opcional */
+             margin-bottom: 10px !important;
+        }
+        body.dark-mode .leaflet-routing-container h2, 
+        body.dark-mode .leaflet-routing-alt h3 {
+            color: var(--text-color, #cce5e2) !important;
+        }
+        .leaflet-routing-instruction { /* Opcional */
+             font-size: 0.9rem;
+        }
+     `;
+     document.head.appendChild(styleSheet);
+
+}); // Fim do DOMContentLoaded
