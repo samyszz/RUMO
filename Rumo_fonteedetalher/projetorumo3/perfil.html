@@ -151,6 +151,17 @@
 <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
 </script>
+<style>
+    /* O script do VLibras cria um div com o ID #vlibras_plugin.
+       Este CSS força esse div a ter uma posição fixa no canto da tela.
+    */
+    #vlibras_plugin {
+        position: fixed !important; /* Define a posição como fixa */
+        bottom: 20px;               /* Distância do fundo (ajuste se necessário) */
+        right: 20px;                /* Distância da direita (ajuste se necessário) */
+        z-index: 9999;              /* Garante que fique acima de outros itens */
+    }
+</style>
 <script src="js/map-widget.js"></script>
 </body>
 </html>
