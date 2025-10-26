@@ -11,13 +11,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- LÓGICA PARA SAIR (LOGOUT) ---
     logoutBtn.addEventListener('click', () => {
         if (confirm('Tem certeza que deseja sair da sua conta?')) {
-            auth.signOut().then(() => { // Usamos auth.signOut()
+            // Adiciona classe de loading
+            logoutBtn.classList.add('loading');
+            logoutBtn.style.pointerEvents = 'none';
+
+            auth.signOut().then(() => {
                 localStorage.removeItem('userId');
-                alert('Você saiu da sua conta.');
-                window.location.href = 'login.html';
+                window.location.href = 'auth.html';
             }).catch((error) => {
                 console.error('Erro ao fazer logout:', error);
                 alert('Ocorreu um erro ao tentar sair.');
+                // Remove classe de loading em caso de erro
+                logoutBtn.classList.remove('loading');
+                logoutBtn.style.pointerEvents = 'auto';
             });
         }
     });

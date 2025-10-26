@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const auth = firebase.auth();
+    const db = firebase.firestore();
     const loginItem = document.getElementById('nav-login-item');
     const profileItem = document.getElementById('nav-profile-item');
     const profileBubble = document.getElementById('profile-bubble');
