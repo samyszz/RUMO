@@ -130,6 +130,21 @@
     <script src="js/auth-state.js"></script>
     <script src="js/sair-excluir-conta.js"></script>
     <script src="js/dark-mode.js"></script>
+
+    <!-- Registro do Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registrado com sucesso:', registration);
+                    })
+                    .catch(err => {
+                        console.log('Falha ao registrar o Service Worker:', err);
+                    });
+            });
+        }
+    </script>
     
 <div vw class="enabled">
     <div vw-access-button class="active"></div>

@@ -3,18 +3,18 @@
 const CACHE_NAME = 'rumo-v2'; // Mude a versão se atualizar os arquivos
 const URLS_TO_CACHE = [
     // --- PÁGINAS PRINCIPAIS (HTML) ---
-    '/',
-    '/index.html',
-    '/hub.html',
-    '/utilitarios.html',
-    '/sobre.html',
-    '/auth.html',
-    '/perfil.html',
-    '/editar-perfil.html',
-    '/novo-post.html',
-    '/perfil-usuario.html',
-    '/post-salvo.html',
-    '/sair-excluir-conta.html',
+    './',
+    'index.html',
+    'hub.html',
+    'utilitarios.html',
+    'sobre.html',
+    'auth.html',
+    'perfil.html',
+    'editar-perfil.html',
+    'novo-post.html',
+    'perfil-usuario.html',
+    'post-salvo.html',
+    'sair-excluir-conta.html',
 
     // --- ESTILOS PRINCIPAIS (CSS) ---
     '/css/base.css',
