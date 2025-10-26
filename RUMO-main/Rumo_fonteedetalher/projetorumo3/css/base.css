@@ -720,6 +720,52 @@ footer h4 {
     /* Um tom de vermelho */
 }
 
+/* BANNER DE ATUALIZAÇÃO (topo) */
+.update-banner {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 1100px;
+    background: linear-gradient(90deg, #317067, #2a8a84);
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    z-index: 3000;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.update-banner .update-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.update-banner button {
+    background: white;
+    color: #2a8a84;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 800;
+}
+
+.update-banner button.secondary {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.12);
+}
+
+.update-banner-hidden {
+    display: none !important;
+}
+
 /* ============================================= */
 /* ESTILOS PARA DROPDOWN DE IDIOMA NO HEADER     */
 /* ============================================= */

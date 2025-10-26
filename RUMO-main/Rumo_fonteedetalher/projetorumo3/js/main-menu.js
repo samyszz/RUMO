@@ -161,6 +161,110 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Registro do Service Worker: garante que todas as páginas que carregam main-menu.js registrem o SW
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('Service Worker registrado (via main-menu.js):', reg.scope))
+            .catch(err => console.warn('Falha ao registrar Service Worker:', err));
+    });
+}
+
+// --- VERIFICAÇÃO DE VERSÃO DO APP (mostrar banner quando houver nova versão) ---
+(function setupVersionChecker() {
+    const VERSION_FILE = './version.json';
+    const STORAGE_KEY = 'appVersion';
+    const CHECK_INTERVAL = 60 * 1000; // 60s
+
+    function createBanner() {
+        const existing = document.getElementById('update-banner');
+        if (existing) return existing;
+
+        const banner = document.createElement('div');
+        banner.id = 'update-banner';
+        banner.className = 'update-banner update-banner-hidden';
+        banner.innerHTML = `
+            <div class="update-message">Nova versão disponível — clique para atualizar</div>
+            <div class="update-actions">
+                <button id="btn-update-now">Atualizar</button>
+                <button id="btn-update-ignore" class="secondary">Ignorar</button>
+            </div>
+        `;
+        document.body.appendChild(banner);
+        return banner;
+    }
+
+    async function fetchVersion() {
+        try {
+            const res = await fetch(VERSION_FILE, { cache: 'no-cache' });
+            if (!res.ok) throw new Error('Não foi possível buscar version.json');
+            return await res.json();
+        } catch (err) {
+            console.warn('fetchVersion failed', err);
+            return null;
+        }
+    }
+
+    async function checkForUpdate() {
+        const data = await fetchVersion();
+        if (!data || !data.version) return;
+        const remote = data.version;
+        const local = localStorage.getItem(STORAGE_KEY) || null;
+        if (!local) {
+            localStorage.setItem(STORAGE_KEY, remote);
+            return;
+        }
+        if (remote !== local) {
+            // show banner
+            const banner = createBanner();
+            banner.classList.remove('update-banner-hidden');
+
+            const btnNow = document.getElementById('btn-update-now');
+            const btnIgnore = document.getElementById('btn-update-ignore');
+
+            function doUpdate() {
+                // Try to activate waiting service worker first
+                if (navigator.serviceWorker && navigator.serviceWorker.getRegistration) {
+                    navigator.serviceWorker.getRegistration().then(reg => {
+                        if (reg && reg.waiting) {
+                            // Ask SW to skipWaiting
+                            reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+                        }
+                        // listen for controller change and reload
+                        navigator.serviceWorker.addEventListener('controllerchange', () => {
+                            window.location.reload();
+                        });
+                        // if no waiting SW, just reload to fetch new assets
+                        if (!(reg && reg.waiting)) {
+                            window.location.reload();
+                        }
+                    }).catch(() => window.location.reload());
+                } else {
+                    window.location.reload();
+                }
+            }
+
+            btnNow.addEventListener('click', () => {
+                // set local version to remote to avoid re-showing after update
+                localStorage.setItem(STORAGE_KEY, remote);
+                doUpdate();
+            });
+
+            btnIgnore.addEventListener('click', () => {
+                banner.classList.add('update-banner-hidden');
+                // user ignored; update stored version so we won't nag until next version
+                localStorage.setItem(STORAGE_KEY, remote);
+            });
+        }
+    }
+
+    // Run on load and periodically
+    window.addEventListener('load', () => {
+        checkForUpdate();
+        setInterval(checkForUpdate, CHECK_INTERVAL);
+    });
+})();
+
 
 // =============================================
 // LÓGICA ATUALIZADA PARA DROPDOWN DE IDIOMA NO HEADER (COM REGIONALIDADE COMPLETA)
