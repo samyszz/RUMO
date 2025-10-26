@@ -1,0 +1,38 @@
+/* Estilos para post-salvo.html */
+
+.community-main {
+    padding: 2rem 0;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link i {
+    margin-right: 0.5rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.community-feed {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#saved-posts-container p {
+    text-align: center;
+    color: var(--text-secondary);
+    width: 100%;
+    grid-column: 1 / -1;
+}

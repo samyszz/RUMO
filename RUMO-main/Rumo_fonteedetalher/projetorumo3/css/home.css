@@ -1,0 +1,318 @@
+:root{
+    --text-color: #0a4849;
+}
+body.dark-mode {
+    --text-color: #cce5e2;
+}
+body.dark-mode {
+    --text-color: #cce5e2;
+}
+
+/* MODO ESCURO COMPLETO */
+body.dark-mode .content-area {
+    background-color: rgba(79, 165, 116, 0.7);
+    border: 6px solid #1c6348;
+}
+
+body.dark-mode .card.card-documentos {
+    background-color: #cfb758;
+    border: 6px solid #aaa656;
+    color: #ffffff;;
+}
+
+body.dark-mode .card.card-utilitarios {
+    background-color: #469468;
+    border: 6px solid #167c55;
+    color: #ffffff;
+}
+
+body.dark-mode .card.card-hub {
+    background-color:#18295f; 
+    border: 6px solid #0f5a8f;
+    color: #ffffff;
+}
+
+body.dark-mode .card.card-bravo {
+    
+     background-color: #6d4c41;
+    border: 6px solid #e5989b;
+    color: #fbe5de;
+}
+
+body.dark-mode .tutorial-card {
+    background-color: #c9af47;
+    border: 6px solid #979343;
+    color: #ffffff;
+}
+
+body.dark-mode .tutorial-card h3 {
+    color: #ffffff;
+}
+
+body.dark-mode .tutorial-button {
+    background-color: #1c6348;
+    border-color: #0a4849;
+    color: #ffffff;
+}
+
+
+
+
+.ondabaixo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  z-index: -2;
+  pointer-events: none;
+}
+footer {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 0px; /* espaço para a onda */
+}
+.ondinha{
+    z-index: -1;
+}
+
+.ondacima {
+  display: block;
+  position: absolute;
+  top: 60px; /* mantém a posição definida */
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none;
+}
+.container {
+  position: relative;
+}
+
+
+
+
+
+/* --- ESTILOS GERAIS DA PÁGINA HOME --- */
+.main-banner {
+    position: relative;
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+}
+.main-banner img {
+    width: 100%;
+    border-radius: 25px;
+    display: block;
+}
+.content-area {
+    display: flex;
+    gap: 30px;
+    background-color: rgba(151, 189, 163, 0.7);
+    border: 4px solid #659474;
+    padding: 38px;
+    border-radius: 50px;
+    margin-bottom: 60px;
+}
+.grid-wrapper {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+}
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    flex: 3;
+}
+.card {
+    text-decoration: none;
+    border-radius: 20px;
+    border: 6px;
+    padding: 20px;
+    text-align: center;
+    font-weight: 700;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+.card.card-documentos { background-color: #ffea97; border: 6px solid #cdbc7b; }
+.card.card-utilitarios { background-color: #97bda3; border: 6px solid #659474; }
+.card.card-hub { background-color: #bde5e7; border: 6px solid #739d9f; }
+.card.card-bravo {
+    background-color: #fbe5de;
+    border: 6px solid #e5989b;
+    color: #6d4c41;
+}
+.card .card-logo {
+    max-height: 50px;
+    width: auto;
+    margin-bottom: 10px;
+}
+.tutorial-card {
+    flex: 2;
+    background-color: #ffea97;
+    border: 6px solid #cdbc7b;
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.tutorial-card img {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+.tutorial-card h3 {
+    margin: 0 0 20px 0;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    line-height: 1.5;
+}
+.tutorial-button {
+    background-color: #217473;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 40px;
+    border-radius: 25px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    border: 3px solid #0a4849;
+    transition: background-color 0.3s;
+}
+.tutorial-button:hover {
+    background-color: #307676;
+}
+
+/* --- LÓGICA RESPONSIVA --- */
+
+.mobile-only {
+    display: none;
+}
+.desktop-and-tablet-only {
+    display: flex;
+}
+
+/* Para TABLETS (até 992px) */
+@media (max-width: 992px) {
+    .ondabaixo, .ondacima {
+    height: auto;
+    width: 100%; 
+  }
+  
+    .grid-wrapper {
+        flex-direction: column;
+    }
+}
+
+/* APENAS para TELEMÓVEIS (até 768px) */
+@media (max-width: 768px) {
+     
+    
+  .ondabaixo, .ondacima {
+    height: auto;
+    width: 100%;
+  }
+
+
+    
+    .desktop-and-tablet-only {
+        display: none;
+    }
+    .content-area {
+        padding: 20px;
+        border-radius: 50px; /* Ajusta o padding do container verde */
+    }
+    
+    .mobile-only.carousel-container {
+        display: block;
+        position: relative;
+        width: 100%;
+        padding: 0 35px;
+        box-sizing: border-box;
+    }
+    .carousel-track-container {
+        overflow: hidden;
+    }
+    .carousel-track {
+        display: flex;
+        transition: transform 0.3s ease-in-out;
+    }
+    .carousel-slide {
+        flex: 0 0 100%;
+        padding: 0 5px;
+        box-sizing: border-box;
+    }
+    
+    /* --- AJUSTE DE TAMANHO DOS CARDS NO CARROSSEL --- */
+    .carousel-slide .card, 
+    .carousel-slide .tutorial-card {
+        width: 100%;
+        height: 220px; /* Altura reduzida */
+        padding: 15px;
+        box-sizing: border-box;
+    }
+    .carousel-slide .card i {
+        font-size: 1.8rem; /* Ícone um pouco menor */
+    }
+    .carousel-slide .card span {
+        font-size: 1rem; /* Fonte um pouco menor */
+    }
+    .carousel-slide .card .card-logo {
+        max-height: 40px; /* Logo um pouco menor */
+    }
+    .carousel-slide .tutorial-card img {
+        max-width: 80px; /* Imagem do tutorial menor */
+    }
+    .carousel-slide .tutorial-card h3 {
+        font-size: 1rem;
+        margin-bottom: 15px;
+    }
+    .carousel-slide .tutorial-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .carousel-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        font-size: 2rem;
+        color: #fff;
+        text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        z-index: 1;
+    }
+    .carousel-button.prev {
+        left: 0;
+    }
+    .carousel-button.next {
+        right: 0;
+    }
+    .carousel-button:disabled {
+        opacity: 0.2;
+        cursor: not-allowed;
+    }
+}
+/* --- AJUSTE RESPONSIVO DO BANNER --- */

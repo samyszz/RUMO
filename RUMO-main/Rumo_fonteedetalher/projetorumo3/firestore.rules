@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Regra para a coleção 'users'
+    // Permite que qualquer usuário autenticado leia e escreva documentos de usuários
+    match /users/{userId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // Regra para a coleção 'posts'
+    // Permite que qualquer usuário autenticado leia, crie, atualize e delete posts
+    match /posts/{postId} {
+      allow read, create, update, delete: if request.auth != null;
+    }
+
+    // Regra para a coleção 'conversas'
+    // Permite que participantes leiam e escrevam mensagens
+    match /conversas/{conversaId} {
+      allow read, write: if request.auth != null && request.auth.uid in resource.data.participantes;
+    }
+  }
+}

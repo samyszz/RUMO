@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title data-i18n="utilitarios.title">R.U.M.O - utilidades</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/utils.css">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+</head>
+<body>
+<header id="main-header">
+    <div class="container">
+        <a href="index.html"><img src="logo.png" alt="Logo R.U.M.O" class="logo"></a>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+                <li><a href="hub.html" data-i18n="nav.hub">HUB</a></li>
+                <li><a href="utilitarios.html" data-i18n="nav.tools">utilidades</a></li>
+                <li><a href="sobre.html" data-i18n="nav.about">Sobre nós</a></li>
+                <li id="nav-profile-item" style="display: none;"><a href="perfil.html" class="create-account-btn" data-i18n="nav.profile">Meu Perfil</a></li>
+                <li id="nav-login-item"><a href="auth.html" class="create-account-btn" data-i18n="nav.create_account">Criar conta</a></li>
+            </ul>
+        </nav>
+        <div class="header-right-icons">
+            <button id="accessibility-btn" class="accessibility-btn" aria-label="Abrir menu de acessibilidade">
+                <i class="fas fa-universal-access"></i>
+            </button>
+            <div class="header-lang-container" id="header-lang-container">
+                <button id="lang-dropdown-btn" class="lang-dropdown-btn" aria-label="Alterar idioma">
+                    <i class="fas fa-language"></i>
+                </button>
+                <div id="lang-dropdown-content" class="lang-dropdown-content" style="display: none;">
+                    <p data-i18n="header.lang.current">Idioma atual: <strong data-i18n="header.lang.pt_br">Português (Brasil)</strong></p>
+                    <form>
+                        <label for="language-select-header" data-i18n="header.lang.select">Selecione o idioma de sua preferência:</label>
+                        <select id="language-select-header"></select>
+                    </form>
+                </div>
+            </div>
+            <button id="theme-toggle-btn-desktop" class="theme-toggle-btn" aria-label="Alternar tema">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+            <a href="perfil.html" id="profile-bubble" class="profile-bubble" style="display: none;">
+                <img src="assets/imagens/avatar-padrao.png" alt="Foto de Perfil" id="profile-bubble-img">
+            </a>
+        </div>
+        <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu" aria-controls="main-nav" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+<main class="utils-main">
+    <div class="container">
+        <h2 class="utils-title" data-i18n="utilitarios.title_main">Com quais utilidades podemos te ajudar?</h2>
+        <div class="tools-accordion">
+            
+            <div class="tool-dropdown">
+                <button class="tool-header location-header" data-i18n="utilitarios.location.title">
+                    <i class="fas fa-map-marker-alt"></i> Sua localização atual
+                </button>
+                <div class="tool-content location-content" style="display: none;">
+                    <form id="search-form-map" class="search-bar-map">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-input-map" placeholder="Pesquisar por locais..." data-i18n="utilitarios.location.search_placeholder">
+                        <button type="submit" class="btn-search-map" data-i18n="utilitarios.location.search_button">Buscar</button>
+                    </form>
+                    <div id="map" style="height: 400px; width: 100%;"></div>
+                    <div id="search-results-list"></div>
+                    <p><strong data-i18n="utilitarios.location.address_label">Endereço:</strong>
+                        <span id="user-address" data-i18n="utilitarios.location.address_loading">Carregando...</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="tool-dropdown">
+                <button class="tool-header currency-header" data-i18n="utilitarios.currency.title">
+                    <i class="fas fa-dollar-sign"></i> Conversor de moeda
+                </button>
+                <div class="tool-content currency-content" style="display: none;">
+                    <form class="converter-form">
+                        <label for="from-currency" data-i18n="utilitarios.currency.from">De:</label>
+                        <select id="from-currency" name="from-currency"><option value="USD" data-i18n="utilitarios.currency.usd">Dólar Americano (USD)</option><option value="EUR" data-i18n="utilitarios.currency.eur">Euro (EUR)</option><option value="BRL" data-i18n="utilitarios.currency.brl">Real Brasileiro (BRL)</option></select>
+                        <label for="to-currency" data-i18n="utilitarios.currency.to">Para:</label>
+                        <select id="to-currency" name="to-currency"><option value="BRL" data-i18n="utilitarios.currency.brl">Real Brasileiro (BRL)</option><option value="USD" data-i18n="utilitarios.currency.usd">Dólar Americano (USD)</option><option value="EUR" data-i18n="utilitarios.currency.eur">Euro (EUR)</option></select>
+                        <label for="amount-currency" data-i18n="utilitarios.currency.amount_label">Digite o valor:</label>
+                        <input type="number" id="amount-currency" placeholder="100,00" data-i18n="utilitarios.currency.amount_placeholder">
+                        <button type="button" class="btn-converter" data-i18n="utilitarios.currency.convert">Converter</button>
+                        <div class="result-box"><strong data-i18n="utilitarios.currency.result_label">Resultado:</strong> <span>R$ 0,00</span></div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="tool-dropdown">
+                <button class="tool-header measure-header" data-i18n="utilitarios.measure.title">
+                    <i class="fas fa-ruler-combined"></i> Conversor de medida
+                </button>
+                <div class="tool-content measure-content" style="display: none;">
+                     <form class="converter-form">
+                        <label for="unit-type" data-i18n="utilitarios.measure.unit_type_label">Selecione a unidade de medida:</label>
+                        <select id="unit-type"><option data-i18n="utilitarios.measure.length">Comprimento</option><option data-i18n="utilitarios.measure.weight">Peso</option><option data-i18n="utilitarios.measure.temperature">Temperatura</option></select>
+                        <label for="amount-measure" data-i18n="utilitarios.measure.amount_label">Digite o valor:</label>
+                        <input type="number" id="amount-measure" placeholder="10" data-i18n="utilitarios.measure.amount_placeholder">
+                        <div class="measure-selects">
+                            <select><option data-i18n="utilitarios.measure.meter">Metro (m)</option><option data-i18n="utilitarios.measure.km">Quilômetro (km)</option><option data-i18n="utilitarios.measure.cm">Centímetro (cm)</option><option data-i18n="utilitarios.measure.mm">Milímetro (mm)</option></select>
+                            <span data-i18n="utilitarios.measure.to">Para:</span>
+                            <select><option data-i18n="utilitarios.measure.cm">Centímetro (cm)</option><option data-i18n="utilitarios.measure.mm">Milímetro (mm)</option><option data-i18n="utilitarios.measure.meter">Metro (m)</option><option data-i18n="utilitarios.measure.km">Quilômetro (km)</option></select>
+                        </div>
+                        <button type="button" class="btn-converter" data-i18n="utilitarios.measure.convert">Converter</button>
+                         <div class="result-box"><strong data-i18n="utilitarios.measure.result_label">Resultado:</strong> <span>0</span></div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="tool-dropdown">
+                <button class="tool-header docs-header" data-i18n="utilitarios.docs.title">
+                    <i class="fas fa-shield-alt"></i> Cofre de documentos
+                </button>
+                <div class="tool-content docs-content" style="display: none;">
+                    <div class="doc-form-container">
+                        <h3 class="form-section-title" data-i18n="utilitarios.docs.add_new">Adicionar Novo Documento</h3>
+                        <form class="doc-form" id="add-doc-form">
+                            <div class="form-group-docs"><label for="doc-type" data-i18n="utilitarios.docs.type_label">Tipo de Documento</label><input type="text" id="doc-type" placeholder="Ex: Passaporte, Visto..." data-i18n="utilitarios.docs.type_placeholder" required></div>
+                            <div class="form-group-docs"><label for="doc-issue-date" data-i18n="utilitarios.docs.issue_date_label">Data de Emissão</label><input type="date" id="doc-issue-date" required></div>
+                            <div class="form-group-docs"><label for="doc-expiry-date" data-i18n="utilitarios.docs.expiry_date_label">Data de Validade</label><input type="date" id="doc-expiry-date" required></div>
+                            <button type="submit" class="btn-submit-doc" data-i18n="utilitarios.docs.add">Adicionar</button>
+                        </form>
+                    </div>
+                    <div class="doc-list-container">
+                        <h3 class="form-section-title" data-i18n="utilitarios.docs.your_docs">Seus Documentos</h3>
+                        <div id="doc-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-dropdown">
+                <button class="tool-header lang-header" data-i18n="utilitarios.lang.title">
+                    <i class="fas fa-language"></i> Alterar o idioma
+                </button>
+                <div class="tool-content lang-content" style="display: none;">
+                    <p data-i18n="utilitarios.lang.current_platform">Idioma atual da plataforma: <strong data-i18n="header.lang.pt_br">Português (Brasil)</strong></p>
+                    <form class="converter-form">
+                        <label for="language-select-utils" data-i18n="header.lang.select">Selecione o idioma de sua preferência:</label>
+                        <select id="language-select-utils"></select>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<img src="ondacima.png" class="ondacima" id="onda-cima">
+<footer class="ondinha">
+  <img src="ondabaixo.png" class="ondabaixo" id="onda-baixo">
+</footer>
+
+<footer>
+    <div class="footer-container">
+        <img src="logo.png" alt="Logo R.U.M.O no rodapé" class="footer-logo">
+        <div class="footer-social">
+            <h4 data-i18n="footer.social.title">Redes Sociais</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+                <a href="#"><i class="fab fa-linkedin fa-2x"></i></a>
+            </div>
+        </div>
+        <div class="footer-contact">
+            <h4 data-i18n="footer.contact.title">Vamos conversar?</h4>
+            <form>
+                <input type="email" name="email" placeholder="Seu e-mail@exemplo.com" data-i18n="footer.contact.email_placeholder" required>
+                <div class="input-with-button">
+                    <input type="text" name="assunto" placeholder="Sobre o que quer falar?" data-i18n="footer.contact.subject_placeholder" required>
+                    <button type="submit" aria-label="Enviar"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+<script src="js/main-menu.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/utilitarios.js"></script>
+<script src="js/dark-mode.js"></script>
+<script src="js/auth-state.js"></script>
+
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+
+</body>
+</html>

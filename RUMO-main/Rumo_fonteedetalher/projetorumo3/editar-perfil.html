@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title data-i18n="editar_perfil.title">R.U.M.O - Editar Perfil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/post-form.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+   <header id="main-header">
+    <div class="container">
+        <a href="index.html"><img src="logo.png" alt="Logo R.U.M.O" class="logo"></a>
+
+        <nav id="main-nav">
+    
+    <ul>
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="hub.html" data-i18n="nav.hub">HUB</a></li>
+        <li><a href="utilitarios.html" data-i18n="nav.tools">Ultilidades</a></li>
+        <li><a href="sobre.html" data-i18n="nav.about">Sobre nós</a></li>
+        <li id="nav-profile-item" style="display: none;"><a href="perfil.html" class="create-account-btn" data-i18n="nav.profile">Meu Perfil</a></li>
+        <li id="nav-login-item"><a href="auth.html" class="create-account-btn" data-i18n="nav.create_account">Criar conta</a></li>
+    </ul>
+</nav>
+
+        <div class="header-right-icons">
+            <button id="accessibility-btn" class="accessibility-btn" aria-label="Abrir menu de acessibilidade">
+                <i class="fas fa-universal-access"></i>
+            </button>
+            <div class="header-lang-container" id="header-lang-container">
+                <button id="lang-dropdown-btn" class="lang-dropdown-btn" aria-label="Alterar idioma">
+                    <i class="fas fa-language"></i>
+                </button>
+                <div id="lang-dropdown-content" class="lang-dropdown-content" style="display: none;">
+                    <p data-i18n="header.lang.current">Idioma atual: <strong data-i18n="header.lang.pt_br">Português (Brasil)</strong></p>
+                    <form>
+                        <label for="language-select-header" data-i18n="header.lang.select">Selecione o idioma de sua preferência:</label>
+                        <select id="language-select-header"></select>
+                    </form>
+                </div>
+            </div>
+            <button id="theme-toggle-btn-desktop" class="theme-toggle-btn" aria-label="Alternar tema">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+            <a href="perfil.html" id="profile-bubble" class="profile-bubble" style="display: none;">
+                <img src="assets/imagens/avatar-padrao.png" alt="Foto de Perfil" id="profile-bubble-img">
+            </a>
+        </div>
+
+        <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu" aria-controls="main-nav" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+        <main class="form-page-container">
+        <div class="form-box">
+            <h1 data-i18n="editar_perfil.h1">Editar Perfil</h1>
+            <p class="subtitle" data-i18n="editar_perfil.subtitle">Mantenha suas informações atualizadas para o Hub+rumo.</p>
+
+            <form id="edit-profile-form">
+
+                <!-- Área da foto de perfil com estilo correto -->
+                <div class="profile-photo-area">
+                    <img src="assets/imagens/avatar-padrao.png" alt="Foto do usuário" id="profile-avatar-preview">
+                    <label for="photo-upload" class="btn btn-photo-upload" data-i18n="editar_perfil.change_photo">Mudar Foto</label>
+                    <input type="file" id="photo-upload" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="form-group">
+                    <label for="username" data-i18n="editar_perfil.username_label">Nome de Usuário</label>
+                    <input type="text" id="username" placeholder="Seu nome de usuário..." data-i18n="editar_perfil.username_placeholder">
+                </div>
+
+                <div class="form-group">
+                    <label for="bio" data-i18n="editar_perfil.bio_label">Biografia</label>
+                    <textarea id="bio" rows="4" placeholder="Fale um pouco sobre você..." data-i18n="editar_perfil.bio_placeholder"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="objectives" data-i18n="editar_perfil.objectives_label">Objetivos na plataforma</label>
+                    <textarea id="objectives" rows="4" placeholder="O que você busca na R.U.M.O?" data-i18n="editar_perfil.objectives_placeholder"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact" data-i18n="editar_perfil.contact_label">Contato (E-mail/telefone)</label>
+                    <input type="text" id="contact" placeholder="Seu contato público..." data-i18n="editar_perfil.contact_placeholder">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" data-i18n="editar_perfil.save">Salvar Alterações</button>
+                    <a href="sair-excluir-conta.html" class="btn-delete-account" data-i18n="editar_perfil.delete_account">Sair ou excluir conta</a>
+                </div>
+             
+            </form>
+        </div>
+    </main>
+    
+    <img src="ondacima.png" class="ondacima" id="onda-cima">
+    <footer class="ondinha">
+        <img src="ondabaixo.png" class="ondabaixo" id="onda-baixo">
+    </footer>
+    <footer>
+        <div class="footer-container">
+            <img src="logo.png" alt="Logo R.U.M.O no rodapé" class="footer-logo">
+
+            <div class="footer-social">
+                <h4 data-i18n="footer.social.title">Redes Sociais</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+                    <a href="#"><i class="fab fa-linkedin fa-2x"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-contact">
+                <h4 data-i18n="footer.contact.title">Vamos conversar?</h4>
+                <form>
+                    <input type="email" name="email" placeholder="Seu e-mail@exemplo.com" data-i18n="footer.contact.email_placeholder" required>
+
+                    <!-- Novo container para o input com o botão dentro -->
+                    <div class="input-with-button">
+                        <input type="text" name="assunto" placeholder="Sobre o que quer falar?" data-i18n="footer.contact.subject_placeholder" required>
+                        <button type="submit" aria-label="Enviar"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </footer>
+ <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script> <script src="js/firebase-config.js"></script>
+<script src="js/i18n.js"></script>
+
+    <script src="js/main-menu.js"></script>
+    <script src="js/dark-mode.js"></script>
+    
+    <script src="js/auth-state.js"></script>
+
+    <script src="js/editar-perfil.js"></script>
+
+    <script type="module" src="js/auth-state.js"></script>
+
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+<script src="js/map-widget.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+/* --- Estilos FINAIS para a página de Nova Publicação (Versão Ciano) --- */
+
+/* 1. Fundo da página branco */
+.form-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    min-height: calc(100vh - 160px);
+
+    box-sizing: border-box;
+}
+
+/* 2. O contêiner do formulário com sombra ciano */
+.form-container {
+    background: #ffffff;
+    border-radius: 20px;
+    /* Sombra com tom ciano */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05), 0 10px 30px rgba(0, 180, 190, 0.2);
+    width: 100%;
+    max-width: 550px;
+    padding: 35px 40px;
+}
+
+/* 3. Títulos e labels */
+.form-body h2 {
+    text-align: center;
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* 4. Campos de input, textarea e select com borda ciano */
+#new-post-form input[type="text"],
+#new-post-form input[type="url"],
+#new-post-form textarea,
+#new-post-form select {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #ffffff;
+    /* Fundo branco */
+    border: 2px solid #008B8B;
+    /* Borda ciano escura e mais grossa */
+    border-radius: 8px;
+    /* Cantos levemente arredondados */
+    font-family: 'Nunito-Black', sans-serif;
+    font-size: 1rem;
+    color: #333;
+    box-sizing: border-box;
+    transition: all 0.3s;
+}
+
+/* Efeito ao focar em um campo */
+#new-post-form input:focus,
+#new-post-form textarea:focus,
+#new-post-form select:focus {
+    outline: none;
+    border-color: #20B2AA;
+    /* Borda ciano mais clara ao focar */
+    box-shadow: 0 0 0 3px rgba(32, 178, 170, 0.25);
+    /* Sombra de foco ciano */
+}
+
+/* 5. Botão "Publicar" com cor ciano */
+.btn-submit {
+    width: 100%;
+    padding: 15px;
+    background-color: #20B2AA;
+    /* Cor ciano */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background-color: #008B8B;
+    /* Ciano mais escuro para o hover */
+    transform: translateY(-2px);
+}

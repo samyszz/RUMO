@@ -1,0 +1,440 @@
+/* Estilos para perfil-usuario.html, perfil.html, post-salvo.html, editar-perfil.html */
+
+/* Container principal do perfil */
+/* Estilos para perfil-usuario.html, perfil.html, post-salvo.html, editar-perfil.html */
+
+/* Container principal do perfil */
+.profile-main,
+.profile-usuario-main {
+    max-width: 900px;
+    margin: 40px auto;
+    /* Aumentei a margem superior para dar mais espaço */
+    padding: 30px;
+    /* Aumentei o padding para um visual mais arejado */
+    font-family: 'Nunito-Black', sans-serif;
+    background-color: var(--bg-color, #ffffff);
+    /* Cor de fundo branca para o efeito de sombra */
+    color: var(--text-color, #333);
+    border-radius: 20px;
+    border: 10px solid #739d9f;
+    box-sizing: border-box;
+
+    /* Bordas arredondadas para um visual mais suave */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    /* Sombra para o efeito "elevado" */
+    transition: all 0.3s ease;
+    /* Transição suave para interações */
+}
+
+.profile-main:hover,
+.profile-usuario-main:hover {
+    transform: translateY(-5px);
+    /* Efeito de elevação ao passar o mouse */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    /* Sombra mais pronunciada no hover */
+}
+
+
+/* Cabeçalho do perfil */
+.profile-header,
+.profile-usuario-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+/* Imagem do perfil */
+.profile-picture-container,
+.profile-usuario-avatar-container {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #0a4849;
+}
+
+.profile-picture-container img,
+.profile-usuario-avatar-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Informações do perfil */
+.profile-info,
+.profile-usuario-info {
+    flex-grow: 1;
+}
+
+.profile-name,
+.profile-usuario-name {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--primary-color, #2c3e50);
+}
+
+.profile-username,
+.profile-usuario-username {
+    font-size: 1.2rem;
+    color: #777;
+    margin-top: 5px;
+}
+
+.user-type-badge,
+.profile-usuario-type-badge {
+    display: inline-block;
+    background-color: #0a4849;
+    font-weight: medium;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+/* Botões de ação do perfil */
+.profile-actions,
+.profile-usuario-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.profile-actions a,
+.profile-usuario-actions a,
+.profile-usuario-actions button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.profile-actions a.btn-primary,
+.profile-usuario-actions button.btn-primary {
+    background-color: #0a4849;
+    /* dark green */
+    color: white;
+    border: none;
+    font-weight: 700;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.profile-actions a.btn-primary:hover,
+.profile-usuario-actions button.btn-primary:hover {
+    background-color: #08332b;
+    /* darker green on hover */
+}
+
+/* User type badge with green dot */
+.user-type-badge {
+    position: relative;
+    padding-left: 30px;
+    /* Increased padding to avoid overlap */
+    font-weight: 600;
+    color: white;
+    /* Changed to white for better contrast */
+    background-color: #0a4849;
+    /* Dark green background */
+    border-radius: 20px;
+    display: inline-block;
+    padding: 4px 10px;
+}
+
+.user-type-badge::before {
+    content: '';
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+
+    /* Bright green dot */
+    border-radius: 50%;
+}
+
+.profile-actions a.btn-secondary,
+.profile-usuario-actions a.btn-secondary {
+    background-color: #ddd;
+    color: #333;
+}
+
+.profile-actions a.btn-secondary:hover,
+.profile-usuario-actions a.btn-secondary:hover {
+    background-color: #ccc;
+}
+
+/* Seções do perfil */
+.profile-section,
+.profile-usuario-section {
+    margin-bottom: 25px;
+}
+
+.profile-section h3,
+.profile-usuario-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--primary-color, #2c3e50);
+}
+
+.profile-bio,
+.profile-usuario-bio {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #555;
+}
+
+/* Grid de posts do usuário */
+.user-posts-grid,
+.profile-usuario-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+/* Cartão de post */
+.post-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--primary-color, #2c3e50);
+}
+
+/* Botões de seguir e mensagem */
+#follow-button-container button {
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    margin-right: 10px;
+    background-color: #0a4849;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-profile {
+    background-color: #0a4849;
+    color: white;
+}
+
+.btn-profile:hover {
+    background-color: #0a4849;
+}
+
+.btn-profile-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-profile-danger:hover {
+    background-color: #c0392b;
+}
+
+/* Botão de mensagem */
+#send-message-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+#send-message-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Modal de seguidores/seguindo */
+.follow-list-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.follow-list-modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.follow-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #452626;
+}
+
+.follow-list-header h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.close-modal-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.follow-list-body {
+    padding: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.follow-list-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.2s;
+}
+
+.follow-list-item:hover {
+    background-color: #f5f5f5;
+}
+
+.follow-list-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+    object-fit: cover;
+}
+
+.follow-list-item span {
+    font-weight: 500;
+}
+
+.follow-list-empty {
+    text-align: center;
+    color: #666;
+    padding: 40px 20px;
+}
+/* --- LÓGICA RESPONSIVA PARA PÁGINAS DE PERFIL --- */
+
+/* Para TABLETS (até 992px) */
+@media (max-width: 992px) {
+    .profile-main,
+    .profile-usuario-main {
+        width: 95%;
+        margin: 30px auto;
+        padding: 20px;
+    }
+
+    .profile-header,
+    .profile-usuario-header {
+        flex-direction: column; /* Empilha a imagem e o texto */
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .profile-picture-container,
+    .profile-usuario-avatar-container {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-name,
+    .profile-usuario-name {
+        font-size: 1.8rem;
+    }
+
+    .user-posts-grid,
+    .profile-usuario-posts-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Ajusta o tamanho dos cards */
+    }
+}
+
+/* Para TELEMÓVEIS (até 768px) */
+@media (max-width: 768px) {
+    .profile-main,
+    .profile-usuario-main {
+        margin: 20px auto;
+        padding: 15px;
+        border-width: 5px; /* Borda mais fina */
+        border-radius: 15px;
+    }
+
+    .profile-actions,
+    .profile-usuario-actions {
+        flex-direction: column; /* Botões ficam um abaixo do outro */
+        width: 100%;
+    }
+
+    .profile-actions a,
+    .profile-usuario-actions a,
+    .profile-usuario-actions button {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box; /* Garante que o padding não quebre o layout */
+    }
+    
+    .profile-name,
+    .profile-usuario-name {
+        font-size: 1.5rem; /* Nome um pouco menor */
+    }
+    
+    .profile-username,
+    .profile-usuario-username {
+        font-size: 1rem;
+    }
+
+    .user-posts-grid,
+    .profile-usuario-posts-grid {
+        grid-template-columns: 1fr; /* Uma coluna de posts */
+        gap: 12px;
+    }
+    
+    .follow-list-modal-content {
+        width: 95%; /* Modal ocupa mais espaço na tela */
+    }
+}

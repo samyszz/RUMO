@@ -1,0 +1,21 @@
+{
+    "name": "R.U.M.O - Rede Unificada de Mobilidade e Orientação",
+    "short_name": "R.U.M.O",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#daf3ed",
+    "theme_color": "#85cbcb",
+    "description": "Plataforma digital para guiar e apoiar imigrantes no Brasil.",
+    "icons": [
+        {
+            "src": "/logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/logo-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

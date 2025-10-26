@@ -1,0 +1,342 @@
+@font-face {
+  font-family: 'Nunito-Black'; /* Nome que você usará no código */
+  src: url('../assets/fonts/Nunito/static/Nunito-Black.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*primeira parte sobre*/
+#quem-somos {
+  font-family: 'Nunito-Black', sans-serif;
+  width: 90%; /* Garantir que o conteúdo ocupe 100% da largura */
+  max-width: 900px; /* Máximo de largura */
+  background-color: #b1def7; /* Cor de fundo azul claro */
+  border: 5px solid #2f8b4c; /* Borda verde */
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(196, 93, 93, 0.1), 0 8px 16px rgba(0, 0, 0, 0.15); /* Sombras */
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  margin: 100px auto 60px;
+}
+
+.intro-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.intro-text-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#slogan {
+  font-size: 36px;
+  font-family: 'Nunito-Black', sans-serif;
+  color: #01302a;
+  margin-bottom: 20px;
+}
+
+.intro-text-content p {
+  font-size: 25px;
+  color: #01302a;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Efeito de borda 3D (sombra) */
+#quem-somos {
+  border: 2px solid #188385ec;
+  background: #b1def7; /* Cor de fundo azul */
+  box-shadow: 6px 6px 15px #0a4849, -6px -6px 15px #0a4849;
+}
+
+#quem-somos:hover {
+  box-shadow: 8px 8px 15px #0f5e5f, -8px -8px 15px #0a4849;
+  border: 2px solid #0a4849;
+  transform: translateY(-5%) scale(1.02);
+}
+
+/*darkmode*/
+body.dark-mode #slogan {
+  color: #d7f9ff;
+}
+
+body.dark-mode .intro-text-content p {
+  color: #c0e7ec;
+}
+
+body.dark-mode #quem-somos {
+  border: 2px solid #bafeffec;
+  background: #0a4849; /* Fundo escuro */
+  box-shadow: 6px 6px 10px #b0d7e6c2, -3px -3px 10px #d7f9ffd2;
+}
+
+body.dark-mode #quem-somos:hover {
+  box-shadow: 8px 8px 15px #c8ecfac2, -8px -8px 15px #d7f9ffd2;
+  border: 2px solid hsl(181, 62%, 80%);
+  transform: translateY(-5%) scale(1.02);
+}
+
+/*Nossos rostos*/
+/* Nossos rostos */
+/* Nossos rostos */
+#equipe {
+  font-family: 'Nunito-Black', sans-serif;
+  padding: 80px 180px;
+  border: 3px solid #0a4849;
+  border-radius: 13px;
+  text-align: center;
+  background-color: #79a5bd;
+  margin-top: 80px;
+}
+
+/* Título da seção */
+.section-title {
+  padding: 10px 50px;
+  background-color: #c0e7ec;
+  border: 3px solid #0a4849;
+  border-radius: 13px;
+  font-size: 45px;
+  color: #0a4849;
+  margin-top: 0px;
+  margin-bottom: 40px;
+}
+
+/* Ajustes mobile para evitar overflow causado por padding lateral grande */
+@media (max-width: 768px) {
+  #equipe {
+    padding: 40px 18px; /* menos padding lateral em telas pequenas */
+  }
+
+  .section-title {
+    padding: 12px 16px;
+    font-size: 28px;
+  }
+
+  .team-cards {
+    grid-template-columns: 1fr; /* uma coluna no mobile */
+    gap: 18px;
+  }
+}
+
+@media (max-width: 420px) {
+  #quem-somos {
+    margin: 60px 12px 40px;
+    padding: 16px;
+  }
+}
+
+.team-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dois cards por linha por padrão */
+  gap: 30px;
+  justify-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  
+}
+
+.team-cardi { border-radius: 13px;  flex-direction: column; justify-content: center; align-items: center; background: #edead3; border-radius: 20px; padding: 30px; width: 100%; max-width: 550px; box-shadow: 4px 4px 10px #c0bb98, -4px -4px 10px rgba(255, 255, 255, 0.3); color: #887e36; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.team-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 13px;
+  align-items: center;
+  padding: 30px;
+  width: 100%;
+  max-width: 550px;
+  box-shadow: 4px 4px 10px #94bdce, -4px -4px 10px rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-card {
+  background: #b0d7e6;
+  color: #487285;
+}
+
+.team-cardi {
+  background: #edead3;
+  color: #887e36;
+}
+
+.team-cardi:hover { 
+  border: 3px solid #887e36; 
+  transform: scale(1.03); 
+  box-shadow: 6px 6px 15px #dbd6af, -6px -6px 15px #dbd6af; }
+.team-card:hover {
+   border: 3px solid #487285; 
+   transform: scale(1.03); 
+   box-shadow: 6px 6px 15px #a2d4e9, -6px -6px 15px #a2d4e9;
+   }
+
+
+.team-card:hover,
+.team-cardi:hover {
+  border-radius: 13px;;
+  transform: scale(1.03);
+}
+
+.team-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.team-img img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.team-card h4,
+.team-cardi h4 {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.team-card p,
+.team-cardi p {
+  font-size: 25px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* Darkmode */
+body.dark-mode .section-title {
+  background-color: #0a4849;
+  border: 3px solid #c0e7ec;
+  border-radius: 13px;
+  color: #d7f9ff;
+}
+
+body.dark-mode #equipe {
+  background-color: #0a4849;
+  border: 3px solid #c0e7ec;
+  border-radius: 13px;
+  text-align: center;
+}
+
+body.dark-mode .team-card {
+  background: #498578;
+  box-shadow: 4px 4px 10px #b0e2cb, -4px -4px 10px #b0e2cb;
+  color: white;
+}
+
+body.dark-mode .team-cardi {
+  background: #485183;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+/* Media Queries para Responsividade */
+
+/* Smartphones e dispositivos pequenos (menos de 768px) */
+@media (max-width: 768px) {
+  #equipe {
+    width: 90%;
+    padding: 8px;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  /* Cards empilhados em uma coluna */
+  .team-cards {
+    grid-template-columns: 1fr; /* 1 card por linha */
+    gap: 20px;
+  }
+
+  /* Tamanho da imagem e texto ajustados para telas menores */
+  .team-img img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .team-card h4,
+  .team-cardi h4 {
+    font-size: 24px;
+  }
+
+  .team-card p,
+  .team-cardi p {
+    font-size: 18px;
+  }
+}
+
+/* Laptops e Tablets - telas de médio porte (768px a 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .team-cards {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards por linha */
+  }
+
+  #equipe {
+    width: 90%;
+    padding: 25px;
+  }
+
+  .section-title {
+    font-size: 36px;
+  }
+
+  .team-img img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .team-card h4,
+  .team-cardi h4 {
+    font-size: 28px;
+  }
+
+  .team-card p,
+  .team-cardi p {
+    font-size: 22px;
+  }
+}
+
+/* Desktop - telas maiores (1024px a 1600px) */
+@media (min-width: 1024px) {
+  .team-cards {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards por linha */
+  }
+
+  #equipe {
+    padding: 40px 80px;
+  }
+
+  .section-title {
+    font-size: 45px;
+  }
+
+  .team-img img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .team-card h4,
+  .team-cardi h4 {
+    font-size: 30px;
+  }
+
+  .team-card p,
+  .team-cardi p {
+    font-size: 25px;
+  }
+}
+
+/* Monitores ultrawide (1600px em diante) */
+@media (min-width: 1600px) {
+  .team-cards {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards por linha */
+  }
+}

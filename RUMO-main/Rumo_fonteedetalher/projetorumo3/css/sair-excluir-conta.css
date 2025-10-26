@@ -1,0 +1,100 @@
+/* =================================================================
+   CSS FINAL para a página Sair/Excluir (com Liquid Glass Cards)
+   ================================================================= */
+
+/* Prepara o corpo da página para centralizar o conteúdo */
+body {
+    display: flex;
+    flex-direction: column; /* Permite alinhar o header e o main */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+/* Container principal que centraliza tudo */
+.manage-account-container {
+    width: 100%;
+    max-width: 600px;
+    text-align: center; /* Centraliza o título e a descrição */
+}
+
+.manage-account-container h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.manage-account-container .description {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 3rem;
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- O CONTAINER LIQUID GLASS PARA OS CARDS --- */
+.actions-wrapper {
+    width: 100%;
+    padding: 1.5rem;
+    border-radius: 16px;
+
+    /* Efeito Glassmorphism */
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Espaço entre os cards */
+}
+
+/* Estilo individual de cada card de ação */
+.action-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.2); /* Um pouco mais opaco que o fundo */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-card:hover {
+    transform: scale(1.03);
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.action-card i {
+    font-size: 2rem;
+    color: var(--text-color);
+    width: 40px; /* Largura fixa para o ícone */
+}
+
+.action-text h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+.action-text p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    line-height: 1.5;
+}
+
+/* Estilo especial para o card de exclusão */
+.action-card.delete i {
+    color: #e74c3c;
+}

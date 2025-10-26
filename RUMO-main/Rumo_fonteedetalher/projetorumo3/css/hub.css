@@ -1,0 +1,994 @@
+/* Garante que o body permita posicionamento relativo das imagens */
+
+.container {
+  position: relative;
+  margin: 0 auto;
+  /* <-- CENTRALIZA horizontalmente */
+  padding: 0 20px;
+  /* <-- Responsividade nas bordas */
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.hub-main .container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.hub-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #cae8ff;
+  border-radius: 20px;
+  border: 2px solid #739d9f;
+  box-sizing: border-box;
+}
+
+/* --- AJUSTE NO TAMANHO DO SEARCH BAR --- */
+.hub-actions .search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #ffea97;
+  border: 2px solid #cdbc7b;
+  border-radius: 25px;
+  padding: 8px 15px;
+  flex-grow: 1;
+  /* Permite crescer */
+  max-width: 450px;
+  /* Define um tamanho máximo */
+  /* Adicione esta linha para a animação funcionar */
+  transition: max-width 0.3s ease-in-out, flex-grow 0.3s ease-in-out;
+}
+
+
+
+.hub-actions .search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-family: "Nunito-Black", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #826414;
+  margin-left: 8px;
+}
+
+/* --- AJUSTE NO TAMANHO DO BOTÃO NOVA PUBLICAÇÃO --- */
+.btn-new-post {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f7f8ab;
+  color: #000731;
+  padding: 10px 20px;
+  /* Padding menor */
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  /* Fonte menor */
+  text-decoration: none;
+  border: none;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.btn-new-post:hover {
+  background-color: #655a94;
+}
+
+/* --- ESTILOS PARA O SISTEMA DE FILTRO --- */
+.filter-container {
+  position: relative;
+  margin-left: auto;
+  /* Empurra o filtro para a direita */
+}
+
+.filter-btn {
+  background-color: #fff;
+  border: 2px solid #739d9f;
+  color: #0a4849;
+  padding: 8px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.filter-btn:hover {
+  background-color: #e8e8e8;
+}
+
+.filter-dropdown {
+  display: none;
+  /* Começa escondido */
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  width: 220px;
+  overflow: hidden;
+}
+
+.filter-dropdown.active {
+  display: block;
+  /* Mostra quando a classe active é adicionada */
+}
+
+.filter-option {
+  display: block;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #053536;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.filter-option:hover {
+  background-color: #f0f8f7;
+}
+
+/* --- ESTILO PARA O CARD DE EMPREGOS --- */
+.info-card.employment-card {
+  background-color: #fff9e6;
+  border: 2px solid #cdbc7b;
+  color: #826414;
+}
+
+.employment-card h3 {
+  margin: 0 0 10px 0;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: #053536;
+}
+
+.employment-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.btn-source.employment-btn {
+  background-color: #217473;
+  border: 2px solid #0a4849;
+}
+
+/* --- GRID DO HUB --- */
+.hub-feed {
+  display: grid;
+
+  gap: 30px;
+  width: 100%;
+
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  /* antes era 320px */
+
+  justify-items: center;
+  /* garante que os cards fiquem no centro das colunas */
+}
+
+.info-card-wrapper {
+  background-color: #8fcfcf;
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  display: flex;
+  /* Adicionado para garantir altura consistente */
+  flex-direction: column;
+  /* Adicionado para garantir altura consistente */
+}
+
+.info-card {
+  background-color: #ade6ec;
+  border-radius: 12px;
+  color: #050a30;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  flex-grow: 1;
+  /* Faz o card interno crescer */
+}
+
+.info-card-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.info-card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-card-body .card-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.info-card-body h3,
+.info-card-body h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.info-card-body p {
+  margin: 0 0 15px 0;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.btn-source {
+  display: inline-block;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 8px 15px;
+  border-radius: 10px;
+  font-weight: 700;
+  transition: background-color 0.3s;
+  margin-top: auto;
+  align-self: flex-start;
+  background-color: #307676;
+}
+
+.btn-source:hover {
+  background-color: #0a4849;
+}
+
+/* --- Estilos para os botões de Ações do Post (Editar/Apagar) --- */
+
+.post-actions {
+  padding: 15px 20px 10px 20px;
+  text-align: right;
+  /* Alinha os botões à direita */
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  /* Linha separadora sutil */
+  margin-top: 10px;
+}
+
+.post-actions button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-left: 10px;
+  transition: all 0.2s ease;
+}
+
+.post-actions button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo específico para o botão Editar */
+.btn-edit {
+  background-color: #e0eaff;
+  color: #4a6cff;
+}
+
+.btn-edit:hover {
+  background-color: #d2dfff;
+}
+
+/* Estilo específico para o botão Apagar */
+.btn-delete {
+  background-color: #ffe0e0;
+  color: #cc3a3a;
+}
+
+.btn-delete:hover {
+  background-color: #ffcccc;
+}
+
+@media (max-width: 400px) {
+
+  
+  .hub-feed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 10px;
+  }
+
+  .info-card-wrapper {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+/* --- LÓGICA RESPONSIVA --- */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .hub-feed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+    padding-bottom: 20px;
+  }
+  
+  .info-card-wrapper {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .hub-actions {
+    gap: 8px; /* Reduz o espaçamento entre os itens */
+    /* Garante que o container possa lidar com a barra de pesquisa crescendo */
+    position: relative; 
+  }
+
+  .filter-container {
+    margin-left: 0; /* Remove a margem automática */
+  }
+
+  .btn-new-post {
+    /* Estado NORMAL do botão no telemóvel */
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    flex-shrink: 1; 
+    white-space: nowrap;
+    /* Adicionamos transição para a opacidade e visibilidade */
+    transition: all 0.3s ease, opacity 0.2s ease, visibility 0.2s ease;
+  }
+  
+  /* --- EFEITO DE FOCO NO TELEMÓVEL --- */
+
+  /* Quando a pesquisa está focada NO TELEMÓVEL */
+  .hub-actions:focus-within .search-bar {
+    flex-grow: 1; /* Garante que ela possa crescer */
+    max-width: 100%; /* Deixa expandir totalmente */
+  }
+
+  /* ...esconde o botão "Nova Publicação" e o Filtro */
+  .hub-actions:focus-within .btn-new-post,
+  .hub-actions:focus-within .filter-container {
+    opacity: 0;
+    visibility: hidden;
+    flex-shrink: 1;
+    /* Reduzimos o tamanho a zero para a barra de pesquisa ocupar o espaço */
+    max-width: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    overflow: hidden;
+  }
+}
+
+
+/* --- EFEITO DE FOCO PARA DESKTOP (Fora da media query) --- */
+
+.hub-actions:focus-within .search-bar {
+    flex-grow: 2;
+    max-width: 700px;
+}
+
+.hub-actions:focus-within .btn-new-post {
+    flex-shrink: 1;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 0.85rem;
+}
+
+/* ============================================= */
+/* CSS PARA INTERAÇÕES (CURTIR/COMENTAR) NOS POSTS */
+/* ============================================= */
+
+/* Alinha o rodapé do card para espaçar a data e os botões */
+.info-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
+  /* Adiciona uma linha sutil de separação */
+}
+
+/* Container para os botões de interação */
+.info-card-interactions {
+  display: flex;
+  gap: 20px;
+  /* Espaço entre o botão de curtir e o de comentar */
+}
+
+.interaction-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  /* Espaço entre o botão e a contagem de curtidas */
+}
+
+/* Estilo base para os botões de curtir e comentar */
+.btn-like,
+.btn-comment {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 1.2rem;
+  /* Tamanho do ícone */
+  color: var(--text-color);
+  /* Cor do ícone */
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-like:hover,
+.btn-comment:hover {
+  transform: scale(1.15);
+  /* Aumenta o ícone ao passar o mouse */
+}
+
+/* Estilo específico para o botão de like quando está "curtido" */
+.btn-like.liked .fa-heart {
+  color: #e74c3c;
+  /* Cor vermelha para o coração curtido */
+  font-weight: 900;
+  /* Garante que o ícone seja o "fas" (sólido) */
+}
+
+/* Cor do coração não curtido */
+.btn-like .fa-heart {
+  color: var(--text-color);
+}
+
+/* Estilo para a contagem de curtidas */
+.like-count {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color-light);
+}
+
+/* =================================================== */
+/* CSS CORRIGIDO PARA O MODAL DE COMENTÁRIOS (SEM TRANSPARÊNCIA) */
+/* =================================================== */
+
+/* Fundo escurecido (overlay) - um pouco mais claro */
+.comment-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
+  /* Escurecimento mais suave */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.comment-modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Caixa de conteúdo do modal com cores sólidas */
+.comment-modal-content {
+  /* CORREÇÃO: Definindo cores de fundo sólidas */
+  background-color: #8fcfcf;
+  /* Fundo branco sólido */
+  color: #1a1a1a;
+  /* Texto escuro para contraste */
+
+  padding: 0;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 550px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+/* Ajuste para o modo escuro */
+body.dark-mode .comment-modal-content {
+  background-color: #2c2c2e;
+  /* Fundo cinza escuro sólido para o dark mode */
+  color: #ffffff;
+  /* Texto claro para contraste */
+}
+
+.comment-modal-backdrop.active .comment-modal-content {
+  transform: scale(1);
+}
+
+/* Cabeçalho do modal */
+.comment-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  /* Linha de separação clara */
+}
+
+body.dark-mode .comment-modal-header {
+  border-bottom-color: #444;
+}
+
+.comment-modal-header h4 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: inherit;
+  /* Herda a cor do .comment-modal-content */
+}
+
+.close-modal-btn {
+  background: #f0f0f0;
+  /* Fundo do botão claro */
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #555;
+  /* Cor do X */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+body.dark-mode .close-modal-btn {
+  background-color: #555;
+  color: #fff;
+}
+
+.close-modal-btn:hover {
+  background-color: #e0e0e0;
+}
+
+body.dark-mode .close-modal-btn:hover {
+  background-color: #666;
+}
+
+/* Lista de comentários */
+.comment-list {
+  list-style: none;
+  padding: 16px 20px;
+  margin: 0;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.comment-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 0;
+}
+
+.comment-item:not(:last-child) {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+body.dark-mode .comment-item:not(:last-child) {
+  border-bottom-color: #3a3a3c;
+}
+
+.comment-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+  object-fit: cover;
+}
+
+/* Balão do comentário */
+.comment-body {
+  /* CORREÇÃO: Cor de fundo sólida para o balão do comentário */
+  background-color: #f1f2f6;
+  padding: 10px 14px;
+  border-radius: 18px;
+  width: 100%;
+}
+
+body.dark-mode .comment-body {
+  background-color: #3a3a3c;
+}
+
+.comment-author {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: inherit;
+  /* Herda a cor do texto do modal */
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.comment-author:hover {
+  text-decoration: underline;
+}
+
+.comment-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  /* CORREÇÃO: Cor de texto mais escura/clara para melhor leitura */
+  color: #333;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+body.dark-mode .comment-text {
+  color: #f0f0f0;
+}
+
+.comment-list-empty {
+  padding: 40px 20px;
+  text-align: center;
+  color: #888;
+}
+
+body.dark-mode .comment-list-empty {
+  color: #aaa;
+}
+
+/* Formulário para novo comentário */
+.comment-form {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-top: 1px solid #e0e0e0;
+  gap: 10px;
+}
+
+body.dark-mode .comment-form {
+  border-top-color: #444;
+}
+
+.comment-form input {
+  flex-grow: 1;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 22px;
+  font-size: 1rem;
+  /* CORREÇÃO: Cores sólidas para o campo de texto */
+  background-color: #f0f0f0;
+  color: #1a1a1a;
+}
+
+body.dark-mode .comment-form input {
+  background-color: #3a3a3c;
+  color: #fff;
+}
+
+.comment-form input:focus {
+  outline: 2px solid var(--primary-color);
+}
+
+.comment-form button {
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+/* =================================================== */
+/* CSS FINAL PARA O MODAL "VER MAIS" - SEGUINDO A PALETA */
+/* =================================================== */
+
+/* Fundo (Backdrop) - Sóbrio para destacar o modal */
+.ver-mais-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(5, 53, 54, 0.8);
+  /* Um tom escuro derivado da sua paleta */
+  z-index: 1010;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.ver-mais-modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Conteúdo do modal usando as cores do :root */
+.ver-mais-modal-content {
+  background-color: var(--card-bg);
+  /* --card-bg: #FFFFFF; */
+  color: var(--text-color);
+  /* --text-color: #0a4849; */
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+  border-radius: 8px;
+  /* Um leve arredondamento para suavizar */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  /* --card-border: #DDDDDD; */
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.ver-mais-modal-backdrop.active .ver-mais-modal-content {
+  transform: scale(1);
+}
+
+/* Cabeçalho de destaque com a cor do header */
+.ver-mais-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px;
+  background-color: var(--header-bg);
+  /* --header-bg: #85cbcb; */
+  color: var(--text-color);
+  /* --text-color: #0a4849; */
+  border-bottom: 2px solid var(--border-color);
+}
+
+.ver-mais-modal-header h4 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+/* Corpo do modal */
+.ver-mais-modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex-grow: 1;
+  background-color: var(--bg-color);
+  /* --bg-color: #daf3ed; */
+}
+
+.ver-mais-modal-image {
+  width: 100%;
+  height: auto;
+  max-height: 350px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 24px;
+}
+
+.ver-mais-modal-body p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-color);
+}
+
+/* Rodapé */
+.ver-mais-modal-footer {
+  padding: 16px 24px;
+  text-align: right;
+  background-color: var(--form-input-bg);
+  /* --form-input-bg: #e0f4f2; */
+  border-top: 1px solid var(--border-color);
+  /* --border-color: #85cbcb; */
+}
+
+/* Botão de fechar */
+.close-modal-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  opacity: 0.7;
+  padding: 0;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.close-modal-btn:hover {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+/* Botão "Ver mais" no card */
+.btn-ver-mais {
+  background-color: transparent;
+  color: var(--text-color);
+  border: 2px solid var(--header-bg);
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 50px;
+  /* Mais arredondado para um estilo moderno */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-top: 12px;
+  display: inline-block;
+}
+
+.btn-ver-mais:hover {
+  background-color: var(--header-bg);
+  color: #ffffff;
+}
+
+/* =================================================== */
+/* FORMATAÇÃO DO BOTÃO "VER FONTE OFICIAL" NO MODAL    */
+/* =================================================== */
+
+.ver-mais-modal-footer .btn-primary {
+  /* Aplicando o estilo "sólido" do hover do "Ver mais" */
+  background-color: var(--header-bg);
+  color: #ffffff;
+  border: 2px solid var(--header-bg);
+
+  /* Demais propriedades para consistência */
+  padding: 10px 22px;
+  /* Um pouco mais de padding para um botão principal */
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 50px;
+  text-decoration: none;
+  /* Remove o sublinhado padrão de links */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+}
+
+.ver-mais-modal-footer .btn-primary:hover {
+  background-color: var(--text-color);
+  border-color: var(--text-color);
+  transform: scale(1.05);
+  /* Efeito de crescimento sutil */
+}
+
+/* Ajuste para o Dark Mode */
+body.dark-mode .ver-mais-modal-footer .btn-primary {
+  color: var(--bg-color);
+  /* Texto claro no botão escuro */
+}
+
+body.dark-mode .ver-mais-modal-footer .btn-primary:hover {
+  background-color: var(--text-color);
+  border-color: var(--text-color);
+  color: var(--bg-color);
+}
+
+/* ==========================================================
+   ESTILO DA IMAGEM NO MODAL DE VISUALIZAÇÃO DO POST
+   ========================================================== */
+
+.ver-mais-modal-image {
+  width: 100%;
+  /* Garante que a imagem ocupe a largura do container */
+  max-height: 400px;
+  /* Define uma altura máxima para não ficar gigante */
+  object-fit: cover;
+  /* Garante que a imagem cubra a área sem distorcer */
+  display: block;
+  /* Remove espaços extras abaixo da imagem */
+  margin-bottom: 1.5rem;
+  /* Espaçamento entre a imagem e o texto abaixo */
+
+  /* EFEITOS SOLICITADOS */
+  border-radius: 12px;
+  /* Bordas arredondadas */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+  /* Efeito de elevação com sombra suave */
+  /* Estilo para o botão Salvar */
+  .interaction-item .btn-save {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    /* Cor do ícone */
+    cursor: pointer;
+    font-size: 1.2rem;
+    /* Tamanho do ícone */
+    padding: 5px;
+  }
+
+  .interaction-item .btn-save:hover {
+    color: #007bff;
+    /* Cor ao passar o mouse */
+  }
+
+  /* Estilo para quando um post já está salvo (opcional, requer JS para adicionar a classe 'saved') */
+  .interaction-item .btn-save.saved .fa-bookmark {
+    font-weight: 900;
+    /* Ícone preenchido (fas) */
+    color: #007bff;
+    /* Cor do ícone quando salvo */
+  }
+}
+
+/* Estilo para o botão Salvar */
+.interaction-item .btn-save {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  /* Cor do ícone */
+  cursor: pointer;
+  font-size: 1.2rem;
+  /* Tamanho do ícone */
+  padding: 5px;
+}
+
+.interaction-item .btn-save:hover {
+  color: #007bff;
+  /* Cor ao passar o mouse */
+}
+
+/* Estilo para quando um post já está salvo (opcional, requer JS para adicionar a classe 'saved') */
+.interaction-item .btn-save.saved .fa-bookmark {
+  font-weight: 900;
+  /* Ícone preenchido (fas) */
+  color: #007bff;
+  /* Cor do ícone quando salvo */
+}
+
+/* Estilo para o botão Salvar */
+.interaction-item .btn-save {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  /* Cor do ícone */
+  cursor: pointer;
+  font-size: 1.2rem;
+  /* Tamanho do ícone */
+  padding: 5px;
+}
+
+.interaction-item .btn-save:hover {
+  color: #007bff;
+  /* Cor ao passar o mouse */
+}
+
+/* Estilo para quando um post já está salvo (opcional, requer JS para adicionar a classe 'saved') */
+.interaction-item .btn-save.saved .fa-bookmark {
+  font-weight: 900;
+  /* Ícone preenchido (fas) */
+  color: #007bff;
+  /* Cor do ícone quando salvo */
+}

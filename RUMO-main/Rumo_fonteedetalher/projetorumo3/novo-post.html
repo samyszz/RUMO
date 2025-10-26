@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title data-i18n="novo_post.title">R.U.M.O - Nova Publicação</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/post-form.css">
+    <link rel="manifest" href="/manifest.json">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<header id="main-header">
+    <div class="container">
+        <a href="index.html"><img src="logo.png" alt="Logo R.U.M.O" class="logo"></a>
+
+   <nav id="main-nav">
+    
+    <ul>
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="hub.html" data-i18n="nav.hub">HUB</a></li>
+        <li><a href="utilitarios.html" data-i18n="nav.tools">Ultilidades</a></li>
+        <li><a href="sobre.html" data-i18n="nav.about">Sobre nós</a></li>
+        <li id="nav-profile-item" style="display: none;"><a href="perfil.html" class="create-account-btn" data-i18n="nav.profile">Meu Perfil</a></li>
+        <li id="nav-login-item"><a href="auth.html" class="create-account-btn" data-i18n="nav.create_account">Criar conta</a></li>
+    </ul>
+</nav>
+
+        <div class="header-right-icons">
+            <button id="accessibility-btn" class="accessibility-btn" aria-label="Abrir menu de acessibilidade">
+                <i class="fas fa-universal-access"></i>
+            </button>
+            <div class="header-lang-container" id="header-lang-container">
+                <button id="lang-dropdown-btn" class="lang-dropdown-btn" aria-label="Alterar idioma">
+                    <i class="fas fa-language"></i>
+                </button>
+                <div id="lang-dropdown-content" class="lang-dropdown-content" style="display: none;">
+                    <p data-i18n="header.lang.current">Idioma atual: <strong data-i18n="header.lang.pt_br">Português (Brasil)</strong></p>
+                    <form>
+                        <label for="language-select-header" data-i18n="header.lang.select">Selecione o idioma de sua preferência:</label>
+                        <select id="language-select-header"></select>
+                    </form>
+                </div>
+            </div>
+            <button id="theme-toggle-btn-desktop" class="theme-toggle-btn" aria-label="Alternar tema">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+            <a href="perfil.html" id="profile-bubble" class="profile-bubble" style="display: none;">
+                <img src="assets/imagens/avatar-padrao.png" alt="Foto de Perfil" id="profile-bubble-img">
+            </a>
+        </div>
+
+        <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu" aria-controls="main-nav" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+    <main class="form-page-container">
+        <div class="form-box">
+            <h1 data-i18n="novo_post.h1">Criar nova publicação</h1>
+            <p class="subtitle" data-i18n="novo_post.subtitle">Preencha os campos abaixo para compartilhar sua publicação com a comunidade.</p>
+
+            <form id="new-post-form">
+
+                <div class="form-group">
+                    <label for="post-title" data-i18n="novo_post.title_label">Título da Publicação</label>
+                    <input type="text" id="post-title" name="title" required placeholder="Ex: Vagas de emprego para refugiados..." data-i18n="novo_post.title_placeholder">
+                </div>
+
+                <div class="form-group">
+                    <label for="editor-container" data-i18n="novo_post.content_label">Conteúdo</label>
+                    <div id="editor-container"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="post-image" data-i18n="novo_post.image_label">URL da Imagem de Capa </label>
+                    <input type="url" id="post-image" name="image" placeholder="https://exemplo.com/imagem.png" data-i18n="novo_post.image_placeholder">
+                </div>
+
+                <div class="form-group">
+                    <label for="post-category" data-i18n="novo_post.category_label">Categoria</label>
+                    <select id="post-category" name="category" required>
+                        <option value="noticia" data-i18n="hub.filter.news">Notícia</option>
+                        <option value="ong" data-i18n="hub.filter.ong">ONG</option>
+                        <option value="governo" data-i18n="hub.filter.government">Órgão Federal</option>
+                        <option value="emprego" data-i18n="hub.filter.employment">+ Rumo para Empregados</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="post-sourceLink" data-i18n="novo_post.source_label">Link da Fonte Oficial </label>
+                    <input type="url" id="post-sourceLink" name="sourceLink" placeholder="https://exemplo.com/noticia" data-i18n="novo_post.source_placeholder">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" data-i18n="novo_post.publish">Publicar</button>
+                </div>
+
+            </form>
+        </div>
+    </main>
+  <img src="ondacima.png" class="ondacima" id="onda-cima">
+    <footer class="ondinha">
+        <img src="ondabaixo.png" class="ondabaixo" id="onda-baixo">
+    </footer>
+    <footer>
+        <div class="footer-container">
+            <img src="logo.png" alt="Logo R.U.M.O no rodapé" class="footer-logo">
+
+            <div class="footer-social">
+                <h4 data-i18n="footer.social.title">Redes Sociais</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+                    <a href="#"><i class="fab fa-linkedin fa-2x"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-contact">
+                <h4 data-i18n="footer.contact.title">Vamos conversar?</h4>
+                <form>
+                    <input type="email" name="email" placeholder="Seu e-mail@exemplo.com" data-i18n="footer.contact.email_placeholder" required>
+
+                    <div class="input-with-button">
+                        <input type="text" name="assunto" placeholder="Sobre o que quer falar?" data-i18n="footer.contact.subject_placeholder" required>
+                        <button type="submit" aria-label="Enviar"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
+<script src="js/firebase-config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/main-menu.js"></script>
+<script src="js/dark-mode.js"></script>
+<script src="js/auth-state.js"></script>
+<script src="js/novo-post.js"></script>
+
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+<style>
+    /* O script do VLibras cria um div com o ID #vlibras_plugin.
+       Este CSS força esse div a ter uma posição fixa no canto da tela.
+    */
+    #vlibras_plugin {
+        position: fixed !important; /* Define a posição como fixa */
+        bottom: 20px;               /* Distância do fundo (ajuste se necessário) */
+        right: 20px;                /* Distância da direita (ajuste se necessário) */
+        z-index: 9999;              /* Garante que fique acima de outros itens */
+    }
+</style>
+<script src="js/map-widget.js"></script>
+</body>
+</html>
