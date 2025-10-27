@@ -51,11 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Submissão do formulário
+    // Submissão do formulário (MODIFICADO PARA CLOUDINARY + ALERTS)
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         if (!currentUser) {
-            showNotification('Você precisa estar logado para editar o perfil.', true);
+            // CORREÇÃO: Trocado 'showNotification' por 'alert'
+            alert('Você precisa estar logado para editar o perfil.');
             return;
         }
 
@@ -63,17 +64,42 @@ document.addEventListener('DOMContentLoaded', () => {
         submitButton.disabled = true;
         submitButton.textContent = 'A salvar...';
 
+        // --- Configuração Cloudinary ---
+
+        // !!!!! ATENÇÃO !!!!!
+        // Substitua 'dssih4h24' pelo seu Cloud Name se estiver errado.
+        // Substitua 'SEU_UPLOAD_PRESET' pelo nome EXATO do seu preset "Unsigned".
+        const CLOUDINARY_CLOUD_NAME = 'dssih4h24'; 
+        const CLOUDINARY_UPLOAD_PRESET = 'rumo_preset'; 
+        const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
+
         try {
-            // ✅ CORREÇÃO: Inicia photoURL com o valor existente ou null.
             let photoURL = currentUserData.photoURL || null;
 
-            // 1. Se uma nova foto foi selecionada, faz o upload
+            // 1. Se uma nova foto foi selecionada, faz o upload para o Cloudinary
             if (newAvatarFile) {
-                // Adicionado referência ao Firebase Storage
-                const storage = firebase.storage();
-                const storageRef = storage.ref(`profile_pictures/${currentUser.uid}/${newAvatarFile.name}`);
-                const snapshot = await storageRef.put(newAvatarFile);
-                photoURL = await snapshot.ref.getDownloadURL();
+                
+                // Log de debug para verificar o preset
+                console.log(`A tentar upload para Cloudinary com preset: ${CLOUDINARY_UPLOAD_PRESET}`);
+
+                const formData = new FormData();
+                formData.append('file', newAvatarFile);
+                formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+                const response = await fetch(CLOUDINARY_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    photoURL = data.secure_url; 
+                } else {
+                    const errorData = await response.json();
+                    console.error('Erro ao fazer upload para o Cloudinary:', errorData);
+                    // O erro 400 (Bad Request) geralmente é um 'upload_preset' errado ou não 'unsigned'.
+                    throw new Error('Falha no upload da nova imagem. Verifique o console e o "upload_preset".');
+                }
             }
 
             // 2. Prepara os dados para atualizar no Firestore
@@ -82,23 +108,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 bio: bioTextarea.value,
                 objectives: objectivesTextarea.value,
                 contact: contactInput.value,
-                photoURL: photoURL // Agora, este valor será a nova URL ou a URL antiga (ou null)
+                photoURL: photoURL 
             };
 
-            // 3. Atualiza o documento do utilizador
+            // 3. Atualiza o documento do utilizador no Firestore
             const userDocRef = firebase.firestore().collection('users').doc(currentUser.uid);
             await userDocRef.update(updatedData);
 
-            showNotification('Perfil atualizado com sucesso!');
+            // CORREÇÃO: Trocado 'showNotification' por 'alert'
+            alert('Perfil atualizado com sucesso!');
             
-            // Redireciona para a página de perfil após um breve momento
             setTimeout(() => {
                 window.location.href = 'perfil.html';
             }, 1500);
 
         } catch (error) {
             console.error("Erro ao atualizar o perfil:", error);
-            showNotification('Erro ao atualizar o perfil. Tente novamente.', true);
+            // CORREÇÃO: Trocado 'showNotification' por 'alert'
+            alert(error.message || 'Erro ao atualizar o perfil. Tente novamente.');
+            
             submitButton.disabled = false;
             submitButton.textContent = 'Salvar Alterações';
         }

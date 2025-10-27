@@ -14,8 +14,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // Disponibiliza as ferramentas para acesso fácil em outros scripts
-const auth = firebase.auth();
-const db = firebase.firestore();
+var auth = firebase.auth();
+var db = firebase.firestore();
 
 /*
 Note: The export statement is not supported in non-module scripts.

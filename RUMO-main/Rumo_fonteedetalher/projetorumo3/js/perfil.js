@@ -10,10 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- FUNÇÕES ---
 
-    // Função para carregar posts do usuário (apenas se for PJ)
+    // Função para carregar posts do usuário (sem alterações)
     const loadUserPosts = async (userId) => {
         if (!userId || !userPostsContainer) return;
-        userPostsContainer.innerHTML = "A carregar publicações..."; // Feedback inicial
+        userPostsContainer.innerHTML = "A carregar publicações..."; 
 
         try {
             const postsRef = firebase.firestore().collection("posts");
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            userPostsContainer.innerHTML = ""; // Limpa a mensagem
+            userPostsContainer.innerHTML = ""; 
 
             querySnapshot.forEach((doc) => {
                 const post = doc.data();
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 userPostsContainer.appendChild(postElement);
             });
 
-             // Listeners para botões de editar/apagar
+             // Listeners (sem alterações)
              userPostsContainer.querySelectorAll('.btn-edit-post-profile').forEach(btn => {
                 btn.onclick = () => window.location.href = `novo-post.html?id=${btn.dataset.id}`;
             });
@@ -72,120 +72,126 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Função principal para carregar os dados do perfil
-    const loadUserProfile = async (user) => {
-        if (!user) return; // Sai se o objeto user for nulo
+    // --- INÍCIO DA MODIFICAÇÃO ---
 
-        const userDocRef = firebase.firestore().collection('users').doc(user.uid);
-        let userData = null; // Variável para guardar os dados do Firestore
+    // Função principal para *renderizar* os dados do perfil
+    // Esta função será chamada pelo listener sempre que os dados mudarem
+    const renderUserProfile = (user, userData) => {
+        
+        // --- 1. DEFINIR NOME ---
+        const firestoreName = userData?.nomeCompleto || userData?.nome;
+        const authName = user.displayName;
+        const displayName = firestoreName || authName || "Nome não definido";
+        if (profileName) profileName.textContent = displayName;
 
-        try {
-            const docSnap = await userDocRef.get();
-            if (docSnap.exists) {
-                userData = docSnap.data();
-            } else {
-                 console.warn("Documento do usuário não encontrado no Firestore. Usando dados do Auth como fallback.");
+        // --- 2. DEFINIR USERNAME ---
+        if (profileUsername) {
+            profileUsername.textContent = userData?.username ? `@${userData.username}` : "@indefinido";
+        }
+
+        // --- 3. DEFINIR FOTO DE PERFIL ---
+        // AGORA VAI ATUALIZAR EM TEMPO REAL
+         if (profilePicture) {
+            profilePicture.src = userData?.photoURL || user.photoURL || 'assets/imagens/avatar-padrao.png';
+        }
+
+        // --- 4. DEFINIR BIO ---
+        if (profileBio) {
+            profileBio.textContent = userData?.bio || 'Edite o seu perfil para adicionar uma biografia.';
+        }
+
+        // --- 5. DEFINIR TIPO DE PERFIL (UserType) ---
+        let userTypeText = "";
+        let badgeClass = "";
+        let showPosts = false;
+        let finalUserType = userData?.userType; 
+
+        // --- REGRA DE NEGÓCIO: Login social É SEMPRE PF ---
+        const isSocialLogin = user.providerData.some(provider => 
+            provider.providerId === 'google.com' || provider.providerId === 'facebook.com'
+        );
+
+        if (isSocialLogin) {
+            finalUserType = 'pf';
+            // Não precisa mais do console.log daqui
+        } 
+        
+        // Define o texto e a visibilidade dos posts
+        if (finalUserType === 'pf') {
+            userTypeText = 'Pessoa Física';
+            badgeClass = 'badge-pf';
+            showPosts = false;
+        } else if (finalUserType === 'pj') {
+            userTypeText = 'Pessoa Jurídica';
+            badgeClass = 'badge-pj';
+            showPosts = true;
+        } else {
+            userTypeText = 'Tipo Indefinido';
+            showPosts = false; 
+            console.warn("userType indefinido para o usuário:", user.uid);
+             if (!userData?.userType) {
+                // Define 'pf' como padrão no Firestore se não existir
+                const userDocRef = firebase.firestore().collection('users').doc(user.uid);
+                userDocRef.set({ userType: 'pf' }, { merge: true })
+                  .catch(err => console.error("Erro ao definir userType padrão:", err));
+             }
+        }
+
+        if (profileUserType) {
+            profileUserType.textContent = userTypeText;
+            profileUserType.className = `user-type-badge ${badgeClass}`;
+        }
+
+        // --- Controla a exibição da seção de Posts ---
+        if (myPostsSection) {
+            // Verifica se o estado mudou antes de recarregar os posts
+            const isCurrentlyShowing = myPostsSection.style.display === 'block';
+            if (showPosts && !isCurrentlyShowing) {
+                 myPostsSection.style.display = 'block';
+                 loadUserPosts(user.uid); // Passa o ID diretamente
+            } else if (!showPosts) {
+                 myPostsSection.style.display = 'none';
             }
-
-            // --- 1. DEFINIR NOME ---
-            // Prioridade: Firestore (nomeCompleto > nome) > Auth (displayName) > Fallback
-            const firestoreName = userData?.nomeCompleto || userData?.nome; // Usa optional chaining (?.)
-            const authName = user.displayName;
-            const displayName = firestoreName || authName || "Nome não definido";
-            if (profileName) profileName.textContent = displayName;
-
-            // --- 2. DEFINIR USERNAME ---
-            if (profileUsername) {
-                profileUsername.textContent = userData?.username ? `@${userData.username}` : "@indefinido";
-            }
-
-            // --- 3. DEFINIR FOTO DE PERFIL ---
-             if (profilePicture) {
-                profilePicture.src = userData?.profilePicture || user.photoURL || 'assets/imagens/avatar-padrao.png';
-            }
-
-            // --- 4. DEFINIR BIO ---
-            if (profileBio) {
-                profileBio.textContent = userData?.bio || 'Edite o seu perfil para adicionar uma biografia.';
-            }
-
-            // --- 5. DEFINIR TIPO DE PERFIL (UserType) ---
-            let userTypeText = "";
-            let badgeClass = "";
-            let showPosts = false;
-            let finalUserType = userData?.userType; // Pega do Firestore se existir
-
-            // --- REGRA DE NEGÓCIO: Login social É SEMPRE PF ---
-            // Verifica se o login foi feito por rede social (Google, Facebook, etc.)
-            const isSocialLogin = user.providerData.some(provider => 
-                provider.providerId === 'google.com' || provider.providerId === 'facebook.com'
-                // Adicione outros provedores sociais aqui se necessário (ex: 'twitter.com')
-            );
-
-            if (isSocialLogin) {
-                // Se for login social, FORÇA ser Pessoa Física, mesmo que o Firestore diga outra coisa
-                finalUserType = 'pf';
-                console.log("Login social detectado, forçando userType para 'pf'.");
-            } 
-            // Fim da regra de negócio
-
-            // Define o texto e a visibilidade dos posts baseado no 'finalUserType'
-            if (finalUserType === 'pf') {
-                userTypeText = 'Pessoa Física';
-                badgeClass = 'badge-pf';
-                showPosts = false;
-            } else if (finalUserType === 'pj') {
-                userTypeText = 'Pessoa Jurídica';
-                badgeClass = 'badge-pj';
-                showPosts = true;
-            } else {
-                // Se AINDA ASSIM for indefinido (nem Firestore, nem social)
-                userTypeText = 'Tipo Indefinido';
-                 // COMO MEDIDA DE SEGURANÇA: Se não sabe o tipo, não mostra posts
-                showPosts = false; 
-                console.warn("userType indefinido para o usuário:", user.uid);
-                 // Tenta atualizar o userType no Firestore para 'pf' como padrão de segurança
-                 if (!userData?.userType) { // Só atualiza se realmente não existir
-                    userDocRef.set({ userType: 'pf' }, { merge: true })
-                      .then(() => console.log("userType definido como 'pf' no Firestore por segurança."))
-                      .catch(err => console.error("Erro ao definir userType padrão:", err));
-                 }
-            }
-
-            if (profileUserType) {
-                profileUserType.textContent = userTypeText;
-                profileUserType.className = `user-type-badge ${badgeClass}`;
-            }
-
-            // --- Controla a exibição da seção de Posts ---
-            if (myPostsSection) {
-                myPostsSection.style.display = showPosts ? 'block' : 'none';
-                if (showPosts) {
-                    loadUserPosts(user.uid); // Passa o ID diretamente
-                }
-            }
-
-        } catch (error) {
-            console.error("Erro CRÍTICO ao carregar dados do perfil:", error);
-            if (profileName) profileName.textContent = "Erro ao carregar";
-            if (profileUserType) profileUserType.textContent = ""; // Limpa tipo em caso de erro
-            if (myPostsSection) myPostsSection.style.display = 'none'; // Esconde posts em caso de erro
         }
     };
 
-    // --- INICIALIZAÇÃO ---
+    // --- INICIALIZAÇÃO (MODIFICADA PARA USAR LISTENER) ---
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-            // Se o utilizador estiver logado, carrega o seu perfil
-            loadUserProfile(user);
+            // Se o utilizador estiver logado, "ouve" as alterações do perfil
+            const userDocRef = firebase.firestore().collection('users').doc(user.uid);
+            
+            // SUBSTITUÍMOS .get() POR .onSnapshot()
+            userDocRef.onSnapshot((docSnap) => {
+                let userData = null;
+                if (docSnap.exists) {
+                    userData = docSnap.data();
+                } else {
+                    console.warn("Documento do usuário não encontrado no Firestore. Usando dados do Auth como fallback.");
+                }
+                
+                // Renderiza o perfil com os dados (do cache ou do servidor)
+                // Isto será executado novamente quando os dados do servidor chegarem!
+                renderUserProfile(user, userData);
+
+            }, (error) => {
+                // Trata erros do listener
+                console.error("Erro CRÍTICO ao carregar dados do perfil:", error);
+                if (profileName) profileName.textContent = "Erro ao carregar";
+                if (profileUserType) profileUserType.textContent = ""; 
+                if (myPostsSection) myPostsSection.style.display = 'none';
+            });
+
         } else {
             // Se não, redireciona para a página de login
             console.log("Usuário não logado, redirecionando...");
-            window.location.href = 'auth.html'; // Redireciona para auth.html
+            window.location.href = 'auth.html'; 
         }
     });
+    // --- FIM DA MODIFICAÇÃO ---
 
-     // --- Logout (Exemplo) ---
+
+     // --- Logout (Exemplo - sem alterações) ---
      const logoutButton = document.getElementById('logout-button'); // Certifique-se que este ID existe
      if(logoutButton) {
          logoutButton.addEventListener('click', () => {

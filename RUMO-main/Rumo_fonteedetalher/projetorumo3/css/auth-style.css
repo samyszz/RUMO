@@ -377,3 +377,29 @@
     background-color: #f0faf9;
     color: #0a4849;
 }
+/* --- Responsividade para auth.html --- */
+@media (max-width: 768px) {
+  /* Garante que o body ocupe a tela toda */
+  body, html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* Impede scroll desnecessário */
+  }
+
+  .auth-container {
+    width: 100%;
+    min-height: 100vh; /* Altura total da tela */
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    display: flex; /* Usa flex para esticar o .auth-box */
+  }
+
+  .auth-box {
+    width: 100%;
+    border-radius: 0;
+    padding: 40px 20px; /* Reduz o padding lateral */
+    flex-grow: 1; /* Faz a caixa de auth ocupar todo o espaço */
+  }
+}

@@ -992,3 +992,33 @@ body.dark-mode .ver-mais-modal-footer .btn-primary:hover {
   color: #007bff;
   /* Cor do ícone quando salvo */
 }
+/* --- Responsividade para o Modal de Comentários --- */
+@media (max-width: 768px) {
+  .comment-modal-content {
+    width: 100vw; /* 100% da largura da tela */
+    height: 100vh; /* 100% da altura da tela */
+    max-width: none;
+    margin: 0;
+    border-radius: 0; /* Remove cantos arredondados */
+    top: 0;
+    left: 0;
+    transform: translate(0, 0); /* Reseta o posicionamento */
+    
+    /* Estrutura o modal para ter scroll interno */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .comment-list {
+    flex-grow: 1; /* Faz a lista de comentários crescer */
+    overflow-y: auto; /* Adiciona scroll APENAS na lista */
+  }
+
+  .comment-modal-header {
+    flex-shrink: 0; /* Impede que o header encolha */
+  }
+
+  .comment-form {
+    flex-shrink: 0; /* Impede que o form encolha */
+  }
+}
