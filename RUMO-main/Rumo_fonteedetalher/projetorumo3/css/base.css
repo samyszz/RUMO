@@ -846,7 +846,7 @@ footer h4 {
 
 .accessibility-btn {
   background: transparent;
-  border: none;
+ 
   color: var(--text-color);
   height: 42px;
   cursor: pointer;
@@ -856,25 +856,20 @@ footer h4 {
   justify-content: center;
   transition: all 0.3s ease;
   padding: 0 5px;
-  border-radius: 50%; /* Adicionado para o foco ficar redondo */
+  
 }
 
-/* Esta é a correção para o "contorno quadrado" (outline).
-  Isso cria um indicador de foco suave e acessível 
-  em vez do contorno pontilhado padrão.
-*/
-.accessibility-btn:focus-visible {
-  outline: 2px solid var(--cor-destaque, #007bff); /* Use a cor de destaque do seu site */
-  outline-offset: 3px;
-}
+/* ============================================= */
+/* CORREÇÃO DA BORDA DO BOTÃO DE ACESSIBILIDADE */
+/* ============================================= */
 
-/* Remove o foco se você não quiser (não recomendado) */
-/*
-.accessibility-btn:focus {
-  outline: none;
+/* Alvos: Botão do desktop E botão do menu mobile */
+#accessibility-btn,
+.mobile-accessibility-btn {
+  border: none !important; /* Remove a borda branca */
+  outline: none !important; /* Remove o foco (como pedido) */
+  box-shadow: none !important; /* Garante que não haja sombra */
 }
-*/
-
 
 /* --- LÓGICA RESPONSIVA PARA HEADER E FOOTER --- */
 

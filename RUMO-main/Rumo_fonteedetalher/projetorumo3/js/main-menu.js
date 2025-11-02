@@ -17,13 +17,16 @@ document.addEventListener('DOMContentLoaded', () => {
         trapFocus(true);
     }
 
-    function closeNav() {
-        if (!header) return;
-        header.classList.remove('nav-open');
-        if (hamburgerMenu) hamburgerMenu.setAttribute('aria-expanded', 'false');
-        if (mainMenu) mainMenu.setAttribute('aria-hidden', 'true');
-        trapFocus(false);
-    }
+  function closeNav() {
+    if (!header) return;
+    header.classList.remove('nav-open');
+    if (hamburgerMenu) hamburgerMenu.setAttribute('aria-expanded', 'false');
+
+    // CORREÇÃO: Move o foco para fora ANTES de esconder o menu
+    trapFocus(false); 
+
+    if (mainMenu) mainMenu.setAttribute('aria-hidden', 'true');
+}
 
     function toggleNav() {
         if (!header) return;
@@ -65,6 +68,7 @@ accBtn.addEventListener('click', (e) => {
     if (real) real.click();
     closeNav(); // <-- ADICIONE ESTA LINHA AQUI
 });
+
 li.appendChild(accBtn);
 
                 // Language button -> delegates to header language button
