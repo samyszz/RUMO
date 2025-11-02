@@ -16,20 +16,20 @@ class I18N {
   // Mapping from language codes to actual filenames in locales/
   getTranslationFileName(langCode) {
     const fileMap = {
-      'pt-brasil': 'brasil.json',
+      'pt-brasil': 'portugues.json',
       'pt-portugal': 'portugues.json',
       'pt-angola': 'portugues.json', // fallback to portugues.json
       'pt-mocambique': 'portugues.json', // fallback
       'pt-cabo-verde': 'portugues.json', // fallback
       'pt-guine-bissau': 'portugues.json', // fallback
       'pt-timor-leste': 'portugues.json', // fallback
-      'es-venezuela': 'venezuela.json',
-      'es-bolivia': 'espanhol.json', // fallback
-      'es-paraguai': 'espanhol.json', // fallback
-      'es-peru': 'espanhol.json', // fallback
-      'es-argentina': 'espanhol.json', // fallback
-      'es-colombia': 'espanhol.json', // fallback
-      'es-chile': 'espanhol.json', // fallback
+      'es-venezuela': 'espanhol.json',
+      'es-bolivia': 'espanhol.json',
+      'es-paraguai': 'espanhol.json',
+      'es-peru': 'espanhol.json',
+      'es-argentina': 'espanhol.json',
+      'es-colombia': 'espanhol.json',
+      'es-chile': 'espanhol.json',
       'en-nigeria': 'ingles.json',
       'en-ghana': 'ingles.json', // fallback
       'en-africa-do-sul': 'ingles.json', // fallback
@@ -53,7 +53,7 @@ class I18N {
       'qu-peru': 'quechua.json' // fallback
     };
 
-    return fileMap[langCode] || 'brasil.json'; // fallback to default
+    return fileMap[langCode] || 'portugues.json'; // fallback to default
   }
 
   async loadTranslations(langCode) {
