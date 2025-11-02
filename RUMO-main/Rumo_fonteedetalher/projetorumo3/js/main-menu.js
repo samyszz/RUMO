@@ -53,18 +53,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 li.id = 'mobile-header-controls';
                 li.className = 'mobile-header-icons bottom';
 
-                // Accessibility button -> triggers existing accessibility button
-                const accBtn = document.createElement('button');
-                accBtn.className = 'mobile-accessibility-btn';
-                accBtn.type = 'button';
-                accBtn.setAttribute('aria-label', 'Abrir menu de acessibilidade (mobile)');
-                accBtn.innerHTML = '<i class="fas fa-universal-access"></i>';
-                accBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const real = document.getElementById('accessibility-btn');
-                    if (real) real.click();
-                });
-                li.appendChild(accBtn);
+           // Accessibility button -> triggers existing accessibility button
+const accBtn = document.createElement('button');
+accBtn.className = 'mobile-accessibility-btn';
+accBtn.type = 'button';
+accBtn.setAttribute('aria-label', 'Abrir menu de acessibilidade (mobile)');
+accBtn.innerHTML = '<i class="fas fa-universal-access"></i>';
+accBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const real = document.getElementById('accessibility-btn');
+    if (real) real.click();
+    closeNav(); // <-- ADICIONE ESTA LINHA AQUI
+});
+li.appendChild(accBtn);
 
                 // Language button -> delegates to header language button
                 const langBtn = document.createElement('button');
