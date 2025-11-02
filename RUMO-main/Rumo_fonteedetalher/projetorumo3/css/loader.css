@@ -24,25 +24,3 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-/* --- Responsividade para Upload de Documentos ('novo-post.html') --- */
-@media (max-width: 768px) {
-
-  /* Ajusta a área de drop */
-  .document-upload-area {
-    padding: 20px;
-    min-height: 150px;
-  }
-
-  /* Faz a lista de previews ficar vertical */
-  .document-preview-list {
-    flex-direction: column; 
-    align-items: center; 
-  }
-
-  /* Faz cada item da lista ocupar 100% da largura */
-  .document-preview-item {
-    width: 100%; 
-    max-width: 350px; /* Limita para não ficar muito largo */
-    margin-bottom: 10px;
-  }
-}

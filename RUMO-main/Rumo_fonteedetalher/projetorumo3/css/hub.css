@@ -174,6 +174,7 @@
 
 /* --- GRID DO HUB --- */
 .hub-feed {
+  
   display: grid;
 
   gap: 30px;
@@ -184,7 +185,12 @@
 
   justify-items: center;
   /* garante que os cards fiquem no centro das colunas */
-}
+
+    /* --- ADICIONE ESTAS DUAS LINHAS AQUI --- */
+    position: relative;
+    z-index: 1;
+    /* ------------------------------------- */
+  }
 
 .info-card-wrapper {
   background-color: #8fcfcf;
@@ -346,10 +352,14 @@
     max-width: 400px;
   }
 
-  .hub-actions {
+ .hub-actions {
     gap: 8px; /* Reduz o espaçamento entre os itens */
     /* Garante que o container possa lidar com a barra de pesquisa crescendo */
     position: relative; 
+    
+    /* --- ADICIONE ESTA LINHA AQUI --- */
+    z-index: 2;
+    /* -------------------------------- */
   }
 
   .filter-container {

@@ -383,7 +383,7 @@
   body, html {
     height: 100%;
     width: 100%;
-    overflow: hidden; /* Impede scroll desnecessário */
+    /* overflow: hidden; */ /* REMOVIDO: Isso impedia o scroll do formulário quando o teclado aparecia */
   }
 
   .auth-container {
