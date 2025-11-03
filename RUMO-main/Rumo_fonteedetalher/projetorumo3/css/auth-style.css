@@ -1,6 +1,29 @@
 /* ============================================= */
 /* ESTILOS GERAIS (Baseado no seu CSS)           */
 /* ============================================= */
+/* ======== TELA CHEIA PARA PWA ======== */
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg, #85CBCB 0%, #B0DEE6 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* impede rolagem indesejada */
+}
+
+/* Garante que o container principal use toda a tela */
+body.fullscreen-auth {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
 .form-main {
     display: flex;
     justify-content: center;
