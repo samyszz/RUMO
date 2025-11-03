@@ -1,3 +1,5 @@
+
+
 // =============================================
 // LÓGICA DO MENU PRINCIPAL (HAMBURGUER)
 // =============================================
@@ -56,6 +58,106 @@ document.addEventListener('DOMContentLoaded', () => {
                 li.id = 'mobile-header-controls';
                 li.className = 'mobile-header-icons bottom';
 
+
+// ================================
+// Mobile language panel (inline)
+// ================================
+(function createMobileLanguagePanel() {
+    try {
+        const mainMenu = document.getElementById('main-nav');
+        if (!mainMenu) return;
+        if (document.getElementById('mobile-lang-panel')) return;
+
+        const panel = document.createElement('div');
+        panel.id = 'mobile-lang-panel';
+        panel.className = 'mobile-lang-panel';
+        panel.innerHTML = `
+            <div class="mobile-lang-header">
+                <button class="mobile-lang-back-btn" aria-label="Voltar">&larr;</button>
+                <h3>Idioma</h3>
+            </div>
+            <div class="mobile-lang-content">
+                <p>Selecione um idioma e variante regional:</p>
+                <label for="mobile-language-select">Idioma</label>
+                <select id="mobile-language-select" class="mobile-lang-select" aria-label="Selecione idioma"></select>
+                <div class="mobile-lang-actions">
+                    <button id="mobile-lang-save" class="btn-save">Salvar</button>
+                    <button id="mobile-lang-cancel" class="btn-cancel">Cancelar</button>
+                </div>
+            </div>
+        `;
+        mainMenu.appendChild(panel);
+
+        // Clona o dropdown existente do header (com idiomas e países)
+        const headerSelect = document.querySelector('#language-select-header');
+        const mobileSelect = panel.querySelector('#mobile-language-select');
+
+        if (headerSelect && headerSelect.options.length) {
+            Array.from(headerSelect.children).forEach(child => {
+                mobileSelect.appendChild(child.cloneNode(true));
+            });
+            mobileSelect.value = headerSelect.value || localStorage.getItem('language') || '';
+        } else {
+            console.warn('Nenhum dropdown de idioma encontrado no header.');
+        }
+
+        // Elementos
+        const backBtn = panel.querySelector('.mobile-lang-back-btn');
+        const saveBtn = panel.querySelector('#mobile-lang-save');
+        const cancelBtn = panel.querySelector('#mobile-lang-cancel');
+
+        function openPanel() {
+            panel.classList.add('open');
+            mainMenu.classList.add('mobile-lang-active');
+            setTimeout(() => mobileSelect.focus(), 100);
+        }
+        function closePanel() {
+            panel.classList.remove('open');
+            mainMenu.classList.remove('mobile-lang-active');
+        }
+
+        // Abertura via botão mobile
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.mobile-lang-btn');
+            if (btn) {
+                e.preventDefault();
+                openPanel();
+            }
+        });
+
+        backBtn.addEventListener('click', (e) => { e.preventDefault(); closePanel(); });
+        cancelBtn.addEventListener('click', (e) => { e.preventDefault(); closePanel(); });
+
+        saveBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const value = mobileSelect.value;
+            if (typeof setLanguage === 'function') {
+                setLanguage(value);
+            } else {
+                localStorage.setItem('language', value);
+                document.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: value } }));
+            }
+            closePanel();
+            // Fecha menu hamburguer junto
+            const header = document.getElementById('main-header');
+            if (header && header.classList.contains('nav-open')) {
+                header.classList.remove('nav-open');
+                const hamburger = document.getElementById('hamburger-menu');
+                if (hamburger) hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && panel.classList.contains('open')) closePanel();
+        });
+
+    } catch (err) {
+        console.warn('createMobileLanguagePanel failed', err);
+    }
+})();
+
+
+                
            // Accessibility button -> triggers existing accessibility button
 const accBtn = document.createElement('button');
 accBtn.className = 'mobile-accessibility-btn';
@@ -112,6 +214,7 @@ li.appendChild(accBtn);
                 console.warn('syncHeaderControlsToMenu failed', err);
             }
         })();
+        
 
         // Close when clicking outside the nav (on small screens)
         document.addEventListener('click', (e) => {
@@ -366,4 +469,147 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// ================================
+// Mobile language panel (inline)
+// ================================
+(function createMobileLanguagePanel() {
+    try {
+        const mainMenu = document.getElementById('main-nav');
+        if (!mainMenu) return;
+        // evita recriar
+        if (document.getElementById('mobile-lang-panel')) return;
 
+        // cria o painel
+        const panel = document.createElement('div');
+        panel.id = 'mobile-lang-panel';
+        panel.className = 'mobile-lang-panel';
+        panel.style.background = 'rgba(133, 203, 203, 0.9)'; // fundo atualizado
+
+        panel.innerHTML = `
+            <div class="mobile-lang-header">
+                <button class="mobile-lang-back-btn" aria-label="Voltar">&larr;</button>
+                <h3>Idioma</h3>
+            </div>
+            <div class="mobile-lang-content">
+                <p>Selecione um idioma e variante regional:</p>
+                <label for="mobile-language-select">Idioma</label>
+                <select id="mobile-language-select" class="mobile-lang-select" aria-label="Selecione idioma"></select>
+                <div style="display:flex;gap:8px;margin-top:12px;justify-content:center;">
+                    <button id="mobile-lang-save" class="btn-save" aria-label="Salvar idioma">Salvar</button>
+                    <button id="mobile-lang-cancel" class="btn-cancel" aria-label="Cancelar">Cancelar</button>
+                </div>
+            </div>
+        `;
+        mainMenu.appendChild(panel);
+
+        const mobileSelect = panel.querySelector('#mobile-language-select');
+
+        // ======== 🔁 Aguarda o header carregar idiomas ========
+        function cloneHeaderLanguages() {
+            const headerSelect = document.querySelector('#language-select-header');
+            if (headerSelect && headerSelect.options.length > 1) {
+                mobileSelect.innerHTML = '';
+                Array.from(headerSelect.children).forEach(child => {
+                    mobileSelect.appendChild(child.cloneNode(true));
+                });
+                mobileSelect.value = headerSelect.value || localStorage.getItem('language') || '';
+                console.log('Idiomas carregados no painel mobile ✅');
+            } else {
+                // tenta novamente até o header estar pronto
+                setTimeout(cloneHeaderLanguages, 250);
+            }
+        }
+        cloneHeaderLanguages();
+        // ======================================================
+
+        // Botões e handlers
+        const backBtn = panel.querySelector('.mobile-lang-back-btn');
+        const saveBtn = panel.querySelector('#mobile-lang-save');
+        const cancelBtn = panel.querySelector('#mobile-lang-cancel');
+
+        // aplica o estilo dos botões
+        [saveBtn, cancelBtn].forEach(btn => {
+            btn.style.backgroundColor = '#ade6ec';
+            btn.style.color = '#0a4849';
+            btn.style.fontWeight = '800';
+            btn.style.padding = '8px 20px';
+            btn.style.borderRadius = '20px';
+            btn.style.border = '3px solid #5a9a9a';
+            btn.style.cursor = 'pointer';
+        });
+
+        function openPanel() {
+            panel.classList.add('open');
+            mainMenu.classList.add('mobile-lang-active');
+            setTimeout(() => {
+                const s = panel.querySelector('#mobile-language-select');
+                if (s) s.focus();
+            }, 80);
+        }
+        function closePanel() {
+            panel.classList.remove('open');
+            mainMenu.classList.remove('mobile-lang-active');
+        }
+
+        // Abre via botão mobile
+        document.addEventListener('click', (e) => {
+            const target = e.target.closest && e.target.closest('.mobile-lang-btn');
+            if (target) {
+                e.preventDefault();
+                openPanel();
+            }
+        });
+
+        backBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            closePanel();
+        });
+
+        cancelBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            closePanel();
+        });
+
+        saveBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const sel = panel.querySelector('#mobile-language-select');
+            if (!sel) return;
+            const value = sel.value;
+            if (typeof setLanguage === 'function') {
+                setLanguage(value);
+            } else {
+                localStorage.setItem('language', value);
+                document.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: value } }));
+            }
+            closePanel();
+            // Fecha menu mobile também
+            const header = document.getElementById('main-header');
+            if (header && header.classList.contains('nav-open')) {
+                header.classList.remove('nav-open');
+                const hamburger = document.getElementById('hamburger-menu');
+                if (hamburger) hamburger.setAttribute('aria-expanded', 'false');
+                const mainNav = document.getElementById('main-nav');
+                if (mainNav) mainNav.setAttribute('aria-hidden', 'true');
+            }
+        });
+
+        // Fecha painel com ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && panel.classList.contains('open')) {
+                closePanel();
+            }
+        });
+
+        // sincroniza se o dropdown do header mudar
+        const desktopSelect = document.querySelector('#language-select-header');
+        if (desktopSelect) {
+            desktopSelect.addEventListener('change', () => {
+                const ms = document.querySelector('#mobile-language-select');
+                if (ms) ms.value = desktopSelect.value;
+            });
+        }
+
+    } catch (err) {
+        console.warn('createMobileLanguagePanel failed', err);
+    }
+})();

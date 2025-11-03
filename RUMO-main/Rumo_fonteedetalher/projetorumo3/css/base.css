@@ -1236,3 +1236,110 @@ body.dark-mode .phone-list li a:hover { background-color: rgba(255,255,255,0.08)
     right: 20px;
     z-index: 9999 !important; /* z-index alto para ficar sobre outros widgets */
 }
+
+/* ---------------------------
+   Painel de idioma (mobile)
+   --------------------------- */
+.mobile-lang-panel {
+  display: none;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 60px 30px 30px;
+  background: rgba(133, 203, 203, 0.9); /* fundo igual ao menu mobile */
+  position: absolute;
+  inset: 0 0 0 0;
+  z-index: 1002;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  backdrop-filter: blur(8px);
+  border-left: 1px solid rgba(255,255,255,0.2);
+}
+
+.mobile-lang-panel.open {
+  display: block;
+}
+
+/* Header do painel */
+.mobile-lang-panel .mobile-lang-header {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom: 20px;
+}
+.mobile-lang-panel .mobile-lang-back-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #0a4849;
+  transition: background-color 0.3s ease;
+}
+.mobile-lang-panel .mobile-lang-back-btn:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* Conteúdo */
+.mobile-lang-panel .mobile-lang-content {
+  display:flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mobile-lang-panel .mobile-lang-content p {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0a4849;
+  margin: 0;
+}
+
+.mobile-lang-panel .mobile-lang-content label {
+  font-weight:700;
+  font-size: 0.95rem;
+  color: #0a4849;
+}
+
+.mobile-lang-panel .mobile-lang-select {
+  width:100%;
+  padding:12px 14px;
+  border-radius:12px;
+  border:2px solid #5a9a9a;
+  background: #e0f4f2;
+  color: #0a4849;
+  font-family: 'Nunito-Black', sans-serif;
+  font-weight:700;
+  box-sizing:border-box;
+}
+
+/* Botões de ação */
+.mobile-lang-panel .btn-save,
+.mobile-lang-panel .btn-cancel {
+  background-color: #ade6ec !important;
+  color: #0a4849 !important;
+  font-weight: 800;
+  padding: 8px 20px !important;
+  border-radius: 20px;
+  border: 3px solid #5a9a9a !important;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.mobile-lang-panel .btn-save:hover,
+.mobile-lang-panel .btn-cancel:hover {
+  background-color: #bdf0f5 !important;
+  transform: scale(1.05);
+}
+
+/* Botões lado a lado */
+.mobile-lang-panel .mobile-lang-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+/* Esconde o menu principal enquanto o painel de idiomas está ativo */
+#main-nav.mobile-lang-active > ul {
+  display: none;
+}
