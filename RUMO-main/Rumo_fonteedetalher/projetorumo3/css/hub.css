@@ -376,7 +376,7 @@
     transition: all 0.3s ease, opacity 0.2s ease, visibility 0.2s ease;
   }
   
-  /* --- EFEITO DE FOCO NO TELEMÓVEL --- */
+/* --- EFEITO DE FOCO NO TELEMÓVEL --- */
 
   /* Quando a pesquisa está focada NO TELEMÓVEL */
   .hub-actions:focus-within .search-bar {
@@ -384,9 +384,8 @@
     max-width: 100%; /* Deixa expandir totalmente */
   }
 
-  /* ...esconde o botão "Nova Publicação" e o Filtro */
-  .hub-actions:focus-within .btn-new-post,
-  .hub-actions:focus-within .filter-container {
+  /* ...esconde APENAS o botão "Nova Publicação" */
+  .hub-actions:focus-within .btn-new-post {
     opacity: 0;
     visibility: hidden;
     flex-shrink: 1;
@@ -413,7 +412,6 @@
     padding-right: 12px;
     font-size: 0.85rem;
 }
-
 /* ============================================= */
 /* CSS PARA INTERAÇÕES (CURTIR/COMENTAR) NOS POSTS */
 /* ============================================= */
