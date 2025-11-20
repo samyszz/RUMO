@@ -25,6 +25,10 @@
     transition: all 0.3s ease;
     /* Transição suave para interações */
 }
+body.dark-mode .profile-main,
+.profile-usuario-main {
+    color: white;
+}
 
 .profile-main:hover,
 .profile-usuario-main:hover {
@@ -77,6 +81,10 @@
     color: var(--primary-color, #2c3e50);
 }
 
+body.dark-mode .profile-name, .profile-usuario-name {
+    color: white;
+}
+
 .profile-username,
 .profile-usuario-username {
     font-size: 1.2rem;
@@ -84,6 +92,10 @@
     margin-top: 5px;
 }
 
+body.dark-mode .profile-username,
+.profile-usuario-username{
+    color:#c1daeb;
+}
 .user-type-badge,
 .profile-usuario-type-badge {
     display: inline-block;
@@ -187,6 +199,10 @@
     margin-bottom: 10px;
     color: var(--primary-color, #2c3e50);
 }
+body.dark-mode .profile-section h3,
+.profile-usuario-section h3{
+    color:#c7e2f5;
+}
 
 .profile-bio,
 .profile-usuario-bio {
@@ -231,6 +247,10 @@
     font-weight: 700;
     font-size: 1rem;
     color: var(--primary-color, #2c3e50);
+}
+
+body.dark-mode .user-name {
+    color: white;
 }
 
 /* Botões de seguir e mensagem */

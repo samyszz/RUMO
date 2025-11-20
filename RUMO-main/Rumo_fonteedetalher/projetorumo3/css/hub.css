@@ -66,6 +66,23 @@
   margin-left: 8px;
 }
 
+
+body.dark-mode .hub-actions .search-bar {
+  background-color: #033049;
+  color: #b3d0eb;
+  border:2px solid #b4d2f1;
+}
+
+body.dark-mode .search-bar input {
+  color: #c9e2ee;
+
+}
+body.dark-mode .hub-actions{
+  background-color: #02222b;
+   border: 2px solid #b4d2f1;
+}
+
+
 /* --- AJUSTE NO TAMANHO DO BOTÃO NOVA PUBLICAÇÃO --- */
 .btn-new-post {
   display: inline-flex;
@@ -89,6 +106,19 @@
   background-color: #655a94;
 }
 
+body.dark-mode .btn-new-post{
+  background-color: #02222b;
+   color: #b3d0eb;
+  border:2px solid #b4d2f1;
+}
+
+body.dark-mode .btn-new-post:hover{
+  background-color: #0c5466;
+   color: #f8fbfd;
+    border:2px solid #c7dcf1;
+}
+
+
 /* --- ESTILOS PARA O SISTEMA DE FILTRO --- */
 .filter-container {
   position: relative;
@@ -97,7 +127,7 @@
 }
 
 .filter-btn {
-  background-color: #fff;
+  background-color: #c5deee;
   border: 2px solid #739d9f;
   color: #0a4849;
   padding: 8px 12px;
@@ -108,8 +138,21 @@
 }
 
 .filter-btn:hover {
-  background-color: #e8e8e8;
+  background-color: #c7edf7;
 }
+
+body.dark-mode .filter-btn{
+  background-color: #02222b;
+  color: white;
+   border: 2px solid #c3e9eb;
+}
+
+body.dark-mode .filter-btn:hover {
+  background-color: #0e4657;
+  color: white;
+   border: 2px solid #ddf3fd;
+}
+
 
 .filter-dropdown {
   display: none;
@@ -123,6 +166,11 @@
   z-index: 10;
   width: 220px;
   overflow: hidden;
+}
+
+body.dark-mode .filter-dropdown{
+  background-color: #02222b;
+  color:white;
 }
 
 .filter-dropdown.active {
@@ -141,6 +189,14 @@
 
 .filter-option:hover {
   background-color: #f0f8f7;
+}
+
+body.dark-mode .filter-option{
+  color:white;
+}
+body.dark-mode .filter-option:hover {
+  color:white;
+  background-color: #033049;
 }
 
 /* --- ESTILO PARA O CARD DE EMPREGOS --- */
@@ -174,7 +230,6 @@
 
 /* --- GRID DO HUB --- */
 .hub-feed {
-  
   display: grid;
 
   gap: 30px;
@@ -185,12 +240,7 @@
 
   justify-items: center;
   /* garante que os cards fiquem no centro das colunas */
-
-    /* --- ADICIONE ESTAS DUAS LINHAS AQUI --- */
-    position: relative;
-    z-index: 1;
-    /* ------------------------------------- */
-  }
+}
 
 .info-card-wrapper {
   background-color: #8fcfcf;
@@ -202,6 +252,9 @@
   /* Adicionado para garantir altura consistente */
   flex-direction: column;
   /* Adicionado para garantir altura consistente */
+}
+body.dark-mode .info-card-wrapper{
+  background-color: #02222b;
 }
 
 .info-card {
@@ -215,6 +268,10 @@
   box-sizing: border-box;
   flex-grow: 1;
   /* Faz o card interno crescer */
+}
+body.dark-mode .info-card{
+  background-color:rgba(5, 53, 54, 0.8);
+  color: #e5feff;
 }
 
 .info-card-header {
@@ -263,12 +320,24 @@
   transition: background-color 0.3s;
   margin-top: auto;
   align-self: flex-start;
-  background-color: #307676;
+  background-color: #1a5c5c;
 }
 
 .btn-source:hover {
   background-color: #0a4849;
 }
+
+body.dark-mode.btn-source{ 
+  background-color: #02222b;
+  color:white;
+
+}
+
+body.dark-mode.btn-source:hover{
+  background-color: #083441;
+  color:#d4dbff;
+}
+
 
 /* --- Estilos para os botões de Ações do Post (Editar/Apagar) --- */
 
@@ -352,14 +421,10 @@
     max-width: 400px;
   }
 
- .hub-actions {
+  .hub-actions {
     gap: 8px; /* Reduz o espaçamento entre os itens */
     /* Garante que o container possa lidar com a barra de pesquisa crescendo */
     position: relative; 
-    
-    /* --- ADICIONE ESTA LINHA AQUI --- */
-    z-index: 2;
-    /* -------------------------------- */
   }
 
   .filter-container {
@@ -376,7 +441,7 @@
     transition: all 0.3s ease, opacity 0.2s ease, visibility 0.2s ease;
   }
   
-/* --- EFEITO DE FOCO NO TELEMÓVEL --- */
+  /* --- EFEITO DE FOCO NO TELEMÓVEL --- */
 
   /* Quando a pesquisa está focada NO TELEMÓVEL */
   .hub-actions:focus-within .search-bar {
@@ -384,8 +449,9 @@
     max-width: 100%; /* Deixa expandir totalmente */
   }
 
-  /* ...esconde APENAS o botão "Nova Publicação" */
-  .hub-actions:focus-within .btn-new-post {
+  /* ...esconde o botão "Nova Publicação" e o Filtro */
+  .hub-actions:focus-within .btn-new-post,
+  .hub-actions:focus-within .filter-container {
     opacity: 0;
     visibility: hidden;
     flex-shrink: 1;
@@ -412,6 +478,7 @@
     padding-right: 12px;
     font-size: 0.85rem;
 }
+
 /* ============================================= */
 /* CSS PARA INTERAÇÕES (CURTIR/COMENTAR) NOS POSTS */
 /* ============================================= */
@@ -480,6 +547,7 @@
   color: var(--text-color-light);
 }
 
+body.dark-mode .like-count{ color: white}
 /* =================================================== */
 /* CSS CORRIGIDO PARA O MODAL DE COMENTÁRIOS (SEM TRANSPARÊNCIA) */
 /* =================================================== */
@@ -571,7 +639,7 @@ body.dark-mode .comment-modal-header {
   font-size: 1.5rem;
   line-height: 1;
   cursor: pointer;
-  color: #555;
+  color: #080808;
   /* Cor do X */
   display: flex;
   justify-content: center;
@@ -580,7 +648,11 @@ body.dark-mode .comment-modal-header {
 }
 
 body.dark-mode .close-modal-btn {
-  background-color: #555;
+  background-color: #084047;
+  color: #fff;
+}
+body.dark-mode .close-modal-btn:hover {
+  background-color: #0b515a;
   color: #fff;
 }
 
@@ -589,7 +661,7 @@ body.dark-mode .close-modal-btn {
 }
 
 body.dark-mode .close-modal-btn:hover {
-  background-color: #666;
+  background-color: #134461;
 }
 
 /* Lista de comentários */
@@ -669,8 +741,10 @@ body.dark-mode .comment-text {
 }
 
 body.dark-mode .comment-list-empty {
-  color: #aaa;
+  color: #d0cfd8;
 }
+
+
 
 /* Formulário para novo comentário */
 .comment-form {
@@ -682,7 +756,7 @@ body.dark-mode .comment-list-empty {
 }
 
 body.dark-mode .comment-form {
-  border-top-color: #444;
+  border-top-color: #1d4432;
 }
 
 .comment-form input {
@@ -696,10 +770,16 @@ body.dark-mode .comment-form {
   color: #1a1a1a;
 }
 
+
+
+
 body.dark-mode .comment-form input {
-  background-color: #3a3a3c;
+  background-color: #3a3c3b;
   color: #fff;
 }
+
+
+
 
 .comment-form input:focus {
   outline: 2px solid var(--primary-color);
@@ -732,6 +812,10 @@ body.dark-mode .comment-form input {
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
+body.darkmode .ver-mais-modal-backdrop{
+  background-color: #02222b;
+  color: white;
+}
 
 .ver-mais-modal-backdrop.active {
   opacity: 1;
@@ -757,6 +841,10 @@ body.dark-mode .comment-form input {
   /* --card-border: #DDDDDD; */
   transform: scale(0.95);
   transition: transform 0.3s ease;
+}
+
+.body.dark-mode .btn-ver-mais {
+  border: 2px solid white;
 }
 
 .ver-mais-modal-backdrop.active .ver-mais-modal-content {
@@ -792,7 +880,10 @@ body.dark-mode .comment-form input {
   background-color: var(--bg-color);
   /* --bg-color: #daf3ed; */
 }
-
+body.dark-mode .ver-mais-modal-header{
+  background-color: #02222b;
+  color: white;
+}
 .ver-mais-modal-image {
   width: 100%;
   height: auto;
@@ -816,6 +907,11 @@ body.dark-mode .comment-form input {
   /* --form-input-bg: #e0f4f2; */
   border-top: 1px solid var(--border-color);
   /* --border-color: #85cbcb; */
+}
+body.dark-mode .ver-mais-modal-footer{
+  background-color: #02222b;
+  color:white;
+
 }
 
 /* Botão de fechar */
@@ -860,6 +956,16 @@ body.dark-mode .comment-form input {
   background-color: var(--header-bg);
   color: #ffffff;
 }
+body.dark-mode .btn-ver-mais{
+  background-color: #02222b;
+  color:white
+}
+
+body.dark-mode .btn-ver-mais:hover{
+  background-color: #0e4646;
+  color:white;
+  border:  2px solid #c7ccec;
+}
 
 /* =================================================== */
 /* FORMATAÇÃO DO BOTÃO "VER FONTE OFICIAL" NO MODAL    */
@@ -881,8 +987,15 @@ body.dark-mode .comment-form input {
   /* Remove o sublinhado padrão de links */
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  display: inline-block;
+  display: 
+  inline-block;
 }
+body.dark-mode .ver-mais-modal-footer .btn-primary{
+  background-color: #02222b;
+  color: white;
+
+}
+
 
 .ver-mais-modal-footer .btn-primary:hover {
   background-color: var(--text-color);
@@ -891,17 +1004,36 @@ body.dark-mode .comment-form input {
   /* Efeito de crescimento sutil */
 }
 
+body.dark-mode .ver-mais-modal-footer .btn-primary:hover {
+  background-color: #02222b;
+  color: white;
+  border-color: white;
+}
+
+
+
+
 /* Ajuste para o Dark Mode */
 body.dark-mode .ver-mais-modal-footer .btn-primary {
-  color: var(--bg-color);
+  color: white;
+  border-color: white;
   /* Texto claro no botão escuro */
 }
 
 body.dark-mode .ver-mais-modal-footer .btn-primary:hover {
   background-color: var(--text-color);
-  border-color: var(--text-color);
+  border-color: #063846;
   color: var(--bg-color);
 }
+
+
+
+
+
+
+
+
+
 
 /* ==========================================================
    ESTILO DA IMAGEM NO MODAL DE VISUALIZAÇÃO DO POST
@@ -999,34 +1131,4 @@ body.dark-mode .ver-mais-modal-footer .btn-primary:hover {
   /* Ícone preenchido (fas) */
   color: #007bff;
   /* Cor do ícone quando salvo */
-}
-/* --- Responsividade para o Modal de Comentários --- */
-@media (max-width: 768px) {
-  .comment-modal-content {
-    width: 100vw; /* 100% da largura da tela */
-    height: 100vh; /* 100% da altura da tela */
-    max-width: none;
-    margin: 0;
-    border-radius: 0; /* Remove cantos arredondados */
-    top: 0;
-    left: 0;
-    transform: translate(0, 0); /* Reseta o posicionamento */
-    
-    /* Estrutura o modal para ter scroll interno */
-    display: flex;
-    flex-direction: column;
-  }
-
-  .comment-list {
-    flex-grow: 1; /* Faz a lista de comentários crescer */
-    overflow-y: auto; /* Adiciona scroll APENAS na lista */
-  }
-
-  .comment-modal-header {
-    flex-shrink: 0; /* Impede que o header encolha */
-  }
-
-  .comment-form {
-    flex-shrink: 0; /* Impede que o form encolha */
-  }
 }
