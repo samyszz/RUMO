@@ -1,17 +1,79 @@
 // --- Definição dos idiomas ---
-const languages = [
-    { code: 'pt-BR', name: 'Português (Brasil)' },
-    { code: 'en', name: 'English (Inglês)' },
-    { code: 'es', name: 'Español (Espanhol)' },
-    { code: 'fr', name: 'Français (Francês)' },
-    { code: 'ht', name: 'Kreyòl ayisyen (Crioulo Haitiano)' },
-    { code: 'ar', name: 'العربية (Árabe)' },
-    { code: 'zh', name: '中文 (Mandarim)' },
-    { code: 'ko', name: '한국어 (Coreano)' },
-    { code: 'ja', name: '日本語 (Japonês)' },
-    { code: 'gn', name: 'Avañe\'ẽ (Guarani)' },
-    { code: 'qu', name: 'Runa Simi (Quechua)' }
-];
+const languages = {
+        "Português": [
+            { name: "Brasil", flag: "\uD83C\uDDE7\uD83C\uDDF7" },       // 🇧🇷
+            { name: "Portugal", flag: "\uD83C\uDDF5\uD83C\uDDF9" },     // 🇵🇹
+            { name: "Angola", flag: "\uD83C\uDDE6\uD83C\uDDF4" },       // 🇦🇴
+            { name: "Moçambique", flag: "\uD83C\uDDF2\uD83C\uDDFF" },   // 🇲🇿
+            { name: "Cabo Verde", flag: "\uD83C\uDDE8\uD83C\uDDFB" },   // 🇨🇻
+            { name: "Guiné-Bissau", flag: "\uD83C\uDDEC\uD83C\uDDFC" }, // 🇬🇼
+            { name: "Timor-Leste", flag: "\uD83C\uDDF9\uD83C\uDDF1" }   // 🇹🇱
+        ],
+        "Espanhol": [
+            { name: "Espanha", flag: "\uD83C\uDDEA\uD83C\uDDF8" },      // 🇪🇸
+            { name: "Venezuela", flag: "\uD83C\uDDFB\uD83C\uDDEA" },    // 🇻🇪
+            { name: "Bolívia", flag: "\uD83C\uDDE7\uD83C\uDDF4" },      // 🇧🇴
+            { name: "Paraguai", flag: "\uD83C\uDDF5\uD83C\uDDFE" },     // 🇵🇾
+            { name: "Peru", flag: "\uD83C\uDDF5\uD83C\uDDEA" },         // 🇵🇪
+            { name: "Argentina", flag: "\uD83C\uDDE6\uD83C\uDDF7" },    // 🇦🇷
+            { name: "Colômbia", flag: "\uD83C\uDDE8\uD83C\uDDF4" },     // 🇨🇴
+            { name: "Chile", flag: "\uD83C\uDDE8\uD83C\uDDF1" }         // 🇨🇱
+        ],
+        "Inglês": [
+            { name: "Estados Unidos", flag: "\uD83C\uDDFA\uD83C\uDDF8" }, // 🇺🇸
+            { name: "Reino Unido", flag: "\uD83C\uDDEC\uD83C\uDDE7" },    // 🇬🇧
+            { name: "Nigéria", flag: "\uD83C\uDDF3\uD83C\uDDEC" },        // 🇳🇬
+            { name: "Gana", flag: "\uD83C\uDDEC\uD83C\uDDED" },           // 🇬🇭
+            { name: "África do Sul", flag: "\uD83C\uDDFF\uD83C\uDDE6" }   // 🇿🇦
+        ],
+        "Francês": [
+            { name: "França", flag: "\uD83C\uDDEB\uD83C\uDDF7" },         // 🇫🇷
+            { name: "Haiti", flag: "\uD83C\uDDED\uD83C\uDDF9" },          // 🇭🇹
+            { name: "RDC", flag: "\uD83C\uDDE8\uD83C\uDDE9" },            // 🇨🇩
+            { name: "Senegal", flag: "\uD83C\uDDF8\uD83C\uDDF3" },        // 🇸🇳
+            { name: "África Ocidental", flag: "\uD83C\uDF0D" }            // 🌍
+        ],
+        "Crioulo Haitiano": [
+            { name: "Haiti", flag: "\uD83C\uDDED\uD83C\uDDF9" }          // 🇭🇹
+        ],
+        "Árabe": [
+            { name: "Síria", flag: "\uD83C\uDDF8\uD83C\uDDFE" },          // 🇸🇾
+            { name: "Líbano", flag: "\uD83C\uDDF1\uD83C\uDDE7" },         // 🇱🇧
+            { name: "Palestina", flag: "\uD83C\uDDF5\uD83C\uDDF8" }       // 🇵🇸
+        ],
+        "Mandarim (Chinês)": [
+            { name: "China", flag: "\uD83C\uDDE8\uD83C\uDDF3" }           // 🇨🇳
+        ],
+        "Coreano": [
+            { name: "Coreia do Sul", flag: "\uD83C\uDDF0\uD83C\uDDF7" }   // 🇰🇷
+        ],
+        "Japonês": [
+            { name: "Japão", flag: "\uD83C\uDDEF\uD83C\uDDF5" }           // 🇯🇵
+        ],
+        "Guarani": [
+            { name: "Paraguai", flag: "\uD83C\uDDF5\uD83C\uDDFE" },       // 🇵🇾
+            { name: "Bolívia", flag: "\uD83C\uDDE7\uD83C\uDDF4" }         // 🇧🇴
+        ],
+        "Quéchua": [
+            { name: "Bolívia", flag: "\uD83C\uDDE7\uD83C\uDDF4" },        // 🇧🇴
+            { name: "Peru", flag: "\uD83C\uDDF5\uD83C\uDDEA" }            // 🇵🇪
+        ]
+    };
+
+    // Mapeamento de nomes de idiomas para códigos
+    const langCodeMap = {
+        "Português": "pt",
+        "Espanhol": "es",
+        "Inglês": "en",
+        "Francês": "fr",
+        "Crioulo Haitiano": "ht",
+        "Árabe": "ar",
+        "Mandarim (Chinês)": "zh",
+        "Coreano": "ko",
+        "Japonês": "ja",
+        "Guarani": "gn",
+        "Quéchua": "qu"
+    };
 
 function populateLanguageDropdown(selectElement) {
     if (!selectElement) return;
