@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let userMarker;
     let searchMarkers = [];
     let userCoords;
-    let routingControl = null; // <- ADICIONADO
 
     dropdownHeaders.forEach(header => {
         header.addEventListener('click', function () {
@@ -36,13 +35,6 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // --- INÍCIO DA SEÇÃO DO MAPA ---
     function initMap() {
-        // Verifica se L.Routing está carregado
-        if (typeof L.Routing === 'undefined') {
-            console.error("Leaflet Routing Machine não foi carregado.");
-            document.getElementById('map').innerHTML = "Erro ao carregar o componente de rota. Verifique os scripts.";
-            return;
-        }
-
         map = L.map('map').setView([0, 0], 2);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -61,7 +53,6 @@ document.addEventListener('DOMContentLoaded', function () {
             lng: position.coords.longitude
         };
         map.setView([userCoords.lat, userCoords.lng], 15);
-        if (userMarker) map.removeLayer(userMarker); // Evita marcadores duplicados
         userMarker = L.marker([userCoords.lat, userCoords.lng]).addTo(map)
             .bindPopup('<b>Você está aqui!</b>').openPopup();
         
@@ -96,135 +87,272 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('user-address').textContent = 'Não foi possível obter sua localização.';
     }
     
-    // --- LÓGICA DE BUSCA E ROTA (ATUALIZADA) ---
     const searchForm = document.getElementById('search-form-map');
     if(searchForm) {
         searchForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const query = document.getElementById('search-input-map').value;
             const resultsList = document.getElementById('search-results-list');
-            
-            if (!query) {
-                alert('Digite um termo de busca.');
+            if (!query || !userCoords) {
+                alert('Digite um termo de busca e permita o acesso à localização.');
                 return;
             }
-            if (!userCoords) {
-                alert('Aguarde até obtermos sua localização para buscar.');
-                return;
-            }
-
-            // Limpa busca anterior
             searchMarkers.forEach(marker => map.removeLayer(marker));
             searchMarkers = [];
-            if (routingControl) {
-                map.removeControl(routingControl);
-                routingControl = null;
-            }
-            resultsList.innerHTML = '<p style="padding: 10px; text-align: center;">Buscando...</p>';
-            
-            // Lógica de busca (como no map-widget.js)
+            resultsList.innerHTML = '';
             const viewbox = [userCoords.lng - 0.1, userCoords.lat + 0.1, userCoords.lng + 0.1, userCoords.lat - 0.1].join(',');
-            const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&viewbox=${viewbox}&bounded=1&limit=5&addressdetails=1`;
-            
+            const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&viewbox=${viewbox}&bounded=1&limit=10&addressdetails=1`;
             fetch(url).then(response => response.json()).then(data => {
                 if (data.length === 0) {
-                    resultsList.innerHTML = '<p style="padding: 10px;">Nenhum resultado encontrado perto de você.</p>';
+                    alert('Nenhum resultado encontrado perto de você.');
+                    resultsList.innerHTML = '<p style="padding: 10px;">Nenhum resultado encontrado.</p>';
                     return;
                 }
-                
-                resultsList.innerHTML = ''; // Limpa o "Buscando..."
-
                 data.forEach(place => {
-                    const placeName = place.address.amenity || place.address.shop || place.address.tourism || place.display_name.split(',')[0];
-                    
+                    const marker = L.marker([place.lat, place.lon]).addTo(map).bindPopup(`<b>${place.display_name}</b>`);
+                    searchMarkers.push(marker);
                     const listItem = document.createElement('div');
-                    listItem.className = 'result-item'; // Use a classe de estilo de 'utils.css'
+                    listItem.className = 'result-item';
+                    const placeName = place.address.amenity || place.address.shop || place.address.tourism || place.display_name.split(',')[0];
                     listItem.innerHTML = `<h5>${placeName}</h5><p>${place.display_name}</p>`;
-                    
-                    // ADICIONA O EVENTO DE CLIQUE PARA GERAR ROTA
                     listItem.addEventListener('click', () => {
-                        if (!userCoords) {
-                            alert('Sua localização ainda não foi encontrada.');
-                            return;
-                        }
-                        
-                        // Limpa controles de rota e marcadores antigos
-                        if (routingControl) {
-                            map.removeControl(routingControl);
-                        }
-                        searchMarkers.forEach(marker => map.removeLayer(marker));
-                        searchMarkers = [];
-                        resultsList.innerHTML = ''; // Limpa a lista de resultados
-
-                        // Cria a rota
-                        routingControl = L.Routing.control({
-                            waypoints: [
-                                L.latLng(userCoords.lat, userCoords.lng), 
-                                L.latLng(place.lat, place.lon)                      
-                            ],
-                            routeWhileDragging: false, 
-                            language: 'pt', // Define o idioma para português
-                            router: L.Routing.osrmv1({
-                                serviceUrl: 'https://router.project-osrm.org/route/v1'
-                            }),
-                            createMarker: function() { return null; }, // Não cria marcadores A e B
-                            show: true // Mostra o painel de instruções
-                        }).addTo(map);
-
-                        // Foca o mapa na rota
-                        map.fitBounds([
-                            [userCoords.lat, userCoords.lng],
-                            [place.lat, place.lon]
-                        ], { padding: [50, 50] });
+                        map.setView([place.lat, place.lon], 17);
+                        marker.openPopup();
                     });
-                    
                     resultsList.appendChild(listItem);
                 });
+                const group = new L.featureGroup(searchMarkers.concat(userMarker));
+                map.fitBounds(group.getBounds().pad(0.5));
             }).catch(error => {
                 console.error('Erro na busca de locais:', error);
-                resultsList.innerHTML = '<p style="padding: 10px; text-align: center;">Ocorreu um erro ao buscar.</p>';
+                alert('Ocorreu um erro ao buscar os locais.');
             });
         });
     }
     // --- FIM DA SEÇÃO DO MAPA ---
 
     // --- LÓGICA DO CONVERSOR DE MOEDA ---
-    const currencyForm = document.querySelector('.currency-content .converter-form');
-    if (currencyForm) {
-        const convertButton = currencyForm.querySelector('.btn-converter');
-        const fromCurrency = document.getElementById('from-currency');
-        const toCurrency = document.getElementById('to-currency');
-        const amountCurrency = document.getElementById('amount-currency');
-        const resultCurrencyBox = currencyForm.querySelector('.result-box span');
-        const rates = { 'USD': { 'BRL': 5.25, 'EUR': 0.92, 'USD': 1 }, 'EUR': { 'BRL': 5.70, 'USD': 1.08, 'EUR': 1 }, 'BRL': { 'USD': 0.19, 'EUR': 0.175, 'BRL': 1 } };
-        convertButton.addEventListener('click', () => {
+
+    const fromCurrency = document.getElementById('from-currency');
+    const toCurrency = document.getElementById('to-currency');
+    const amountCurrency = document.getElementById('amount-currency');
+    const convertButton = document.querySelector('.currency-content .btn-converter');
+    const resultCurrencyBox = document.querySelector('.currency-content .result-box span');
+    const updateInfoSpan = document.getElementById('currency-update-info');
+
+    // Função para buscar e calcular taxas segundo a base selecionada,
+    // usando a Frankfurter.app para BRL, USD e EUR (sem chave, grátis).
+    async function fetchRates(base) {
+        try {
+            if (base === "EUR") {
+                const res = await fetch("https://api.frankfurter.app/latest?from=EUR&to=USD,BRL");
+                const data = await res.json();
+                localStorage.setItem(`currencyRates_${base}`, JSON.stringify({ USD: data.rates.USD, BRL: data.rates.BRL, EUR: 1 }));
+                localStorage.setItem(`currencyUpdatedAt_${base}`, data.date || new Date().toISOString());
+                return { USD: data.rates.USD, BRL: data.rates.BRL, EUR: 1 };
+            } else if (base === "USD") {
+                const res = await fetch("https://api.frankfurter.app/latest?from=USD&to=EUR");
+                const data = await res.json();
+                const usdToEur = data.rates.EUR;
+                const res2 = await fetch("https://api.frankfurter.app/latest?from=EUR&to=BRL");
+                const data2 = await res2.json();
+                const eurToBrl = data2.rates.BRL;
+                localStorage.setItem(`currencyRates_${base}`, JSON.stringify({
+                    EUR: usdToEur,
+                    BRL: usdToEur * eurToBrl,
+                    USD: 1
+                }));
+                localStorage.setItem(`currencyUpdatedAt_${base}`, data2.date || new Date().toISOString());
+                return {
+                    EUR: usdToEur,
+                    BRL: usdToEur * eurToBrl,
+                    USD: 1
+                };
+            } else if (base === "BRL") {
+                const res = await fetch("https://api.frankfurter.app/latest?from=BRL&to=EUR");
+                const data = await res.json();
+                const brlToEur = data.rates.EUR;
+                const res2 = await fetch("https://api.frankfurter.app/latest?from=EUR&to=USD");
+                const data2 = await res2.json();
+                const eurToUsd = data2.rates.USD;
+                localStorage.setItem(`currencyRates_${base}`, JSON.stringify({
+                    EUR: brlToEur,
+                    USD: brlToEur * eurToUsd,
+                    BRL: 1
+                }));
+                localStorage.setItem(`currencyUpdatedAt_${base}`, data2.date || new Date().toISOString());
+                return {
+                    EUR: brlToEur,
+                    USD: brlToEur * eurToUsd,
+                    BRL: 1
+                };
+            }
+        } catch (err) {
+            console.error("Erro ao buscar taxas:", err);
+            return null;
+        }
+    }
+
+    function getRates(base) {
+        const saved = localStorage.getItem(`currencyRates_${base}`);
+        if (!saved || saved === "undefined") return null;
+        try {
+            return JSON.parse(saved);
+        } catch (e) {
+            console.error("Erro ao tentar parsear taxas:", saved, e);
+            return null;
+        }
+    }
+
+    function getUpdateDateFormatted(base) {
+        const dt = localStorage.getItem(`currencyUpdatedAt_${base}`);
+        if (!dt) return null;
+        let raw = dt.split('T')[0];
+        let parts = raw.split('-');
+        if (parts.length === 3) {
+            return `${parts[2]}/${parts[1]}/${parts[0]}`;
+        }
+        return new Date(dt).toLocaleDateString();
+    }
+
+    function showCurrencyUpdateInfo(base) {
+        const formattedDate = getUpdateDateFormatted(base);
+        if (updateInfoSpan) {
+            if (formattedDate) {
+                updateInfoSpan.textContent = `Valores atualizados no dia ${formattedDate}`;
+            } else {
+                updateInfoSpan.textContent = "Valores padrão: nunca atualizados";
+            }
+        }
+    }
+
+    async function refreshRatesIfOnline(base) {
+        if (navigator.onLine) {
+            await fetchRates(base);
+        }
+        showCurrencyUpdateInfo(base);
+    }
+
+    if (fromCurrency) {
+        refreshRatesIfOnline(fromCurrency.value);
+        fromCurrency.addEventListener('change', () => {
+            refreshRatesIfOnline(fromCurrency.value);
+        });
+    }
+
+    if (convertButton) {
+        convertButton.addEventListener('click', function () {
             const amount = parseFloat(amountCurrency.value);
             const from = fromCurrency.value;
             const to = toCurrency.value;
-            if (isNaN(amount) || amount <= 0) { resultCurrencyBox.textContent = `${to} 0.00`; return; }
-            const rate = rates[from][to];
-            const result = amount * rate;
-            resultCurrencyBox.textContent = `${to} ${result.toFixed(2)}`;
+            const rates = getRates(from);
+            if (!rates || !(to in rates) || isNaN(amount) || amount <= 0) {
+                resultCurrencyBox.textContent = `${to} 0.00`;
+                return;
+            }
+            const rate = rates[to];
+            resultCurrencyBox.textContent = `${to} ${(amount * rate).toFixed(2)}`;
+            showCurrencyUpdateInfo(from);
+        });
+    }
+
+    const currencyForm = document.querySelector('.currency-content .converter-form');
+    if (currencyForm) {
+        currencyForm.addEventListener('submit', function(e) {
+            e.preventDefault();
         });
     }
 
     // --- LÓGICA DO CONVERSOR DE MEDIDAS ---
+    const unitOptions = {
+        length: [
+            { label: 'Metro (m)', value: 'm' },
+            { label: 'Quilômetro (km)', value: 'km' },
+            { label: 'Centímetro (cm)', value: 'cm' },
+            { label: 'Milímetro (mm)', value: 'mm' }
+        ],
+        weight: [
+            { label: 'Quilograma (kg)', value: 'kg' },
+            { label: 'Grama (g)', value: 'g' },
+            { label: 'Miligrama (mg)', value: 'mg' },
+            { label: 'Tonelada (t)', value: 't' }
+        ],
+        temperature: [
+            { label: 'Celsius (°C)', value: 'C' },
+            { label: 'Fahrenheit (°F)', value: 'F' },
+            { label: 'Kelvin (K)', value: 'K' }
+        ]
+    };
+
+    const lengthFactors = { m: 1, km: 1000, cm: 0.01, mm: 0.001 };
+    const weightFactors = { kg: 1, g: 0.001, mg: 0.000001, t: 1000 };
+
+    function populateUnits(type) {
+        const fromUnitSelect = document.getElementById('from-unit');
+        const toUnitSelect = document.getElementById('to-unit');
+        if (!fromUnitSelect || !toUnitSelect) return;
+        fromUnitSelect.innerHTML = '';
+        toUnitSelect.innerHTML = '';
+        unitOptions[type].forEach(opt => {
+            const option1 = document.createElement('option');
+            option1.value = opt.value;
+            option1.textContent = opt.label;
+            fromUnitSelect.appendChild(option1);
+
+            const option2 = document.createElement('option');
+            option2.value = opt.value;
+            option2.textContent = opt.label;
+            toUnitSelect.appendChild(option2);
+        });
+    }
+
+    function convertUnits(type, amount, from, to) {
+        if (type === 'length') {
+            const valueInMeters = amount * lengthFactors[from];
+            return valueInMeters / lengthFactors[to];
+        }
+        if (type === 'weight') {
+            const valueInKg = amount * weightFactors[from];
+            return valueInKg / weightFactors[to];
+        }
+        if (type === 'temperature') {
+            let celsius;
+            if (from === 'C') celsius = amount;
+            else if (from === 'F') celsius = (amount - 32) * 5/9;
+            else if (from === 'K') celsius = amount - 273.15;
+            if (to === 'C') return celsius;
+            else if (to === 'F') return celsius * 9/5 + 32;
+            else if (to === 'K') return celsius + 273.15;
+        }
+        return null;
+    }
+
     const measureForm = document.querySelector('.measure-content .converter-form');
     if (measureForm) {
         const convertButton = measureForm.querySelector('.btn-converter');
         const amountMeasure = document.getElementById('amount-measure');
-        const fromUnitSelect = measureForm.querySelectorAll('.measure-selects select')[0];
-        const toUnitSelect = measureForm.querySelectorAll('.measure-selects select')[1];
+        const unitType = document.getElementById('unit-type');
         const resultMeasureBox = measureForm.querySelector('.result-box span');
-        const lengthFactors = { 'Metro (m)': 1, 'Quilômetro (km)': 1000, 'Centímetro (cm)': 0.01, 'Milímetro (mm)': 0.001 };
+        // Inicializa selects
+        populateUnits(unitType.value);
+
+        unitType.addEventListener('change', () => {
+            populateUnits(unitType.value);
+        });
+
         convertButton.addEventListener('click', () => {
+            const type = unitType.value;
             const amount = parseFloat(amountMeasure.value);
-            const fromUnit = fromUnitSelect.value;
-            const toUnit = toUnitSelect.value;
+            const fromUnit = document.getElementById('from-unit').value;
+            const toUnit = document.getElementById('to-unit').value;
             if (isNaN(amount)) { resultMeasureBox.textContent = '0'; return; }
-            const valueInMeters = amount * lengthFactors[fromUnit];
-            const result = valueInMeters / lengthFactors[toUnit];
-            resultMeasureBox.textContent = `${result.toFixed(2)} ${toUnit.split('(')[1].replace(')','')}`;
+            let result = convertUnits(type, amount, fromUnit, toUnit);
+            if (result === null || isNaN(result)) {
+                resultMeasureBox.textContent = 'Conversão inválida';
+            } else {
+                let unitLabel = unitOptions[type].find(u => u.value === toUnit)?.label || '';
+                resultMeasureBox.textContent = `${result.toFixed(2)} ${unitLabel.split('(')[1]?.replace(')', '') || unitLabel}`;
+            }
         });
     }
 

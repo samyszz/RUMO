@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/utils.css">
-    <link rel="manifest" href="manifest.json">
-   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
 </head>
@@ -81,41 +80,64 @@
                 </div>
             </div>
 
+            <!-- conversor de moedas -->
+
             <div class="tool-dropdown">
                 <button class="tool-header currency-header" data-i18n="utilitarios.currency.title">
-                    <i class="fas fa-dollar-sign"></i> Conversor de moeda
+                    <i class="fas fa-dollar-sign"></i> Conversor de Moedas
                 </button>
                 <div class="tool-content currency-content" style="display: none;">
                     <form class="converter-form">
                         <label for="from-currency" data-i18n="utilitarios.currency.from">De:</label>
-                        <select id="from-currency" name="from-currency"><option value="USD" data-i18n="utilitarios.currency.usd">Dólar Americano (USD)</option><option value="EUR" data-i18n="utilitarios.currency.eur">Euro (EUR)</option><option value="BRL" data-i18n="utilitarios.currency.brl">Real Brasileiro (BRL)</option></select>
+                        <select id="from-currency" name="from-currency">
+                            <option value="USD" data-i18n="utilitarios.currency.usd">Dólar Americano (USD)</option>
+                            <option value="EUR" data-i18n="utilitarios.currency.eur">Euro (EUR)</option>
+                            <option value="BRL" data-i18n="utilitarios.currency.brl">Real Brasileiro (BRL)</option>
+                        </select>
                         <label for="to-currency" data-i18n="utilitarios.currency.to">Para:</label>
-                        <select id="to-currency" name="to-currency"><option value="BRL" data-i18n="utilitarios.currency.brl">Real Brasileiro (BRL)</option><option value="USD" data-i18n="utilitarios.currency.usd">Dólar Americano (USD)</option><option value="EUR" data-i18n="utilitarios.currency.eur">Euro (EUR)</option></select>
+                        <select id="to-currency" name="to-currency">
+                            <option value="BRL" data-i18n="utilitarios.currency.brl">Real Brasileiro (BRL)</option>
+                            <option value="USD" data-i18n="utilitarios.currency.usd">Dólar Americano (USD)</option>
+                            <option value="EUR" data-i18n="utilitarios.currency.eur">Euro (EUR)</option>
+                        </select>
                         <label for="amount-currency" data-i18n="utilitarios.currency.amount_label">Digite o valor:</label>
                         <input type="number" id="amount-currency" placeholder="100,00" data-i18n="utilitarios.currency.amount_placeholder">
                         <button type="button" class="btn-converter" data-i18n="utilitarios.currency.convert">Converter</button>
-                        <div class="result-box"><strong data-i18n="utilitarios.currency.result_label">Resultado:</strong> <span>R$ 0,00</span></div>
+                        <div class="result-box">
+                            <strong data-i18n="utilitarios.currency.result_label">Resultado:</strong> 
+                            <span>R$ 0,00</span>
+                        </div>
+                        <div>
+                            <span id="currency-update-info" style="font-size:0.9em;color:#826414"></span>
+                        </div>
                     </form>
                 </div>
             </div>
+
+            <!-- conversor de unidades de medida -->
 
             <div class="tool-dropdown">
                 <button class="tool-header measure-header" data-i18n="utilitarios.measure.title">
                     <i class="fas fa-ruler-combined"></i> Conversor de medida
                 </button>
                 <div class="tool-content measure-content" style="display: none;">
-                     <form class="converter-form">
+                    <form class="converter-form">
                         <label for="unit-type" data-i18n="utilitarios.measure.unit_type_label">Selecione a unidade de medida:</label>
-                        <select id="unit-type"><option data-i18n="utilitarios.measure.length">Comprimento</option><option data-i18n="utilitarios.measure.weight">Peso</option><option data-i18n="utilitarios.measure.temperature">Temperatura</option></select>
+                        <select id="unit-type">
+                            <option value="length" data-i18n="utilitarios.measure.length">Comprimento</option>
+                            <option value="weight" data-i18n="utilitarios.measure.weight">Peso</option>
+                            <option value="temperature" data-i18n="utilitarios.measure.temperature">Temperatura</option>
+                        </select>
                         <label for="amount-measure" data-i18n="utilitarios.measure.amount_label">Digite o valor:</label>
                         <input type="number" id="amount-measure" placeholder="10" data-i18n="utilitarios.measure.amount_placeholder">
                         <div class="measure-selects">
-                            <select><option data-i18n="utilitarios.measure.meter">Metro (m)</option><option data-i18n="utilitarios.measure.km">Quilômetro (km)</option><option data-i18n="utilitarios.measure.cm">Centímetro (cm)</option><option data-i18n="utilitarios.measure.mm">Milímetro (mm)</option></select>
+                            <!-- Selects vazios para serem preenchidos pelo JS -->
+                            <select id="from-unit"></select>
                             <span data-i18n="utilitarios.measure.to">Para:</span>
-                            <select><option data-i18n="utilitarios.measure.cm">Centímetro (cm)</option><option data-i18n="utilitarios.measure.mm">Milímetro (mm)</option><option data-i18n="utilitarios.measure.meter">Metro (m)</option><option data-i18n="utilitarios.measure.km">Quilômetro (km)</option></select>
+                            <select id="to-unit"></select>
                         </div>
                         <button type="button" class="btn-converter" data-i18n="utilitarios.measure.convert">Converter</button>
-                         <div class="result-box"><strong data-i18n="utilitarios.measure.result_label">Resultado:</strong> <span>0</span></div>
+                        <div class="result-box"><strong data-i18n="utilitarios.measure.result_label">Resultado:</strong> <span>0</span></div>
                     </form>
                 </div>
             </div>
@@ -186,8 +208,6 @@
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
@@ -198,6 +218,7 @@
 <script src="js/utilitarios.js"></script>
 <script src="js/dark-mode.js"></script>
 <script src="js/auth-state.js"></script>
+<script src="js/loader.js"></script>
 
 <div vw class="enabled">
     <div vw-access-button class="active"></div>
@@ -209,7 +230,7 @@
 <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
 </script>
-<script src="https://cdn.userway.org/widget.js" data-account="UIgNDRCaqf"></script>
+
 
 </body>
 </html>
