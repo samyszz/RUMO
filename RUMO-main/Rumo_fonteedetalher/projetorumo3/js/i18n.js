@@ -1,29 +1,30 @@
-// Simple i18n implementation for testing
+// Sistema de Internacionalização (I18N) com Troca de Banner
 class I18N {
   constructor() {
     this.translations = {};
-    this.currentLang = 'pt-brasil'; // Default to Portuguese Brazil
+    // Tenta recuperar o idioma salvo no navegador ou usa o padrão
+    this.currentLang = localStorage.getItem('rumo_lang') || 'pt-brasil';
     this.init();
   }
 
   async init() {
-    // Load default translations
-    await this.loadTranslations('pt-brasil');
+    await this.loadTranslations(this.currentLang);
     this.applyTranslations();
-    this.updateBannerImage(this.currentLang); // <-- ADICIONADO: Define o banner no carregamento
+    this.updateDropdowns(); // Sincroniza os seletores visuais na tela
+    this.updateBannerImage(this.currentLang); // Define o banner inicial
   }
 
-  // Mapping from language codes to actual filenames in locales/
+  // Mapeamento de códigos de idioma para arquivos JSON reais
   getTranslationFileName(langCode) {
     const fileMap = {
-      'pt-brasil': 'portugues.json',
+      'pt-brasil': 'brasil.json',
       'pt-portugal': 'portugues.json',
-      'pt-angola': 'portugues.json', // fallback to portugues.json
-      'pt-mocambique': 'portugues.json', // fallback
-      'pt-cabo-verde': 'portugues.json', // fallback
-      'pt-guine-bissau': 'portugues.json', // fallback
-      'pt-timor-leste': 'portugues.json', // fallback
-      'es-venezuela': 'espanhol.json',
+      'pt-angola': 'portugues.json',
+      'pt-mocambique': 'portugues.json',
+      'pt-cabo-verde': 'portugues.json',
+      'pt-guine-bissau': 'portugues.json',
+      'pt-timor-leste': 'portugues.json',
+      'es-venezuela': 'venezuela.json',
       'es-bolivia': 'espanhol.json',
       'es-paraguai': 'espanhol.json',
       'es-peru': 'espanhol.json',
@@ -31,48 +32,74 @@ class I18N {
       'es-colombia': 'espanhol.json',
       'es-chile': 'espanhol.json',
       'en-nigeria': 'ingles.json',
-      'en-ghana': 'ingles.json', // fallback
-      'en-africa-do-sul': 'ingles.json', // fallback
-      'en-estados-unidos': 'ingles.json', // fallback
-      'en-reino-unido': 'ingles.json', // fallback
+      'en-ghana': 'ingles.json',
+      'en-africa-do-sul': 'ingles.json',
+      'en-estados-unidos': 'ingles.json',
+      'en-reino-unido': 'ingles.json',
       'fr-haiti': 'frances.json',
-      'fr-republica-democratica-do-congo': 'frances.json', // fallback
-      'fr-senegal': 'frances.json', // fallback
-      'fr-africa-ocidental': 'frances.json', // fallback
-      'fr-franca': 'frances.json', // fallback
+      'fr-republica-democratica-do-congo': 'frances.json',
+      'fr-senegal': 'frances.json',
+      'fr-africa-ocidental': 'frances.json',
+      'fr-franca': 'frances.json',
       'ht-haiti': 'crioulo-haitiano.json',
       'ar-siria': 'arabe.json',
-      'ar-libano': 'arabe.json', // fallback
-      'ar-palestina': 'arabe.json', // fallback
+      'ar-libano': 'arabe.json',
+      'ar-palestina': 'arabe.json',
       'zh-china': 'mandarim.json',
       'ko-coreia-do-sul': 'coreano.json',
       'ja-japao': 'japones.json',
       'gn-paraguai': 'guarani.json',
-      'gn-bolivia': 'guarani.json', // fallback
+      'gn-bolivia': 'guarani.json',
       'qu-bolivia': 'quechua.json',
-      'qu-peru': 'quechua.json' // fallback
+      'qu-peru': 'quechua.json'
     };
 
-    return fileMap[langCode] || 'portugues.json'; // fallback to default
+    // Se não achar o específico, tenta fallback ou retorna brasil.json
+    return fileMap[langCode] || 'brasil.json'; 
+  }
+
+  // Helper para obter bandeiras (Unicode) baseado no código
+  getFlag(langCode) {
+    if (langCode.includes('brasil')) return '🇧🇷';
+    if (langCode.includes('portugal')) return '🇵🇹';
+    if (langCode.includes('estados-unidos')) return '🇺🇸';
+    if (langCode.includes('reino-unido')) return '🇬🇧';
+    if (langCode.includes('espanha')) return '🇪🇸';
+    if (langCode.includes('argentina')) return '🇦🇷';
+    if (langCode.includes('franca')) return '🇫🇷';
+    if (langCode.includes('china')) return '🇨🇳';
+    if (langCode.includes('japao')) return '🇯🇵';
+    if (langCode.includes('coreia')) return '🇰🇷';
+    
+    // Fallbacks genéricos
+    if (langCode.startsWith('pt')) return '🇵🇹';
+    if (langCode.startsWith('en')) return '🇺🇸';
+    if (langCode.startsWith('es')) return '🇪🇸';
+    
+    return '🌐'; 
   }
 
   async loadTranslations(langCode) {
     try {
       const fileName = this.getTranslationFileName(langCode);
+      // Correção: uso de crases para template string
       const response = await fetch(`locales/${fileName}`);
       if (response.ok) {
         this.translations = await response.json();
-        console.log(`Loaded translations for ${langCode} from ${fileName}`);
+        
+        // Salva a preferência para a próxima visita
+        localStorage.setItem('rumo_lang', langCode);
+        
+        // Define o atributo lang no HTML para acessibilidade
+        document.documentElement.lang = langCode;
       } else {
-        console.warn(`Failed to load translations for ${langCode} from ${fileName}, falling back to default`);
-        // Try to load default translations
+        console.warn(`Falha ao carregar ${fileName}, usando fallback.`);
         if (langCode !== 'pt-brasil') {
           await this.loadTranslations('pt-brasil');
         }
       }
     } catch (error) {
-      console.warn('Error loading translations:', error);
-      // Try to load default translations
+      console.warn('Erro ao carregar traduções:', error);
       if (langCode !== 'pt-brasil') {
         await this.loadTranslations('pt-brasil');
       }
@@ -84,22 +111,29 @@ class I18N {
     elements.forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (this.translations[key]) {
-        el.textContent = this.translations[key];
+        // Aplica a tradução correta dependendo do tipo de elemento
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          el.placeholder = this.translations[key];
+        } else {
+          el.innerHTML = this.translations[key];
+        }
       }
     });
   }
 
+  updateDropdowns() {
+    // Mantém os selects visuais sincronizados com o estado interno
+    const dropdowns = document.querySelectorAll('select[id^="language-select"]');
+    dropdowns.forEach(select => {
+      if (select.querySelector(`option[value="${this.currentLang}"]`)) {
+        select.value = this.currentLang;
+      }
+    });
+  }
 
-
-  // ==========================================================
-  // ===== NOVA FUNÇÃO PARA ATUALIZAR O BANNER (INÍCIO) =====
-  // ==========================================================
+  // --- NOVA FUNÇÃO PARA TROCAR O BANNER ---
   updateBannerImage(langCode) {
-    
-    // *** CRIE SUAS IMAGENS E COLOQUE OS NOMES AQUI ***
-    // (Eu completei a lista baseado no seu i18n.js)
     const bannerImageMap = {
-      // Banners para Português (o padrão)
       'pt-brasil': 'banner3 (2).png',
       'pt-portugal': 'banner3 (2).png',
       'pt-angola': 'banner3 (2).png',
@@ -108,8 +142,7 @@ class I18N {
       'pt-guine-bissau': 'banner3 (2).png',
       'pt-timor-leste': 'banner3 (2).png',
 
-      // Banners para Espanhol
-      'es-venezuela': 'banner-espanhol.png', // <-- Crie este arquivo
+      'es-venezuela': 'banner-espanhol.png', 
       'es-bolivia': 'banner-espanhol.png',
       'es-paraguai': 'banner-espanhol.png',
       'es-peru': 'banner-espanhol.png',
@@ -117,79 +150,71 @@ class I18N {
       'es-colombia': 'banner-espanhol.png',
       'es-chile': 'banner-espanhol.png',
 
-      // Banners para Inglês
-      'en-nigeria': 'banner-ingles.png', // <-- Crie este arquivo
+      'en-nigeria': 'banner-ingles.png', 
       'en-ghana': 'banner-ingles.png',
       'en-africa-do-sul': 'banner-ingles.png',
       'en-estados-unidos': 'banner-ingles.png',
       'en-reino-unido': 'banner-ingles.png',
 
-      // Banners para Francês
-      'fr-haiti': 'banner-frances.png', // <-- Crie este arquivo
+      'fr-haiti': 'banner-frances.png', 
       'fr-republica-democratica-do-congo': 'banner-frances.png',
       'fr-senegal': 'banner-frances.png',
       'fr-africa-ocidental': 'banner-frances.png',
       'fr-franca': 'banner-frances.png',
 
-      // Banner para Crioulo Haitiano
-      'ht-haiti': 'banner-crioulo.png', // <-- Crie este arquivo
+      'ht-haiti': 'banner-crioulo.png', 
 
-      // Banners para Árabe
-      'ar-siria': 'banner-arabe.png', // <-- Crie este arquivo
+      'ar-siria': 'banner-arabe.png', 
       'ar-libano': 'banner-arabe.png',
       'ar-palestina': 'banner-arabe.png',
 
-      // Banner para Mandarim
-      'zh-china': 'banner-mandarim.png', // <-- Crie este arquivo
+      'zh-china': 'banner-mandarim.png', 
+      'ko-coreia-do-sul': 'banner-coreano.png', 
+      'ja-japao': 'banner-japones.png', 
 
-      // Banner para Coreano
-      'ko-coreia-do-sul': 'banner-coreano.png', // <-- Crie este arquivo
-
-      // Banner para Japonês
-      'ja-japao': 'banner-japones.png', // <-- Crie este arquivo
-
-      // Banners para Guarani
-      'gn-paraguai': 'banner-guarani.png', // <-- Crie este arquivo
+      'gn-paraguai': 'banner-guarani.png', 
       'gn-bolivia': 'banner-guarani.png',
 
-      // Banners para Quéchua
-      'qu-bolivia': 'banner-quechua.png', // <-- Crie este arquivo
+      'qu-bolivia': 'banner-quechua.png', 
       'qu-peru': 'banner-quechua.png'
     };
 
     // Pega o elemento da imagem do banner pelo ID
     const bannerImg = document.getElementById('main-banner-img');
 
-    // Verifica se a imagem existe nesta página (só existe na index.html)
+    // Verifica se a imagem existe nesta página
     if (!bannerImg) {
       return;
     }
 
-    // Define a nova imagem, ou usa o banner padrão (Português) se não encontrar um
+    // Define a nova imagem, ou usa o banner padrão se não encontrar
     const newImageSrc = bannerImageMap[langCode] || 'banner3 (2).png';
 
-    // Atualiza o 'src' (fonte) da imagem
+    // Atualiza o 'src'
     bannerImg.src = newImageSrc;
   }
-  // ==========================================================
-  // ===== NOVA FUNÇÃO PARA ATUALIZAR O BANNER (FIM) ======
-  // ==========================================================
 }
 
-// Global i18n instance
+// Inicializa a classe
 const i18n = new I18N();
 
-// Global setLanguage function for main-menu.js
+// --- FUNÇÃO GLOBAL PARA MUDANÇA DE IDIOMA ---
 window.setLanguage = (value) => {
   if (!value) return;
+  
   i18n.currentLang = value;
+  
   i18n.loadTranslations(value).then(() => {
     i18n.applyTranslations();
-    i18n.updateBannerImage(value); // <-- ADICIONADO: Troca o banner
+    i18n.updateDropdowns();
+    i18n.updateBannerImage(value); // Atualiza o banner aqui
+    
+    // Dispara evento para outros scripts (como o hub.js)
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: value }));
   });
 };
 
-// Initialize i18n
+// Inicialização básica
 document.addEventListener('DOMContentLoaded', () => {
-  // i18n is already initialized above
+  // O construtor do I18N já cuida da carga inicial
 });

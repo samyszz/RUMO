@@ -1,58 +1,231 @@
-html, body {
+/* ==========================================================================
+   1. VARIÁVEIS GLOBAIS, FONTES E RESET
+   ========================================================================== */
+@font-face {
+    font-family: 'Nunito-Black';
+    src: url('../assets/fonts/Nunito/static/Nunito-Black.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #daf3ed;
+    --header-bg: #85cbcb;
+    --text-color: #0a4849;
+    --card-bg: #FFFFFF;
+    --card-border: #DDDDDD;
+    --form-input-bg: #e0f4f2;
+    --form-input-border: #5a9a9a;
+    --border-color: #85cbcb;
+    --border-radius: 0px;
+}
+
+body.dark-mode {
+    --bg-color: #053536;
+    --header-bg: #0e3b3b;
+    --text-color: #cce5e2;
+    --card-bg: #2c4c4c;
+    --card-border: #4a6a6a;
+    --form-input-bg: #1e3b3b;
+    --form-input-border: #6a8a8a;
+    --border-color: #0e3b3b;
+    --border-radius: 0px;
+}
+
+/* ==========================================================================
+   2. ESTRUTURA DA PÁGINA (DESKTOP)
+   ========================================================================== */
+
+html {
+    font-family: 'Nunito-Black', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100%;
+}
+
+body {
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto; /* permite rolagem */
-    background: linear-gradient(180deg, #85CBCB 0%, #B0DEE6 100%);
-    -webkit-overflow-scrolling: touch; /* rolagem suave iOS */
-    display: flex;
-    flex-direction: column;
-}
-
-body.fullscreen-auth {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* conteúdo começa no topo */
-    align-items: center;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    position: relative;
+    z-index: 0;
+    
+    /* DESKTOP: Borda grossa ativa */
+    border: 21px solid var(--border-color);
+    border-radius: var(--border-radius);
+    
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
+/* Ondas Desktop */
+.ondacima {
+    display: block;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    z-index: -1;
+    pointer-events: none;
+}
 
+.ondabaixo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    z-index: -1;
+    pointer-events: none;
+}
 
-.form-main {
+/* Footer específico da onda (transparente e sem espaço) */
+footer.ondinha {
+    position: relative;
+    z-index: -1;
+    padding: 0;
+    height: 0;
+    background: transparent !important;
+}
+
+/* ==========================================================================
+   3. HEADER E FOOTER (CONTEÚDO)
+   ========================================================================== */
+header {
+    width: 100%;
+    background-color: var(--header-bg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo { width: 70px; height: auto; }
+
+header nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 16px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1002;
+    padding: 0;
+}
+
+.hamburger-menu span {
+    width: 2rem;
+    height: 0.25rem;
+    background: var(--text-color);
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+}
+
+/* Footer Geral */
+footer {
+    width: 100%;
+    background-color: var(--header-bg);
+    padding: 40px 0;
+    color: var(--text-color);
+    margin-top: auto;
+}
+
+.footer-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.footer-logo { width: 150px; height: auto; }
+.footer-contact form { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+.footer-contact input { width: 100%; padding: 12px 15px; border: 2px solid var(--form-input-border); border-radius: 12px; background-color: var(--form-input-bg); color: var(--text-color); font-family: 'Nunito-Black', sans-serif; }
+.footer-contact .input-with-button { position: relative; display: flex; width: 100%; }
+.footer-contact .input-with-button button { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background-color: #217473; border: none; border-radius: 10px; width: 38px; height: 38px; cursor: pointer; color: white; }
+
+/* ==========================================================================
+   4. CONTAINER DO FORMULÁRIO (DESKTOP)
+   ========================================================================== */
+
+main.form-main {
+    width: 100%;
+    flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 120px);
-    padding: 20px;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .container-wrapper {
     position: relative;
     width: 100%;
     max-width: 1000px;
-    min-height: 100%;
-    background: #fff;
+    min-height: 600px;
+    background: var(--card-bg);
     border-radius: 20px;
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
     overflow: hidden; 
+    border: 1px solid var(--card-border);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* ============================================= */
-/* PAINÉIS DE FORMULÁRIO (LOGIN E CADASTRO)      */
-/* ============================================= */
 .form-container {
     position: absolute;
     top: 0;
     height: 100%;
     width: 50%;
     transition: all 0.6s ease-in-out;
+    background-color: var(--card-bg);
 }
 
 .form-panel {
@@ -64,53 +237,23 @@ body.fullscreen-auth {
     align-items: center;
     padding: 0 40px;
     text-align: center;
+    overflow-y: auto;
 }
 
 .form-panel h2 {
     font-size: 2.2rem;
-    color: #0a4849;
+    color: var(--text-color);
     margin-bottom: 20px;
     font-weight: 900;
 }
 
-.form-group {
-    margin-bottom: 15px;
-    width: 100%;
-    position: relative;
-}
+/* Inputs */
+.form-group { margin-bottom: 15px; width: 100%; position: relative; }
+.form-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #5a9a9a; z-index: 1; }
+.form-group input, .form-group select { width: 100%; padding: 12px 15px 12px 45px; border-radius: 10px; border: 1px solid #cce5e2; background-color: var(--form-input-bg); font-size: 0.95rem; color: var(--text-color); transition: all 0.3s ease; box-sizing: border-box; }
+.form-group input:focus { border-color: #5a9a9a; outline: none; background-color: #ffffff; }
 
-.form-group i {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #5a9a9a;
-    transition: color 0.3s;
-}
-
-.form-group input:focus + i {
-    color: #137577;
-}
-
-.form-group input, .form-group select {
-    width: 100%;
-    padding: 12px 15px 12px 45px;
-    border-radius: 10px;
-    border: 1px solid #cce5e2;
-    background-color: #f0faf9;
-    font-size: 0.95rem;
-    color: #14312b;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-}
-
-.form-group input:focus, .form-group select:focus {
-    outline: none;
-    border-color: #5a9a9a;
-    background-color: #ffffff;
-    box-shadow: 0 0 0 3px rgba(90, 154, 154, 0.3);
-}
-
+/* Botões */
 .btn-submit {
     padding: 12px 45px;
     font-size: 1rem;
@@ -123,264 +266,36 @@ body.fullscreen-auth {
     transition: background-color 0.3s;
     margin-top: 10px;
 }
+.btn-submit:hover { background-color: #0e4a4b; }
 
-.btn-submit:hover {
-    background-color: #0e4a4b;
-}
+.forgot-password { margin-top: 15px; font-size: 0.9rem; }
+.forgot-password a { color: #0a4849; text-decoration: none; font-weight: 700; }
 
-.forgot-password {
-    margin-top: 15px;
-    font-size: 0.9rem;
-}
-
-.forgot-password a {
-    color: #0a4849;
-    text-decoration: none;
-    font-weight: 700;
-}
-
-.doc-tabs { display: flex; width: 100%; margin-bottom: 15px; background-color: #e0f4f2; border-radius: 8px; padding: 4px; }
-.tab-button { flex: 1; padding: 8px; border: none; background: none; cursor: pointer; font-weight: 700; color: #5B7D8A; border-radius: 6px; transition: all 0.2s ease-in-out; }
-.tab-button.active { background-color: #137577; color: #ffffff; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+/* Abas */
+.doc-tabs { display: flex; width: 100%; margin-bottom: 15px; background-color: var(--form-input-bg); border-radius: 8px; padding: 4px; }
+.tab-button { flex: 1; padding: 8px; border: none; background: none; cursor: pointer; font-weight: 700; color: #5B7D8A; border-radius: 6px; transition: all 0.2s; }
+.tab-button.active { background-color: #137577; color: #ffffff; }
 .tab-content { display: none; width: 100%; }
 .tab-content.active { display: block; }
 
-/* Posicionamento inicial (Desktop) */
+/* Posicionamento Inicial Desktop */
 .login-container { left: 0; z-index: 2; }
 .register-container { left: 0; opacity: 0; z-index: 1; }
 
 /* ============================================= */
-/* PAINEL DE SOBREPOSIÇÃO (OVERLAY) E ANIMAÇÃO   */
-/* ============================================= */
-.overlay-container {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 50%;
-    height: 100%;
-    overflow: hidden;
-    transition: transform 0.6s ease-in-out;
-    z-index: 100;
-}
-
-.overlay {
-    background: linear-gradient(135deg, #4FA3A5 0%, #85CBCB 50%, #B0DEE6 100%);
-    position: relative;
-    left: -100%;
-    height: 100%;
-    width: 200%;
-    transform: translateX(0);
-    transition: transform 0.6s ease-in-out;
-    color: #053536;
-}
-
-.overlay-panel {
-    position: absolute;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0 40px;
-    text-align: center;
-    transform: translateX(0);
-    transition: transform 0.6s ease-in-out;
-}
-
-.overlay-panel img { width: 110px; margin-bottom: 15px; }
-.overlay-panel h3 { font-size: 1.6rem; margin: 0 0 10px 0; font-weight: 900; }
-.overlay-panel p { font-size: 1rem; line-height: 1.4; margin-bottom: 20px; }
-.btn-overlay { padding: 12px 35px; border: 2px solid #053536; border-radius: 30px; background-color: transparent; color: #053536; font-size: 0.9rem; font-weight: 800; text-decoration: none; cursor: pointer; transition: background-color 0.2s, color 0.2s; }
-.btn-overlay:hover { background-color: #053536; color: #fff; }
-
-/* Posições Iniciais (Desktop) */
-.overlay-left { transform: translateX(-20%); }
-.overlay-right { right: 0; transform: translateX(0); }
-
-/* ============================================= */
-/* LÓGICA DA ANIMAÇÃO (DESKTOP)                  */
-/* ============================================= */
-
-/* Move o overlay para a esquerda */
-.container-wrapper.right-panel-active .overlay-container {
-    transform: translateX(-100%);
-}
-
-/* Move o login para a direita */
-.container-wrapper.right-panel-active .login-container {
-    transform: translateX(100%);
-    opacity: 0;
-    z-index: 1;
-}
-
-/* Traz o cadastro para a frente */
-.container-wrapper.right-panel-active .register-container {
-    transform: translateX(100%);
-    opacity: 1;
-    z-index: 5;
-    animation: show 0.6s;
-}
-
-@keyframes show {
-    0%, 49.99% { opacity: 0; z-index: 1; }
-    50%, 100% { opacity: 1; z-index: 5; }
-}
-
-/* Move a camada de overlay interna */
-.container-wrapper.right-panel-active .overlay {
-    transform: translateX(50%);
-}
-
-.container-wrapper.right-panel-active .overlay-left {
-    transform: translateX(0);
-}
-
-.container-wrapper.right-panel-active .overlay-right {
-    transform: translateX(20%);
-}
-
-/* ============================================= */
-/* RESPONSIVIDADE (MOBILE) - AJUSTADO PARA 70/30 */
-/* ============================================= */
-@media screen and (max-width: 920px) {
-    .form-main {
-        padding: 0;
-        align-items: flex-start;
-        min-height: 100vh;
-    }
-
-    .container-wrapper {
-        width: 100%;
-        max-width: 100%;
-        min-height: 100vh;
-        border-radius: 0;
-        box-shadow: none;
-    }
-    
-    /* 1. Formulários ocupam 70% do topo */
-    .form-container {
-        height: 70%; 
-        width: 100%;
-        transform: translateX(0) !important;
-    }
-    
-    .login-container {
-        top: 0; 
-    }
-    .register-container {
-        top: 0; 
-    }
-
-    .form-panel {
-        padding: 0 25px;
-        height: 100%;
-        box-sizing: border-box;
-        overflow-y: auto;
-    }
-    .form-panel h2 {
-        font-size: 1.8rem;
-        margin-bottom: 15px;
-    }
-
-    /* 2. Overlay ocupa 30% de baixo */
-    .overlay-container {
-        top: 70%; 
-        left: 0;
-        width: 100%;
-        height: 30%; 
-        transform: translateX(0) !important;
-    }
-
-    .overlay {
-        top: -100%; 
-        left: 0;
-        height: 200%;
-        width: 100%;
-        transform: translateY(0) translateX(0) !important;
-    }
-
-    /* 3. Ajustes de tamanho do CONTEÚDO do Overlay */
-    .overlay-panel {
-        height: 50%;
-        width: 100%;
-        transform: translateY(0) translateX(0) !important;
-        padding: 0 20px; /* Menos padding lateral */
-    }
-
-    .overlay-panel img {
-        width: 80px; /* MUDANÇA: Era 110px */
-        margin-bottom: 8px; /* MUDANÇA: Era 15px */
-    }
-
-    .overlay-panel h3 {
-        font-size: 1.2rem; /* MUDANÇA: Era 1.6rem */
-        margin: 0 0 5px 0; /* MUDANÇA: Era 10px */
-    }
-
-    .overlay-panel p {
-        font-size: 0.85rem; /* MUDANÇA: Era 1rem */
-        line-height: 1.3;
-        margin-bottom: 10px; /* MUDANÇA: Era 20px */
-    }
-
-    .btn-overlay {
-        padding: 8px 20px; /* MUDANÇA: Era 12px 35px */
-        font-size: 0.8rem; /* MUDANÇA: Era 0.9rem */
-    }
-    
-    /* Posições dos painéis do overlay (sem mudança) */
-    .overlay-left {
-        transform: translateY(-20%) translateX(0) !important;
-    }
-    .overlay-right {
-        top: 50%;
-        transform: translateY(0) translateX(0) !important;
-    }
-
-    /* --- ANIMAÇÃO VERTICAL ATIVA (AJUSTADA 70/30) --- */
-
-    /* 1. Move o Login (70% altura) para BAIXO, para a posição 30% */
-    .container-wrapper.right-panel-active .login-container {
-        transform: translateY(30vh) translateX(0) !important;
-    }
-
-    /* 2. Move o Cadastro (70% altura) para BAIXO, para a posição 30% */
-    .container-wrapper.right-panel-active .register-container {
-        transform: translateY(30vh) translateX(0) !important;
-        opacity: 1;
-        z-index: 5;
-        animation: show 0.6s;
-    }
-
-    /* 3. Move o Overlay (30% altura, começa em top: 70%) para CIMA */
-    .container-wrapper.right-panel-active .overlay-container {
-        transform: translateY(-70vh) translateX(0) !important;
-    }
-
-    /* Lógica interna do overlay (não muda) */
-    .container-wrapper.right-panel-active .overlay {
-        transform: translateY(50%) translateX(0) !important;
-    }
-    .container-wrapper.right-panel-active .overlay-left {
-        transform: translateY(0) translateX(0) !important;
-    }
-    .container-wrapper.right-panel-active .overlay-right {
-        transform: translateY(20%) translateX(0) !important;
-    }
-}
-/* ============================================= */
-/* ESTILOS DE LOGIN SOCIAL (NOVO)                */
+/* ESTILOS DE LOGIN SOCIAL                       */
 /* ============================================= */
 .social-text {
     font-size: 0.85rem;
     color: #777;
-    margin-bottom: 15px; /* Era 15px 0 */
+    margin-bottom: 15px;
 }
 
 .social-container {
     margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .social-container a {
@@ -400,30 +315,164 @@ body.fullscreen-auth {
 .social-container a:hover {
     background-color: #f0faf9;
     color: #0a4849;
+    border-color: #5a9a9a;
 }
-/* --- Responsividade para auth.html --- */
-@media (max-width: 768px) {
-  /* Garante que o body ocupe a tela toda */
-  body, html {
-    height: 100%;
-    width: 100%;
-    /* overflow: hidden; */ /* REMOVIDO: Isso impedia o scroll do formulário quando o teclado aparecia */
-  }
 
-  .auth-container {
-    width: 100%;
-    min-height: 100vh; /* Altura total da tela */
-    margin: 0;
-    padding: 0;
-    border-radius: 0;
-    box-shadow: none;
-    display: flex; /* Usa flex para esticar o .auth-box */
-  }
+/* ==========================================================================
+   6. OVERLAY (DESKTOP)
+   ========================================================================== */
+.overlay-container { position: absolute; top: 0; left: 50%; width: 50%; height: 100%; overflow: hidden; transition: transform 0.6s ease-in-out; z-index: 100; }
+.overlay { background: linear-gradient(135deg, #4FA3A5 0%, #85CBCB 50%, #B0DEE6 100%); position: relative; left: -100%; height: 100%; width: 200%; transform: translateX(0); transition: transform 0.6s ease-in-out; color: #053536; }
+.overlay-panel { position: absolute; top: 0; width: 50%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 40px; text-align: center; transform: translateX(0); transition: transform 0.6s ease-in-out; }
+.overlay-panel img { width: 110px; margin-bottom: 15px; }
+.overlay-panel h3 { font-size: 1.6rem; margin: 0 0 10px 0; font-weight: 900; }
+.overlay-panel p { font-size: 1rem; line-height: 1.4; margin-bottom: 20px; font-weight: 600;}
+.btn-overlay { padding: 12px 35px; border: 2px solid #053536; border-radius: 30px; background-color: transparent; color: #053536; font-size: 0.9rem; font-weight: 800; cursor: pointer; transition: background-color 0.2s, color 0.2s; }
+.btn-overlay:hover { background-color: #053536; color: #fff; }
 
-  .auth-box {
-    width: 100%;
-    border-radius: 0;
-    padding: 40px 20px; /* Reduz o padding lateral */
-    flex-grow: 1; /* Faz a caixa de auth ocupar todo o espaço */
-  }
+.overlay-left { transform: translateX(-20%); }
+.overlay-right { right: 0; transform: translateX(0); }
+
+.container-wrapper.right-panel-active .overlay-container { transform: translateX(-100%); }
+.container-wrapper.right-panel-active .login-container { transform: translateX(100%); opacity: 0; z-index: 1; }
+.container-wrapper.right-panel-active .register-container { transform: translateX(100%); opacity: 1; z-index: 5; animation: show 0.6s; }
+.container-wrapper.right-panel-active .overlay { transform: translateX(50%); }
+.container-wrapper.right-panel-active .overlay-left { transform: translateX(0); }
+.container-wrapper.right-panel-active .overlay-right { transform: translateX(20%); }
+
+@keyframes show { 0%, 49.99% { opacity: 0; z-index: 1; } 50%, 100% { opacity: 1; z-index: 5; } }
+
+/* ==========================================================================
+   7. RESPONSIVIDADE (MENU E ONDAS)
+   ========================================================================== */
+@media (max-width: 992px) {
+    .header-right-icons { display: none; }
+    .hamburger-menu { display: flex; }
+    header nav > ul { display: none; }
+    #main-nav { position: fixed; top: 0; right: 0; width: 80%; max-width: 320px; height: 100vh; background: rgba(133, 203, 203, 0.95); backdrop-filter: blur(8px); transform: translateX(100%); transition: transform 0.3s; z-index: 1001; border-left: 1px solid rgba(255,255,255,0.2); }
+    header.nav-open #main-nav { transform: translateX(0); }
+    header.nav-open .hamburger-menu span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    header.nav-open .hamburger-menu span:nth-child(2) { opacity: 0; }
+    header.nav-open .hamburger-menu span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
 }
+
+/* ============================================= */
+/* RESPONSIVIDADE (MOBILE - SEM BORDA + 75/25)   */
+/* ============================================= */
+@media screen and (max-width: 920px) {
+    
+    /* 1. Reset do Body */
+    body, html {
+        margin: 0; padding: 0; width: 100%; height: 100%;
+        overflow-x: hidden; overflow-y: auto;
+        background: linear-gradient(180deg, #85CBCB 0%, #B0DEE6 100%) fixed !important; 
+        border: none !important; border-radius: 0;
+    }
+
+    /* ESCONDE ONDAS E FOOTER */
+    .ondacima, .ondabaixo, footer { 
+        display: none !important; 
+    }
+
+    /* 2. Container Principal */
+    main.form-main {
+        padding: 0; align-items: flex-start; min-height: auto; flex-grow: 1;
+    }
+
+    .container-wrapper {
+        width: 100%; max-width: 100%; min-height: 100vh;
+        border-radius: 0; box-shadow: none; border: none !important;
+        background: transparent; display: block;
+    }
+    
+    /* 3. Formulário (75% DE ALTURA) */
+    .form-container {
+        height: 75vh; 
+        width: 100%;
+        transform: translateX(0) !important; /* Garante que não move lateralmente */
+        padding: 0;
+        position: absolute;
+        top: 0; left: 0;
+        background-color: #fff;
+        border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        z-index: 10;
+        overflow: hidden;
+    }
+    
+    .login-container { top: 0; z-index: 2; opacity: 1; }
+    .register-container { top: 0; z-index: 1; opacity: 0; }
+
+    .form-panel {
+        padding: 40px 25px;
+        height: 100%;
+        width: 100%;
+        /* Rolagem interna permitida */
+        overflow-y: auto; 
+        justify-content: flex-start; 
+        padding-bottom: 60px; 
+    }
+
+    .form-panel h2 { font-size: 1.8rem; margin-bottom: 15px; }
+
+    /* 4. Overlay (Botão de troca - 25% da ALTURA) */
+    .overlay-container {
+        position: absolute;
+        top: 75vh; /* Fica fixo embaixo */
+        left: 0;
+        width: 100%;
+        height: 25vh; 
+        transform: translateX(0) !important; /* Não move lateralmente */
+        z-index: 5;
+    }
+
+    .overlay { background: transparent !important; top: 0; left: 0; height: 100%; width: 100%; transform: none !important; }
+    
+    .overlay-panel {
+        height: 100%; width: 100%; padding: 0 20px;
+        transform: none !important; justify-content: center; color: #0a4849; 
+    }
+
+    .overlay-panel img { width: 80px; margin-bottom: 8px; }
+    .overlay-panel h3 { font-size: 1.2rem; margin: 0 0 5px 0; color: #0a4849; }
+    .overlay-panel p { display: none; }
+    
+    .btn-overlay { padding: 10px 30px; font-size: 0.9rem; background-color: transparent; border: 2px solid #0a4849; color: #0a4849; }
+    
+    .overlay-left, .overlay-right { top: 0; left: 0; transform: none !important; }
+
+    /* --- ANIMAÇÃO DE TROCA NO MOBILE (SEM MOVIMENTO) --- */
+    /* Apenas troca opacidade e z-index */
+
+    .container-wrapper.right-panel-active .login-container { 
+        transform: translateX(0) !important; /* Fica parado */
+        opacity: 0; 
+        z-index: 1; 
+    }
+
+    .container-wrapper.right-panel-active .register-container { 
+        transform: translateX(0) !important; /* Fica parado */
+        opacity: 1; 
+        z-index: 5; 
+        animation: none; /* Sem animação */
+    }
+
+    .container-wrapper.right-panel-active .overlay-container { 
+        transform: translateX(0) !important; /* Fica parado */
+    }
+    
+    /* Troca qual botão aparece */
+    .overlay-right { display: flex; } .overlay-left { display: none; }
+    .container-wrapper.right-panel-active .overlay-right { display: none; }
+    .container-wrapper.right-panel-active .overlay-left { display: flex; }
+}
+
+/* Widgets */
+.map-widget-btn {
+    position: fixed; bottom: 20px; right: 20px; z-index: 999;
+    width: 42px; height: 42px; background-color: #d6fafc;
+    border: 2px solid #317067; border-radius: 12px; color: #419289;
+    display: flex; justify-content: center; align-items: center; cursor: pointer;
+}
+
+@media (max-width: 600px) { .map-widget-btn { bottom: 70px; } }
