@@ -4,36 +4,85 @@
     <meta charset="UTF-8">
     <title>R.U.M.O - Autenticação</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="mobile-web-app-capable" content="yes">
-
+    
     <link rel="manifest" href="manifest.json">
-     <link rel="icon" type="image/png" href="logo.png">
+    <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/auth-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-    <body class="fullscreen-auth">
+    
+    <style>
+        /* CSS DA BARRA DE FORÇA DE SENHA */
+        .strength-container {
+            margin-top: -10px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .strength-meter {
+            height: 6px;
+            background-color: #e0e0e0; /* Fundo Cinza */
+            border-radius: 4px;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 5px;
+            position: relative;
+        }
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.3s ease, background-color 0.3s ease;
+            display: block;
+        }
+        .strength-text {
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: block;
+            text-align: left;
+            margin-top: 4px;
+        }
+        
+        /* MENSAGENS DE ERRO (FEEDBACK VISUAL) */
+        .error-msg {
+            font-size: 0.8rem;
+            color: #d32f2f; /* Vermelho */
+            font-weight: 600;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none; /* Escondido por padrão */
+            text-align: left;
+            width: 100%;
+        }
+        .error-msg.visible {
+            display: block;
+        }
 
-       
+        /* Bordas dos inputs */
+        input.invalid {
+            border: 2px solid #d32f2f !important;
+            background-color: #fff0f0;
+        }
+        input.valid {
+            border: 2px solid #2ecc71 !important;
+        }
+    </style>
+</head>
+<body class="fullscreen-auth">
+
 <header id="main-header">
     <div class="container">
-        <a >
-<br>
-<br>
-        </a>
-       <nav id="main-nav">
-        <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu" aria-controls="main-nav" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+        <a><br><br></a>
+        <nav id="main-nav">
+            <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
     </div>
 </header>
 
 <main class="form-main">
     <div class="container-wrapper" id="container-wrapper">
+        
         <div class="form-container register-container">
             <div class="form-panel">
                 <h2 data-i18n="form.register">Cadastre-se</h2>
@@ -51,46 +100,63 @@
                 </div>
 
                 <form class="tab-content active" id="pf" style="width:100%;">
-                    <div class="form-group"><i class="fas fa-user"></i><input type="text" name="nome" placeholder="Nome Completo..." data-i18n="cadastro.pf.name_placeholder" required></div>
-                    <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email" placeholder="Email..." data-i18n="cadastro.pf.email_placeholder" required></div>
+                    <div class="form-group"><i class="fas fa-user"></i><input type="text" name="nome" placeholder="Nome Completo..." required></div>
+                    
+                    <div class="form-group"><i class="fas fa-id-card"></i><input type="text" name="cpf" id="cpf-input" placeholder="CPF (000.000.000-00)" maxlength="14" required></div>
+                    <div id="error-cpf" class="error-msg">CPF Inválido</div>
+
+                    <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email" id="email-pf" placeholder="Email..." required></div>
+                    <div id="error-email-pf" class="error-msg">E-mail inválido</div>
+
                     <div class="form-group"><i class="fas fa-globe"></i><select id="language-select-pf" name="idioma" class="language-dropdown" required></select></div>
-                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="senha" placeholder="Senha..." data-i18n="cadastro.pf.password_placeholder" required></div>
-                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="confirmar_senha" placeholder="Repita a senha..." data-i18n="cadastro.pf.confirm_password_placeholder" required></div>
-                    <button type="submit" class="btn-submit" data-i18n="cadastro.pf.submit">Cadastrar</button>
+                    
+                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="senha" id="senha-pf" placeholder="Senha..." required></div>
+                    <div class="strength-container">
+                        <div class="strength-meter"><div class="strength-bar" id="bar-pf"></div></div>
+                        <span class="strength-text" id="text-pf"></span>
+                    </div>
+
+                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="confirmar_senha" id="conf-senha-pf" placeholder="Repita a senha..." required></div>
+                    <div id="error-conf-senha-pf" class="error-msg">As senhas não coincidem</div>
+                    
+                    <button type="submit" class="btn-submit" id="btn-submit-pf" data-i18n="cadastro.pf.submit">Cadastrar</button>
                 </form>
 
                 <form class="tab-content" id="pj" style="width:100%;">
-                    <div class="form-group"><i class="fas fa-building"></i><input type="text" name="nome_empresa" placeholder="Nome da Empresa/ONG..." data-i18n="cadastro.pj.company_placeholder" required></div>
-                    <div class="form-group"><i class="fas fa-id-card"></i><input type="text" name="cnpj" placeholder="CNPJ..." data-i18n="cadastro.pj.cnpj_placeholder" required></div>
-                    <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email_comercial" placeholder="Email Comercial..." data-i18n="cadastro.pj.email_placeholder" required></div>
+                    <div class="form-group"><i class="fas fa-building"></i><input type="text" name="nome_empresa" id="nome-empresa" placeholder="Nome da Empresa/ONG..." required></div>
+                    
+                    <div class="form-group"><i class="fas fa-id-card"></i><input type="text" name="cnpj" id="cnpj-input" placeholder="CNPJ..." maxlength="18" required></div>
+                    <div id="status-cnpj" class="error-msg" style="color: #666;"></div> <div id="error-cnpj" class="error-msg">CNPJ Inválido</div> <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email_comercial" id="email-pj" placeholder="Email Comercial..." required></div>
+                    <div id="error-email-pj" class="error-msg">E-mail inválido</div>
+
                     <div class="form-group"><i class="fas fa-globe"></i><select id="language-select-pj" name="idioma_pj" class="language-dropdown" required></select></div>
-                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="senha_pj" placeholder="Senha..." data-i18n="cadastro.pj.password_placeholder" required></div>
-                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="confirmar_senha_pj" placeholder="Confirmar Senha..." data-i18n="cadastro.pj.confirm_password_placeholder" required></div>
-                    <button type="submit" class="btn-submit" data-i18n="cadastro.pj.submit">Cadastrar</button>
+
+                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="senha_pj" id="senha-pj" placeholder="Senha..." required></div>
+                    <div class="strength-container">
+                        <div class="strength-meter"><div class="strength-bar" id="bar-pj"></div></div>
+                        <span class="strength-text" id="text-pj"></span>
+                    </div>
+
+                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="confirmar_senha_pj" id="conf-senha-pj" placeholder="Confirmar Senha..." required></div>
+                    <div id="error-conf-senha-pj" class="error-msg">As senhas não coincidem</div>
+                    
+                    <button type="submit" class="btn-submit" id="btn-submit-pj" data-i18n="cadastro.pj.submit">Cadastrar</button>
                 </form>
             </div>
         </div>
 
         <div class="form-container login-container">
-             <div class="form-panel">
+            <div class="form-panel">
                 <h2 data-i18n="form.login">Login</h2>
-
                 <div class="social-container">
                     <a href="#" class="social google-login-btn"><i class="fab fa-google"></i></a>
                     <a href="#" class="social facebook-login-btn"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social instagram-login-btn"><i class="fab fa-instagram"></i></a>
                 </div>
                 <span class="social-text" data-i18n="form.social_login">Ou use sua conta</span>
-
                 <form id="login-form-main" style="width: 100%;">
-                    <div class="form-group">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" name="email" placeholder="Email" data-i18n="login.email_placeholder" required>
-                    </div>
-                    <div class="form-group">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" name="password" placeholder="Senha" data-i18n="login.password_placeholder" required>
-                    </div>
+                    <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email" placeholder="Email" required></div>
+                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="password" placeholder="Senha" required></div>
                     <button type="submit" class="btn-submit" data-i18n="login.submit">Entrar</button>
                 </form>
                 <div class="forgot-password">
@@ -115,13 +181,14 @@
                 </div>
             </div>
         </div>
+
     </div>
 </main>
 
 <img src="ondacima.png" class="ondacima" id="onda-cima">
-    <footer class="ondinha">
-        <img src="ondabaixo.png" class="ondabaixo" id="onda-baixo">
-    </footer>
+<footer class="ondinha">
+    <img src="ondabaixo.png" class="ondabaixo" id="onda-baixo">
+</footer>
    
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
@@ -130,19 +197,9 @@
 <script src="js/auth-slider.js"></script>
 <script src="js/login.js"></script>
 <script src="js/cadastro.js"></script>
-
-<div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-        <div class="vw-plugin-top-wrapper"></div>
-    </div>
-</div>
+<div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
 <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-<script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-</script>
-
+<script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
 <script src="js/map-widget.js"></script>
-<script src="https://cdn.userway.org/widget.js" data-account="UIgNDRCaqf"></script>
 </body>
 </html>

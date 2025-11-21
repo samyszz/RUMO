@@ -1,5 +1,4 @@
-// --- NOVO: Definição dos idiomas ---
-// (Você pode adicionar ou remover idiomas desta lista)
+// --- Definição dos idiomas ---
 const languages = [
     { code: 'pt-BR', name: 'Português (Brasil)' },
     { code: 'en', name: 'English (Inglês)' },
@@ -14,22 +13,15 @@ const languages = [
     { code: 'qu', name: 'Runa Simi (Quechua)' }
 ];
 
-/**
- * --- NOVO: Função para popular o dropdown de idiomas ---
- * @param {HTMLSelectElement} selectElement O elemento <select> a ser preenchido
- */
 function populateLanguageDropdown(selectElement) {
     if (!selectElement) return;
-
-    // Adiciona uma opção padrão "Selecione"
     const defaultOption = document.createElement('option');
     defaultOption.value = '';
     defaultOption.textContent = 'Selecione o idioma...';
-    defaultOption.disabled = true; // Impede que seja selecionada após uma escolha
-    defaultOption.selected = true; // Vem selecionada por padrão
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
     selectElement.appendChild(defaultOption);
 
-    // Adiciona os idiomas da lista
     languages.forEach(lang => {
         const option = document.createElement('option');
         option.value = lang.code;
@@ -37,52 +29,275 @@ function populateLanguageDropdown(selectElement) {
         selectElement.appendChild(option);
     });
     
-    // Tenta selecionar o idioma padrão do navegador se disponível
+    // Tenta detectar idioma do navegador
     const browserLang = navigator.language || navigator.userLanguage;
     if (languages.some(l => l.code === browserLang)) {
         selectElement.value = browserLang;
-    } else {
-        // Se não, seleciona pt-BR como fallback se existir
-        if (languages.some(l => l.code === 'pt-BR')) {
-            selectElement.value = 'pt-BR';
-        }
+    } else if (languages.some(l => l.code === 'pt-BR')) {
+        selectElement.value = 'pt-BR';
     }
     
-    // Remove o 'disabled' da opção padrão se nada for selecionado
-    // (Isso força o 'required' do HTML a funcionar)
-    if (selectElement.value === '') {
-        defaultOption.disabled = false;
-    }
+    if (selectElement.value === '') defaultOption.disabled = false;
     selectElement.addEventListener('change', () => {
-         if (selectElement.value !== '') {
-             defaultOption.disabled = true;
-         }
+         if (selectElement.value !== '') defaultOption.disabled = true;
     });
 }
 
+// --- FUNÇÕES DE VALIDAÇÃO (MATEMÁTICAS E REGEX) ---
+
+function validarCPF(cpf) {
+    cpf = cpf.replace(/[^\d]+/g, '');
+    if (cpf == '') return false;
+    // Elimina CPFs com todos os digitos iguais e valida tamanho
+    if (cpf.length != 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+    
+    let add = 0;
+    for (let i = 0; i < 9; i++) add += parseInt(cpf.charAt(i)) * (10 - i);
+    let rev = 11 - (add % 11);
+    if (rev == 10 || rev == 11) rev = 0;
+    if (rev != parseInt(cpf.charAt(9))) return false;
+    
+    add = 0;
+    for (let i = 0; i < 10; i++) add += parseInt(cpf.charAt(i)) * (11 - i);
+    rev = 11 - (add % 11);
+    if (rev == 10 || rev == 11) rev = 0;
+    if (rev != parseInt(cpf.charAt(10))) return false;
+    return true;
+}
+
+function validarEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+function verificarForcaSenha(senha) {
+    let forca = 0;
+    if (senha.length >= 6) forca += 1; // Mínimo aceitável
+    if (senha.length >= 10) forca += 1; // Bom tamanho
+    if (senha.match(/[a-z]/)) forca += 1; // Minúscula
+    if (senha.match(/[A-Z]/)) forca += 1; // Maiúscula
+    if (senha.match(/[0-9]/)) forca += 1; // Número
+    if (senha.match(/[^a-zA-Z0-9]/)) forca += 1; // Símbolo
+
+    return forca; // Retorna pontuação de 0 a 6
+}
+
+async function consultarCNPJ(cnpj) {
+    const limpo = cnpj.replace(/[^\d]+/g, '');
+    if (limpo.length !== 14) return { erro: true, msg: 'CNPJ incompleto' };
+
+    try {
+        const response = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${limpo}`);
+        if (!response.ok) throw new Error('Não encontrado');
+        const dados = await response.json();
+        
+        // Verifica status na receita
+        if (dados.descricao_situacao_cadastral !== "ATIVA") {
+             return { erro: true, msg: `CNPJ ${dados.descricao_situacao_cadastral}` };
+        }
+        return { erro: false, dados: dados };
+    } catch (error) {
+        return { erro: true, msg: 'CNPJ inválido ou inexistente' };
+    }
+}
+
+// Máscaras de digitação
+function mascaraCPF(valor) {
+    return valor.replace(/\D/g, '')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+        .replace(/(-\d{2})\d+?$/, '$1');
+}
+
+function mascaraCNPJ(valor) {
+    return valor.replace(/\D/g, '')
+        .replace(/^(\d{2})(\d)/, '$1.$2')
+        .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+        .replace(/\.(\d{3})(\d)/, '.$1/$2')
+        .replace(/(\d{4})(\d)/, '$1-$2')
+        .replace(/(-\d{2})\d+?$/, '$1');
+}
+
+// Função auxiliar para mostrar/esconder erros
+function toggleError(elementId, show, message = '') {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    if (show) {
+        el.textContent = message;
+        el.classList.add('visible');
+    } else {
+        el.classList.remove('visible');
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     const registerContainer = document.querySelector('.register-container');
-    if (!registerContainer) return; // Sai se não estiver no painel de cadastro
+    if (!registerContainer) return;
 
+    // Elementos de UI
     const tabs = registerContainer.querySelectorAll('.tab-button');
     const contents = registerContainer.querySelectorAll('.tab-content');
     const formPF = document.getElementById('pf');
     const formPJ = document.getElementById('pj');
-
-    // --- NOVO: Seletores dos botões sociais ---
-    const socialContainer = registerContainer.querySelector('.social-container');
-    const socialText = registerContainer.querySelector('.social-text');
-
-    // --- NOVO: Popula os dropdowns de idioma ---
     const selectPF = document.getElementById('language-select-pf');
     const selectPJ = document.getElementById('language-select-pj');
+
+    // Popula idiomas
     populateLanguageDropdown(selectPF);
     populateLanguageDropdown(selectPJ);
-    // --- FIM DA ATUALIZAÇÃO DO IDIOMA ---
+
+    // --- Lógica da Barra de Senha ---
+    // Esta função atualiza a cor e o texto em tempo real
+    const atualizarBarraSenha = (input, bar, text) => {
+        const handler = () => {
+            const senha = input.value;
+            const forca = verificarForcaSenha(senha);
+            
+            // Se vazio, reseta
+            if (senha.length === 0) {
+                bar.style.width = '0%';
+                bar.style.backgroundColor = 'transparent'; 
+                text.textContent = '';
+                return;
+            }
+
+            // Lógica de cores: Vermelho (Fraca/Bloqueante), Laranja (Média), Verde (Forte)
+            if (forca < 3) {
+                bar.style.width = '30%';
+                bar.style.backgroundColor = '#d32f2f'; // Vermelho
+                text.textContent = 'Muito Fraca (Adicione maiúsculas/números)';
+                text.style.color = '#d32f2f';
+            } else if (forca >= 3 && forca < 5) {
+                bar.style.width = '60%';
+                bar.style.backgroundColor = '#f57c00'; // Laranja
+                text.textContent = 'Média';
+                text.style.color = '#f57c00';
+            } else {
+                bar.style.width = '100%';
+                bar.style.backgroundColor = '#2ecc71'; // Verde
+                text.textContent = 'Forte';
+                text.style.color = '#2ecc71';
+            }
+        };
+        input.addEventListener('input', handler);
+        input.addEventListener('keyup', handler); // Garante update rápido
+    };
+
+    // Aplica aos campos de senha
+    const senhaPf = document.getElementById('senha-pf');
+    const senhaPj = document.getElementById('senha-pj');
+    if(senhaPf) atualizarBarraSenha(senhaPf, document.getElementById('bar-pf'), document.getElementById('text-pf'));
+    if(senhaPj) atualizarBarraSenha(senhaPj, document.getElementById('bar-pj'), document.getElementById('text-pj'));
+
+    // --- Validação em Tempo Real: CPF ---
+    const cpfInput = document.getElementById('cpf-input');
+    if (cpfInput) {
+        cpfInput.addEventListener('input', (e) => {
+            e.target.value = mascaraCPF(e.target.value);
+            // Remove erro enquanto digita se o formato ainda for incompleto
+            if(e.target.value.length < 14) {
+                cpfInput.classList.remove('invalid');
+                toggleError('error-cpf', false);
+            }
+        });
+        
+        // Valida pra valer no BLUR (quando sai do campo) ou se completou 14 chars
+        const validarCpfHandler = () => {
+            if (cpfInput.value.length === 14) {
+                if (!validarCPF(cpfInput.value)) {
+                    cpfInput.classList.add('invalid');
+                    cpfInput.classList.remove('valid');
+                    toggleError('error-cpf', true, 'CPF Inválido. Verifique os dígitos.');
+                } else {
+                    cpfInput.classList.remove('invalid');
+                    cpfInput.classList.add('valid');
+                    toggleError('error-cpf', false);
+                }
+            }
+        };
+        cpfInput.addEventListener('blur', validarCpfHandler);
+    }
+
+    // --- Validação em Tempo Real: Email ---
+    const validarEmailVisual = (input, errorId) => {
+        input.addEventListener('blur', () => {
+            if(input.value && !validarEmail(input.value)) {
+                input.classList.add('invalid');
+                toggleError(errorId, true, 'Formato de e-mail inválido.');
+            } else {
+                input.classList.remove('invalid');
+                toggleError(errorId, false);
+            }
+        });
+    };
+    validarEmailVisual(document.getElementById('email-pf'), 'error-email-pf');
+    validarEmailVisual(document.getElementById('email-pj'), 'error-email-pj');
+
+    // --- Validação em Tempo Real: Confirmação de Senha ---
+    const validarConfSenha = (passId, confId, errorId) => {
+        const pass = document.getElementById(passId);
+        const conf = document.getElementById(confId);
+        const check = () => {
+            if(conf.value && pass.value !== conf.value) {
+                conf.classList.add('invalid');
+                toggleError(errorId, true, 'As senhas não conferem.');
+            } else {
+                conf.classList.remove('invalid');
+                toggleError(errorId, false);
+            }
+        };
+        conf.addEventListener('input', check);
+        pass.addEventListener('input', check); // Checa se mudar a senha original também
+    };
+    validarConfSenha('senha-pf', 'conf-senha-pf', 'error-conf-senha-pf');
+    validarConfSenha('senha-pj', 'conf-senha-pj', 'error-conf-senha-pj');
 
 
-    // --- 1. Lógica para alternar as abas PF e PJ ---
+    // --- Validação em Tempo Real: CNPJ ---
+    const cnpjInput = document.getElementById('cnpj-input');
+    const statusCnpj = document.getElementById('status-cnpj');
+    if (cnpjInput) {
+        cnpjInput.addEventListener('input', (e) => {
+            e.target.value = mascaraCNPJ(e.target.value);
+            if(e.target.value.length < 18) {
+                cnpjInput.classList.remove('invalid');
+                toggleError('error-cnpj', false);
+                statusCnpj.textContent = '';
+                statusCnpj.classList.remove('visible');
+            }
+        });
+
+        cnpjInput.addEventListener('blur', async () => {
+            if (cnpjInput.value.length === 18) {
+                statusCnpj.textContent = 'Verificando na Receita...';
+                statusCnpj.classList.add('visible');
+                
+                const res = await consultarCNPJ(cnpjInput.value);
+                
+                if (res.erro) {
+                    cnpjInput.classList.add('invalid');
+                    cnpjInput.classList.remove('valid');
+                    statusCnpj.textContent = ''; 
+                    toggleError('error-cnpj', true, res.msg); // Mostra o erro vermelho
+                } else {
+                    cnpjInput.classList.remove('invalid');
+                    cnpjInput.classList.add('valid');
+                    toggleError('error-cnpj', false);
+                    statusCnpj.style.color = '#2ecc71';
+                    statusCnpj.textContent = `Válido: ${res.dados.razao_social}`;
+                    // Preenche nome
+                    const nomeEmpresa = document.getElementById('nome-empresa');
+                    if(nomeEmpresa && !nomeEmpresa.value) {
+                        nomeEmpresa.value = res.dados.nome_fantasia || res.dados.razao_social;
+                    }
+                }
+            }
+        });
+    }
+
+
+    // --- Sistema de Abas ---
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(item => item.classList.remove('active'));
@@ -90,136 +305,144 @@ document.addEventListener('DOMContentLoaded', function() {
             tab.classList.add('active');
             const contentId = tab.getAttribute('data-tab');
             document.getElementById(contentId).classList.add('active');
-
-            // --- REGRA DE NEGÓCIO: Esconde social para PJ ---
-            if (contentId === 'pj') {
-                if (socialContainer) socialContainer.style.display = 'none';
-                if (socialText) socialText.style.display = 'none';
+            
+            // Esconde social se for PJ
+            const social = document.querySelector('.social-container');
+            const socialTxt = document.querySelector('.social-text');
+            if(contentId === 'pj') {
+                if(social) social.style.display = 'none';
+                if(socialTxt) socialTxt.style.display = 'none';
             } else {
-                if (socialContainer) socialContainer.style.display = 'flex'; // 'flex' ou 'block'
-                if (socialText) socialText.style.display = 'block';
+                if(social) social.style.display = 'flex';
+                if(socialTxt) socialTxt.style.display = 'block';
             }
         });
     });
 
-    // --- 2. CADASTRO DE PESSOA FÍSICA (PF) ---
+    // --- SUBMIT PF (COM BLOQUEIO SE HOUVER ERRO) ---
     if (formPF) {
-        formPF.addEventListener('submit', (e) => {
+        formPF.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const nome = formPF.querySelector('input[name="nome"]').value;
-            const email = formPF.querySelector('input[name="email"]').value;
-            const idioma = selectPF.value; // Pega o valor do select
-            const senha = formPF.querySelector('input[name="senha"]').value;
-            const confirmarSenha = formPF.querySelector('input[name="confirmar_senha"]').value; // Pega a confirmação
+            const btnSubmit = document.getElementById('btn-submit-pf');
+            const cpfVal = document.getElementById('cpf-input').value;
+            const passVal = document.getElementById('senha-pf').value;
+            const confVal = document.getElementById('conf-senha-pf').value;
+            const emailVal = document.getElementById('email-pf').value;
+            const nomeVal = formPF.querySelector('input[name="nome"]').value;
+            const idiomaVal = selectPF.value;
 
-            // --- CORREÇÃO: Validação de Senha ---
-            if (senha !== confirmarSenha) {
-                alert('As senhas não coincidem. Por favor, tente novamente.');
-                return; // Para a execução
+            // Verificação Final antes de enviar
+            if (!validarCPF(cpfVal)) { 
+                toggleError('error-cpf', true, 'CPF Inválido. Corrija antes de continuar.'); 
+                return; 
             }
-            if (!idioma) {
-                alert('Por favor, selecione um idioma.');
+            if (verificarForcaSenha(passVal) < 3) {
+                alert('Sua senha é muito fraca. O cadastro foi bloqueado por segurança.');
                 return;
             }
-            // --- FIM DA CORREÇÃO ---
+            if (passVal !== confVal) {
+                toggleError('error-conf-senha-pf', true, 'Senhas não conferem.');
+                return;
+            }
+            if (!idiomaVal) { alert('Selecione um idioma.'); return; }
 
-            // (Lógica de cadastro PF por e-mail)
-            auth.createUserWithEmailAndPassword(email, senha)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    return db.collection('users').doc(user.uid).set({
-                        nome: nome,
-                        nomeCompleto: nome,
-                        email: email,
-                        idioma: idioma, // Salva o idioma
-                        userType: 'pf', // Define como PF
-                        username: generateUsername(nome || email),
-                        profilePicture: 'assets/imagens/avatar-padrao.png',
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                })
-                .then(() => {
-                    alert('Cadastro de Pessoa Física realizado com sucesso!');
-                    window.location.href = 'hub.html';
-                })
-                .catch((error) => {
-                    console.error("Erro no cadastro PF:", error);
-                    // Traduz mensagens comuns de erro do Firebase
-                    if (error.code === 'auth/email-already-in-use') {
-                        alert('Erro: Este e-mail já está em uso.');
-                    } else if (error.code === 'auth/weak-password') {
-                        alert('Erro: A senha é muito fraca. Tente uma senha com pelo menos 6 caracteres.');
-                    } else {
-                        alert('Erro ao cadastrar: ' + error.message);
-                    }
+            // Tudo certo, prossegue
+            btnSubmit.innerText = 'Criando conta...';
+            btnSubmit.disabled = true;
+
+            try {
+                const userCredential = await auth.createUserWithEmailAndPassword(emailVal, passVal);
+                await db.collection('users').doc(userCredential.user.uid).set({
+                    nome: nomeVal,
+                    nomeCompleto: nomeVal,
+                    cpf: cpfVal.replace(/[^\d]+/g, ''),
+                    email: emailVal,
+                    idioma: idiomaVal,
+                    userType: 'pf',
+                    username: generateUsername(nomeVal || emailVal),
+                    profilePicture: 'assets/imagens/avatar-padrao.png',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
+                alert('Cadastro realizado com sucesso!');
+                window.location.href = 'hub.html';
+            } catch (error) {
+                console.error(error);
+                btnSubmit.innerText = 'Cadastrar';
+                btnSubmit.disabled = false;
+                tratarErrosFirebase(error);
+            }
         });
     }
 
-    // --- 3. CADASTRO DE PESSOA JURÍDICA (PJ) ---
+    // --- SUBMIT PJ ---
     if (formPJ) {
-        formPJ.addEventListener('submit', (e) => {
+        formPJ.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            const btnSubmit = document.getElementById('btn-submit-pj');
+            const cnpjVal = document.getElementById('cnpj-input').value;
+            const passVal = document.getElementById('senha-pj').value;
+            const confVal = document.getElementById('conf-senha-pj').value;
+            const emailVal = document.getElementById('email-pj').value;
+            const nomeVal = document.getElementById('nome-empresa').value;
+            const idiomaVal = selectPJ.value;
 
-            const nomeEmpresa = formPJ.querySelector('input[name="nome_empresa"]').value;
-            const cnpj = formPJ.querySelector('input[name="cnpj"]').value; // Pega o CNPJ
-            const email = formPJ.querySelector('input[name="email_comercial"]').value;
-            const idioma = selectPJ.value; // Pega o valor do select
-            const senha = formPJ.querySelector('input[name="senha_pj"]').value;
-            const confirmarSenha = formPJ.querySelector('input[name="confirmar_senha_pj"]').value; // Pega a confirmação
-
-            // --- CORREÇÃO: Validação de Senha ---
-            if (senha !== confirmarSenha) {
-                alert('As senhas não coincidem. Por favor, tente novamente.');
-                return; // Para a execução
-            }
-            if (!idioma) {
-                alert('Por favor, selecione um idioma.');
+            // Verifica senha
+            if (verificarForcaSenha(passVal) < 3) {
+                alert('Sua senha é muito fraca. Cadastro bloqueado.');
                 return;
             }
-            // --- FIM DA CORREÇÃO ---
+            if (passVal !== confVal) {
+                toggleError('error-conf-senha-pj', true, 'Senhas não conferem.');
+                return;
+            }
 
-            auth.createUserWithEmailAndPassword(email, senha)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    return db.collection('users').doc(user.uid).set({
-                        nome: nomeEmpresa, // Salva o nome da empresa
-                        nomeCompleto: nomeEmpresa,
-                        cnpj: cnpj, // Salva o CNPJ
-                        email: email,
-                        idioma: idioma, // Salva o idioma
-                        userType: 'pj', // Define como PJ
-                        username: generateUsername(nomeEmpresa || email),
-                        profilePicture: 'assets/imagens/avatar-padrao.png',
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                })
-                .then(() => {
-                    alert('Cadastro de Pessoa Jurídica realizado com sucesso!');
-                    window.location.href = 'hub.html';
-                })
-                .catch((error) => {
-                    console.error("Erro no cadastro PJ:", error);
-                     if (error.code === 'auth/email-already-in-use') {
-                        alert('Erro: Este e-mail já está em uso.');
-                    } else if (error.code === 'auth/weak-password') {
-                        alert('Erro: A senha é muito fraca. Tente uma senha com pelo menos 6 caracteres.');
-                    } else {
-                        alert('Erro ao cadastrar: ' + error.message);
-                    }
+            // Verifica CNPJ novamente (bloqueante)
+            btnSubmit.innerText = 'Verificando CNPJ...';
+            btnSubmit.disabled = true;
+            
+            const resCnpj = await consultarCNPJ(cnpjVal);
+            if(resCnpj.erro) {
+                toggleError('error-cnpj', true, 'CNPJ inválido/inativo. Cadastro bloqueado.');
+                btnSubmit.innerText = 'Cadastrar';
+                btnSubmit.disabled = false;
+                return;
+            }
+
+            try {
+                const userCredential = await auth.createUserWithEmailAndPassword(emailVal, passVal);
+                await db.collection('users').doc(userCredential.user.uid).set({
+                    nome: nomeVal,
+                    nomeCompleto: nomeVal,
+                    cnpj: cnpjVal.replace(/[^\d]+/g, ''),
+                    razaoSocial: resCnpj.dados.razao_social,
+                    email: emailVal,
+                    idioma: idiomaVal,
+                    userType: 'pj',
+                    username: generateUsername(nomeVal || emailVal),
+                    profilePicture: 'assets/imagens/avatar-padrao.png',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
+                alert('Cadastro PJ realizado!');
+                window.location.href = 'hub.html';
+            } catch (error) {
+                console.error(error);
+                btnSubmit.innerText = 'Cadastrar';
+                btnSubmit.disabled = false;
+                tratarErrosFirebase(error);
+            }
         });
     }
-
 });
 
-// Função auxiliar (se não estiver no seu cadastro.js, adicione)
-function generateUsername(nameOrEmail) {
-    if (!nameOrEmail) return 'user' + Math.random().toString(36).substr(2, 6);
-    // Remove caracteres especiais, pega o email antes do @, e força minúsculas
-    const base = nameOrEmail.split('@')[0].toLowerCase().replace(/[^a-z0-9]/g, '');
-    const suffix = Math.floor(Math.random() * 9000) + 1000; // Sufixo de 4 dígitos
-    // Garante que a base não esteja vazia
-    return (base || 'user') + suffix;
+function generateUsername(val) {
+    if (!val) return 'user' + Math.floor(Math.random()*1000);
+    return val.split('@')[0].toLowerCase().replace(/[^a-z0-9]/g, '') + Math.floor(Math.random()*9000);
+}
+
+function tratarErrosFirebase(error) {
+    if (error.code === 'auth/email-already-in-use') alert('E-mail já cadastrado.');
+    else if (error.code === 'auth/weak-password') alert('Senha fraca (Firebase).');
+    else alert('Erro: ' + error.message);
 }

@@ -329,31 +329,52 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const measureForm = document.querySelector('.measure-content .converter-form');
     if (measureForm) {
-        const convertButton = measureForm.querySelector('.btn-converter');
+        // Evita que o form seja submetido (Enter recarregando a página)
+        measureForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+        });
+
+        // Use nome distinto para evitar colisão com o convertButton da seção de moeda
+        const measureConvertButton = measureForm.querySelector('.btn-converter');
         const amountMeasure = document.getElementById('amount-measure');
         const unitType = document.getElementById('unit-type');
         const resultMeasureBox = measureForm.querySelector('.result-box span');
-        // Inicializa selects
-        populateUnits(unitType.value);
 
-        unitType.addEventListener('change', () => {
-            populateUnits(unitType.value);
-        });
+        // Inicializa selects (proteção caso unitType seja null)
+        if (unitType) populateUnits(unitType.value);
 
-        convertButton.addEventListener('click', () => {
-            const type = unitType.value;
-            const amount = parseFloat(amountMeasure.value);
-            const fromUnit = document.getElementById('from-unit').value;
-            const toUnit = document.getElementById('to-unit').value;
-            if (isNaN(amount)) { resultMeasureBox.textContent = '0'; return; }
-            let result = convertUnits(type, amount, fromUnit, toUnit);
-            if (result === null || isNaN(result)) {
-                resultMeasureBox.textContent = 'Conversão inválida';
-            } else {
-                let unitLabel = unitOptions[type].find(u => u.value === toUnit)?.label || '';
-                resultMeasureBox.textContent = `${result.toFixed(2)} ${unitLabel.split('(')[1]?.replace(')', '') || unitLabel}`;
-            }
-        });
+        if (unitType) {
+            unitType.addEventListener('change', () => {
+                populateUnits(unitType.value);
+            });
+        }
+
+        // Permite que pressionar Enter dentro do input dispare a conversão sem recarregar
+        if (amountMeasure && measureConvertButton) {
+            amountMeasure.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    measureConvertButton.click();
+                }
+            });
+        }
+
+        if (measureConvertButton) {
+            measureConvertButton.addEventListener('click', () => {
+                const type = unitType ? unitType.value : 'length';
+                const amount = parseFloat(amountMeasure ? amountMeasure.value : 0);
+                const fromUnit = document.getElementById('from-unit') ? document.getElementById('from-unit').value : '';
+                const toUnit = document.getElementById('to-unit') ? document.getElementById('to-unit').value : '';
+                if (isNaN(amount)) { if (resultMeasureBox) resultMeasureBox.textContent = '0'; return; }
+                let result = convertUnits(type, amount, fromUnit, toUnit);
+                if (result === null || isNaN(result)) {
+                    if (resultMeasureBox) resultMeasureBox.textContent = 'Conversão inválida';
+                } else {
+                    let unitLabel = (unitOptions[type] || []).find(u => u.value === toUnit)?.label || '';
+                    if (resultMeasureBox) resultMeasureBox.textContent = `${result.toFixed(2)} ${unitLabel.split('(')[1]?.replace(')', '') || unitLabel}`;
+                }
+            });
+        }
     }
 
     // --- LÓGICA DO DROPDOWN DE IDIOMAS ---

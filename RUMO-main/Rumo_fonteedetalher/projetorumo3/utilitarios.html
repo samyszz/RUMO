@@ -6,16 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/utils.css">
-     <link rel="icon" type="image/png" href="logo.png">
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
 </head>
 <body>
-    <div id="loading-screen">
-        <img src="Design sem nome.gif" alt="Carregando...">
-    </div>
 <header id="main-header">
     <div class="container">
         <a href="index.html"><img src="logo.png" alt="Logo R.U.M.O" class="logo"></a>
@@ -67,9 +63,10 @@
         <div class="tools-accordion">
             
             <div class="tool-dropdown">
-                <button class="tool-header location-header" data-i18n="utilitarios.location.title">
-                    <i class="fas fa-map-marker-alt"></i> Sua localização atual
-                </button>
+                <button class="tool-header location-header">
+    <i class="fa-solid fa-location-dot"></i> 
+    <span data-i18n="utilitarios.location.title">Sua localização atual</span>
+</button>
                 <div class="tool-content location-content" style="display: none;">
                     <form id="search-form-map" class="search-bar-map">
                         <i class="fas fa-search"></i>
@@ -84,12 +81,13 @@
                 </div>
             </div>
 
-            <!-- conversor de moedas -->
+             <!-- conversor de moedas -->
 
             <div class="tool-dropdown">
-                <button class="tool-header currency-header" data-i18n="utilitarios.currency.title">
-                    <i class="fas fa-dollar-sign"></i> Conversor de Moedas
-                </button>
+                <button class="tool-header currency-header">
+    <i class="fa-solid fa-dollar-sign"></i> 
+    <span data-i18n="utilitarios.currency.title">Conversor de Moedas</span>
+</button>
                 <div class="tool-content currency-content" style="display: none;">
                     <form class="converter-form">
                         <label for="from-currency" data-i18n="utilitarios.currency.from">De:</label>
@@ -121,9 +119,10 @@
             <!-- conversor de unidades de medida -->
 
             <div class="tool-dropdown">
-                <button class="tool-header measure-header" data-i18n="utilitarios.measure.title">
-                    <i class="fas fa-ruler-combined"></i> Conversor de medida
-                </button>
+            <button class="tool-header measure-header">
+    <i class="fa-solid fa-ruler-combined"></i> 
+    <span data-i18n="utilitarios.measure.title">Conversor de medida</span>
+</button>
                 <div class="tool-content measure-content" style="display: none;">
                     <form class="converter-form">
                         <label for="unit-type" data-i18n="utilitarios.measure.unit_type_label">Selecione a unidade de medida:</label>
@@ -134,12 +133,13 @@
                         </select>
                         <label for="amount-measure" data-i18n="utilitarios.measure.amount_label">Digite o valor:</label>
                         <input type="number" id="amount-measure" placeholder="10" data-i18n="utilitarios.measure.amount_placeholder">
+                        
                         <div class="measure-selects">
-                            <!-- Selects vazios para serem preenchidos pelo JS -->
                             <select id="from-unit"></select>
                             <span data-i18n="utilitarios.measure.to">Para:</span>
                             <select id="to-unit"></select>
                         </div>
+                        
                         <button type="button" class="btn-converter" data-i18n="utilitarios.measure.convert">Converter</button>
                         <div class="result-box"><strong data-i18n="utilitarios.measure.result_label">Resultado:</strong> <span>0</span></div>
                     </form>
@@ -147,9 +147,10 @@
             </div>
 
             <div class="tool-dropdown">
-                <button class="tool-header docs-header" data-i18n="utilitarios.docs.title">
-                    <i class="fas fa-shield-alt"></i> Cofre de documentos
-                </button>
+               <button class="tool-header docs-header">
+    <i class="fa-solid fa-shield-halved"></i> 
+    <span data-i18n="utilitarios.docs.title">Cofre de documentos</span>
+</button>
                 <div class="tool-content docs-content" style="display: none;">
                     <div class="doc-form-container">
                         <h3 class="form-section-title" data-i18n="utilitarios.docs.add_new">Adicionar Novo Documento</h3>
@@ -168,9 +169,10 @@
             </div>
 
             <div class="tool-dropdown">
-                <button class="tool-header lang-header" data-i18n="utilitarios.lang.title">
-                    <i class="fas fa-language"></i> Alterar o idioma
-                </button>
+               <button class="tool-header lang-header">
+    <i class="fa-solid fa-language"></i> 
+    <span data-i18n="utilitarios.lang.title">Alterar o idioma</span>
+</button>
                 <div class="tool-content lang-content" style="display: none;">
                     <p data-i18n="utilitarios.lang.current_platform">Idioma atual da plataforma: <strong data-i18n="header.lang.pt_br">Português (Brasil)</strong></p>
                     <form class="converter-form">
@@ -182,6 +184,7 @@
         </div>
     </div>
 </main>
+
 
 <img src="ondacima.png" class="ondacima" id="onda-cima">
 <footer class="ondinha">
@@ -222,7 +225,6 @@
 <script src="js/utilitarios.js"></script>
 <script src="js/dark-mode.js"></script>
 <script src="js/auth-state.js"></script>
-<script src="js/loader.js"></script>
 
 <div vw class="enabled">
     <div vw-access-button class="active"></div>

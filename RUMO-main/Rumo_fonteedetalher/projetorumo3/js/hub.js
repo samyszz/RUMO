@@ -28,6 +28,42 @@ document.addEventListener("DOMContentLoaded", () => {
     loadPosts();
   });
 
+  // --- FUNÇÕES GLOBAIS PARA O MODAL ---
+  
+  window.contactOrganization = function(type, value) {
+      let userName = "um visitante";
+      if (currentUserData && (currentUserData.nome || currentUserData.nomeCompleto)) {
+          userName = currentUserData.nome || currentUserData.nomeCompleto;
+      }
+
+      const message = `Olá, meu nome é ${userName}, eu sou um imigrante no Brasil. Vim através do seu post feito na plataforma R.U.M.O e gostaria de mais informações.`;
+      
+      if (type === 'whatsapp') {
+          const cleanPhone = value.replace(/\D/g, '');
+          const url = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+          window.open(url, '_blank');
+      } else if (type === 'email') {
+          const subject = "Contato via Plataforma R.U.M.O";
+          const url = `mailto:${value}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+          window.location.href = url;
+      } else {
+          window.location.href = `tel:${value}`;
+      }
+  };
+
+  // Função INTELIGENTE de mapa: Usa Link se tiver, senão busca pelo Endereço
+  window.openLocationMap = function(mapsLink, address) {
+      if (mapsLink && mapsLink.trim() !== "") {
+          window.open(mapsLink, '_blank');
+      } else if (address && address.trim() !== "") {
+          // Cria link de busca do Google Maps com o endereço
+          const query = encodeURIComponent(address);
+          window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
+      } else {
+          alert('Localização não disponível.');
+      }
+  };
+
   // --- OUVINTE DE MUDANÇA DE IDIOMA ---
   window.addEventListener('languageChanged', () => {
       if (allPostsData.length > 0) {
@@ -38,14 +74,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   });
 
-  // --- NOVA LÓGICA DE TRADUÇÃO (Google Translate + Backup + Proteção de Erro) ---
+  // --- LÓGICA DE TRADUÇÃO ---
   async function fetchTranslation(text, isoCode) {
-      // 1. Tenta GOOGLE TRANSLATE (Client GTX) - Mais rápido e sem limite diário baixo
       try {
           const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=pt&tl=${isoCode}&dt=t&q=${encodeURIComponent(text)}`;
           const res = await fetch(url);
           const data = await res.json();
-          // A resposta do Google vem em partes: [[["Texto Traduzido",...], ["Outra parte",...]]]
           if (data && data[0]) {
               return data[0].map(part => part[0]).join('');
           }
@@ -53,33 +87,26 @@ document.addEventListener("DOMContentLoaded", () => {
           console.warn("Google falhou, tentando backup...", e);
       }
 
-      // 2. Backup: MYMEMORY (Se Google falhar)
       try {
           const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=pt|${isoCode}`;
           const res = await fetch(url);
           const data = await res.json();
           const translated = data.responseData.translatedText;
-
-          // PROTEÇÃO: Se vier a mensagem de erro de limite, RETORNA O ORIGINAL
           if (translated.includes("MYMEMORY WARNING") || translated.includes("ISIT HTTPS")) {
               return text; 
           }
           return translated;
       } catch (e) {
-          return text; // Se tudo falhar, mostra original
+          return text;
       }
   }
 
-  // Função para gerenciar textos longos (mantida e adaptada)
   async function translateText(text, targetLang) {
     if (!text || text.trim().length === 0) return text;
-    
     const isoCode = targetLang.split('-')[0];
     if (isoCode === 'pt') return text;
 
-    // Google aguenta mais, mas vamos manter seguro em 1000 chars
     const CHUNK_SIZE = 1000; 
-
     if (text.length <= CHUNK_SIZE) {
         return await fetchTranslation(text, isoCode);
     }
@@ -105,7 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return translatedChunks.join(" ");
   }
 
-  // Traduz HTML preservando formatação
   async function translateHtmlContent(htmlString, targetLang) {
     const isoCode = targetLang.split('-')[0];
     if (isoCode === 'pt' || !htmlString) return htmlString;
@@ -197,7 +223,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let cleanDesc = post.description ? post.description.replace(/<[^>]*>?/gm, "") : "";
     let snippetText = cleanDesc.substring(0, 200); 
 
-    // Tradução do Card (Título e Resumo)
     if (!currentLang.startsWith('pt')) {
        displayTitle = await translateText(post.title, currentLang);
        snippetText = await translateText(snippetText, currentLang);
@@ -313,7 +338,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (filterOptions && filterOptions.classList.contains("active")) filterOptions.classList.remove("active");
   });
 
-  // --- MODAL VER MAIS (Com Tradução HTML) ---
+  // --- MODAL VER MAIS ---
   async function openVerMaisModal(postId) {
     const postInfo = allPostsData.find((p) => p.id === postId);
     if (postInfo) {
@@ -340,19 +365,65 @@ document.addEventListener("DOMContentLoaded", () => {
         displayContent = await translateHtmlContent(post.description, currentLang);
     }
 
+    // --- LÓGICA DOS BOTÕES EXTRAS (CORRIGIDA) ---
+    const hasContact = post.contactType && post.contactValue;
+    
+    // VERIFICA SE TEM LOCAL (Endereço OU Link)
+    // Antes verificava apenas mapsLink. Agora verifica se existe qualquer info de local.
+    const hasLocation = post.location && (post.location.address || post.location.mapsLink);
+
+    // Botão de Contato
+    let contactBtn = '';
+    if (hasContact) {
+        let iconClass = 'fas fa-phone-alt';
+        if (post.contactType === 'whatsapp') iconClass = 'fab fa-whatsapp';
+        if (post.contactType === 'email') iconClass = 'fas fa-envelope';
+
+        contactBtn = `
+            <button onclick="window.contactOrganization('${post.contactType}', '${post.contactValue}')"
+                title="Entrar em contato"
+                style="width: 40px; height: 40px; background-color: #fffde7; border: 1px solid #fbc02d; border-radius: 8px; margin-right: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s;"
+                onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <i class="${iconClass}" style="color: #fbc02d; font-size: 1.2rem;"></i>
+            </button>
+        `;
+    }
+
+    // Botão de Localização (CORRIGIDO PARA USAR ENDEREÇO SE NÃO TIVER LINK)
+    let locationBtn = '';
+    if (hasLocation) {
+        // Passa tanto o link quanto o endereço para a função decidir
+        const mapsLinkSafe = post.location.mapsLink ? post.location.mapsLink.replace(/'/g, "\\'") : "";
+        const addressSafe = post.location.address ? post.location.address.replace(/'/g, "\\'") : "";
+
+        locationBtn = `
+            <button onclick="window.openLocationMap('${mapsLinkSafe}', '${addressSafe}')"
+                title="Ver no Google Maps"
+                style="width: 40px; height: 40px; background-color: #e0f2f1; border: 1px solid #00897b; border-radius: 8px; margin-right: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s;"
+                onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <i class="fas fa-map-marker-alt" style="color: #00897b; font-size: 1.2rem;"></i>
+            </button>
+        `;
+    }
+
     const modalHTML = `
             <div class="ver-mais-modal-backdrop" id="ver-mais-modal">
                 <div class="ver-mais-modal-content">
                     <div class="ver-mais-modal-header">
                         <h4>${displayTitle}</h4>
-                        <button class="close-modal-btn">&times;</button>
+                        <button class="close-modal-btn">×</button>
                     </div>
                     <div class="ver-mais-modal-body">
                         <img src="${post.image || "https://placehold.co/600x300"}" alt="Imagem do post" class="ver-mais-modal-image">
                         <div class="ql-snow"><div class="ql-editor">${displayContent}</div></div>
+                        ${post.location && post.location.address ? `<p style="font-size: 0.9em; color: #666; margin-top: 15px;"><i class="fas fa-map-pin"></i> ${post.location.address}</p>` : ''}
                     </div>
-                    <div class="ver-mais-modal-footer">
-                        <a href="${post.sourceLink}" target="_blank" class="btn btn-primary">Ver Fonte Oficial</a>
+                    <div class="ver-mais-modal-footer" style="display: flex; align-items: center; justify-content: space-between;">
+                        <div style="display: flex; align-items: center;">
+                            ${contactBtn}
+                            ${locationBtn}
+                        </div>
+                        ${post.sourceLink ? `<a href="${post.sourceLink}" target="_blank" class="btn btn-primary">Ver Fonte Oficial</a>` : ''}
                     </div>
                 </div>
             </div>`;
@@ -407,7 +478,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalHTML = `
             <div class="comment-modal-backdrop" id="comment-modal">
                 <div class="comment-modal-content">
-                    <div class="comment-modal-header"><h4>Comentários</h4><button class="close-modal-btn">&times;</button></div>
+                    <div class="comment-modal-header"><h4>Comentários</h4><button class="close-modal-btn">×</button></div>
                     <ul class="comment-list"><p class="comment-list-empty">Carregando...</p></ul>
                     <form class="comment-form">
                         <input type="text" placeholder="Adicione um comentário..." required />

@@ -904,3 +904,12 @@ body.dark-mode .leaflet-routing-alt h3 {
 .leaflet-routing-instruction {
     font-size: 0.9rem;
 }
+/* Correção para garantir que os ícones usem a fonte do Font Awesome */
+.tool-header i, 
+.tool-header .fas, 
+.tool-header .fa-solid {
+    font-family: "Font Awesome 6 Free", "FontAwesome" !important;
+    font-weight: 900 !important;
+    font-style: normal;
+    margin-right: 10px; /* Garante um espaço entre o ícone e o texto */
+}
