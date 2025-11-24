@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <title data-i18n="index.title">R.U.M.O - Dashboard</title>
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <link rel="icon" type="image/png" href="assets/imagens/logo.png">
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div id="loading-screen">
+        <img src="Design sem nome.gif" alt="Carregando...">
+    </div>
+
+    <header id="main-header">
+        <div class="container">
+            <a href="index.html">
+                <img src="logo.png" alt="Logo R.U.M.O" class="logo">
+            </a>
+
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+                    <li><a href="hub.html" data-i18n="nav.hub">HUB</a></li>
+                    <li><a href="utilitarios.html" data-i18n="nav.tools">Utilidades</a></li>
+                    <li><a href="sobre.html" data-i18n="nav.about">Sobre nós</a></li>
+                    <li id="nav-profile-item" style="display: none;">
+                        <a href="perfil.html" class="create-account-btn" data-i18n="nav.profile">Meu Perfil</a>
+                    </li>
+                    <li id="nav-painel-item">
+                         </li>
+                </ul>
+            </nav>
+
+            <div class="header-right-icons">
+                <button id="accessibility-btn" class="accessibility-btn"><i class="fas fa-universal-access"></i></button>
+                <div class="header-lang-container" id="header-lang-container">
+                    <button id="lang-dropdown-btn" class="lang-dropdown-btn"><i class="fas fa-language"></i></button>
+                    <div id="lang-dropdown-content" class="lang-dropdown-content">
+                        <p data-i18n="header.lang.current">Idioma atual: <strong data-i18n="header.lang.pt_br">Português</strong></p>
+                        <form>
+                            <select id="language-select-header"></select>
+                        </form>
+                    </div>
+                </div>
+                <button id="theme-toggle-btn-desktop" class="theme-toggle-btn"><i class="fas fa-moon"></i><i class="fas fa-sun"></i></button>
+                <a href="perfil.html" id="profile-bubble" class="profile-bubble"><img src="assets/imagens/avatar-padrao.png" id="profile-bubble-img"></a>
+            </div>
+
+            <button class="hamburger-menu" id="hamburger-menu"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+
+    <main>
+        <div class="container dashboard-container">
+
+            <div id="access-denied" style="display:none;">
+                <div class="notification error show" style="position:relative;bottom:auto;left:auto;transform:none;">
+                    Acesso negado — painel exclusivo para pessoas jurídicas (PJ).
+                </div>
+            </div>
+
+            <section id="pj-dashboard" style="display:none;">
+
+                <div class="dashboard-card header-card">
+                    <h1 class="dashboard-title">Painel de Controle</h1>
+
+                    <div class="impressao-tabs" role="tablist">
+                        <button id="tab-perfil" class="tab-btn active">Perfil</button>
+                        <button id="tab-publicacoes" class="tab-btn">Publicações</button>
+                    </div>
+                </div>
+
+                <div id="view-perfil" class="dashboard-view">
+
+                    <div class="row grid-2">
+                        <div class="card metrics-card">
+                            <div class="metrics-left">
+                                <h3>
+                                    Alcance de perfis nos últimos:
+                                    <select id="rangeSelect" class="dashboard-select">
+                                        <option value="30">30 dias</option>
+                                        <option value="7">7 dias</option>
+                                        <option value="90">90 dias</option>
+                                    </select>
+                                </h3>
+
+                                <div class="profile-visits">
+                                    <div class="visits-number">
+                                        <p>Visitas ao perfil:</p>
+                                        <h2 id="visitsNumber" class="counter-anim">0</h2>
+                                    </div>
+
+                                    <div style="width:140px; height:140px; position: relative;">
+                                        <canvas id="pieChart"></canvas>
+                                    </div>
+
+                                    <div class="followers-stats">
+                                        <p>Seguidores <span class="percent">70%</span></p>
+                                        <p class="muted">Outros <span class="percent-muted">30%</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card nationality-card">
+                            <h3>Principais Nacionalidades (Usuários):</h3>
+                            <ul class="nationality-list">
+                                <li>Carregando dados...</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row grid-2">
+                        <div class="card followers-card">
+                            <h3>Seguidores <span style="font-size:0.8em; color:#666;">(Estimativa)</span></h3>
+
+                            <div class="followers-bar-legend">
+                                <div class="legend"><div class="dot dot-total"></div><span id="count-total" class="counter-anim">0</span> Total</div>
+                                <div class="legend"><div class="dot dot-new"></div><span id="count-new" class="counter-anim">0</span> Novos (30d)</div>
+                                <div class="legend"><div class="dot dot-left"></div><span id="count-left">0</span> Saíram</div>
+                            </div>
+
+                            <div class="followers-progress">
+                                <div class="progress-track">
+                                    <div id="followersFill" class="progress-fill" style="width:0%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card age-card">
+                            <h3>Faixa etária predominante</h3>
+                            <div style="position: relative; height: 250px; width: 100%;">
+                                <canvas id="ageChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-publicacoes" class="dashboard-view" style="display:none;">
+
+                    <div class="row grid-2">
+                        <div class="card keywords-card">
+                            <h3>Palavras-chaves mais usadas:</h3>
+                            <ul class="keywords-list">
+                                <li>Refugiados <div class="kw-bar"><span class="kw-fill" style="width:80%"></span></div></li>
+                                <li>Emprego <div class="kw-bar"><span class="kw-fill" style="width:60%"></span></div></li>
+                                <li>Vistos <div class="kw-bar"><span class="kw-fill" style="width:45%"></span></div></li>
+                                <li>Abrigo <div class="kw-bar"><span class="kw-fill" style="width:30%"></span></div></li>
+                            </ul>
+                        </div>
+
+                        <div class="card periods-card">
+                            <h3>Períodos com maior alcance:</h3>
+                            <div style="position: relative; height: 250px; width: 100%;">
+                                <canvas id="stackChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card interactions-card">
+                        <h3>Interações nos últimos: <select id="interRange" class="dashboard-select"><option>30 dias</option></select></h3>
+
+                        <div class="interactions-grid">
+                            <div class="interaction">
+                                <i class="fas fa-heart"></i>
+                                <div class="count counter-anim" id="stat-likes">0</div>
+                                <div>Curtidas</div>
+                            </div>
+                            <div class="interaction">
+                                <i class="fas fa-bookmark"></i>
+                                <div class="count counter-anim" id="stat-saved">0</div>
+                                <div>Salvos</div>
+                            </div>
+                            <div class="interaction">
+                                <i class="fas fa-comment-alt"></i>
+                                <div class="count counter-anim" id="stat-comments">0</div>
+                                <div>Comentários</div>
+                            </div>
+                            <div class="interaction">
+                                <i class="fas fa-share"></i>
+                                <div class="count counter-anim" id="stat-shares">0</div>
+                                <div>Compartilhados</div>
+                            </div>
+                            <div class="interaction wide">
+                                <i class="fas fa-link"></i>
+                                <div class="count counter-anim" id="stat-clicks">0</div>
+                                <div>Clicks externos</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card posts-grid">
+                        <h3>Posts com maior engajamento:</h3>
+                        <div class="posts-tiles" id="top-posts-container">
+                            <div class="post-tile-empty">Carregando seus posts...</div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <img src="ondacima.png" class="ondacima" id="onda-cima">
+    <footer class="ondinha"><img src="ondabaixo.png" class="ondabaixo" id="onda-baixo"></footer>
+
+    <footer>
+        <div class="footer-container">
+            <img src="logo.png" alt="Logo R.U.M.O" class="footer-logo">
+            <div class="footer-social">
+                <h4>Redes Sociais</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+                    <a href="#"><i class="fab fa-linkedin fa-2x"></i></a>
+                </div>
+            </div>
+            <div class="footer-contact">
+                <h4>Fale Conosco</h4>
+                <form>
+                    <input type="email" placeholder="Seu e-mail">
+                    <div class="input-with-button">
+                        <input type="text" placeholder="Mensagem">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/main-menu.js"></script>
+    <script src="js/dark-mode.js"></script>
+    <script src="js/loader.js"></script>
+    <script src="js/auth-state.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/dashboard.js"></script>
+
+    <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+    <script src="https://cdn.userway.org/widget.js" data-account="UIgNDRCaqf"></script>
+    <script src="js/map-widget.js"></script>
+
+</body>
+</html>

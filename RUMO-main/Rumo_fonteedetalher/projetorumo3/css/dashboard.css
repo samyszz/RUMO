@@ -1,0 +1,300 @@
+/* dashboard.css — estilos específicos do painel */
+
+/* Container geral */
+.dashboard-container {
+  margin-top: 18px;
+  margin-bottom: 40px;
+  padding: 0 15px; /* Margem segura para mobile */
+}
+
+/* row / grid */
+.row {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 18px;
+  flex-wrap: wrap; /* CORREÇÃO: Permite quebrar linha em telas menores */
+}
+
+.grid-2 > .card {
+  flex: 1 1 400px; /* Flex-basis maior para forçar quebra antes de ficar muito estreito */
+  min-width: 300px; /* Largura mínima para não esmagar */
+}
+
+/* card base */
+.card {
+  background: var(--card-hub-bg, #dff5f6);
+  border: 4px solid var(--card-hub-border, #8fcfcf);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+  /* OTIMIZAÇÃO MODO ESCURO: Transição apenas nas cores, não em 'all' */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Header do painel */
+.header-card {
+  display: flex;
+  flex-wrap: wrap; /* Permite quebrar em mobile */
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 26px;
+  margin-bottom: 14px;
+  gap: 15px;
+}
+
+.dashboard-title {
+  color: var(--text-color);
+  font-size: 28px;
+  margin: 0;
+  font-weight: 900;
+  flex-grow: 1;
+}
+
+/* Abas */
+.impressao-tabs {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.tab-btn {
+  padding: 8px 20px;
+  border-radius: 28px;
+  border: 2px solid #0a4850;
+  background: transparent;
+  color: var(--text-color);
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  background: #083b3b;
+  color: #dff7f6;
+  border-color: #083b3b;
+}
+
+/* ESTILO DOS SELECTS (Igual ao Header/Utils) */
+.dashboard-select {
+  border: 2px solid #739d9f;
+  color: #0a4849;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 6px 12px;
+  cursor: pointer;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+/* Metrics Card */
+.metrics-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 240px;
+}
+
+.metrics-left h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  margin-top: 0;
+  color: #083b3b;
+}
+
+.profile-visits {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.visits-number h2 {
+  margin: 5px 0 0 0;
+  font-size: 3rem;
+  color: #0a4850;
+  line-height: 1;
+}
+
+.followers-stats p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* Nationality List */
+.nationality-card h3 { margin-top: 0; color: #083b3b; }
+.nationality-list {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.nationality-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+}
+
+/* Followers Card */
+.followers-card h3 { margin-top: 0; color: #083b3b; }
+.followers-bar-legend {
+  display: flex;
+  gap: 15px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+.legend { display: flex; gap: 6px; align-items: center; font-weight: 700; font-size: 0.85rem; }
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.dot-total { background: #083b3b; }
+.dot-new { background: #2ecc71; }
+.dot-left { background: #e74c3c; }
+
+.progress-track {
+  background: #dff8f7;
+  border-radius: 10px;
+  height: 12px;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(10,72,73,0.2);
+}
+.progress-fill { height: 100%; background: #083b3b; transition: width 1s ease-in-out; }
+
+/* Keywords Card */
+.keywords-card h3 { margin-top: 0; color: #083b3b; }
+.keywords-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.kw-bar {
+  height: 10px;
+  border-radius: 5px;
+  background: #b2dfdb;
+  position: relative;
+  min-width: 100px;
+}
+.kw-fill {
+  height: 100%;
+  background: #00796b;
+  border-radius: 5px;
+  display: block;
+}
+
+/* Interactions Card */
+.interactions-card {
+  margin-bottom: 30px; /* CORREÇÃO: Mais espaço para o card de baixo */
+}
+.interactions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+.interaction {
+  background: rgba(255,255,255,0.4);
+  padding: 15px;
+  border-radius: 12px;
+  border: 2px solid rgba(10,72,73,0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.interaction i {
+  font-size: 1.5rem;
+  color: #083b3b;
+  margin-bottom: 5px;
+}
+.interaction .count {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #0a4850;
+}
+.interaction div:last-child {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* Posts Grid (Top Posts) */
+.posts-grid h3 { margin-top: 0; color: #083b3b; margin-bottom: 15px; }
+.posts-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+.post-tile {
+  background: #ffffff;
+  border: 2px solid rgba(10,72,73,0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 1 / 1; /* Quadrado */
+  display: flex;
+  flex-direction: column;
+}
+.post-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.post-tile:hover img { transform: scale(1.05); }
+.post-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+.post-stats { font-weight: bold; font-size: 0.9rem; }
+.post-tile-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.3);
+    color: #666;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+  .header-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .dashboard-title {
+    font-size: 1.5rem;
+  }
+  .metrics-card {
+    min-height: auto;
+  }
+  .profile-visits {
+    flex-direction: column;
+    text-align: center;
+  }
+  .interactions-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 por linha no mobile */
+  }
+  .interaction.wide {
+    grid-column: span 2;
+  }
+}

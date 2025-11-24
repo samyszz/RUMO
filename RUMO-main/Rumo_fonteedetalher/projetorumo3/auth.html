@@ -118,6 +118,21 @@
 
                     <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="confirmar_senha" id="conf-senha-pf" placeholder="Repita a senha..." required></div>
                     <div id="error-conf-senha-pf" class="error-msg">As senhas não coincidem</div>
+
+                    <div class="form-group">
+    <i class="fas fa-flag"></i>
+    <select id="nacionalidade-select-pf" name="nacionalidade" class="language-dropdown" required>
+        <option value="" disabled selected>Selecione sua nacionalidade...</option>
+        </select>
+</div>
+
+<div class="form-group checkbox-group" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+    <input type="checkbox" id="termos-pf" required style="width: auto; margin: 0;">
+    <label for="termos-pf" style="font-size: 0.9rem;">
+        Li e aceito os <a href="#" style="color: var(--primary-color);">Termos e Condições</a>
+    </label>
+</div>
+
                     
                     <button type="submit" class="btn-submit" id="btn-submit-pf" data-i18n="cadastro.pf.submit">Cadastrar</button>
                 </form>
@@ -139,7 +154,14 @@
 
                     <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="confirmar_senha_pj" id="conf-senha-pj" placeholder="Confirmar Senha..." required></div>
                     <div id="error-conf-senha-pj" class="error-msg">As senhas não coincidem</div>
-                    
+
+                    <div class="form-group checkbox-group" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+    <input type="checkbox" id="termos-pj" required style="width: auto; margin: 0;">
+    <label for="termos-pj" style="font-size: 0.9rem;">
+        Li e aceito os <a href="#" style="color: var(--primary-color);">Termos e Condições</a>
+    </label>
+</div>
+                  
                     <button type="submit" class="btn-submit" id="btn-submit-pj" data-i18n="cadastro.pj.submit">Cadastrar</button>
                 </form>
             </div>

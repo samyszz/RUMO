@@ -214,11 +214,35 @@
     </div>
 </footer>
 
+<div id="docs-warning-modal" class="custom-modal-overlay" style="display: none;">
+    <div class="custom-modal-box">
+        <div class="custom-modal-header warning-header">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>Atenção</h3>
+        </div>
+        <div class="custom-modal-body">
+            <p>
+                Os documentos cadastrados aqui servem <strong>exclusivamente</strong> para sua gestão pessoal de prazos e vencimentos.
+            </p>
+            <div class="warning-alert">
+                <i class="fas fa-ban"></i> Eles <strong>NÃO</strong> substituem os originais e <strong>NÃO</strong> valem como identificação oficial.
+            </div>
+            
+            <label class="custom-checkbox-label">
+                <input type="checkbox" id="docs-modal-check">
+                Não mostrar este aviso novamente
+            </label>
+
+            <button id="docs-modal-confirm-btn" class="custom-modal-btn">Entendi</button>
+        </div>
+    </div>
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
 <script src="js/main-menu.js"></script>
 <script src="js/firebase-config.js"></script>
 <script src="js/i18n.js"></script>

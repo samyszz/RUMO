@@ -1366,3 +1366,78 @@ body.dark-mode .phone-list li a:hover { background-color: rgba(255,255,255,0.08)
 #main-nav.mobile-lang-active > ul {
   display: none;
 }
+/* =========================================
+   ESTILO UNIFICADO DOS DROPDOWNS DE IDIOMA
+   (Header, Cadastro, Utilitários e Mobile)
+   ========================================= */
+
+/* Seleciona todos os dropdowns de idioma pelos seus IDs e Classes específicas */
+#language-select-header,       /* Header Desktop */
+#language-select-utils,        /* Página Utilitários */
+#language-select-pf,           /* Cadastro PF */
+#language-select-pj,           /* Cadastro PJ */
+#mobile-language-select,       /* Menu Mobile */
+.language-dropdown {           /* Classe genérica usada no Auth */
+    
+    /* Cores solicitadas */
+    border: 1px solid #739d9f !important;
+    color: #0a4849 !important;
+    
+    /* Fonte do projeto */
+    font-family: 'Nunito', sans-serif !important;
+    font-weight: 700 !important; /* Deixa a fonte mais "Dark"/negrito */
+    font-size: 0.95rem;
+
+    /* Estilo Base */
+    background-color: #ffffff;
+    border-radius: 8px;       /* Bordas levemente arredondadas */
+    padding: 10px 12px;       /* Espaçamento interno confortável */
+    width: 100%;              /* Ocupa a largura disponível no container */
+    cursor: pointer;
+    outline: none;            /* Remove contorno padrão do navegador */
+    transition: all 0.3s ease;
+    
+    /* Aparência (opcional: remove estilo padrão nativo para ficar mais limpo) */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    /* Adiciona uma setinha customizada (opcional, combina com o design do Bravo) */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230a4849%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px top 50%;
+    background-size: 12px auto;
+}
+
+/* Efeito ao passar o mouse ou focar */
+#language-select-header:hover, 
+#language-select-utils:hover,
+#language-select-pf:hover, 
+#language-select-pj:hover,
+.language-dropdown:hover {
+    border-color: #0a4849 !important; /* Escurece a borda */
+    background-color: #f0f8f8; /* Fundo levemente esverdeado */
+}
+
+#language-select-header:focus, 
+#language-select-utils:focus,
+#language-select-pf:focus, 
+#language-select-pj:focus,
+.language-dropdown:focus {
+    border-color: #0a4849 !important;
+    box-shadow: 0 0 0 3px rgba(115, 157, 159, 0.3); /* Glow suave na cor da borda */
+}
+
+/* Ajuste específico para os Groups (Português, Espanhol...) dentro do select */
+optgroup {
+    font-weight: 800;
+    color: #0a4849;
+    background: #eef6f6;
+}
+
+option {
+    font-weight: 600;
+    color: #333;
+    background: #fff;
+    padding: 10px;
+}
