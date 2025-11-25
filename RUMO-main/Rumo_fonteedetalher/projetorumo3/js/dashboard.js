@@ -154,155 +154,156 @@ function initCharts() {
 function initRealTimeListeners(pjUserId) {
     const db = firebase.firestore();
 
-    // A. ESTATÍSTICAS DE USUÁRIOS (Nacionalidade e Contadores)
-    // Ouvimos a coleção 'users' para contar PF
-    db.collection('users').where('userType', '==', 'pf').onSnapshot(snapshot => {
-        const totalUsers = snapshot.size;
-        let newUsersCount = 0;
-        const nacionalidades = {};
+    // 1. DADOS DO PERFIL (Seguidores)
+    db.collection('users').doc(pjUserId).onSnapshot(doc => {
+        if (!doc.exists) return;
+        const data = doc.data();
         
-        // 30 dias atrás
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-        snapshot.forEach(doc => {
-            const data = doc.data();
-            
-            // Nacionalidade
-            const nac = data.nacionalidade || 'Não informado';
-            nacionalidades[nac] = (nacionalidades[nac] || 0) + 1;
-
-            // Novos usuários (criados nos últimos 30 dias)
-            // Verifica se existe o campo createdAt e se é Timestamp
-            if (data.createdAt && data.createdAt.toDate) {
-                if (data.createdAt.toDate() > thirtyDaysAgo) {
-                    newUsersCount++;
-                }
-            }
-        });
-
-        // Atualiza UI
-        updateNationalityList(nacionalidades, totalUsers);
-        updateFollowerStats(totalUsers, newUsersCount);
+        // Seguidores Reais (baseado no array followers)
+        const followersList = data.followers || [];
+        const totalFollowers = followersList.length;
         
-        // Gráfico de pizza (Simulação: assumindo 40% de retenção como seguidores)
-        if(pieChart) {
-            pieChart.data.datasets[0].data = [Math.floor(totalUsers * 0.4), Math.floor(totalUsers * 0.6)];
-            pieChart.update();
-        }
+        // Simulação de "Novos" (Como o array não tem data, estimamos ou deixamos 0 por enquanto)
+        // Para ser exato, precisaria de uma sub-coleção 'followers_history'
+        const newFollowers = 0; 
+
+        // Atualiza UI de Seguidores
+        animateValue(document.getElementById('count-total'), 0, totalFollowers, 1500);
+        animateValue(document.getElementById('count-new'), 0, newFollowers, 1500);
+        
+        // Barra de progresso (Ex: Meta de 1000 seguidores)
+        const fill = document.getElementById('followersFill');
+        const meta = 1000; 
+        if(fill) fill.style.width = `${Math.min((totalFollowers / meta) * 100, 100)}%`;
     });
 
-    // B. POSTS E ENGAJAMENTO DO PJ
-    db.collection('posts').where('userId', '==', pjUserId).onSnapshot(snapshot => {
+    // 2. DADOS DOS POSTS (Alcance, Engajamento, Palavras-Chave)
+    db.collection('posts').where('creatorId', '==', pjUserId).onSnapshot(snapshot => {
         let totalLikes = 0;
         let totalComments = 0;
+        let totalViews = 0; // Alcance
+        let allTextContent = "";
         const postsData = [];
+        const viewsByDay = {}; // Para o gráfico
 
         snapshot.forEach(doc => {
-            const data = doc.data();
-            const likes = data.likes ? data.likes.length : 0;
-            const comments = data.comments ? data.comments.length : 0; // Se existir array de comments
-            
+            const post = doc.data();
+            const likes = post.likes ? post.likes.length : 0;
+            // Se tiver subcoleção de comments, o contador idealmente deveria estar no doc do post (commentCount)
+            // Se não tiver, usamos 0 ou o que tiver disponível
+            const comments = post.commentCount || 0; 
+            const views = post.views || 0;
+
             totalLikes += likes;
             totalComments += comments;
+            totalViews += views;
+
+            // Acumular texto para palavras-chave
+            allTextContent += ` ${post.title} ${post.description}`;
+
+            // Dados para o Gráfico de Alcance (Agrupado por dia da semana)
+            if (post.createdAt) {
+                const date = post.createdAt.toDate();
+                const dayName = date.toLocaleDateString('pt-BR', { weekday: 'short' });
+                // Soma views neste dia (simplificado para dias da semana)
+                if (!viewsByDay[dayName]) viewsByDay[dayName] = { views: 0, interactions: 0 };
+                viewsByDay[dayName].views += views;
+                viewsByDay[dayName].interactions += (likes + comments);
+            }
 
             postsData.push({
                 id: doc.id,
-                ...data,
-                likesCount: likes
+                ...post,
+                likesCount: likes,
+                commentsCount: comments
             });
         });
 
-        // Ordena posts por likes (maior para menor) e pega Top 4
-        postsData.sort((a, b) => b.likesCount - a.likesCount);
-        const topPosts = postsData.slice(0, 4);
+        // A. Atualizar Cards de Engajamento e Alcance
+        updateInteractionCards(totalLikes, totalComments, totalViews);
+        animateValue(document.getElementById('visitsNumber'), 0, totalViews, 2000); // Usando Views como "Visitas"
 
-        // Atualiza Cards de Interação
-        updateInteractionCards(totalLikes, totalComments);
-        
-        // Renderiza Top Posts
-        renderTopPosts(topPosts);
+        // B. Palavras-Chaves
+        calculateAndRenderKeywords(allTextContent);
+
+        // C. Top Posts
+        postsData.sort((a, b) => b.likesCount - a.likesCount);
+        renderTopPosts(postsData.slice(0, 4));
+
+        // D. Atualizar Gráfico de Alcance (StackChart)
+        updateStackChart(viewsByDay);
     });
 }
 
-/* --- Atualizadores de UI --- */
+/* --- Novas Funções Auxiliares --- */
 
-function updateFollowerStats(total, novos) {
-    // Anima os números do zero até o valor final
-    animateValue(document.getElementById('count-total'), 0, total, 1500);
-    animateValue(document.getElementById('count-new'), 0, novos, 1500);
-    animateValue(document.getElementById('visitsNumber'), 0, total * 3, 2000); // Simulação de visitas = 3x usuários
-    
-    // Barra de progresso
-    const fill = document.getElementById('followersFill');
-    if(fill) fill.style.width = '70%'; // Valor fixo simulado ou calculado
-}
+function calculateAndRenderKeywords(text) {
+    const listElement = document.querySelector('.keywords-list');
+    if (!listElement || !text) return;
 
-function updateNationalityList(counts, total) {
-    const listElement = document.querySelector('.nationality-list');
-    if (!listElement) return;
+    // Palavras irrelevantes para ignorar
+    const stopwords = ['de', 'a', 'o', 'que', 'e', 'do', 'da', 'em', 'um', 'para', 'com', 'não', 'uma', 'os', 'no', 'se', 'na', 'por', 'mais', 'as', 'dos', 'como', 'mas', 'foi', 'ao', 'ele', 'das', 'tem', 'à', 'seu', 'sua', 'ou', 'ser', 'quando', 'muito', 'há', 'nos', 'já', 'está', 'eu', 'também', 'só', 'pelo', 'pela', 'até', 'isso', 'ela', 'entre', 'depois', 'sem', 'mesmo', 'aos', 'seus', 'quem', 'nas', 'me', 'esse', 'eles', 'você', 'essa', 'num', 'nem', 'suas', 'meu', 'às', 'minha', 'têm', 'numa', 'pelos', 'elas', 'qual', 'nós', 'lhe', 'deles', 'essas', 'esses', 'pelas', 'este', 'dele', 'tu', 'te', 'vocês', 'vos', 'lhes', 'meus', 'minhas', 'teu', 'tua', 'teus', 'tuas', 'nosso', 'nossa', 'nossos', 'nossas', 'dela', 'delas', 'esta', 'estes', 'estas', 'aquele', 'aquela', 'aqueles', 'aquelas', 'isto', 'aquilo', 'estou', 'está', 'estamos', 'estão', 'estive', 'esteve', 'estivemos', 'estiveram', 'estava', 'estávamos', 'estavam', 'estivera', 'estivéramos', 'haja', 'hajamos', 'hajam', 'houve', 'houvemos', 'houveram', 'houvera', 'houvéramos', 'haja', 'hajamos', 'hajam', 'he', 'hei', 'havemos', 'hão', 'houve', 'houvemos', 'houveram', 'houvera', 'houvéramos', 'tinha', 'tínhamos', 'tinham', 'tivera', 'tivéramos', 'tenha', 'tenhamos', 'tenham', 'tivesse', 'tivéssemos', 'tivessem', 'tiver', 'tivermos', 'tiverem', 'farei', 'fará', 'faremos', 'farão', 'faria', 'faríamos', 'fariam', 'fez', 'fizeram', 'fizesse', 'fizessem'];
+
+    const words = text.toLowerCase()
+        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+        .split(/\s+/)
+        .filter(w => w.length > 3 && !stopwords.includes(w));
+
+    const frequency = {};
+    words.forEach(w => { frequency[w] = (frequency[w] || 0) + 1; });
+
+    const sortedWords = Object.entries(frequency)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 4); // Top 4
+
     listElement.innerHTML = '';
+    
+    // Encontrar a maior frequência para calcular a % da barra
+    const maxFreq = sortedWords.length > 0 ? sortedWords[0][1] : 1;
 
-    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 5);
-
-    sorted.forEach(([pais, count]) => {
-        const percent = total > 0 ? Math.round((count / total) * 100) : 0;
-        
+    sortedWords.forEach(([word, freq]) => {
+        const widthPercent = (freq / maxFreq) * 100;
         const li = document.createElement('li');
         li.innerHTML = `
-            <span>${pais}</span> 
-            <div style="display:flex; align-items:center; gap:10px; width:60%;">
-                <div style="flex-grow:1; background:#e0f4f2; height:10px; border-radius:5px; overflow:hidden;">
-                    <div style="width:${percent}%; background:#083b3b; height:100%;"></div>
-                </div>
-                <span style="font-size:0.8rem; width:30px;">${percent}%</span>
-            </div>
+            ${word} <span style="font-size:0.8em; color:#777">(${freq})</span>
+            <div class="kw-bar"><span class="kw-fill" style="width:${widthPercent}%"></span></div>
         `;
         listElement.appendChild(li);
     });
 }
 
-function updateInteractionCards(likes, comments) {
+function updateStackChart(dataMap) {
+    if (!stackChart) return;
+
+    // Ordem fixa dos dias para o gráfico (opcional, pode ser dinâmico)
+    const daysOrder = ['dom.', 'seg.', 'ter.', 'qua.', 'qui.', 'sex.', 'sáb.'];
+    
+    // Preparar arrays de dados
+    const viewsData = [];
+    const interactionsData = [];
+    
+    // Mapear os dados para a ordem correta
+    daysOrder.forEach(day => {
+        const dayData = dataMap[day] || { views: 0, interactions: 0 };
+        viewsData.push(dayData.views);
+        interactionsData.push(dayData.interactions);
+    });
+
+    stackChart.data.labels = daysOrder;
+    stackChart.data.datasets[0].data = viewsData;      // Alcance
+    stackChart.data.datasets[1].data = interactionsData; // Interações
+    stackChart.update();
+}
+
+// Atualizar a função existente updateInteractionCards para aceitar Views
+function updateInteractionCards(likes, comments, views) {
     animateValue(document.getElementById('stat-likes'), 0, likes, 1000);
     animateValue(document.getElementById('stat-comments'), 0, comments, 1000);
-    // Shares, Saved e Clicks simulados ou zerados
+    // Views sendo usadas como "Clicks externos" ou criando um novo card se preferir
+    // Aqui vou usar no lugar de clicks para aproveitar o layout
+    animateValue(document.getElementById('stat-clicks'), 0, views, 1000); 
+    
+    // Shares e Saved continuam 0 se não houver dados no banco
     document.getElementById('stat-shares').innerText = "0";
     document.getElementById('stat-saved').innerText = "0";
-    document.getElementById('stat-clicks').innerText = "0";
 }
-
-function renderTopPosts(posts) {
-    const container = document.getElementById('top-posts-container');
-    if(!container) return;
-    container.innerHTML = '';
-
-    if(posts.length === 0) {
-        container.innerHTML = '<div class="post-tile-empty">Nenhum post encontrado.</div>';
-        return;
-    }
-
-    posts.forEach(post => {
-        const div = document.createElement('div');
-        div.className = 'post-tile';
-        
-        // Se tiver imagem, mostra. Se não, mostra texto resumido.
-        let contentHtml = '';
-        if(post.imageUrl) {
-            contentHtml = `<img src="${post.imageUrl}" alt="Post imagem">`;
-        } else {
-            contentHtml = `<div style="padding:20px; text-align:center; display:flex; align-items:center; justify-content:center; height:100%; font-size:0.9rem;">${post.texto || 'Sem conteúdo'}</div>`;
-        }
-
-        div.innerHTML = `
-            ${contentHtml}
-            <div class="post-overlay">
-                <div class="post-stats"><i class="fas fa-heart"></i> ${post.likesCount}</div>
-                <div class="post-stats"><i class="fas fa-comment"></i> ${post.comments ? post.comments.length : 0}</div>
-            </div>
-        `;
-        container.appendChild(div);
-    });
-}
-
-// Inicializa
-document.addEventListener('DOMContentLoaded', checkAccessAndInit);

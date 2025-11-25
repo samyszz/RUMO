@@ -243,6 +243,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedPosts = (currentUserData && currentUserData.savedPosts) || [];
     const isSaved = savedPosts.includes(postId);
 
+    
+
     const interactionsHTML = `
             <div class="info-card-interactions">
                 <div class="interaction-item">

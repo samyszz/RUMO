@@ -165,3 +165,103 @@ document.addEventListener('DOMContentLoaded', () => {
          });
      }
 });
+// --- LÓGICA DO DASHBOARD ---
+
+async function carregarDashboard(user) {
+    if (!user) return;
+    
+    // Elementos HTML onde os dados serão mostrados (Crie esses IDs no seu HTML)
+    const elSeguidores = document.getElementById('dash-seguidores');
+    const elAlcance = document.getElementById('dash-alcance');
+    const elEngajamento = document.getElementById('dash-engajamento');
+    const elPalavras = document.getElementById('dash-palavras');
+    const elPeriodo = document.getElementById('dash-periodo');
+
+    // 1. Buscar dados do Usuário (Para Seguidores)
+    const userDoc = await firebase.firestore().collection('users').doc(user.uid).get();
+    const userData = userDoc.data();
+    const numSeguidores = userData.followers ? userData.followers.length : 0;
+    
+    if(elSeguidores) elSeguidores.innerText = numSeguidores;
+
+    // 2. Buscar Posts do Usuário (Para Alcance, Engajamento e Palavras)
+    const postsSnapshot = await firebase.firestore().collection('posts')
+        .where('creatorId', '==', user.uid)
+        .get();
+
+    let totalAlcance = 0;
+    let totalEngajamento = 0;
+    let textoCompleto = "";
+    let postsPorData = {}; // Para calcular período de maior alcance
+
+    // Iterar sobre todos os posts do usuário
+    postsSnapshot.forEach(doc => {
+        const post = doc.data();
+        
+        // Alcance (Se você implementou o campo 'views', senão será 0)
+        const views = post.views || 0;
+        totalAlcance += views;
+
+        // Engajamento (Likes + Comentários)
+        // Nota: Para comentários exatos, seria ideal ter um campo 'commentCount' no post.
+        // Aqui usamos apenas likes se commentCount não existir.
+        const likes = post.likes ? post.likes.length : 0;
+        const comments = post.commentCount || 0; 
+        totalEngajamento += (likes + comments);
+
+        // Juntar texto para análise de palavras-chave
+        textoCompleto += ` ${post.title} ${post.description}`;
+
+        // Agrupar por Mês/Ano para "Período com maior alcance"
+        if (post.createdAt) {
+            const data = new Date(post.createdAt.seconds * 1000);
+            const mesAno = `${data.getMonth() + 1}/${data.getFullYear()}`;
+            if (!postsPorData[mesAno]) postsPorData[mesAno] = 0;
+            postsPorData[mesAno] += views; // Ou += 1 se quiser contar volume de posts
+        }
+    });
+
+    // Atualizar HTML
+    if(elAlcance) elAlcance.innerText = totalAlcance;
+    
+    // Exibir post com maior engajamento (Exemplo simples)
+    if(elEngajamento) elEngajamento.innerText = totalEngajamento;
+
+    // 3. Calcular Palavras-Chaves Mais Usadas
+    if(elPalavras && textoCompleto) {
+        const palavrasIgnoradas = ['de', 'a', 'o', 'que', 'e', 'do', 'da', 'em', 'um', 'para', 'com', 'não', 'uma', 'os', 'no', 'se', 'na', 'por', 'mais', 'as', 'dos', 'como', 'mas', 'foi', 'ao', 'ele', 'das', 'tem', 'à', 'seu', 'sua', 'ou', 'ser', 'quando', 'muito', 'há', 'nos', 'já', 'está', 'eu', 'também', 'só', 'pelo', 'pela', 'até', 'isso', 'ela', 'entre', 'depois', 'sem', 'mesmo', 'aos', 'seus', 'quem', 'nas', 'me', 'esse', 'eles', 'você', 'essa', 'num', 'nem', 'suas', 'meu', 'às', 'minha', 'têm', 'numa', 'pelos', 'elas', 'qual', 'nós', 'lhe', 'deles', 'essas', 'esses', 'pelas', 'este', 'dele', 'tu', 'te', 'vocês', 'vos', 'lhes', 'meus', 'minhas', 'teu', 'tua', 'teus', 'tuas', 'nosso', 'nossa', 'nossos', 'nossas', 'dela', 'delas', 'esta', 'estes', 'estas', 'aquele', 'aquela', 'aqueles', 'aquelas', 'isto', 'aquilo', 'estou', 'está', 'estamos', 'estão', 'estive', 'esteve', 'estivemos', 'estiveram', 'estava', 'estávamos', 'estavam', 'estivera', 'estivéramos', 'haja', 'hajamos', 'hajam', 'houve', 'houvemos', 'houveram', 'houvera', 'houvéramos', 'haja', 'hajamos', 'hajam', 'he', 'hei', 'havemos', 'hão', 'houve', 'houvemos', 'houveram', 'houvera', 'houvéramos', 'tinha', 'tínhamos', 'tinham', 'tivera', 'tivéramos', 'tenha', 'tenhamos', 'tenham', 'tivesse', 'tivéssemos', 'tivessem', 'tiver', 'tivermos', 'tiverem', 'farei', 'fará', 'faremos', 'farão', 'faria', 'faríamos', 'fariam', 'fez', 'fizeram', 'fizesse', 'fizessem'];
+        
+        // Limpar texto e transformar em array
+        const palavras = textoCompleto.toLowerCase()
+            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+            .split(/\s+/)
+            .filter(p => p.length > 3 && !palavrasIgnoradas.includes(p));
+
+        const contagem = {};
+        palavras.forEach(p => { contagem[p] = (contagem[p] || 0) + 1; });
+
+        // Ordenar e pegar as top 3
+        const topPalavras = Object.entries(contagem)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 3)
+            .map(p => p[0])
+            .join(", ");
+
+        elPalavras.innerText = topPalavras || "Nenhuma palavra relevante encontrada.";
+    }
+
+    // 4. Calcular Período com Maior Alcance
+    if(elPeriodo) {
+        const topPeriodo = Object.entries(postsPorData)
+            .sort((a, b) => b[1] - a[1])[0]; // Pega o maior
+        
+        elPeriodo.innerText = topPeriodo ? `${topPeriodo[0]} (${topPeriodo[1]} views)` : "Sem dados";
+    }
+}
+
+// Chamar essa função quando o auth confirmar o usuário
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        carregarDashboard(user);
+    }
+});
