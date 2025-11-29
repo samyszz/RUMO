@@ -235,7 +235,8 @@ body.dark-mode .filter-option:hover {
   gap: 30px;
   width: 100%;
 
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+  min-width: 280px;
   /* antes era 320px */
 
   justify-items: center;

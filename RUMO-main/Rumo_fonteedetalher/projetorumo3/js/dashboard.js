@@ -307,3 +307,7 @@ function updateInteractionCards(likes, comments, views) {
     document.getElementById('stat-shares').innerText = "0";
     document.getElementById('stat-saved').innerText = "0";
 }
+// Adicione isso na última linha do arquivo dashboard.js
+document.addEventListener('DOMContentLoaded', () => {
+    checkAccessAndInit();
+});

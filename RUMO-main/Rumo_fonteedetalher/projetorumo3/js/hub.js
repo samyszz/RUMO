@@ -17,9 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
   firebase.auth().onAuthStateChanged(async (user) => {
     currentUser = user;
     if (user) {
-      const userDoc = await firebase.firestore().collection("users").doc(user.uid).get();
-      if (userDoc.exists) {
-        currentUserData = userDoc.data();
+      try {
+        const userDoc = await firebase.firestore().collection("users").doc(user.uid).get();
+        if (userDoc.exists) {
+          currentUserData = userDoc.data();
+        }
+      } catch (e) {
+        console.error("Erro ao buscar dados do usuário:", e);
       }
     } else {
       currentUserData = null;
@@ -51,12 +55,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   };
 
-  // Função INTELIGENTE de mapa: Usa Link se tiver, senão busca pelo Endereço
+  // Função INTELIGENTE de mapa
   window.openLocationMap = function(mapsLink, address) {
       if (mapsLink && mapsLink.trim() !== "") {
           window.open(mapsLink, '_blank');
       } else if (address && address.trim() !== "") {
-          // Cria link de busca do Google Maps com o endereço
           const query = encodeURIComponent(address);
           window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
       } else {
@@ -77,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- LÓGICA DE TRADUÇÃO ---
   async function fetchTranslation(text, isoCode) {
       try {
+          // Tenta Google Translate (API não oficial)
           const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=pt&tl=${isoCode}&dt=t&q=${encodeURIComponent(text)}`;
           const res = await fetch(url);
           const data = await res.json();
@@ -84,10 +88,11 @@ document.addEventListener("DOMContentLoaded", () => {
               return data[0].map(part => part[0]).join('');
           }
       } catch (e) {
-          console.warn("Google falhou, tentando backup...", e);
+          // Falha silenciosa ou tentativa de backup
       }
 
       try {
+          // Backup MyMemory
           const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=pt|${isoCode}`;
           const res = await fetch(url);
           const data = await res.json();
@@ -156,14 +161,16 @@ document.addEventListener("DOMContentLoaded", () => {
     return doc.body.innerHTML;
   }
 
-  // --- CARREGAMENTO DE DADOS ---
+  // --- CARREGAMENTO DE DADOS (OTIMIZADO) ---
   const loadPosts = () => {
     if (!hubFeedContainer) return;
 
     firebase.firestore().collection("posts").orderBy("createdAt", "desc").onSnapshot(
         async (snapshot) => {
-          hubFeedContainer.innerHTML = "";
+          // Não limpa o HTML imediatamente para evitar "flicker"
+          
           if (snapshot.empty) {
+            hubFeedContainer.innerHTML = "";
             const currentLang = localStorage.getItem('rumo_lang') || 'pt-brasil';
             const noPostsText = currentLang.startsWith('en') ? "No posts yet." : 
                                currentLang.startsWith('es') ? "Aún no hay publicaciones." :
@@ -172,12 +179,17 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
           }
 
-          allPostsData = await Promise.all(
-            snapshot.docs.map(async (doc) => {
-              const commentsSnapshot = await firebase.firestore().collection("posts").doc(doc.id).collection("comments").get();
-              return { id: doc.id, data: doc.data(), commentCount: commentsSnapshot.size };
-            })
-          );
+          // CORREÇÃO DE PERFORMANCE:
+          // Removemos o 'await' dentro do map que buscava a subcoleção de comentários para CADA post.
+          // Agora usamos 'doc.data().commentCount' (que você deve salvar no post) ou 0.
+          allPostsData = snapshot.docs.map((doc) => {
+              const data = doc.data();
+              return { 
+                  id: doc.id, 
+                  data: data, 
+                  commentCount: data.commentCount || 0 
+              };
+          });
 
           await renderFilteredAndSearchedPosts();
         },
@@ -187,7 +199,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- RENDERIZAÇÃO ---
   const renderFilteredAndSearchedPosts = async () => {
+    // Preparar o container
     hubFeedContainer.innerHTML = "";
+    
     const postsToRender = allPostsData.filter((postInfo) => {
       const post = postInfo.data;
       const matchesFilter = currentFilter === "all" || (post.category || "noticia") === currentFilter;
@@ -207,6 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
                           "Nenhuma publicação encontrada.";
       hubFeedContainer.innerHTML = `<p>${noFilterText}</p>`;
     } else {
+      // Renderiza sequencialmente para manter a ordem, mas sem bloquear excessivamente
       for (const postInfo of postsToRender) {
           await renderPost(postInfo);
       }
@@ -223,6 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let cleanDesc = post.description ? post.description.replace(/<[^>]*>?/gm, "") : "";
     let snippetText = cleanDesc.substring(0, 200); 
 
+    // Tradução se necessário
     if (!currentLang.startsWith('pt')) {
        displayTitle = await translateText(post.title, currentLang);
        snippetText = await translateText(snippetText, currentLang);
@@ -242,8 +258,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const isLiked = currentUser && likes.includes(currentUser.uid);
     const savedPosts = (currentUserData && currentUserData.savedPosts) || [];
     const isSaved = savedPosts.includes(postId);
-
-    
 
     const interactionsHTML = `
             <div class="info-card-interactions">
@@ -367,14 +381,9 @@ document.addEventListener("DOMContentLoaded", () => {
         displayContent = await translateHtmlContent(post.description, currentLang);
     }
 
-    // --- LÓGICA DOS BOTÕES EXTRAS (CORRIGIDA) ---
     const hasContact = post.contactType && post.contactValue;
-    
-    // VERIFICA SE TEM LOCAL (Endereço OU Link)
-    // Antes verificava apenas mapsLink. Agora verifica se existe qualquer info de local.
     const hasLocation = post.location && (post.location.address || post.location.mapsLink);
 
-    // Botão de Contato
     let contactBtn = '';
     if (hasContact) {
         let iconClass = 'fas fa-phone-alt';
@@ -391,10 +400,8 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
     }
 
-    // Botão de Localização (CORRIGIDO PARA USAR ENDEREÇO SE NÃO TIVER LINK)
     let locationBtn = '';
     if (hasLocation) {
-        // Passa tanto o link quanto o endereço para a função decidir
         const mapsLinkSafe = post.location.mapsLink ? post.location.mapsLink.replace(/'/g, "\\'") : "";
         const addressSafe = post.location.address ? post.location.address.replace(/'/g, "\\'") : "";
 
@@ -504,6 +511,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function loadComments(postId) {
     const commentList = document.querySelector("#comment-modal .comment-list");
+    // Escuta em tempo real os comentários (apenas quando o modal está aberto)
     firebase.firestore().collection("posts").doc(postId).collection("comments").orderBy("timestamp", "asc").onSnapshot((snapshot) => {
           if (snapshot.empty) { commentList.innerHTML = '<p class="comment-list-empty">Seja o primeiro a comentar!</p>'; return; }
           commentList.innerHTML = "";
@@ -520,7 +528,33 @@ document.addEventListener("DOMContentLoaded", () => {
   async function postComment(postId, text) {
     if (!currentUser || !currentUserData) return;
     const userName = currentUserData.nomeCompleto || currentUserData.nome || "Usuário";
-    const commentData = { text: text, userId: currentUser.uid, userName: userName, userPhotoURL: currentUserData.photoURL || null, timestamp: firebase.firestore.FieldValue.serverTimestamp() };
-    await firebase.firestore().collection("posts").doc(postId).collection("comments").add(commentData);
+    const commentData = { 
+        text: text, 
+        userId: currentUser.uid, 
+        userName: userName, 
+        userPhotoURL: currentUserData.photoURL || null, 
+        timestamp: firebase.firestore.FieldValue.serverTimestamp() 
+    };
+
+    try {
+        const postRef = firebase.firestore().collection("posts").doc(postId);
+        
+        // --- OTIMIZAÇÃO: TRANSAÇÃO ---
+        // Adiciona o comentário na subcoleção E incrementa o contador no Post
+        await firebase.firestore().runTransaction(async (transaction) => {
+            const newCommentRef = postRef.collection("comments").doc();
+            transaction.set(newCommentRef, commentData);
+            
+            // Incrementa o contador 'commentCount' no documento do post
+            // Isso garante que a lista de posts tenha o número sem buscar todos os comentários
+            transaction.update(postRef, {
+                commentCount: firebase.firestore.FieldValue.increment(1)
+            });
+        });
+
+    } catch (error) {
+        console.error("Erro ao comentar: ", error);
+        alert("Não foi possível enviar o comentário.");
+    }
   }
 });
