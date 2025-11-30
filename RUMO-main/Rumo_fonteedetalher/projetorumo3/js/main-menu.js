@@ -1,3 +1,5 @@
+/* js/main-menu.js - Menu Principal e Seletor de Idiomas Completo */
+
 // =============================================
 // LÓGICA DO MENU PRINCIPAL (HAMBURGUER)
 // =============================================
@@ -63,13 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 li.appendChild(accBtn);
 
-                // Botão de Idioma (Ajustado para abrir o SEU painel mobile)
+                // Botão de Idioma (Ajustado para abrir o painel mobile)
                 const langBtn = document.createElement('button');
-                langBtn.className = 'mobile-lang-btn'; // Classe usada pelo seu script
+                langBtn.className = 'mobile-lang-btn'; 
                 langBtn.type = 'button';
                 langBtn.setAttribute('aria-label', 'Alterar idioma (mobile)');
                 langBtn.innerHTML = '<i class="fas fa-language"></i>';
-                // Nota: O evento de click é gerenciado pela função createMobileLanguagePanel abaixo
                 li.appendChild(langBtn);
 
                 // Botão de Tema
@@ -165,81 +166,74 @@ document.addEventListener('DOMContentLoaded', () => {
     const langContent = langContainer.querySelector('#lang-dropdown-content');
     const langSelect = langContainer.querySelector('#language-select-header');
 
-    // LISTA DE IDIOMAS USANDO UNICODE ESCAPES
+    // LISTA COMPLETA DE IDIOMAS (Sincronizada com i18n.js)
     const languages = {
         "Português": [
-            { name: "Brasil", flag: "\uD83C\uDDE7\uD83C\uDDF7" },       // 🇧🇷
-            { name: "Portugal", flag: "\uD83C\uDDF5\uD83C\uDDF9" },     // 🇵🇹
-            { name: "Angola", flag: "\uD83C\uDDE6\uD83C\uDDF4" },       // 🇦🇴
-            { name: "Moçambique", flag: "\uD83C\uDDF2\uD83C\uDDFF" },   // 🇲🇿
-            { name: "Cabo Verde", flag: "\uD83C\uDDE8\uD83C\uDDFB" },   // 🇨🇻
-            { name: "Guiné-Bissau", flag: "\uD83C\uDDEC\uD83C\uDDFC" }, // 🇬🇼
-            { name: "Timor-Leste", flag: "\uD83C\uDDF9\uD83C\uDDF1" }   // 🇹🇱
+            { name: "Brasil", flag: "🇧🇷" },
+            { name: "Portugal", flag: "🇵🇹" },
+            { name: "Angola", flag: "🇦🇴" },
+            { name: "Moçambique", flag: "🇲🇿" },
+            { name: "Cabo Verde", flag: "🇨🇻" },
+            { name: "Guiné-Bissau", flag: "🇬🇼" },
+            { name: "Timor-Leste", flag: "🇹🇱" }
         ],
         "Espanhol": [
-            { name: "Espanha", flag: "\uD83C\uDDEA\uD83C\uDDF8" },      // 🇪🇸
-            { name: "Venezuela", flag: "\uD83C\uDDFB\uD83C\uDDEA" },    // 🇻🇪
-            { name: "Bolívia", flag: "\uD83C\uDDE7\uD83C\uDDF4" },      // 🇧🇴
-            { name: "Paraguai", flag: "\uD83C\uDDF5\uD83C\uDDFE" },     // 🇵🇾
-            { name: "Peru", flag: "\uD83C\uDDF5\uD83C\uDDEA" },         // 🇵🇪
-            { name: "Argentina", flag: "\uD83C\uDDE6\uD83C\uDDF7" },    // 🇦🇷
-            { name: "Colômbia", flag: "\uD83C\uDDE8\uD83C\uDDF4" },     // 🇨🇴
-            { name: "Chile", flag: "\uD83C\uDDE8\uD83C\uDDF1" }         // 🇨🇱
+            { name: "Espanha", flag: "🇪🇸" },
+            { name: "México", flag: "🇲🇽" },
+            { name: "Venezuela", flag: "🇻🇪" },
+            { name: "Bolívia", flag: "🇧🇴" },
+            { name: "Paraguai", flag: "🇵🇾" },
+            { name: "Peru", flag: "🇵🇪" },
+            { name: "Argentina", flag: "🇦🇷" },
+            { name: "Colômbia", flag: "🇨🇴" },
+            { name: "Chile", flag: "🇨🇱" }
         ],
         "Inglês": [
-            { name: "Estados Unidos", flag: "\uD83C\uDDFA\uD83C\uDDF8" }, // 🇺🇸
-            { name: "Reino Unido", flag: "\uD83C\uDDEC\uD83C\uDDE7" },    // 🇬🇧
-            { name: "Nigéria", flag: "\uD83C\uDDF3\uD83C\uDDEC" },        // 🇳🇬
-            { name: "Gana", flag: "\uD83C\uDDEC\uD83C\uDDED" },           // 🇬🇭
-            { name: "África do Sul", flag: "\uD83C\uDDFF\uD83C\uDDE6" }   // 🇿🇦
+            { name: "Estados Unidos", flag: "🇺🇸" },
+            { name: "Reino Unido", flag: "🇬🇧" },
+            { name: "Nigéria", flag: "🇳🇬" },
+            { name: "Gana", flag: "🇬🇭" },
+            { name: "África do Sul", flag: "🇿🇦" }
         ],
         "Francês": [
-            { name: "França", flag: "\uD83C\uDDEB\uD83C\uDDF7" },         // 🇫🇷
-            { name: "Haiti", flag: "\uD83C\uDDED\uD83C\uDDF9" },          // 🇭🇹
-            { name: "RDC", flag: "\uD83C\uDDE8\uD83C\uDDE9" },            // 🇨🇩
-            { name: "Senegal", flag: "\uD83C\uDDF8\uD83C\uDDF3" },        // 🇸🇳
-            { name: "África Ocidental", flag: "\uD83C\uDF0D" }            // 🌍
+            { name: "França", flag: "🇫🇷" },
+            { name: "Haiti", flag: "🇭🇹" },
+            { name: "RDC", flag: "🇨🇩" },
+            { name: "Senegal", flag: "🇸🇳" },
+            { name: "África Ocidental", flag: "🌍" }
         ],
         "Crioulo Haitiano": [
-            { name: "Haiti", flag: "\uD83C\uDDED\uD83C\uDDF9" }          // 🇭🇹
+            { name: "Haiti", flag: "🇭🇹" }
         ],
         "Árabe": [
-            { name: "Síria", flag: "\uD83C\uDDF8\uD83C\uDDFE" },          // 🇸🇾
-            { name: "Líbano", flag: "\uD83C\uDDF1\uD83C\uDDE7" },         // 🇱🇧
-            { name: "Palestina", flag: "\uD83C\uDDF5\uD83C\uDDF8" }       // 🇵🇸
+            { name: "Síria", flag: "🇸🇾" },
+            { name: "Líbano", flag: "🇱🇧" },
+            { name: "Palestina", flag: "🇵🇸" }
         ],
         "Mandarim (Chinês)": [
-            { name: "China", flag: "\uD83C\uDDE8\uD83C\uDDF3" }           // 🇨🇳
+            { name: "China", flag: "🇨🇳" }
         ],
         "Coreano": [
-            { name: "Coreia do Sul", flag: "\uD83C\uDDF0\uD83C\uDDF7" }   // 🇰🇷
+            { name: "Coreia do Sul", flag: "🇰🇷" }
         ],
         "Japonês": [
-            { name: "Japão", flag: "\uD83C\uDDEF\uD83C\uDDF5" }           // 🇯🇵
+            { name: "Japão", flag: "🇯🇵" }
         ],
         "Guarani": [
-            { name: "Paraguai", flag: "\uD83C\uDDF5\uD83C\uDDFE" },       // 🇵🇾
-            { name: "Bolívia", flag: "\uD83C\uDDE7\uD83C\uDDF4" }         // 🇧🇴
+            { name: "Paraguai", flag: "🇵🇾" },
+            { name: "Bolívia", flag: "🇧🇴" }
         ],
         "Quéchua": [
-            { name: "Bolívia", flag: "\uD83C\uDDE7\uD83C\uDDF4" },        // 🇧🇴
-            { name: "Peru", flag: "\uD83C\uDDF5\uD83C\uDDEA" }            // 🇵🇪
+            { name: "Bolívia", flag: "🇧🇴" },
+            { name: "Peru", flag: "🇵🇪" }
         ]
     };
 
-    // Mapeamento de nomes de idiomas para códigos
+    // Mapeamento de nomes de idiomas para códigos (Sincronizado com i18n.js)
     const langCodeMap = {
-        "Português": "pt",
-        "Espanhol": "es",
-        "Inglês": "en",
-        "Francês": "fr",
-        "Crioulo Haitiano": "ht",
-        "Árabe": "ar",
-        "Mandarim (Chinês)": "zh",
-        "Coreano": "ko",
-        "Japonês": "ja",
-        "Guarani": "gn",
-        "Quéchua": "qu"
+        "Português": "pt", "Espanhol": "es", "Inglês": "en", "Francês": "fr",
+        "Crioulo Haitiano": "ht", "Árabe": "ar", "Mandarim (Chinês)": "zh",
+        "Coreano": "ko", "Japonês": "ja", "Guarani": "gn", "Quéchua": "qu"
     };
 
     function populateLanguageDropdown() {
@@ -265,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const option = document.createElement('option');
                 option.value = optionValue;
                 
-                // Aplica o Emoji Seguro e o Nome
+                // Aplica Bandeira + Nome
                 option.textContent = `${region.flag} ${region.name}`;
                 
                 if (optionValue === currentLang) {
@@ -309,7 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
 
 
 // ================================
@@ -356,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     mobileSelect.appendChild(child.cloneNode(true));
                 });
                 mobileSelect.value = headerSelect.value || localStorage.getItem('rumo_lang') || '';
-                console.log('Idiomas carregados no painel mobile ✅');
+                // console.log('Idiomas carregados no painel mobile ✅');
             } else {
                 // tenta novamente até o header estar pronto
                 setTimeout(cloneHeaderLanguages, 250);
@@ -459,3 +452,31 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn('createMobileLanguagePanel failed', err);
     }
 })();
+// =============================================
+// LÓGICA DO BOTÃO DE ACESSIBILIDADE (Integração UserWay)
+// =============================================
+document.addEventListener('DOMContentLoaded', () => {
+    const accBtn = document.getElementById('accessibility-btn');
+    
+    if (accBtn) {
+        accBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Tenta encontrar o widget do UserWay na página
+            // O UserWay geralmente cria elementos com IDs ou classes específicas
+            // A API pública 'UserWay.accessibilityWidget.toggle()' funciona na maioria das versões
+            
+            if (typeof UserWay !== 'undefined' && UserWay.accessibilityWidget) {
+                UserWay.accessibilityWidget.toggle();
+            } else {
+                // Fallback: Tenta clicar no ícone padrão do UserWay se a API não estiver exposta
+                const userWayIcon = document.querySelector('[id^="userway-accessibility-widget"]');
+                if (userWayIcon) {
+                    userWayIcon.click();
+                } else {
+                    console.warn("Widget UserWay ainda não carregou ou não foi encontrado.");
+                }
+            }
+        });
+    }
+});
