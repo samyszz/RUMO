@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title data-i18n="utilitarios.title">R.U.M.O - utilidades</title>
+    <title data-i18n="utilitarios.title">R.U.M.O - Utilidades</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/utils.css">
@@ -19,7 +19,7 @@
             <ul>
                 <li><a href="index.html" data-i18n="nav.home">Home</a></li>
                 <li><a href="hub.html" data-i18n="nav.hub">HUB</a></li>
-                <li><a href="utilitarios.html" data-i18n="nav.tools">utilidades</a></li>
+                <li><a href="utilitarios.html" data-i18n="nav.tools">Utilidades</a></li>
                 <li><a href="sobre.html" data-i18n="nav.about">Sobre nós</a></li>
                 <li id="nav-profile-item" style="display: none;"><a href="perfil.html" class="create-account-btn" data-i18n="nav.profile">Meu Perfil</a></li>
                 <li id="nav-login-item"><a href="auth.html" class="create-account-btn" data-i18n="nav.create_account">Criar conta</a></li>
@@ -64,9 +64,9 @@
             
             <div class="tool-dropdown">
                 <button class="tool-header location-header">
-    <i class="fa-solid fa-location-dot"></i> 
-    <span data-i18n="utilitarios.location.title">Sua localização atual</span>
-</button>
+                    <i class="fa-solid fa-location-dot"></i> 
+                    <span data-i18n="utilitarios.location.title">Sua localização atual</span>
+            </button>
                 <div class="tool-content location-content" style="display: none;">
                     <form id="search-form-map" class="search-bar-map">
                         <i class="fas fa-search"></i>
@@ -84,10 +84,9 @@
              <!-- conversor de moedas -->
 
             <div class="tool-dropdown">
-                <button class="tool-header currency-header">
-    <i class="fa-solid fa-dollar-sign"></i> 
-    <span data-i18n="utilitarios.currency.title">Conversor de Moedas</span>
-</button>
+                <button class="tool-header currency-header" data-i18n="utilitarios.currency.title">
+                    <i class="fas fa-dollar-sign"></i> Conversor de Moedas
+                </button>
                 <div class="tool-content currency-content" style="display: none;">
                     <form class="converter-form">
                         <label for="from-currency" data-i18n="utilitarios.currency.from">De:</label>
@@ -95,20 +94,37 @@
                             <option value="USD" data-i18n="utilitarios.currency.usd">Dólar Americano (USD)</option>
                             <option value="EUR" data-i18n="utilitarios.currency.eur">Euro (EUR)</option>
                             <option value="BRL" data-i18n="utilitarios.currency.brl">Real Brasileiro (BRL)</option>
+                            <option value="GBP">Libra Esterlina (GBP)</option>
+                            <option value="ZAR">Rand Sul-Africano (ZAR)</option>
+                            <option value="ILS">Shekel Israelense (ILS)</option>
+                            <option value="CNY">Yuan Chinês (CNY)</option>
+                            <option value="KRW">Won Sul-Coreano (KRW)</option>
+                            <option value="JPY">Iene Japonês (JPY)</option>
                         </select>
+
                         <label for="to-currency" data-i18n="utilitarios.currency.to">Para:</label>
                         <select id="to-currency" name="to-currency">
                             <option value="BRL" data-i18n="utilitarios.currency.brl">Real Brasileiro (BRL)</option>
                             <option value="USD" data-i18n="utilitarios.currency.usd">Dólar Americano (USD)</option>
                             <option value="EUR" data-i18n="utilitarios.currency.eur">Euro (EUR)</option>
+                            <option value="GBP">Libra Esterlina (GBP)</option>
+                            <option value="ZAR">Rand Sul-Africano (ZAR)</option>
+                            <option value="ILS">Shekel Israelense (ILS)</option>
+                            <option value="CNY">Yuan Chinês (CNY)</option>
+                            <option value="KRW">Won Sul-Coreano (KRW)</option>
+                            <option value="JPY">Iene Japonês (JPY)</option>
                         </select>
+
                         <label for="amount-currency" data-i18n="utilitarios.currency.amount_label">Digite o valor:</label>
-                        <input type="number" id="amount-currency" placeholder="100,00" data-i18n="utilitarios.currency.amount_placeholder">
+                        <input type="number" id="amount-currency" placeholder="100,00" data-i18n="utilitarios.currency.amount_placeholder" step="any" min="0">
+
                         <button type="button" class="btn-converter" data-i18n="utilitarios.currency.convert">Converter</button>
+
                         <div class="result-box">
-                            <strong data-i18n="utilitarios.currency.result_label">Resultado:</strong> 
+                            <strong data-i18n="utilitarios.currency.result_label">Resultado:</strong>
                             <span>R$ 0,00</span>
                         </div>
+
                         <div>
                             <span id="currency-update-info" style="font-size:0.9em;color:#826414"></span>
                         </div>
@@ -120,9 +136,9 @@
 
             <div class="tool-dropdown">
             <button class="tool-header measure-header">
-    <i class="fa-solid fa-ruler-combined"></i> 
-    <span data-i18n="utilitarios.measure.title">Conversor de medida</span>
-</button>
+                <i class="fa-solid fa-ruler-combined"></i> 
+                <span data-i18n="utilitarios.measure.title">Conversor de medida</span>
+            </button>
                 <div class="tool-content measure-content" style="display: none;">
                     <form class="converter-form">
                         <label for="unit-type" data-i18n="utilitarios.measure.unit_type_label">Selecione a unidade de medida:</label>
@@ -147,10 +163,10 @@
             </div>
 
             <div class="tool-dropdown">
-               <button class="tool-header docs-header">
-    <i class="fa-solid fa-shield-halved"></i> 
-    <span data-i18n="utilitarios.docs.title">Cofre de documentos</span>
-</button>
+                <button class="tool-header docs-header">
+                    <i class="fa-solid fa-shield-halved"></i> 
+                    <span data-i18n="utilitarios.docs.title">Cofre de documentos</span>
+                </button>
                 <div class="tool-content docs-content" style="display: none;">
                     <div class="doc-form-container">
                         <h3 class="form-section-title" data-i18n="utilitarios.docs.add_new">Adicionar Novo Documento</h3>
@@ -169,10 +185,10 @@
             </div>
 
             <div class="tool-dropdown">
-               <button class="tool-header lang-header">
-    <i class="fa-solid fa-language"></i> 
-    <span data-i18n="utilitarios.lang.title">Alterar o idioma</span>
-</button>
+                <button class="tool-header lang-header">
+                    <i class="fa-solid fa-language"></i> 
+                    <span data-i18n="utilitarios.lang.title">Alterar o idioma</span>
+            </button>
                 <div class="tool-content lang-content" style="display: none;">
                     <p data-i18n="utilitarios.lang.current_platform">Idioma atual da plataforma: <strong data-i18n="header.lang.pt_br">Português (Brasil)</strong></p>
                     <form class="converter-form">
