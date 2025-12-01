@@ -6,117 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
     
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="icon" type="image/png" href="assets/imagens/logo.png">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/auth-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
     <style>
         /* CSS DA BARRA DE FORÇA DE SENHA */
-        .strength-container {
-            margin-top: -10px;
-            margin-bottom: 15px;
-            width: 100%;
-        }
-        .strength-meter {
-            height: 6px;
-            background-color: #e0e0e0;
-            border-radius: 4px;
-            width: 100%;
-            overflow: hidden;
-            margin-bottom: 5px;
-            position: relative;
-        }
-        .strength-bar {
-            height: 100%;
-            width: 0%;
-            border-radius: 4px;
-            transition: width 0.3s ease, background-color 0.3s ease;
-            display: block;
-        }
-        .strength-text {
-            font-size: 0.8rem;
-            font-weight: 700;
-            display: block;
-            text-align: left;
-            margin-top: 4px;
-        }
+        .strength-container { margin-top: -10px; margin-bottom: 15px; width: 100%; }
+        .strength-meter { height: 6px; background-color: #e0e0e0; border-radius: 4px; width: 100%; overflow: hidden; margin-bottom: 5px; position: relative; }
+        .strength-bar { height: 100%; width: 0%; border-radius: 4px; transition: width 0.3s ease, background-color 0.3s ease; display: block; }
+        .strength-text { font-size: 0.8rem; font-weight: 700; display: block; text-align: left; margin-top: 4px; }
         
         /* MENSAGENS DE ERRO */
-        .error-msg {
-            font-size: 0.8rem;
-            color: #d32f2f;
-            font-weight: 600;
-            margin-top: -10px;
-            margin-bottom: 10px;
-            display: none;
-            text-align: left;
-            width: 100%;
-        }
-        .error-msg.visible {
-            display: block;
-        }
+        .error-msg { font-size: 0.8rem; color: #d32f2f; font-weight: 600; margin-top: -10px; margin-bottom: 10px; display: none; text-align: left; width: 100%; }
+        .error-msg.visible { display: block; }
 
         /* Bordas dos inputs */
-        input.invalid {
-            border: 2px solid #d32f2f !important;
-            background-color: #fff0f0;
-        }
-        input.valid {
-            border: 2px solid #74ad8c !important;
-        }
+        input.invalid { border: 2px solid #d32f2f !important; background-color: #fff0f0; }
+        input.valid { border: 2px solid #74ad8c !important; }
 
         /* ESTILOS DOS BOTÕES DE UTILIDADE (Auth) */
-        .auth-utils {
-            margin-top: 25px; 
-            display: flex; 
-            gap: 20px; 
-            justify-content: center; 
-            align-items: center;
-        }
-
-        .auth-utils-btn {
-            background: transparent;
-            /* Usa currentColor para herdar a cor do texto definida pelo tema/overlay */
-            border: 2px solid currentColor; 
-            color: inherit; 
-            font-size: 1.1rem;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .auth-utils-btn:hover {
-            /* Efeito sutil ao passar o mouse */
-            background-color: rgba(255, 255, 255, 0.1); 
-            transform: translateY(-2px);
-        }
+        .auth-utils { margin-top: 25px; display: flex; gap: 20px; justify-content: center; align-items: center; }
+        .auth-utils-btn { background: transparent; border: 2px solid currentColor; color: inherit; font-size: 1.1rem; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+        .auth-utils-btn:hover { background-color: rgba(255, 255, 255, 0.1); transform: translateY(-2px); }
 
         /* Link de Voltar */
-        .back-link {
-            position: absolute; 
-            left: 20px; 
-            top: 25px; 
-            text-decoration: none; 
-            font-weight: bold; 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            z-index: 10; 
-            color: var(--text-color); /* Respeita o tema do base.css */
-            font-family: var(--font-primary, sans-serif);
-        }
+        .back-link { position: absolute; left: 20px; top: 25px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; z-index: 10; color: var(--text-color); font-family: var(--font-primary, sans-serif); }
         
-        /* Ajuste para garantir visibilidade no header em telas menores */
-        @media (max-width: 768px) {
-            .back-link span {
-                display: none; /* Esconde texto em mobile, deixa só a seta */
-            }
+        /* Responsividade do link voltar */
+        @media (max-width: 920px) {
+            .back-link span { display: none; }
         }
     </style>
 </head>
@@ -142,6 +62,12 @@
         
         <div class="form-container register-container">
             <div class="form-panel">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
                 <h2 data-i18n="form.register">Cadastre-se</h2>
                 
                 <div class="social-container">
@@ -165,7 +91,7 @@
                     <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email" id="email-pf" placeholder="Email..." required></div>
                     <div id="error-email-pf" class="error-msg">E-mail inválido</div>
 
-                    <div class="form-group"><i class="fas fa-globe"></i><select id="language-select-pf" name="idioma" class="language-dropdown" required></select></div>
+                    <div class="form-group"><i class="fas fa-globe"><span></i><select id="language-select-pf" name="idioma" class="language-dropdown" required></select></div>
                     
                     <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="senha" id="senha-pf" placeholder="Senha..." required></div>
                     <div class="strength-container">
@@ -190,7 +116,9 @@
                     <div class="form-group"><i class="fas fa-building"></i><input type="text" name="nome_empresa" id="nome-empresa" placeholder="Nome da Empresa/ONG..." required></div>
                     
                     <div class="form-group"><i class="fas fa-id-card"></i><input type="text" name="cnpj" id="cnpj-input" placeholder="CNPJ..." maxlength="18" required></div>
-                    <div id="status-cnpj" class="error-msg" style="color: #666;"></div> <div id="error-cnpj" class="error-msg">CNPJ Inválido</div> <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email_comercial" id="email-pj" placeholder="Email Comercial..." required></div>
+                    <div id="status-cnpj" class="error-msg" style="color: #666;"></div> <div id="error-cnpj" class="error-msg">CNPJ Inválido</div> 
+                    
+                    <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email_comercial" id="email-pj" placeholder="Email Comercial..." required></div>
                     <div id="error-email-pj" class="error-msg">E-mail inválido</div>
 
                     <div class="form-group"><i class="fas fa-globe"></i><select id="language-select-pj" name="idioma_pj" class="language-dropdown" required></select></div>
@@ -239,38 +167,38 @@
         <div class="overlay-container">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
-                    <img src="logo.png" alt="Logo R.U.M.O">
+                    <img src="assets/imagens/logo.png" alt="Logo R.U.M.O">
                     <h3 data-i18n="login.overlay_title">Já tem uma conta?</h3>
                     <p>Faça login para acessar a plataforma</p>
                     <button class="btn-overlay" id="signIn">Login</button>
                     
                     <div class="auth-utils">
-                        <button class="auth-utils-btn theme-toggle-auth" aria-label="Alternar tema">
+                        <button type="button" class="auth-utils-btn theme-toggle-auth" aria-label="Alternar tema">
                             <i class="fas fa-moon"></i>
                         </button>
-                        <button class="auth-utils-btn accessibility-btn-auth" aria-label="Acessibilidade">
+                        <button type="button" class="auth-utils-btn accessibility-btn-auth" id="accessibility-btn" aria-label="Acessibilidade">
                             <i class="fas fa-universal-access"></i>
                         </button>
-                        <button class="auth-utils-btn lang-btn-auth" aria-label="Idioma">
+                        <button type="button" class="auth-utils-btn lang-btn-auth" aria-label="Idioma">
                             <i class="fas fa-language"></i>
                         </button>
                     </div>
                 </div>
 
                 <div class="overlay-panel overlay-right">
-                    <img src="logo.png" alt="Logo R.U.M.O">
+                    <img src="assets/imagens/logo.png" alt="Logo R.U.M.O">
                     <h3 data-i18n="cadastro.overlay_title">Ainda não tem conta?</h3>
                     <p>Cadastre-se para começar sua jornada conosco</p>
                     <button class="btn-overlay" id="signUp">Cadastro</button>
                     
                     <div class="auth-utils">
-                        <button class="auth-utils-btn theme-toggle-auth" aria-label="Alternar tema">
+                        <button type="button" class="auth-utils-btn theme-toggle-auth" aria-label="Alternar tema">
                             <i class="fas fa-moon"></i>
                         </button>
-                        <button class="auth-utils-btn accessibility-btn-auth" aria-label="Acessibilidade">
+                        <button type="button" class="auth-utils-btn accessibility-btn-auth" id="accessibility-btn" aria-label="Acessibilidade">
                             <i class="fas fa-universal-access"></i>
                         </button>
-                        <button class="auth-utils-btn lang-btn-auth" aria-label="Idioma">
+                        <button type="button" class="auth-utils-btn lang-btn-auth" aria-label="Idioma">
                             <i class="fas fa-language"></i>
                         </button>
                     </div>
@@ -282,12 +210,10 @@
 </main>
 
 <img src="ondacima.png" class="ondacima" id="onda-cima">
-<footer class="ondinha">
-    <img src="ondabaixo.png" class="ondabaixo" id="onda-baixo">
-</footer>
+<img src="ondabaixo.png" class="ondabaixo" id="onda-baixo">
 
+<footer id="main-footer"></footer>
 
-   
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
@@ -295,7 +221,6 @@
 <script src="js/auth-slider.js"></script>
 <script src="js/login.js"></script>
 <script src="js/cadastro.js"></script>
-
 <script src="js/i18n.js"></script>
 <script src="js/dark-mode.js"></script>
 
@@ -303,11 +228,31 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // Elementos das ondas
+        const ondaCima = document.getElementById('onda-cima');
+        const ondaBaixo = document.getElementById('onda-baixo');
+
+        // Função para atualizar as imagens das ondas
+        function updateWaveImages(isDark) {
+            if (isDark) {
+                if(ondaCima) ondaCima.src = 'ondacimadark.png';
+                if(ondaBaixo) ondaBaixo.src = 'ondabaixodark.png';
+            } else {
+                if(ondaCima) ondaCima.src = 'ondacima.png';
+                if(ondaBaixo) ondaBaixo.src = 'ondabaixo.png';
+            }
+        }
+
         // TEMA
         const themeBtns = document.querySelectorAll('.theme-toggle-auth');
         themeBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                
+                // Atualiza ondas
+                updateWaveImages(isDark);
+
                 // Alterna ícone
                 const icon = btn.querySelector('i');
                 if (icon.classList.contains('fa-moon')) {
@@ -320,21 +265,36 @@
             });
         });
 
-        // ACESSIBILIDADE - O CLICK DISPARA O USERWAY
-        const accessBtns = document.querySelectorAll('.accessibility-btn-auth');
-        accessBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
+        // Verifica estado inicial do tema
+        if (document.body.classList.contains('dark-mode')) {
+            updateWaveImages(true);
+        }
+
+        // ACESSIBILIDADE - BOTÃO ID CORRIGIDO
+        const accessBtn = document.getElementById('accessibility-btn');
+        if(accessBtn) {
+            accessBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                // Tenta abrir o widget do UserWay
                 if (window.UserWay && window.UserWay.widget) {
                     window.UserWay.widget.open();
                 } else {
-                    console.log('Aguardando UserWay carregar...');
+                    console.log('UserWay ainda carregando...');
+                }
+            });
+        }
+        
+        // Também garante que todos os botões com a classe funcionem (para overlay direito/esquerdo)
+        const accessBtnsClass = document.querySelectorAll('.accessibility-btn-auth');
+        accessBtnsClass.forEach(btn => {
+             btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (window.UserWay && window.UserWay.widget) {
+                    window.UserWay.widget.open();
                 }
             });
         });
         
-        // IDIOMA (Alerta simples ou lógica personalizada)
+        // IDIOMA
         const langBtns = document.querySelectorAll('.lang-btn-auth');
         langBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {

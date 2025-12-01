@@ -4,7 +4,7 @@
 @font-face {
     font-family: 'Nunito-Black';
     src: url('../assets/fonts/Nunito/static/Nunito-Black.ttf') format('truetype');
-    font-weight: normal;
+    font-weight: 900;
     font-style: normal;
 }
 
@@ -12,6 +12,14 @@
     box-sizing: border-box;
 }
 
+/* --- FIX USERWAY: Esconde o widget flutuante padrão --- */
+.uwy-userway-launcher {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* MODO LIGHT */
 :root {
     --bg-color: #daf3ed;
     --header-bg: #85cbcb;
@@ -24,7 +32,8 @@
     --border-radius: 0px;
 }
 
-body.dark-mode {
+/* MODO DARK */
+:root.dark-mode {
     --bg-color: #053536;
     --header-bg: #0e3b3b;
     --text-color: #cce5e2;
@@ -59,10 +68,18 @@ body {
     
     /* DESKTOP: Borda grossa ativa */
     border: 21px solid var(--border-color);
+    border-bottom: none; 
     border-radius: var(--border-radius);
     
-    box-sizing: border-box;
-    overflow-x: hidden;
+    /* TRAVAMENTO DE SCROLL NO DESKTOP */
+    overflow: hidden; 
+}
+
+/* FIX: Garante mudança de fundo e borda no Dark Mode */
+body.dark-mode {
+    background-image: none !important;
+    background-color: var(--bg-color) !important;
+    border-color: var(--border-color) !important;
 }
 
 /* Ondas Desktop */
@@ -89,17 +106,13 @@ body {
     pointer-events: none;
 }
 
-/* Footer específico da onda (transparente e sem espaço) */
+/* Footer antigo (oculto) */
 footer.ondinha {
-    position: relative;
-    z-index: -1;
-    padding: 0;
-    height: 0;
-    background: transparent !important;
+    display: none;
 }
 
 /* ==========================================================================
-   3. HEADER E FOOTER (CONTEÚDO)
+   3. HEADER
    ========================================================================== */
 header {
     width: 100%;
@@ -120,7 +133,7 @@ header .container {
     align-items: center;
 }
 
-.logo { width: 70px; height: auto; }
+.logo { width: 0px; height: auto; }
 
 header nav ul {
     margin: 0;
@@ -163,34 +176,23 @@ header nav ul li a {
     position: relative;
 }
 
-/* Footer Geral */
-footer {
+/* ==========================================================================
+   4. FOOTER (BARRA DECORATIVA)
+   ========================================================================== */
+#main-footer {
     width: 100%;
-    background-color: var(--header-bg);
-    padding: 40px 0;
-    color: var(--text-color);
+    height: 21px; /* Mesma espessura da borda */
+    background-color: var(--border-color);
     margin-top: auto;
+    display: block;
 }
 
-.footer-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 40px;
-    flex-wrap: wrap;
+body.dark-mode #main-footer {
+    background-color: var(--border-color);
 }
-
-.footer-logo { width: 150px; height: auto; }
-.footer-contact form { display: flex; flex-direction: column; gap: 10px; width: 100%; }
-.footer-contact input { width: 100%; padding: 12px 15px; border: 2px solid var(--form-input-border); border-radius: 12px; background-color: var(--form-input-bg); color: var(--text-color); font-family: 'Nunito-Black', sans-serif; }
-.footer-contact .input-with-button { position: relative; display: flex; width: 100%; }
-.footer-contact .input-with-button button { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background-color: #217473; border: none; border-radius: 10px; width: 38px; height: 38px; cursor: pointer; color: white; }
 
 /* ==========================================================================
-   4. CONTAINER DO FORMULÁRIO (DESKTOP)
+   5. CONTAINER DO FORMULÁRIO (DESKTOP)
    ========================================================================== */
 
 main.form-main {
@@ -228,6 +230,10 @@ main.form-main {
     background-color: var(--card-bg);
 }
 
+body.dark-mode .form-container {
+    background-color: #095253;
+}
+
 .form-panel {
     width: 100%;
     height: 100%;
@@ -247,11 +253,54 @@ main.form-main {
     font-weight: 900;
 }
 
+body.dark-mode .form-panel h2 {
+    color: #85cbcb;
+}
+
 /* Inputs */
 .form-group { margin-bottom: 15px; width: 100%; position: relative; }
-.form-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #5a9a9a; z-index: 1; }
-.form-group input, .form-group select { width: 100%; padding: 12px 15px 12px 45px; border-radius: 10px; border: 3px solid #cce5e2; background-color: var(--form-input-bg); font-size: 0.95rem; color: var(--text-color); transition: all 0.3s ease; box-sizing: border-box; }
-.form-group input:focus { border-color: #5a9a9a; outline: none; background-color: #ffffff; }
+
+.form-group i { 
+    position: absolute; left: 15px; top: 50%; 
+    transform: translateY(-50%); color: #5a9a9a; z-index: 1; 
+}
+
+.form-group input,
+.form-group select { 
+    width: 100%; padding: 12px 15px 12px 45px; 
+    border-radius: 10px; border: 3px solid #c4f1ec; 
+    background-color: var(--form-input-bg); 
+    font-size: 0.95rem; color: var(--text-color); 
+    transition: all 0.3s ease; box-sizing: border-box; 
+}
+
+/* FIX: Input e Legibilidade do Select no Dark Mode */
+body.dark-mode .form-group input,
+body.dark-mode .form-group select,
+body.dark-mode .language-selector select {
+    background-color: #0a4849 !important;
+    color: #ffffff !important; /* Texto branco forçado */
+    border-color: #4a6a6a !important;
+}
+
+/* Força a cor das opções do dropdown para branco no fundo escuro */
+body.dark-mode .form-group select option {
+    background-color: #0a4849;
+    color: #ffffff;
+}
+
+.form-group input:focus,
+.form-group select:focus { 
+    border-color: #5a9a9a; outline: none;
+    background-color: #ffffff; 
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group select:focus {
+    border-color: #76b9af;
+    background-color: #053536 !important;
+    color: #fff;
+}
 
 /* Botões */
 .btn-submit {
@@ -266,15 +315,43 @@ main.form-main {
     transition: background-color 0.3s;
     margin-top: 10px;
 }
+
 .btn-submit:hover { background-color: #0e4a4b; }
+
+body.dark-mode .btn-submit {
+    background-color: #0e4a4b;
+    border: 2px solid #8ac2c2;
+}
+
+body.dark-mode .btn-submit:hover {
+    background-color: #053636;
+}
 
 .forgot-password { margin-top: 15px; font-size: 0.9rem; }
 .forgot-password a { color: #0a4849; text-decoration: none; font-weight: 700; }
+body.dark-mode .forgot-password a { color: #a4bbdd; }
 
 /* Abas */
-.doc-tabs { display: flex; width: 100%; margin-bottom: 15px; background-color: var(--form-input-bg); border-radius: 8px; padding: 4px; }
-.tab-button { flex: 1; padding: 8px; border: none; background: none; cursor: pointer; font-weight: 700; color: #5B7D8A; border-radius: 6px; transition: all 0.2s; }
+.doc-tabs { 
+    display: flex; width: 100%; margin-bottom: 15px;
+    background-color: var(--form-input-bg); border-radius: 8px; padding: 4px; 
+}
+body.dark-mode .doc-tabs {
+    background-color: #053636;
+}
+
+.tab-button { 
+    flex: 1; padding: 8px; border: none; background: none; 
+    cursor: pointer; font-weight: 700; color: #5B7D8A; 
+    border-radius: 6px; transition: all 0.2s; 
+}
+body.dark-mode .tab-button {
+    color: #aedaee;
+}
+
 .tab-button.active { background-color: #137577; color: #ffffff; }
+body.dark-mode .tab-button.active { background-color: #095253; color: rgb(212, 245, 242); }
+
 .tab-content { display: none; width: 100%; }
 .tab-content.active { display: block; }
 
@@ -282,53 +359,109 @@ main.form-main {
 .login-container { left: 0; z-index: 2; }
 .register-container { left: 0; opacity: 0; z-index: 1; }
 
-/* ============================================= */
-/* ESTILOS DE LOGIN SOCIAL                       */
-/* ============================================= */
+/* =============================================
+   ESTILOS DE LOGIN SOCIAL
+   ============================================= */
 .social-text {
-    font-size: 0.85rem;
-    color: #777;
-    margin-bottom: 15px;
+    font-size: 0.85rem; color: #777; margin-bottom: 15px;
 }
+body.dark-mode .social-text { color: #aedaee; }
 
 .social-container {
-    margin: 10px 0;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+    margin: 10px 0; display: flex; justify-content: center; gap: 10px;
 }
 
 .social-container a {
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 5px;
-    height: 40px;
-    width: 40px;
-    text-decoration: none;
-    color: #555;
+    border: 1px solid #ddd; border-radius: 50%;
+    display: inline-flex; justify-content: center; align-items: center;
+    margin: 0 5px; height: 40px; width: 40px;
+    text-decoration: none; color: #555;
     transition: background-color 0.3s, color 0.3s;
 }
+body.dark-mode .social-container a { color: #aedaee; }
 
 .social-container a:hover {
-    background-color: #f0faf9;
-    color: #0a4849;
-    border-color: #5a9a9a;
+    background-color: #f0faf9; color: #0a4849; border-color: #5a9a9a;
+}
+body.dark-mode .social-container a:hover {
+    color: #5f8799; border-color: #3b7b99;
 }
 
 /* ==========================================================================
-   6. OVERLAY (DESKTOP)
+   6. OVERLAY E UTILITÁRIOS (WIDGETS SEM CÍRCULO)
    ========================================================================== */
-.overlay-container { position: absolute; top: 0; left: 50%; width: 50%; height: 100%; overflow: hidden; transition: transform 0.6s ease-in-out; z-index: 100; }
-.overlay { background: linear-gradient(135deg, #4FA3A5 0%, #85CBCB 50%, #B0DEE6 100%); position: relative; left: -100%; height: 100%; width: 200%; transform: translateX(0); transition: transform 0.6s ease-in-out; color: #053536; }
-.overlay-panel { position: absolute; top: 0; width: 50%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 40px; text-align: center; transform: translateX(0); transition: transform 0.6s ease-in-out; }
+.overlay-container { 
+    position: absolute; top: 0; left: 50%; width: 50%; height: 100%;
+    overflow: hidden; transition: transform 0.6s ease-in-out; z-index: 100; 
+}
+
+.overlay { 
+    background: linear-gradient(135deg, #4FA3A5 0%, #85CBCB 50%, #B0DEE6 100%); 
+    position: relative; left: -100%; height: 100%; width: 200%; 
+    transform: translateX(0); transition: transform 0.6s ease-in-out; color: #053536; 
+}
+
+body.dark-mode .overlay {
+    color: #8ac2c2;
+    background: linear-gradient(135deg, #0a4849 0%, #0e4a4b50 50%, #137577 100%);
+}
+
+.overlay-panel { 
+    position: absolute; top: 0; width: 50%; height: 100%; 
+    display: flex; flex-direction: column; justify-content: center; align-items: center; 
+    padding: 0 40px; text-align: center; transform: translateX(0); 
+    transition: transform 0.6s ease-in-out; 
+}
+
 .overlay-panel img { width: 110px; margin-bottom: 15px; }
 .overlay-panel h3 { font-size: 1.6rem; margin: 0 0 10px 0; font-weight: 900; }
-.overlay-panel p { font-size: 1rem; line-height: 1.4; margin-bottom: 20px; font-weight: 600;}
-.btn-overlay { padding: 12px 35px; border: 2px solid #053536; border-radius: 30px; background-color: transparent; color: #053536; font-size: 0.9rem; font-weight: 800; cursor: pointer; transition: background-color 0.2s, color 0.2s; }
+.overlay-panel p { font-size: 1rem; line-height: 1.4; margin-bottom: 20px; font-weight: 600; }
+
+.btn-overlay { 
+    padding: 12px 35px; border: 2px solid #053536; border-radius: 30px;
+    background-color: transparent; color: #053536; font-size: 0.9rem; font-weight: 800;
+    cursor: pointer; transition: background-color 0.2s, color 0.2s; 
+}
+body.dark-mode .btn-overlay {
+    border: 2px solid #85CBCB;
+    color: #a4e2e2;
+}
+
 .btn-overlay:hover { background-color: #053536; color: #fff; }
+body.dark-mode .btn-overlay:hover {
+    border: 2px solid #95dbdb;
+    color: #b6eeee;
+    background-color: #053636;
+}
+
+/* ESTILO DOS BOTÕES DE UTILIDADE (SEM CÍRCULO) */
+.auth-utils {
+    margin-top: 25px; 
+    display: flex; 
+    gap: 20px; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.auth-utils-btn {
+    background: transparent;
+    border: 1px; /* Remove a borda */
+    border-radius: 0; /* Remove o círculo */
+    color: inherit; 
+    font-size: 1.3rem; /* Aumentei um pouco já que tiramos a borda */
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.auth-utils-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.8;
+}
 
 .overlay-left { transform: translateX(-20%); }
 .overlay-right { right: 0; transform: translateX(0); }
@@ -349,28 +482,47 @@ main.form-main {
     .header-right-icons { display: none; }
     .hamburger-menu { display: flex; }
     header nav > ul { display: none; }
-    #main-nav { position: fixed; top: 0; right: 0; width: 80%; max-width: 320px; height: 100vh; background: rgba(133, 203, 203, 0.95); backdrop-filter: blur(8px); transform: translateX(100%); transition: transform 0.3s; z-index: 1001; border-left: 1px solid rgba(255,255,255,0.2); }
+    #main-nav { 
+        position: fixed; top: 0; right: 0; width: 80%; max-width: 320px; height: 100vh; 
+        background: rgba(133, 203, 203, 0.95); backdrop-filter: blur(8px); 
+        transform: translateX(100%); transition: transform 0.3s; z-index: 1001; 
+        border-left: 1px solid rgba(255,255,255,0.2); 
+    }
+    
+    body.dark-mode #main-nav {
+        background: rgba(14, 59, 59, 0.95) !important;
+    }
+
     header.nav-open #main-nav { transform: translateX(0); }
     header.nav-open .hamburger-menu span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
     header.nav-open .hamburger-menu span:nth-child(2) { opacity: 0; }
     header.nav-open .hamburger-menu span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
 }
 
-/* ============================================= */
-/* RESPONSIVIDADE (MOBILE - SEM BORDA + 75/25)   */
-/* ============================================= */
+/* =============================================
+   RESPONSIVIDADE (MOBILE - SEM BORDA + 75/25)
+   ============================================= */
 @media screen and (max-width: 920px) {
     
     /* 1. Reset do Body */
     body, html {
         margin: 0; padding: 0; width: 100%; height: 100%;
-        overflow-x: hidden; overflow-y: auto;
+        /* No mobile, permitimos scroll normalmente */
+        overflow-x: hidden; 
+        overflow-y: auto !important;
+        
         background: linear-gradient(180deg, #85CBCB 0%, #B0DEE6 100%) fixed !important; 
         border: none !important; border-radius: 0;
     }
+    
+    /* FIX: Fundo Mobile Dark Mode */
+    body.dark-mode, html.dark-mode {
+        background: #053536 !important;
+        background-image: none !important;
+    }
 
     /* ESCONDE ONDAS E FOOTER */
-    .ondacima, .ondabaixo, footer { 
+    .ondacima, .ondabaixo, #main-footer { 
         display: none !important; 
     }
 
@@ -389,7 +541,7 @@ main.form-main {
     .form-container {
         height: 75vh; 
         width: 100%;
-        transform: translateX(0) !important; /* Garante que não move lateralmente */
+        transform: translateX(0) !important;
         padding: 0;
         position: absolute;
         top: 0; left: 0;
@@ -400,6 +552,10 @@ main.form-main {
         overflow: hidden;
     }
     
+    body.dark-mode .form-container {
+        background-color: #095253;
+    }
+    
     .login-container { top: 0; z-index: 2; opacity: 1; }
     .register-container { top: 0; z-index: 1; opacity: 0; }
 
@@ -407,7 +563,6 @@ main.form-main {
         padding: 40px 25px;
         height: 100%;
         width: 100%;
-        /* Rolagem interna permitida */
         overflow-y: auto; 
         justify-content: flex-start; 
         padding-bottom: 60px; 
@@ -417,13 +572,8 @@ main.form-main {
 
     /* 4. Overlay (Botão de troca - 25% da ALTURA) */
     .overlay-container {
-        position: absolute;
-        top: 75vh; /* Fica fixo embaixo */
-        left: 0;
-        width: 100%;
-        height: 25vh; 
-        transform: translateX(0) !important; /* Não move lateralmente */
-        z-index: 5;
+        position: absolute; top: 75vh; left: 0; width: 100%; height: 25vh; 
+        transform: translateX(0) !important; z-index: 5;
     }
 
     .overlay { background: transparent !important; top: 0; left: 0; height: 100%; width: 100%; transform: none !important; }
@@ -433,46 +583,64 @@ main.form-main {
         transform: none !important; justify-content: center; color: #0a4849; 
     }
 
-    .overlay-panel img { width: 80px; margin-bottom: 8px; }
+    body.dark-mode .overlay-panel h3 { color: #aedaee; }
+
+    .overlay-panel img { width: 52px; margin-bottom: 8px; }
     .overlay-panel h3 { font-size: 1.2rem; margin: 0 0 5px 0; color: #0a4849; }
     .overlay-panel p { display: none; }
     
-    .btn-overlay { padding: 10px 30px; font-size: 0.9rem; background-color: transparent; border: 2px solid #0a4849; color: #0a4849; }
+    .btn-overlay { 
+        padding: 10px 30px; font-size: 0.9rem; 
+        background-color: transparent; border: 2px solid #0a4849; color: #0a4849; 
+    }
+    
+    body.dark-mode .btn-overlay {
+        border-color: #aedaee; color: #aedaee;
+    }
     
     .overlay-left, .overlay-right { top: 0; left: 0; transform: none !important; }
 
     /* --- ANIMAÇÃO DE TROCA NO MOBILE (SEM MOVIMENTO) --- */
-    /* Apenas troca opacidade e z-index */
-
     .container-wrapper.right-panel-active .login-container { 
-        transform: translateX(0) !important; /* Fica parado */
-        opacity: 0; 
-        z-index: 1; 
+        transform: translateX(0) !important; opacity: 0; z-index: 1; 
     }
 
     .container-wrapper.right-panel-active .register-container { 
-        transform: translateX(0) !important; /* Fica parado */
-        opacity: 1; 
-        z-index: 5; 
-        animation: none; /* Sem animação */
+        transform: translateX(0) !important; opacity: 1; z-index: 5; animation: none; 
     }
 
     .container-wrapper.right-panel-active .overlay-container { 
-        transform: translateX(0) !important; /* Fica parado */
+        transform: translateX(0) !important; 
     }
     
-    /* Troca qual botão aparece */
     .overlay-right { display: flex; } .overlay-left { display: none; }
     .container-wrapper.right-panel-active .overlay-right { display: none; }
     .container-wrapper.right-panel-active .overlay-left { display: flex; }
 }
 
-/* Widgets */
-.map-widget-btn {
-    position: fixed; bottom: 20px; right: 20px; z-index: 999;
-    width: 42px; height: 42px; background-color: #d6fafc;
-    border: 2px solid #317067; border-radius: 12px; color: #419289;
-    display: flex; justify-content: center; align-items: center; cursor: pointer;
+/* ========================================================================== */
+/* AJUSTES FINAIS: SELECT IDIOMA                                            */
+/* ========================================================================== */
+
+#language-selector,
+header nav ul li select,
+#main-nav select {
+    background-color: var(--form-input-bg);
+    border: 2px solid var(--form-input-border);
+    color: var(--text-color);
+    padding: 6px 10px;
+    border-radius: 10px;
+    font-family: 'Nunito-Black';
 }
 
-@media (max-width: 600px) { .map-widget-btn { bottom: 70px; } }
+body.dark-mode #language-selector,
+body.dark-mode header nav ul li select,
+body.dark-mode #main-nav select {
+    background-color: #0a4849 !important;
+    border-color: #6a8a8a !important;
+    color: #ffffff !important; /* Branco no dark mode */
+}
+/* --- FIX COR DOS ÍCONES NO MOBILE DARK MODE --- */
+    body.dark-mode .auth-utils-btn {
+        color: #8ac2c2 !important; /* Mesma cor do desktop dark mode */
+    }
