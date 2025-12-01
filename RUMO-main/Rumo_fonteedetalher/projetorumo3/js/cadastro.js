@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const contentId = tab.getAttribute('data-tab');
             document.getElementById(contentId).classList.add('active');
             
-            // Esconde social se for PJ
+            // Esconde social se for PJ (Controla visibilidade, a lógica está no login.js)
             const social = document.querySelector('.social-container');
             const socialTxt = document.querySelector('.social-text');
             if(contentId === 'pj') {
@@ -416,6 +416,7 @@ document.addEventListener('DOMContentLoaded', function() {
             btnSubmit.disabled = true;
 
             try {
+                // Criação manual (E-mail/Senha)
                 const userCredential = await auth.createUserWithEmailAndPassword(emailVal, passVal);
                 await db.collection('users').doc(userCredential.user.uid).set({
                     nome: nomeVal,
@@ -475,6 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             try {
+                // Criação manual PJ
                 const userCredential = await auth.createUserWithEmailAndPassword(emailVal, passVal);
                 await db.collection('users').doc(userCredential.user.uid).set({
                     nome: nomeVal,
