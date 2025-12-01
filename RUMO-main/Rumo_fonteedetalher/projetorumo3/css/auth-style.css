@@ -445,7 +445,7 @@ body.dark-mode .btn-overlay:hover {
 
 .auth-utils-btn {
     background: transparent;
-    border: 1px; /* Remove a borda */
+    border: none; /* Remove a borda */
     border-radius: 0; /* Remove o círculo */
     color: inherit; 
     font-size: 1.3rem; /* Aumentei um pouco já que tiramos a borda */
