@@ -236,87 +236,89 @@
     border-top: none;
 }
 .faq-question.active i { transform: rotate(180deg); }
-/* =============================
-   RESPONSIVO ESPECÍFICO PARA CELULAR
+/* ========================================
+   MOBILE: manter 2 atrás e 1 principal
    (max-width: 600px)
-============================= */
+======================================== */
 
 @media (max-width: 600px) {
 
     /* ===== HERO ===== */
-    .tutorial-hero {
-        margin: 25px auto 10px;
-        padding: 0 12px;
-    }
-
     .tutorial-hero h1 {
         font-size: 1.5rem;
         padding: 12px 14px;
         border-width: 8px;
-        line-height: 1.35;
-        width: 100%;
+        width: 95%;
         max-width: 95%;
-        margin: 0 auto;
+        line-height: 1.35;
     }
 
     /* ===== CARROSSEL ===== */
-
     .depth-carousel-section {
-        margin-top: 10px;
-        margin-bottom: 10px;
         padding: 0 8px;
+        margin-top: 10px;
+        margin-bottom: 25px;
     }
 
     .depth-carousel-wrapper {
-        padding: 0;
         max-width: 100%;
+        padding: 0;
     }
 
     .depth-viewport {
-        height: 220px;
+        height: 240px; /* Altura ideal p/ caber tudo */
         overflow: visible;
     }
 
-    /* Slide central */
+    /* SLIDE CENTRAL (principal) */
     .depth-slide.active {
         width: 88%;
         height: 100%;
         left: 50%;
         transform: translate(-50%, -50%) scale(1);
+        z-index: 30;
         border-radius: 14px;
+        opacity: 1;
     }
 
-    /* Slides laterais */
-    .depth-slide.prev,
-    .depth-slide.next {
-        width: 32%;
+    /* SLIDE ATRÁS ESQUERDA */
+    .depth-slide.prev {
+        width: 38%;
         height: 78%;
-        top: 50%;
-        transform: translate(-50%, -50%) scale(0.88);
-        filter: blur(4px) brightness(0.95);
-        opacity: 0.78;
+        left: 10%; /* Bem visível */
+        transform: translate(-50%, -50%) scale(0.82);
+        opacity: 0.75;
+        filter: blur(4px) brightness(0.94);
+        z-index: 15;
     }
 
-    .depth-slide.prev { left: 12%; }
-    .depth-slide.next { left: 88%; }
+    /* SLIDE ATRÁS DIREITA */
+    .depth-slide.next {
+        width: 38%;
+        height: 78%;
+        left: 90%; /* Bem visível */
+        transform: translate(-50%, -50%) scale(0.82);
+        opacity: 0.75;
+        filter: blur(4px) brightness(0.94);
+        z-index: 15;
+    }
 
-    /* Botões (setas) */
+    /* Setas */
     .depth-arrow {
         width: 38px;
         height: 38px;
         font-size: 0.9rem;
-        background: rgba(255,255,255,0.95);
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     .depth-arrow.left { left: -2px; }
     .depth-arrow.right { right: -2px; }
 
-    /* Dots */
+    /* Paginação */
     .depth-pagination {
-        margin-top: 10px !important;
-        width: 100%;
+        margin-top: 14px;
         text-align: center;
+        width: 100%;
         display: block;
         clear: both;
     }
@@ -327,23 +329,9 @@
         margin: 4px 3px;
     }
 
-    /* ===== FAQ ===== */
+    /* FAQ */
     .faq-section {
         padding: 0 12px 40px;
-        margin-top: 30px;
-    }
-
-    .faq-section h2 {
-        font-size: 1.6rem;
-    }
-
-    .faq-question {
-        font-size: 0.93rem;
-        padding: 14px;
-    }
-
-    .faq-answer {
-        font-size: 0.9rem;
-        padding: 12px;
+        margin-top: 25px;
     }
 }

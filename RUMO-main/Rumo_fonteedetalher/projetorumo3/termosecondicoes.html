@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <title>R.U.M.O - Termos e Condições</title>
+    
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        .terms-main {
+            padding: 40px 0;
+            
+            min-height: 60vh;
+        }
+
+        .terms-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 900px;
+            margin: 0 auto; /* Centralizar */
+        }
+
+        .terms-title {
+            color: #008B8B; /* Cor primária do projeto */
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .terms-update-date {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .terms-content h2 {
+            color: #2c3e50;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+
+        .terms-content h3 {
+            color: #008B8B;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .terms-content p, .terms-content li {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .terms-content ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        /* Ajuste para Dark Mode (se necessário herdar do base.css) */
+        body.dark-mode .terms-main {
+           
+        }
+        body.dark-mode .terms-container {
+            background-color: #2c3e50;
+            color: #e0e0e0;
+        }
+        body.dark-mode .terms-content h2 {
+            color: #fff;
+            border-color: #444;
+        }
+        body.dark-mode .terms-content p, body.dark-mode .terms-content li {
+            color: #dcdcdc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loading-screen">
+        <img src="Design sem nome.gif" alt="Carregando...">
+    </div>
+
+    <header id="main-header">
+        <div class="container">
+            <a href="index.html"><img src="logo.png" alt="Logo R.U.M.O" class="logo"></a>
+
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+                    <li><a href="hub.html" data-i18n="nav.hub">HUB</a></li>
+                    <li><a href="utilitarios.html" data-i18n="nav.tools">Utilidades</a></li>
+                    <li><a href="sobre.html" data-i18n="nav.about">Sobre nós</a></li>
+                    <li id="nav-profile-item" style="display: none;"><a href="perfil.html" class="create-account-btn" data-i18n="nav.profile">Meu Perfil</a></li>
+                    <li id="nav-login-item"><a href="auth.html" class="create-account-btn" data-i18n="nav.create_account">Criar conta</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-right-icons">
+                <button id="accessibility-btn" class="accessibility-btn" aria-label="Abrir menu de acessibilidade">
+                    <i class="fas fa-universal-access"></i>
+                </button>
+                <div class="header-lang-container" id="header-lang-container">
+                    <button id="lang-dropdown-btn" class="lang-dropdown-btn" aria-label="Alterar idioma">
+                        <i class="fas fa-language"></i>
+                    </button>
+                    <div id="lang-dropdown-content" class="lang-dropdown-content" style="display: none;">
+                        <p data-i18n="header.lang.current">Idioma atual: <strong data-i18n="header.lang.pt_br">Português (Brasil)</strong></p>
+                        <form>
+                            <label for="language-select-header" data-i18n="header.lang.select">Selecione o idioma de sua preferência:</label>
+                            <select id="language-select-header"></select>
+                        </form>
+                    </div>
+                </div>
+                <button id="theme-toggle-btn-desktop" class="theme-toggle-btn" aria-label="Alternar tema">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+                <a href="perfil.html" id="profile-bubble" class="profile-bubble" style="display: none;">
+                    <img src="assets/imagens/avatar-padrao.png" alt="Foto de Perfil" id="profile-bubble-img">
+                </a>
+            </div>
+
+            <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu" aria-controls="main-nav" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="terms-main">
+        <div class="container terms-container">
+            <h1 class="terms-title">Termos e Condições de Uso</h1>
+            <p class="terms-update-date">Última atualização: <span id="current-date"></span></p>
+
+            <div class="terms-content">
+                <p>Bem-vindo(a) à <strong>R.U.M.O - Rede Unificada de Mobilidade e Orientação</strong>.</p>
+                <p>Estes Termos e Condições de Uso ("Termos") regulam o acesso e a utilização da plataforma R.U.M.O ("Plataforma"), acessível via web e dispositivos móveis. Ao criar uma conta ou utilizar os nossos serviços, o utilizador ("Você", "Usuário") concorda em cumprir estes Termos. Se não concordar com qualquer parte destes termos, não deverá utilizar a Plataforma.</p>
+
+                <h2>1. Sobre a Plataforma</h2>
+                <p>A R.U.M.O tem como missão oferecer suporte completo a imigrantes que chegam ao Brasil, facilitando a sua adaptação e integração. A Plataforma oferece serviços de informação, utilitários (como conversores e mapas) e uma rede de apoio para regularização documental e oportunidades de trabalho.</p>
+
+                <h2>2. Registo e Conta de Utilizador</h2>
+                <p>Para aceder a certas funcionalidades, como publicar no HUB ou usar o Cofre de Documentos, é necessário criar uma conta.</p>
+                
+                <h3>2.1. Tipos de Conta</h3>
+                <ul>
+                    <li><strong>Pessoa Física:</strong> Requer o fornecimento de nome completo, e-mail e CPF válido.</li>
+                    <li><strong>Pessoa Jurídica (ONGs/Empresas):</strong> Requer o fornecimento de nome da empresa, e-mail comercial e CNPJ válido.</li>
+                </ul>
+
+                <h3>2.2. Veracidade dos Dados</h3>
+                <p>Você garante que todas as informações fornecidas durante o registo são verdadeiras, precisas e atuais. O uso de documentos falsos ou de terceiros pode resultar na suspensão imediata da conta e em medidas legais cabíveis.</p>
+
+                <h3>2.3. Segurança da Conta</h3>
+                <p>Você é responsável por manter a confidencialidade da sua senha. A R.U.M.O não se responsabiliza por qualquer perda ou dano decorrente do acesso não autorizado à sua conta.</p>
+
+                <h2>3. Uso das Funcionalidades e Ferramentas</h2>
+
+                <h3>3.1. HUB e Publicações</h3>
+                <p>O HUB permite a visualização e publicação de notícias, oportunidades de emprego e informações de ONGs e Governo.</p>
+                <ul>
+                    <li><strong>Conteúdo do Utilizador:</strong> Ao criar uma "Nova Publicação", você declara possuir os direitos sobre o conteúdo ou autorização para partilhá-lo.</li>
+                    <li><strong>Responsabilidade:</strong> A R.U.M.O não garante a veracidade das ofertas de emprego ou notícias publicadas por terceiros. Recomendamos cautela e verificação das fontes.</li>
+                    <li><strong>Informações Obrigatórias:</strong> Publicações de ONGs e Órgãos Federais devem obrigatoriamente conter meios de contacto e localização verificáveis.</li>
+                </ul>
+
+                <h3>3.2. Cofre de Documentos</h3>
+                <p>A ferramenta "Cofre de Documentos" permite registar datas de emissão e validade de documentos pessoais (ex: Passaporte, Visto) para gestão pessoal.</p>
+                <p><strong>Aviso Importante:</strong> Os dados inseridos no Cofre servem <strong>exclusivamente</strong> para organização pessoal de prazos. Estes registos <strong>NÃO substituem os documentos originais</strong> e <strong>NÃO possuem validade legal</strong> como identificação oficial perante autoridades.</p>
+
+                <h3>3.3. Utilitários (Conversores e Mapas)</h3>
+                <p>As ferramentas de conversão de moeda, medidas e localização são fornecidas para fins informativos. A R.U.M.O não garante a precisão em tempo real das taxas de câmbio ou dados de geolocalização e não se responsabiliza por decisões financeiras tomadas com base nessas ferramentas.</p>
+
+                <h2>4. Conduta do Utilizador</h2>
+                <p>É estritamente proibido:</p>
+                <ul>
+                    <li>Publicar conteúdo ofensivo, discriminatório, falso ou que viole direitos de terceiros.</li>
+                    <li>Utilizar a plataforma para atividades ilegais ou fraudulentas.</li>
+                    <li>Tentar aceder a áreas restritas do sistema ou recolher dados de outros utilizadores sem consentimento.</li>
+                </ul>
+
+                <h2>5. Propriedade Intelectual</h2>
+                <p>Todo o design, logótipos (incluindo a marca R.U.M.O), textos institucionais e código-fonte da Plataforma são propriedade exclusiva dos desenvolvedores da R.U.M.O ou dos seus licenciadores. O uso não autorizado destes materiais é proibido.</p>
+
+                <h2>6. Limitação de Responsabilidade</h2>
+                <p>A R.U.M.O atua como facilitadora de informações e conexões. Não somos responsáveis por:</p>
+                <ul>
+                    <li>Processos legais de imigração ou decisões governamentais.</li>
+                    <li>A qualidade ou segurança de empregos anunciados por terceiros.</li>
+                    <li>Falhas técnicas na internet ou nos dispositivos do utilizador.</li>
+                </ul>
+
+                <h2>7. Encerramento de Conta</h2>
+                <p>Você pode solicitar a exclusão da sua conta a qualquer momento através da página "Gerenciar Conta". A exclusão dos dados não será imediata, e você será notificado por e-mail antes da remoção definitiva. A R.U.M.O reserva-se o direito de suspender contas que violem estes Termos.</p>
+
+                <h2>8. Alterações nos Termos</h2>
+                <p>A R.U.M.O pode alterar estes Termos a qualquer momento para refletir mudanças na legislação ou nas nossas ferramentas. O uso continuado da Plataforma após tais alterações constitui a sua aceitação dos novos Termos.</p>
+
+                <h2>9. Contacto</h2>
+                <p>Para dúvidas sobre estes Termos, entre em contacto através do formulário disponível no rodapé do nosso site.</p>
+            </div>
+        </div>
+    </main>
+
+    <img src="ondacima.png" class="ondacima" id="onda-cima">
+    <footer class="ondinha">
+        <img src="ondabaixo.png" class="ondabaixo" id="onda-baixo">
+    </footer>
+
+    <footer>
+        <div class="footer-container">
+            <img src="logo.png" alt="Logo R.U.M.O no rodapé" class="footer-logo">
+
+            <div class="footer-social">
+                <h4 data-i18n="footer.social.title">Redes Sociais</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+                    <a href="#"><i class="fab fa-linkedin fa-2x"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-contact">
+                <h4 data-i18n="footer.contact.title">Vamos conversar?</h4>
+                <form>
+                    <input type="email" name="email" placeholder="Seu e-mail@exemplo.com" data-i18n="footer.contact.email_placeholder" required>
+                    <div class="input-with-button">
+                        <input type="text" name="assunto" placeholder="Sobre o que quer falar?" data-i18n="footer.contact.subject_placeholder" required>
+                        <button type="submit" aria-label="Enviar"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/main-menu.js"></script>
+    <script src="js/auth-state.js"></script>
+    <script src="js/dark-mode.js"></script>
+    <script src="js/loader.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const dateSpan = document.getElementById('current-date');
+            if(dateSpan) {
+                const now = new Date();
+                dateSpan.textContent = now.toLocaleDateString('pt-BR');
+            }
+        });
+    </script>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="js/map-widget.js"></script>
+    <script src="https://cdn.userway.org/widget.js" data-account="UIgNDRCaqf"></script>
+
+</body>
+</html>

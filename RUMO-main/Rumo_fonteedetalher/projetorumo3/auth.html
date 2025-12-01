@@ -20,7 +20,7 @@
         }
         .strength-meter {
             height: 6px;
-            background-color: #e0e0e0; /* Fundo Cinza */
+            background-color: #e0e0e0;
             border-radius: 4px;
             width: 100%;
             overflow: hidden;
@@ -42,14 +42,14 @@
             margin-top: 4px;
         }
         
-        /* MENSAGENS DE ERRO (FEEDBACK VISUAL) */
+        /* MENSAGENS DE ERRO */
         .error-msg {
             font-size: 0.8rem;
-            color: #d32f2f; /* Vermelho */
+            color: #d32f2f;
             font-weight: 600;
             margin-top: -10px;
             margin-bottom: 10px;
-            display: none; /* Escondido por padrão */
+            display: none;
             text-align: left;
             width: 100%;
         }
@@ -65,12 +65,69 @@
         input.valid {
             border: 2px solid #74ad8c !important;
         }
+
+        /* ESTILOS DOS BOTÕES DE UTILIDADE (Auth) */
+        .auth-utils {
+            margin-top: 25px; 
+            display: flex; 
+            gap: 20px; 
+            justify-content: center; 
+            align-items: center;
+        }
+
+        .auth-utils-btn {
+            background: transparent;
+            /* Usa currentColor para herdar a cor do texto definida pelo tema/overlay */
+            border: 2px solid currentColor; 
+            color: inherit; 
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .auth-utils-btn:hover {
+            /* Efeito sutil ao passar o mouse */
+            background-color: rgba(255, 255, 255, 0.1); 
+            transform: translateY(-2px);
+        }
+
+        /* Link de Voltar */
+        .back-link {
+            position: absolute; 
+            left: 20px; 
+            top: 25px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            z-index: 10; 
+            color: var(--text-color); /* Respeita o tema do base.css */
+            font-family: var(--font-primary, sans-serif);
+        }
+        
+        /* Ajuste para garantir visibilidade no header em telas menores */
+        @media (max-width: 768px) {
+            .back-link span {
+                display: none; /* Esconde texto em mobile, deixa só a seta */
+            }
+        }
     </style>
 </head>
 <body class="fullscreen-auth">
 
 <header id="main-header">
     <div class="container">
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> <span data-i18n="nav.home">Início</span>
+        </a>
+
         <a><br><br></a>
         <nav id="main-nav">
             <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu">
@@ -119,16 +176,13 @@
                     <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="confirmar_senha" id="conf-senha-pf" placeholder="Repita a senha..." required></div>
                     <div id="error-conf-senha-pf" class="error-msg">As senhas não coincidem</div>
 
-                   
+                    <div class="form-group checkbox-group" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <input type="checkbox" id="termos-pf" required style="width: auto; margin: 0;">
+                        <label for="termos-pf" style="font-size: 0.9rem;">
+                            Li e aceito os <a href="termosecondicoes.html" style="color: var(--primary-color);">Termos e Condições</a>
+                        </label>
+                    </div>
 
-<div class="form-group checkbox-group" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-    <input type="checkbox" id="termos-pf" required style="width: auto; margin: 0;">
-    <label for="termos-pf" style="font-size: 0.9rem;">
-        Li e aceito os <a href="#" style="color: var(--primary-color);">Termos e Condições</a>
-    </label>
-</div>
-
-                    
                     <button type="submit" class="btn-submit" id="btn-submit-pf" data-i18n="cadastro.pf.submit">Cadastrar</button>
                 </form>
 
@@ -151,11 +205,11 @@
                     <div id="error-conf-senha-pj" class="error-msg">As senhas não coincidem</div>
 
                     <div class="form-group checkbox-group" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-    <input type="checkbox" id="termos-pj" required style="width: auto; margin: 0;">
-    <label for="termos-pj" style="font-size: 0.9rem;">
-        Li e aceito os <a href="#" style="color: var(--primary-color);">Termos e Condições</a>
-    </label>
-</div>
+                        <input type="checkbox" id="termos-pj" required style="width: auto; margin: 0;">
+                        <label for="termos-pj" style="font-size: 0.9rem;">
+                            Li e aceito os <a href="#" style="color: var(--primary-color);">Termos e Condições</a>
+                        </label>
+                    </div>
                   
                     <button type="submit" class="btn-submit" id="btn-submit-pj" data-i18n="cadastro.pj.submit">Cadastrar</button>
                 </form>
@@ -189,12 +243,37 @@
                     <h3 data-i18n="login.overlay_title">Já tem uma conta?</h3>
                     <p>Faça login para acessar a plataforma</p>
                     <button class="btn-overlay" id="signIn">Login</button>
+                    
+                    <div class="auth-utils">
+                        <button class="auth-utils-btn theme-toggle-auth" aria-label="Alternar tema">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="auth-utils-btn accessibility-btn-auth" aria-label="Acessibilidade">
+                            <i class="fas fa-universal-access"></i>
+                        </button>
+                        <button class="auth-utils-btn lang-btn-auth" aria-label="Idioma">
+                            <i class="fas fa-language"></i>
+                        </button>
+                    </div>
                 </div>
+
                 <div class="overlay-panel overlay-right">
                     <img src="logo.png" alt="Logo R.U.M.O">
                     <h3 data-i18n="cadastro.overlay_title">Ainda não tem conta?</h3>
                     <p>Cadastre-se para começar sua jornada conosco</p>
                     <button class="btn-overlay" id="signUp">Cadastro</button>
+                    
+                    <div class="auth-utils">
+                        <button class="auth-utils-btn theme-toggle-auth" aria-label="Alternar tema">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="auth-utils-btn accessibility-btn-auth" aria-label="Acessibilidade">
+                            <i class="fas fa-universal-access"></i>
+                        </button>
+                        <button class="auth-utils-btn lang-btn-auth" aria-label="Idioma">
+                            <i class="fas fa-language"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -206,6 +285,32 @@
 <footer class="ondinha">
     <img src="ondabaixo.png" class="ondabaixo" id="onda-baixo">
 </footer>
+
+<footer>
+    <div class="footer-container">
+        <img src="logo.png" alt="Logo R.U.M.O no rodapé" class="footer-logo">
+
+        <div class="footer-social">
+            <h4 data-i18n="footer.social.title">Redes Sociais</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+                <a href="#"><i class="fab fa-linkedin fa-2x"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-contact">
+            <h4 data-i18n="footer.contact.title">Vamos conversar?</h4>
+            <form>
+                <input type="email" name="email" placeholder="Seu e-mail@exemplo.com" data-i18n="footer.contact.email_placeholder" required>
+
+                <div class="input-with-button">
+                    <input type="text" name="assunto" placeholder="Sobre o que quer falar?" data-i18n="footer.contact.subject_placeholder" required>
+                    <button type="submit" aria-label="Enviar"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</footer>
    
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
@@ -214,9 +319,68 @@
 <script src="js/auth-slider.js"></script>
 <script src="js/login.js"></script>
 <script src="js/cadastro.js"></script>
-<div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+
+<script src="js/i18n.js"></script>
+<script src="js/dark-mode.js"></script>
+
+<script src="https://cdn.userway.org/widget.js" data-account="UIgNDRCaqf"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // TEMA
+        const themeBtns = document.querySelectorAll('.theme-toggle-auth');
+        themeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                // Alterna ícone
+                const icon = btn.querySelector('i');
+                if (icon.classList.contains('fa-moon')) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                }
+            });
+        });
+
+        // ACESSIBILIDADE - O CLICK DISPARA O USERWAY
+        const accessBtns = document.querySelectorAll('.accessibility-btn-auth');
+        accessBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Tenta abrir o widget do UserWay
+                if (window.UserWay && window.UserWay.widget) {
+                    window.UserWay.widget.open();
+                } else {
+                    console.log('Aguardando UserWay carregar...');
+                }
+            });
+        });
+        
+        // IDIOMA (Alerta simples ou lógica personalizada)
+        const langBtns = document.querySelectorAll('.lang-btn-auth');
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Para mudar o idioma nesta tela, por favor utilize a seleção dentro do formulário de cadastro.');
+            });
+        });
+    });
+</script>
+
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
 <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-<script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
 <script src="js/map-widget.js"></script>
+
 </body>
 </html>
