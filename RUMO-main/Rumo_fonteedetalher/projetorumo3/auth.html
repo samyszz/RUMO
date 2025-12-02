@@ -12,47 +12,84 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
     <style>
-        /* CSS DA BARRA DE FORÇA DE SENHA */
+        /* CSS GERAL E DO MODAL */
+        /* Barra de Força */
         .strength-container { margin-top: -10px; margin-bottom: 15px; width: 100%; }
         .strength-meter { height: 6px; background-color: #e0e0e0; border-radius: 4px; width: 100%; overflow: hidden; margin-bottom: 5px; position: relative; }
         .strength-bar { height: 100%; width: 0%; border-radius: 4px; transition: width 0.3s ease, background-color 0.3s ease; display: block; }
         .strength-text { font-size: 0.8rem; font-weight: 700; display: block; text-align: left; margin-top: 4px; }
         
-        /* MENSAGENS DE ERRO */
+        /* Erros */
         .error-msg { font-size: 0.8rem; color: #d32f2f; font-weight: 600; margin-top: -10px; margin-bottom: 10px; display: none; text-align: left; width: 100%; }
         .error-msg.visible { display: block; }
-
-        /* Bordas dos inputs */
         input.invalid { border: 2px solid #d32f2f !important; background-color: #fff0f0; }
         input.valid { border: 2px solid #74ad8c !important; }
 
-        /* ESTILOS DOS BOTÕES DE UTILIDADE (Auth) */
+        /* Botões Utilitários (Quadrados e sem borda) */
         .auth-utils { margin-top: 25px; display: flex; gap: 20px; justify-content: center; align-items: center; }
-        .auth-utils-btn { background: transparent; color: inherit; font-size: 1.1rem; cursor: pointer; width: 48px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+        .auth-utils-btn { background: transparent; border: none; color: inherit; font-size: 1.1rem; cursor: pointer; width: 40px; height: 40px; border-radius: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
         .auth-utils-btn:hover { background-color: rgba(255, 255, 255, 0.1); transform: translateY(-2px); }
+        .social { border-radius: 0 !important; border: none !important; }
 
-        /* Link de Voltar */
+        /* Back Link */
         .back-link { position: absolute; left: 20px; top: 25px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; z-index: 10; color: var(--text-color); font-family: var(--font-primary, sans-serif); }
-        
-        /* Responsividade do link voltar */
-        @media (max-width: 920px) {
-            .back-link span { display: none; }
+        @media (max-width: 920px) { .back-link span { display: none; } }
+
+        /* --- MODAL DE IDIOMA PREMIUM --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);
+            z-index: 10000; display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease;
         }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+
+        .modal-content {
+            background: #fff; color: #333;
+            width: 95%; max-width: 650px; max-height: 85vh;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            padding: 30px; overflow-y: auto;
+            transform: scale(0.95); transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .modal-title { font-size: 1.4rem; font-weight: 700; color: var(--primary-color); }
+        .btn-close-modal { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: #777; transition: 0.2s; }
+        .btn-close-modal:hover { color: #d32f2f; }
+
+        /* Layout do Grid de Idiomas */
+        .lang-group { margin-bottom: 25px; }
+        .lang-group-title { font-size: 0.85rem; text-transform: uppercase; font-weight: 700; color: #999; margin-bottom: 12px; letter-spacing: 0.5px; border-left: 4px solid var(--primary-color); padding-left: 10px; }
+        .lang-options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+        
+        .lang-option-btn {
+            background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px;
+            padding: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px;
+            transition: all 0.2s; text-align: left;
+        }
+        .lang-option-btn:hover { background: #fff; border-color: var(--primary-color); box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: translateY(-2px); }
+        .lang-option-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+        .lang-flag { font-size: 1.4rem; }
+        .lang-name { font-size: 0.95rem; font-weight: 600; }
+
+        /* Dark Mode Modal */
+        body.dark-mode .modal-content { background: #1f2937; color: #ecf0f1; }
+        body.dark-mode .modal-header { border-bottom-color: #374151; }
+        body.dark-mode .lang-option-btn { background: #374151; border-color: #4b5563; color: #d1d5db; }
+        body.dark-mode .lang-option-btn:hover { background: #4b5563; border-color: var(--primary-color); }
+        body.dark-mode .lang-option-btn.active { background: var(--primary-color); color: #fff; }
     </style>
 </head>
 <body class="fullscreen-auth">
 
 <header id="main-header">
     <div class="container">
-        <a href="index.html" class="back-link">
-            <i class="fas fa-arrow-left"></i> <span data-i18n="nav.home">Início</span>
-        </a>
-
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> <span data-i18n="nav.home">Início</span></a>
         <a><br><br></a>
         <nav id="main-nav">
-            <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu">
-                <span></span><span></span><span></span>
-            </button>
+            <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
         </nav>
     </div>
 </header>
@@ -62,83 +99,52 @@
         
         <div class="form-container register-container">
             <div class="form-panel">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
+                <br><br><br><br><br><br>
                 <h2 data-i18n="form.register">Cadastre-se</h2>
-                
                 <div class="social-container">
                     <a href="#" class="social google-login-btn"><i class="fab fa-google"></i></a>
                     <a href="#" class="social facebook-login-btn"><i class="fab fa-facebook-f"></i></a>
-                    
+                    <a href="#" class="social instagram-login-btn"><i class="fab fa-instagram"></i></a>
                 </div>
                 <span class="social-text" data-i18n="form.social_register">Ou use seu email para cadastrar</span>
-                
                 <div class="doc-tabs">
                     <button class="tab-button active" data-tab="pf" data-i18n="cadastro.pf">Pessoa Física</button>
                     <button class="tab-button" data-tab="pj" data-i18n="cadastro.pj">Pessoa Jurídica</button>
                 </div>
 
                 <form class="tab-content active" id="pf" style="width:100%;">
-                    <div class="form-group"><i class="fas fa-user"></i><input type="text" name="nome" placeholder="Nome Completo..." required></div>
-                    
-                    <div class="form-group"><i class="fas fa-id-card"></i><input type="text" name="cpf" id="cpf-input" placeholder="CPF (000.000.000-00)" maxlength="14" required></div>
-                    <div id="error-cpf" class="error-msg">CPF Inválido</div>
-
-                    <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email" id="email-pf" placeholder="Email..." required></div>
-                    <div id="error-email-pf" class="error-msg">E-mail inválido</div>
-
-                    <div class="form-group"><i class="fas fa-globe"><span></i><select id="language-select-pf" name="idioma" class="language-dropdown" required></select></div>
-                    
-                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="senha" id="senha-pf" placeholder="Senha..." required></div>
-                    <div class="strength-container">
-                        <div class="strength-meter"><div class="strength-bar" id="bar-pf"></div></div>
-                        <span class="strength-text" id="text-pf"></span>
-                    </div>
-
-                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="confirmar_senha" id="conf-senha-pf" placeholder="Repita a senha..." required></div>
-                    <div id="error-conf-senha-pf" class="error-msg">As senhas não coincidem</div>
-
+                    <div class="form-group"><i class="fas fa-user"></i><input type="text" name="nome" placeholder="Nome Completo..." data-i18n="form.name_placeholder" required></div>
+                    <div class="form-group"><i class="fas fa-id-card"></i><input type="text" name="cpf" id="cpf-input" placeholder="CPF..." data-i18n="form.cpf_placeholder" maxlength="14" required></div>
+                    <div id="error-cpf" class="error-msg" data-i18n="form.error_cpf">CPF Inválido</div>
+                    <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email" id="email-pf" placeholder="Email..." data-i18n="form.email_placeholder" required></div>
+                    <div id="error-email-pf" class="error-msg" data-i18n="form.error_email">E-mail inválido</div>
+                    <div class="form-group"><i class="fas fa-globe"></i><select id="language-select-pf" name="idioma" class="language-dropdown" required></select></div>
+                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="senha" id="senha-pf" placeholder="Senha..." data-i18n="form.password_placeholder" required></div>
+                    <div class="strength-container"><div class="strength-meter"><div class="strength-bar" id="bar-pf"></div></div><span class="strength-text" id="text-pf" data-i18n="form.strength_very_weak" style="color: rgb(211, 47, 47);"></span></div>
+                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="confirmar_senha" id="conf-senha-pf" placeholder="Repita a senha..." data-i18n="form.confirm_password_placeholder" required></div>
+                    <div id="error-conf-senha-pf" class="error-msg" data-i18n="form.error_password_mismatch">As senhas não coincidem</div>
                     <div class="form-group checkbox-group" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
                         <input type="checkbox" id="termos-pf" required style="width: auto; margin: 0;">
-                        <label for="termos-pf" style="font-size: 0.9rem;">
-                            Li e aceito os <a href="termosecondicoes.html" style="color: var(--primary-color);">Termos e Condições</a>
-                        </label>
+                        <label for="termos-pf" style="font-size: 0.9rem;"><span data-i18n="form.terms_prefix">Li e aceito os </span><a href="termosecondicoes.html" style="color: var(--primary-color);" data-i18n="termos.title">Termos e Condições</a></label>
                     </div>
-
                     <button type="submit" class="btn-submit" id="btn-submit-pf" data-i18n="cadastro.pf.submit">Cadastrar</button>
                 </form>
 
                 <form class="tab-content" id="pj" style="width:100%;">
-                    <div class="form-group"><i class="fas fa-building"></i><input type="text" name="nome_empresa" id="nome-empresa" placeholder="Nome da Empresa/ONG..." required></div>
-                    
-                    <div class="form-group"><i class="fas fa-id-card"></i><input type="text" name="cnpj" id="cnpj-input" placeholder="CNPJ..." maxlength="18" required></div>
-                    <div id="status-cnpj" class="error-msg" style="color: #666;"></div> <div id="error-cnpj" class="error-msg">CNPJ Inválido</div> 
-                    
-                    <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email_comercial" id="email-pj" placeholder="Email Comercial..." required></div>
-                    <div id="error-email-pj" class="error-msg">E-mail inválido</div>
-
+                    <div class="form-group"><i class="fas fa-building"></i><input type="text" name="nome_empresa" id="nome-empresa" placeholder="Nome da Empresa/ONG..." data-i18n="form.company_placeholder" required></div>
+                    <div class="form-group"><i class="fas fa-id-card"></i><input type="text" name="cnpj" id="cnpj-input" placeholder="CNPJ..." data-i18n="form.cnpj_placeholder" maxlength="18" required></div>
+                    <div id="status-cnpj" class="error-msg" style="color: #666;"></div> <div id="error-cnpj" class="error-msg" data-i18n="form.error_cnpj">CNPJ Inválido</div> 
+                    <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email_comercial" id="email-pj" placeholder="Email Comercial..." data-i18n="form.email_commercial_placeholder" required></div>
+                    <div id="error-email-pj" class="error-msg" data-i18n="form.error_email">E-mail inválido</div>
                     <div class="form-group"><i class="fas fa-globe"></i><select id="language-select-pj" name="idioma_pj" class="language-dropdown" required></select></div>
-
-                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="senha_pj" id="senha-pj" placeholder="Senha..." required></div>
-                    <div class="strength-container">
-                        <div class="strength-meter"><div class="strength-bar" id="bar-pj"></div></div>
-                        <span class="strength-text" id="text-pj"></span>
-                    </div>
-
-                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="confirmar_senha_pj" id="conf-senha-pj" placeholder="Confirmar Senha..." required></div>
-                    <div id="error-conf-senha-pj" class="error-msg">As senhas não coincidem</div>
-
+                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="senha_pj" id="senha-pj" placeholder="Senha..." data-i18n="form.password_placeholder" required></div>
+                    <div class="strength-container"><div class="strength-meter"><div class="strength-bar" id="bar-pj"></div></div><span class="strength-text" id="text-pj" data-i18n="form.strength_very_weak" style="color: rgb(211, 47, 47);"></span></div>
+                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="confirmar_senha_pj" id="conf-senha-pj" placeholder="Confirmar Senha..." data-i18n="form.confirm_password_placeholder" required></div>
+                    <div id="error-conf-senha-pj" class="error-msg" data-i18n="form.error_password_mismatch">As senhas não coincidem</div>
                     <div class="form-group checkbox-group" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
                         <input type="checkbox" id="termos-pj" required style="width: auto; margin: 0;">
-                        <label for="termos-pj" style="font-size: 0.9rem;">
-                            Li e aceito os <a href="#" style="color: var(--primary-color);">Termos e Condições</a>
-                        </label>
+                        <label for="termos-pj" style="font-size: 0.9rem;"><span data-i18n="form.terms_prefix">Li e aceito os </span><a href="#" style="color: var(--primary-color);" data-i18n="termos.title">Termos e Condições</a></label>
                     </div>
-                  
                     <button type="submit" class="btn-submit" id="btn-submit-pj" data-i18n="cadastro.pj.submit">Cadastrar</button>
                 </form>
             </div>
@@ -150,17 +156,15 @@
                 <div class="social-container">
                     <a href="#" class="social google-login-btn"><i class="fab fa-google"></i></a>
                     <a href="#" class="social facebook-login-btn"><i class="fab fa-facebook-f"></i></a>
-                  
+                    <a href="#" class="social instagram-login-btn"><i class="fab fa-instagram"></i></a>
                 </div>
                 <span class="social-text" data-i18n="form.social_login">Ou use sua conta</span>
                 <form id="login-form-main" style="width: 100%;">
-                    <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email" placeholder="Email" required></div>
-                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="password" placeholder="Senha" required></div>
+                    <div class="form-group"><i class="fas fa-envelope"></i><input type="email" name="email" placeholder="Email" data-i18n="form.email_placeholder" required></div>
+                    <div class="form-group"><i class="fas fa-lock"></i><input type="password" name="password" placeholder="Senha" data-i18n="form.password_placeholder" required></div>
                     <button type="submit" class="btn-submit" data-i18n="login.submit">Entrar</button>
                 </form>
-                <div class="forgot-password">
-                    <span data-i18n="login.forgot_question">Esqueceu a senha? </span><a href="#" data-i18n="login.recover">Recuperar senha</a>
-                </div>
+                <div class="forgot-password"><span data-i18n="login.forgot_question">Esqueceu a senha? </span><a href="#" data-i18n="login.recover">Recuperar senha</a></div>
             </div>
         </div>
 
@@ -169,43 +173,27 @@
                 <div class="overlay-panel overlay-left">
                     <img src="assets/imagens/logo.png" alt="Logo R.U.M.O">
                     <h3 data-i18n="login.overlay_title">Já tem uma conta?</h3>
-                    <p>Faça login para acessar a plataforma</p>
-                    <button class="btn-overlay" id="signIn">Login</button>
-                    
+                    <p data-i18n="cadastro.overlay_login_text">Faça login para acessar a plataforma</p>
+                    <button class="btn-overlay" id="signIn" data-i18n="login.sign_in_button">Login</button>
                     <div class="auth-utils">
-                        <button type="button" class="auth-utils-btn theme-toggle-auth" aria-label="Alternar tema">
-                            <i class="fas fa-moon"></i>
-                        </button>
-                        <button type="button" class="auth-utils-btn accessibility-btn-auth" id="accessibility-btn" aria-label="Acessibilidade">
-                            <i class="fas fa-universal-access"></i>
-                        </button>
-                        <button type="button" class="auth-utils-btn lang-btn-auth" aria-label="Idioma">
-                            <i class="fas fa-language"></i>
-                        </button>
+                        <button type="button" class="auth-utils-btn theme-toggle-auth" aria-label="Alternar tema"><i class="fas fa-moon"></i></button>
+                        <button type="button" class="auth-utils-btn accessibility-btn-auth" id="accessibility-btn" aria-label="Acessibilidade"><i class="fas fa-universal-access"></i></button>
+                        <button type="button" class="auth-utils-btn lang-btn-auth" aria-label="Idioma"><i class="fas fa-language"></i></button>
                     </div>
                 </div>
-
                 <div class="overlay-panel overlay-right">
                     <img src="assets/imagens/logo.png" alt="Logo R.U.M.O">
                     <h3 data-i18n="cadastro.overlay_title">Ainda não tem conta?</h3>
-                    <p>Cadastre-se para começar sua jornada conosco</p>
-                    <button class="btn-overlay" id="signUp">Cadastro</button>
-                    
+                    <p data-i18n="cadastro.overlay_register_text">Cadastre-se para começar sua jornada conosco</p>
+                    <button class="btn-overlay" id="signUp" data-i18n="cadastro.sign_up_button">Cadastro</button>
                     <div class="auth-utils">
-                        <button type="button" class="auth-utils-btn theme-toggle-auth" aria-label="Alternar tema">
-                            <i class="fas fa-moon"></i>
-                        </button>
-                        <button type="button" class="auth-utils-btn accessibility-btn-auth" id="accessibility-btn" aria-label="Acessibilidade">
-                            <i class="fas fa-universal-access"></i>
-                        </button>
-                        <button type="button" class="auth-utils-btn lang-btn-auth" aria-label="Idioma">
-                            <i class="fas fa-language"></i>
-                        </button>
+                        <button type="button" class="auth-utils-btn theme-toggle-auth" aria-label="Alternar tema"><i class="fas fa-moon"></i></button>
+                        <button type="button" class="auth-utils-btn accessibility-btn-auth" id="accessibility-btn" aria-label="Acessibilidade"><i class="fas fa-universal-access"></i></button>
+                        <button type="button" class="auth-utils-btn lang-btn-auth" aria-label="Idioma"><i class="fas fa-language"></i></button>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </main>
 
@@ -213,6 +201,17 @@
 <img src="ondabaixo.png" class="ondabaixo" id="onda-baixo">
 
 <footer id="main-footer"></footer>
+
+<div class="modal-overlay" id="languageModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="modal-title" data-i18n="modal.choose_lang">Selecione o Idioma</span>
+            <button class="btn-close-modal" onclick="window.closeLangModal()"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="langModalContent">
+            </div>
+    </div>
+</div>
 
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
@@ -223,16 +222,44 @@
 <script src="js/cadastro.js"></script>
 <script src="js/i18n.js"></script>
 <script src="js/dark-mode.js"></script>
-
 <script src="https://cdn.userway.org/widget.js" data-account="UIgNDRCaqf"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Elementos das ondas
+        // --- CONTROLE DO MODAL DE IDIOMA ---
+        const modal = document.getElementById('languageModal');
+        const modalContent = document.getElementById('langModalContent');
+
+        window.openLangModal = () => {
+            // Renderiza o conteúdo do modal usando o i18n
+            if(window.i18nInstance && window.i18nInstance.getModalHTML) {
+                modalContent.innerHTML = window.i18nInstance.getModalHTML();
+            }
+            modal.classList.add('active');
+        };
+
+        window.closeLangModal = () => {
+            modal.classList.remove('active');
+        };
+
+        // Event Listeners nos botões de idioma
+        const langBtns = document.querySelectorAll('.lang-btn-auth');
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openLangModal();
+            });
+        });
+
+        // Fechar ao clicar fora
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeLangModal();
+        });
+
+
+        // --- ONDAS E TEMA ---
         const ondaCima = document.getElementById('onda-cima');
         const ondaBaixo = document.getElementById('onda-baixo');
-
-        // Função para atualizar as imagens das ondas
         function updateWaveImages(isDark) {
             if (isDark) {
                 if(ondaCima) ondaCima.src = 'ondacimadark.png';
@@ -242,81 +269,32 @@
                 if(ondaBaixo) ondaBaixo.src = 'ondabaixo.png';
             }
         }
-
-        // TEMA
         const themeBtns = document.querySelectorAll('.theme-toggle-auth');
         themeBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 document.body.classList.toggle('dark-mode');
-                const isDark = document.body.classList.contains('dark-mode');
-                
-                // Atualiza ondas
-                updateWaveImages(isDark);
-
-                // Alterna ícone
+                updateWaveImages(document.body.classList.contains('dark-mode'));
                 const icon = btn.querySelector('i');
-                if (icon.classList.contains('fa-moon')) {
-                    icon.classList.remove('fa-moon');
-                    icon.classList.add('fa-sun');
-                } else {
-                    icon.classList.remove('fa-sun');
-                    icon.classList.add('fa-moon');
-                }
+                icon.classList.toggle('fa-moon');
+                icon.classList.toggle('fa-sun');
             });
         });
+        if (document.body.classList.contains('dark-mode')) updateWaveImages(true);
 
-        // Verifica estado inicial do tema
-        if (document.body.classList.contains('dark-mode')) {
-            updateWaveImages(true);
-        }
-
-        // ACESSIBILIDADE - BOTÃO ID CORRIGIDO
-        const accessBtn = document.getElementById('accessibility-btn');
-        if(accessBtn) {
-            accessBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (window.UserWay && window.UserWay.widget) {
-                    window.UserWay.widget.open();
-                } else {
-                    console.log('UserWay ainda carregando...');
-                }
-            });
-        }
-        
-        // Também garante que todos os botões com a classe funcionem (para overlay direito/esquerdo)
+        // Acessibilidade
         const accessBtnsClass = document.querySelectorAll('.accessibility-btn-auth');
         accessBtnsClass.forEach(btn => {
              btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                if (window.UserWay && window.UserWay.widget) {
-                    window.UserWay.widget.open();
-                }
-            });
-        });
-        
-        // IDIOMA
-        const langBtns = document.querySelectorAll('.lang-btn-auth');
-        langBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                alert('Para mudar o idioma nesta tela, por favor utilize a seleção dentro do formulário de cadastro.');
+                if (window.UserWay && window.UserWay.widget) window.UserWay.widget.open();
             });
         });
     });
 </script>
 
-<div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-        <div class="vw-plugin-top-wrapper"></div>
-    </div>
-</div>
+<div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
 <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-<script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-</script>
-
+<script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
 <script src="js/map-widget.js"></script>
-
 </body>
 </html>

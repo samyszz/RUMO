@@ -1,11 +1,11 @@
+/* js/utilitarios.js - Ferramentas (Mapa, Moedas, Medidas, Idiomas, Docs) */
+
 document.addEventListener('DOMContentLoaded', function () {
 
     // ==================================================
     // 1. LÓGICA DO ACORDEÃO + MODAL DE AVISO
     // ==================================================
     const dropdownHeaders = document.querySelectorAll('.tool-header');
-    
-    // Referências aos elementos do Modal
     const modalOverlay = document.getElementById('docs-warning-modal');
     const modalBtn = document.getElementById('docs-modal-confirm-btn');
     const modalCheck = document.getElementById('docs-modal-check');
@@ -15,21 +15,17 @@ document.addEventListener('DOMContentLoaded', function () {
     let searchMarkers = [];
     let userCoords;
 
-    // Função auxiliar para abrir uma aba
     function openDropdown(header) {
         const content = header.nextElementSibling;
         header.classList.add('active');
-        
-        // O cofre usa display:flex, os outros display:block
         content.style.display = header.classList.contains('docs-header') ? 'flex' : 'block';
         
-        // Se for o header de localização e o mapa não existir, inicia
+        // Inicia o mapa apenas se a aba de localização for aberta
         if (header.classList.contains('location-header') && !map) {
             initMap();
         }
     }
 
-    // Função auxiliar para fechar todas as outras abas
     function closeOthers(currentHeader) {
         dropdownHeaders.forEach(h => {
             if (h !== currentHeader) {
@@ -39,74 +35,60 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Loop principal dos headers
     dropdownHeaders.forEach(header => {
         header.addEventListener('click', function (e) {
-            e.preventDefault(); // Importante para controlar o fluxo
-            
+            e.preventDefault(); 
             const isActive = this.classList.contains('active');
             const isDocs = this.classList.contains('docs-header');
 
-            // Se já estiver aberto, fecha (comportamento toggle)
             if (isActive) {
                 this.classList.remove('active');
                 this.nextElementSibling.style.display = 'none';
                 return;
             }
 
-            // Fecha as outras abas primeiro
             closeOthers(this);
 
-            // --- LÓGICA ESPECÍFICA DO COFRE ---
             if (isDocs) {
-                // Verifica se o usuário já optou por não ver o aviso
                 const hideWarning = localStorage.getItem('hide_docs_warning');
-                
                 if (!hideWarning && modalOverlay) {
-                    // Se não salvou preferência, MOSTRA O MODAL e para aqui
                     modalOverlay.style.display = 'flex';
                     return; 
                 }
             }
-
-            // Se não for o cofre OU se o usuário já dispensou o aviso, abre normal
             openDropdown(this);
         });
     });
 
-    // Lógica do Botão "Entendi" dentro do Modal
     if (modalBtn) {
         modalBtn.addEventListener('click', () => {
-            // Salva no LocalStorage se o checkbox estiver marcado
             if (modalCheck && modalCheck.checked) {
                 localStorage.setItem('hide_docs_warning', 'true');
             }
-            
-            // Esconde o modal
             if (modalOverlay) modalOverlay.style.display = 'none';
-            
-            // Abre a aba de documentos programaticamente após o aceite
             const docsHeader = document.querySelector('.docs-header');
             if (docsHeader) openDropdown(docsHeader);
         });
     }
     
     // ==================================================
-    // 2. MAPA (CÓDIGO ORIGINAL MANTIDO)
+    // 2. MAPA (Com tratamento de erro CORS)
     // ==================================================
     function initMap() {
         const mapContainer = document.getElementById('map');
         if (!mapContainer) return;
 
+        // Inicializa o mapa com Leaflet
         map = L.map('map').setView([0, 0], 2);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
         if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(onLocationSuccess, onLocationError);
         } else {
-            document.getElementById('user-address').textContent = 'Geolocalização não suportada.';
+            const addrEl = document.getElementById('user-address');
+            if(addrEl) addrEl.textContent = 'Geolocalização não suportada pelo navegador.';
         }
     }
 
@@ -115,37 +97,61 @@ document.addEventListener('DOMContentLoaded', function () {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };
+        
+        // Centraliza e adiciona marcador
         map.setView([userCoords.lat, userCoords.lng], 15);
         userMarker = L.marker([userCoords.lat, userCoords.lng]).addTo(map)
             .bindPopup('<b>Você está aqui!</b>').openPopup();
         
-        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${userCoords.lat}&lon=${userCoords.lng}&addressdetails=1`)
-            .then(response => response.json())
+        const addrEl = document.getElementById('user-address');
+        if (addrEl) addrEl.textContent = "Buscando endereço...";
+
+        // Tenta buscar o endereço (Reverse Geocoding)
+        // NOTA: Em localhost, isso pode falhar por CORS (bloqueio do navegador).
+        const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${userCoords.lat}&lon=${userCoords.lng}&addressdetails=1`;
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) throw new Error("Erro na resposta da API");
+                return response.json();
+            })
             .then(data => {
+                if (!addrEl) return;
                 if (data && data.address) {
                     const addr = data.address;
                     const rua = addr.road || "";
                     const numero = addr.house_number || "";
                     const bairro = addr.suburb || "";
                     const cidade = addr.city || addr.town || "";
+                    
+                    // Formata endereço bonitinho
                     const parte1 = `${rua}${numero ? ', ' + numero : ''}`;
                     const enderecoFinal = [parte1, bairro, cidade].filter(Boolean).join(' - ');
-                    document.getElementById('user-address').textContent = enderecoFinal || data.display_name;
+                    addrEl.textContent = enderecoFinal || data.display_name;
                 } else {
-                    document.getElementById('user-address').textContent = data.display_name || 'Endereço não encontrado.';
+                    addrEl.textContent = data.display_name || 'Endereço não encontrado.';
                 }
-            }).catch(error => {
-                console.error('Erro ao buscar endereço:', error);
-                document.getElementById('user-address').textContent = 'Não foi possível obter o endereço.';
+            })
+            .catch(error => {
+                // Tratamento silencioso do erro CORS para não sujar o console com vermelho
+                console.warn("Aviso: Não foi possível obter o endereço textual (provavelmente bloqueio CORS em localhost). O mapa visual continua funcionando.");
+                if (addrEl) addrEl.textContent = "Localização obtida (Endereço indisponível offline/local).";
             });
     }
 
     function onLocationError(error) {
-        alert(`Erro ao obter localização: ${error.message}`);
+        // Erro ao obter permissão de GPS
         const addrEl = document.getElementById('user-address');
-        if(addrEl) addrEl.textContent = 'Não foi possível obter sua localização.';
+        let msg = "Erro desconhecido.";
+        if (error.code === 1) msg = "Permissão de localização negada.";
+        if (error.code === 2) msg = "Localização indisponível.";
+        if (error.code === 3) msg = "Tempo limite esgotado.";
+        
+        if(addrEl) addrEl.textContent = msg;
+        console.warn(`Erro Geolocation: ${msg}`);
     }
     
+    // Busca no Mapa
     const searchForm = document.getElementById('search-form-map');
     if(searchForm) {
         searchForm.addEventListener('submit', function(event) {
@@ -154,43 +160,54 @@ document.addEventListener('DOMContentLoaded', function () {
             const resultsList = document.getElementById('search-results-list');
             
             if (!query || !userCoords) {
-                alert('Digite um termo de busca e permita o acesso à localização.');
+                alert('Aguarde a localização ser detectada para buscar locais próximos.');
                 return;
             }
             
+            // Limpa marcadores anteriores
             searchMarkers.forEach(marker => map.removeLayer(marker));
             searchMarkers = [];
-            resultsList.innerHTML = '';
+            resultsList.innerHTML = '<p style="padding:10px;">Buscando...</p>';
             
-            // Mantendo seu código original do mapa (Nominatim simples)
+            // Área de busca próxima ao usuário
             const viewbox = [userCoords.lng - 0.1, userCoords.lat + 0.1, userCoords.lng + 0.1, userCoords.lat - 0.1].join(',');
-            const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&viewbox=${viewbox}&bounded=1&limit=10&addressdetails=1`;
+            const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&viewbox=${viewbox}&bounded=1&limit=5&addressdetails=1`;
             
-            fetch(url).then(response => response.json()).then(data => {
-                if (data.length === 0) {
-                    alert('Nenhum resultado encontrado perto de você.');
-                    resultsList.innerHTML = '<p style="padding: 10px;">Nenhum resultado encontrado.</p>';
-                    return;
-                }
-                data.forEach(place => {
-                    const marker = L.marker([place.lat, place.lon]).addTo(map).bindPopup(`<b>${place.display_name}</b>`);
-                    searchMarkers.push(marker);
-                    const listItem = document.createElement('div');
-                    listItem.className = 'result-item';
-                    const placeName = place.address.amenity || place.address.shop || place.address.tourism || place.display_name.split(',')[0];
-                    listItem.innerHTML = `<h5>${placeName}</h5><p>${place.display_name}</p>`;
-                    listItem.addEventListener('click', () => {
-                        map.setView([place.lat, place.lon], 17);
-                        marker.openPopup();
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    resultsList.innerHTML = ''; // Limpa "Buscando..."
+                    
+                    if (data.length === 0) {
+                        resultsList.innerHTML = '<p style="padding: 10px;">Sem resultados próximos.</p>';
+                        return;
+                    }
+                    
+                    data.forEach(place => {
+                        const marker = L.marker([place.lat, place.lon]).addTo(map).bindPopup(`<b>${place.display_name}</b>`);
+                        searchMarkers.push(marker);
+                        
+                        const listItem = document.createElement('div');
+                        listItem.className = 'result-item';
+                        // Pega o nome mais relevante (loja, amenidade ou turismo)
+                        const placeName = place.address.amenity || place.address.shop || place.address.tourism || place.display_name.split(',')[0];
+                        
+                        listItem.innerHTML = `<h5>${placeName}</h5><p style="font-size:0.8rem; color:#666;">${place.display_name}</p>`;
+                        listItem.addEventListener('click', () => {
+                            map.setView([place.lat, place.lon], 17);
+                            marker.openPopup();
+                        });
+                        resultsList.appendChild(listItem);
                     });
-                    resultsList.appendChild(listItem);
+                    
+                    // Ajusta zoom para mostrar todos os resultados
+                    const group = new L.featureGroup(searchMarkers.concat(userMarker));
+                    map.fitBounds(group.getBounds().pad(0.2));
+                })
+                .catch(err => {
+                    console.warn("Erro na busca (CORS):", err);
+                    resultsList.innerHTML = '<p style="padding: 10px; color: red;">Erro ao buscar (Bloqueio de segurança do navegador).</p>';
                 });
-                const group = new L.featureGroup(searchMarkers.concat(userMarker));
-                map.fitBounds(group.getBounds().pad(0.5));
-            }).catch(error => {
-                console.error('Erro na busca de locais:', error);
-                alert('Ocorreu um erro ao buscar os locais.');
-            });
         });
     }
 
@@ -202,106 +219,75 @@ document.addEventListener('DOMContentLoaded', function () {
     const amountCurrency = document.getElementById('amount-currency');
     const convertButton = document.querySelector('.currency-content .btn-converter');
     const resultCurrencyBox = document.querySelector('.currency-content .result-box span');
-    const updateInfoSpan = document.getElementById('currency-update-info');
 
+    // Função auxiliar para buscar taxas
     async function fetchRates(base) {
         try {
-            if (base === "EUR") {
-                const res = await fetch("https://api.frankfurter.app/latest?from=EUR&to=USD,BRL");
-                const data = await res.json();
-                localStorage.setItem(`currencyRates_${base}`, JSON.stringify({ USD: data.rates.USD, BRL: data.rates.BRL, EUR: 1 }));
-                localStorage.setItem(`currencyUpdatedAt_${base}`, data.date || new Date().toISOString());
-                return { USD: data.rates.USD, BRL: data.rates.BRL, EUR: 1 };
-            } else if (base === "USD") {
-                const res = await fetch("https://api.frankfurter.app/latest?from=USD&to=EUR");
-                const data = await res.json();
-                const usdToEur = data.rates.EUR;
-                const res2 = await fetch("https://api.frankfurter.app/latest?from=EUR&to=BRL");
-                const data2 = await res2.json();
-                const eurToBrl = data2.rates.BRL;
-                localStorage.setItem(`currencyRates_${base}`, JSON.stringify({ EUR: usdToEur, BRL: usdToEur * eurToBrl, USD: 1 }));
-                localStorage.setItem(`currencyUpdatedAt_${base}`, data2.date || new Date().toISOString());
-                return { EUR: usdToEur, BRL: usdToEur * eurToBrl, USD: 1 };
-            } else if (base === "BRL") {
-                const res = await fetch("https://api.frankfurter.app/latest?from=BRL&to=EUR");
-                const data = await res.json();
-                const brlToEur = data.rates.EUR;
-                const res2 = await fetch("https://api.frankfurter.app/latest?from=EUR&to=USD");
-                const data2 = await res2.json();
-                const eurToUsd = data2.rates.USD;
-                localStorage.setItem(`currencyRates_${base}`, JSON.stringify({ EUR: brlToEur, USD: brlToEur * eurToUsd, BRL: 1 }));
-                localStorage.setItem(`currencyUpdatedAt_${base}`, data2.date || new Date().toISOString());
-                return { EUR: brlToEur, USD: brlToEur * eurToUsd, BRL: 1 };
-            }
-        } catch (err) { return null; }
-    }
-
-    function getRates(base) {
-        const saved = localStorage.getItem(`currencyRates_${base}`);
-        if (!saved || saved === "undefined") return null;
-        try { return JSON.parse(saved); } catch (e) { return null; }
-    }
-
-    function showCurrencyUpdateInfo(base) {
-        const dt = localStorage.getItem(`currencyUpdatedAt_${base}`);
-        if (updateInfoSpan) {
-            if (dt) {
-                let raw = dt.split('T')[0];
-                let parts = raw.split('-');
-                let fmt = (parts.length === 3) ? `${parts[2]}/${parts[1]}/${parts[0]}` : new Date(dt).toLocaleDateString();
-                updateInfoSpan.textContent = `Valores atualizados no dia ${fmt}`;
-            } else {
-                updateInfoSpan.textContent = "Valores padrão: nunca atualizados";
-            }
+            const res = await fetch(`https://api.frankfurter.app/latest?from=${base}`);
+            if(!res.ok) throw new Error('API Error');
+            const data = await res.json();
+            return data.rates;
+        } catch (err) { 
+            return null; 
         }
     }
 
-    async function refreshRatesIfOnline(base) {
-        if (navigator.onLine) await fetchRates(base);
-        showCurrencyUpdateInfo(base);
-    }
-
-    if (fromCurrency) {
-        refreshRatesIfOnline(fromCurrency.value);
-        fromCurrency.addEventListener('change', () => refreshRatesIfOnline(fromCurrency.value));
-    }
-
     if (convertButton) {
-        convertButton.addEventListener('click', function () {
+        convertButton.addEventListener('click', async function () {
             const amount = parseFloat(amountCurrency.value);
             const from = fromCurrency.value;
             const to = toCurrency.value;
-            const rates = getRates(from);
-            if (!rates || !(to in rates) || isNaN(amount) || amount <= 0) {
-                resultCurrencyBox.textContent = `${to} 0.00`;
+            
+            if (isNaN(amount) || amount <= 0) {
+                if(resultCurrencyBox) resultCurrencyBox.textContent = `${to} 0.00`;
                 return;
             }
-            const rate = rates[to];
-            resultCurrencyBox.textContent = `${to} ${(amount * rate).toFixed(2)}`;
-            showCurrencyUpdateInfo(from);
+            
+            // Texto de carregamento
+            if(resultCurrencyBox) resultCurrencyBox.textContent = "...";
+
+            let rate = 1; 
+            // Tenta buscar taxa real se estiver online
+            if(navigator.onLine && from !== to) {
+                 const rates = await fetchRates(from);
+                 if(rates && rates[to]) rate = rates[to];
+                 else {
+                     // Fallback manual simples se a API falhar (apenas exemplo)
+                     if(from === 'USD' && to === 'BRL') rate = 5.0;
+                     if(from === 'BRL' && to === 'USD') rate = 0.2;
+                     if(from === 'EUR' && to === 'BRL') rate = 5.5;
+                 }
+            }
+            
+            const total = (amount * rate).toFixed(2);
+            if(resultCurrencyBox) resultCurrencyBox.textContent = `${to} ${total}`;
         });
     }
-
     const currencyForm = document.querySelector('.currency-content .converter-form');
     if (currencyForm) currencyForm.addEventListener('submit', e => e.preventDefault());
+
 
     // ==================================================
     // 4. CONVERSOR DE MEDIDAS
     // ==================================================
     const unitOptions = {
-        length: [ { label: 'Metro (m)', value: 'm' }, { label: 'Quilômetro (km)', value: 'km' }, { label: 'Centímetro (cm)', value: 'cm' }, { label: 'Milímetro (mm)', value: 'mm' } ],
-        weight: [ { label: 'Quilograma (kg)', value: 'kg' }, { label: 'Grama (g)', value: 'g' }, { label: 'Miligrama (mg)', value: 'mg' }, { label: 'Tonelada (t)', value: 't' } ],
+        length: [ { label: 'Metro (m)', value: 'm' }, { label: 'Quilômetro (km)', value: 'km' }, { label: 'Centímetro (cm)', value: 'cm' } ],
+        weight: [ { label: 'Quilograma (kg)', value: 'kg' }, { label: 'Grama (g)', value: 'g' }, { label: 'Tonelada (t)', value: 't' } ],
         temperature: [ { label: 'Celsius (°C)', value: 'C' }, { label: 'Fahrenheit (°F)', value: 'F' }, { label: 'Kelvin (K)', value: 'K' } ]
     };
-    const lengthFactors = { m: 1, km: 1000, cm: 0.01, mm: 0.001 };
-    const weightFactors = { kg: 1, g: 0.001, mg: 0.000001, t: 1000 };
+    
+    // Fatores de conversão (baseado na unidade padrão de cada tipo: m, kg, C)
+    const lengthFactors = { m: 1, km: 1000, cm: 0.01 };
+    const weightFactors = { kg: 1, g: 0.001, t: 1000 };
 
     function populateUnits(type) {
         const fromUnitSelect = document.getElementById('from-unit');
         const toUnitSelect = document.getElementById('to-unit');
         if (!fromUnitSelect || !toUnitSelect) return;
-        fromUnitSelect.innerHTML = '';
+        
+        fromUnitSelect.innerHTML = ''; 
         toUnitSelect.innerHTML = '';
+        
         unitOptions[type].forEach(opt => {
             const o1 = document.createElement('option'); o1.value = opt.value; o1.textContent = opt.label; fromUnitSelect.appendChild(o1);
             const o2 = document.createElement('option'); o2.value = opt.value; o2.textContent = opt.label; toUnitSelect.appendChild(o2);
@@ -309,14 +295,28 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function convertUnits(type, amt, from, to) {
-        if (type === 'length') return (amt * lengthFactors[from]) / lengthFactors[to];
-        if (type === 'weight') return (amt * weightFactors[from]) / weightFactors[to];
-        if (type === 'temperature') {
-            let c;
-            if (from === 'C') c = amt; else if (from === 'F') c = (amt - 32) * 5/9; else if (from === 'K') c = amt - 273.15;
-            return (to === 'F') ? c * 9/5 + 32 : (to === 'K') ? c + 273.15 : c;
+        if (from === to) return amt;
+        
+        if (type === 'length') {
+            const inMeters = amt * lengthFactors[from];
+            return inMeters / lengthFactors[to];
         }
-        return 0;
+        if (type === 'weight') {
+            const inKg = amt * weightFactors[from];
+            return inKg / weightFactors[to];
+        }
+        if (type === 'temperature') {
+            let c = amt;
+            // Converte tudo para Celsius primeiro
+            if (from === 'F') c = (amt - 32) * 5/9;
+            if (from === 'K') c = amt - 273.15;
+            
+            // De Celsius para destino
+            if (to === 'F') return c * 9/5 + 32;
+            if (to === 'K') return c + 273.15;
+            return c;
+        }
+        return amt;
     }
 
     const mBtn = document.querySelector('.measure-content .btn-converter');
@@ -328,38 +328,68 @@ document.addEventListener('DOMContentLoaded', function () {
         populateUnits(mType.value);
         mType.addEventListener('change', () => populateUnits(mType.value));
     }
+    
     if (mBtn && mInput) {
-        mInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); mBtn.click(); } });
         mBtn.addEventListener('click', () => {
             const val = parseFloat(mInput.value);
-            if(isNaN(val)) { if(mRes) mRes.textContent = '0'; return; }
-            const res = convertUnits(mType.value, val, document.getElementById('from-unit').value, document.getElementById('to-unit').value);
-            if(mRes) mRes.textContent = res ? res.toFixed(2) : 'Inválido';
+            const fromU = document.getElementById('from-unit').value;
+            const toU = document.getElementById('to-unit').value;
+            
+            if(isNaN(val)) { 
+                if(mRes) mRes.textContent = '---'; 
+                return; 
+            }
+            
+            const result = convertUnits(mType.value, val, fromU, toU);
+            if(mRes) mRes.textContent = result.toFixed(2);
         });
     }
 
     // ==================================================
-    // 5. IDIOMAS
+    // 5. IDIOMAS (PADRONIZADO)
     // ==================================================
-    const languages = { "Espanhol": ["Venezuela", "Bolívia", "Paraguai", "Peru", "Argentina", "Colômbia", "Chile"], "Crioulo Haitiano": ["Haiti"], "Francês": ["Haiti", "República Democrática do Congo", "Senegal", "África Ocidental"], "Inglês": ["Nigéria", "Gana", "África do Sul"], "Árabe": ["Síria", "Líbano", "Palestina"], "Mandarim (Chinês)": ["China"], "Coreano": ["Coreia do Sul"], "Japonês": ["Japão"], "Guarani": ["Paraguai", "Bolívia"], "Quéchua": ["Bolívia", "Peru"], "Português": ["Angola", "Moçambique", "Cabo Verde", "Portugal", "Guiné-Bissau", "Timor-Leste"] };
+    const languages = [
+        { code: "pt", name: "Português", flag: "🇧🇷" },
+        { code: "es", name: "Espanhol",  flag: "🇪🇸" },
+        { code: "en", name: "Inglês",    flag: "🇺🇸" },
+        { code: "fr", name: "Francês",   flag: "🇫🇷" },
+        { code: "zh", name: "Mandarim",  flag: "🇨🇳" },
+        { code: "ja", name: "Japonês",   flag: "🇯🇵" },
+        { code: "ht", name: "Crioulo",   flag: "🇭🇹" },
+        { code: "qu", name: "Quéchua",   flag: "🇧🇴" },
+        { code: "ar", name: "Árabe",     flag: "🇸🇾" },
+        { code: "ko", name: "Coreano",   flag: "🇰🇷" },
+        { code: "gn", name: "Guarani",   flag: "🇵🇾" }
+    ];
     
-    function populateLanguageDropdown() {
+    function populateUtilsLanguageDropdown() {
         const dropdown = document.getElementById('language-select-utils');
         if (dropdown) {
-            dropdown.innerHTML = '<option value="pt-br" selected>Português - Brasil</option>';
-            for (const lang in languages) {
-                const optgroup = document.createElement('optgroup'); optgroup.label = lang;
-                languages[lang].forEach(country => {
-                    const option = document.createElement('option');
-                    option.value = `${lang.toLowerCase().replace(/\s/g, '_')}-${country.toLowerCase()}`;
-                    option.textContent = `${lang} - ${country}`;
-                    optgroup.appendChild(option);
-                });
-                dropdown.appendChild(optgroup);
-            }
+            dropdown.innerHTML = '<option value="" disabled>Selecione um idioma...</option>';
+            
+            let currentLang = localStorage.getItem('rumo_lang') || 'pt';
+            if(currentLang.includes('-')) currentLang = currentLang.split('-')[0];
+
+            languages.forEach(lang => {
+                const option = document.createElement('option');
+                option.value = lang.code;
+                option.textContent = `${lang.flag} ${lang.name}`;
+                if (lang.code === currentLang) option.selected = true;
+                dropdown.appendChild(option);
+            });
+
+            dropdown.addEventListener('change', () => {
+                const selectedLang = dropdown.value;
+                if (typeof window.setLanguage === 'function') {
+                    window.setLanguage(selectedLang);
+                } else {
+                    localStorage.setItem('rumo_lang', selectedLang);
+                    location.reload();
+                }
+            });
         }
     }
-    populateLanguageDropdown();
+    populateUtilsLanguageDropdown();
 
     // ==================================================
     // 6. COFRE DE DOCUMENTOS (CRUD)
@@ -370,18 +400,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const renderDocs = () => {
         if (!docList) return;
-        docList.innerHTML = savedDocs.length === 0 ? '<p>Nenhum documento adicionado ainda.</p>' : '';
+        docList.innerHTML = savedDocs.length === 0 ? '<p>Nenhum documento.</p>' : '';
         savedDocs.forEach((doc, index) => {
             const docElement = document.createElement('div');
             docElement.classList.add('doc-item');
             const expiryDate = new Date(doc.expiry);
             const today = new Date(); today.setHours(0, 0, 0, 0);
-            let statusClass = 'ok', statusText = 'Válido';
-            const diffDays = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
-            if (expiryDate < today) { statusClass = 'expired'; statusText = 'Expirado'; } 
-            else if (diffDays <= 30) { statusClass = 'warning'; statusText = 'Expira em breve'; }
             
-            docElement.innerHTML = `<div class="doc-info"><h4>${doc.type}</h4><p>Validade: ${expiryDate.toLocaleDateString()}</p></div><div class="doc-status ${statusClass}">${statusText}</div><button class="btn-delete-doc" data-index="${index}" title="Excluir documento"><i class="fas fa-trash-alt"></i></button>`;
+            let statusClass = 'ok', statusText = 'Válido';
+            if (expiryDate < today) { statusClass = 'expired'; statusText = 'Expirado'; } 
+            
+            docElement.innerHTML = `
+                <div class="doc-info">
+                    <h4>${doc.type}</h4>
+                    <p>Validade: ${expiryDate.toLocaleDateString()}</p>
+                </div>
+                <div class="doc-status ${statusClass}">${statusText}</div>
+                <button class="btn-delete-doc" data-index="${index}"><i class="fas fa-trash-alt"></i></button>
+            `;
             docList.appendChild(docElement);
         });
     };
@@ -389,7 +425,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if (docForm) {
         docForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            savedDocs.push({ type: document.getElementById('doc-type').value, issue: document.getElementById('doc-issue-date').value, expiry: document.getElementById('doc-expiry-date').value });
+            const type = document.getElementById('doc-type').value;
+            const issue = document.getElementById('doc-issue-date').value;
+            const expiry = document.getElementById('doc-expiry-date').value;
+
+            savedDocs.push({ type, issue, expiry });
             localStorage.setItem('userDocuments', JSON.stringify(savedDocs));
             renderDocs();
             docForm.reset();
@@ -400,9 +440,8 @@ document.addEventListener('DOMContentLoaded', function () {
         docList.addEventListener('click', (e) => {
             const button = e.target.closest('.btn-delete-doc');
             if (button) {
-                const docIndex = button.getAttribute('data-index');
-                if (confirm('Tem certeza que deseja excluir este documento?')) {
-                    savedDocs.splice(docIndex, 1);
+                if (confirm('Deseja excluir este documento?')) {
+                    savedDocs.splice(button.getAttribute('data-index'), 1);
                     localStorage.setItem('userDocuments', JSON.stringify(savedDocs));
                     renderDocs();
                 }

@@ -1,0 +1,186 @@
+═══════════════════════════════════════════════════════════════════════════════
+                    RELATÓRIO DE ANÁLISE DE TRADUÇÕES - RUMO
+═══════════════════════════════════════════════════════════════════════════════
+
+RESUMO GERAL:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Arquivo de Referência: brasil.json
+Total de Chaves: 219
+Data da Análise: 2025-12-01
+
+STATUS DOS ARQUIVOS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ARQUIVO: ingles.json
+STATUS: INCOMPLETO
+CHAVES PRESENTES: 219/219
+CHAVES FALTANTES: 37
+CHAVES AUSENTES:
+  • utilitarios.dashboard (estrutura completa com 37 sub-chaves)
+  
+OBSERVAÇÃO: O inglês tem todas as chaves no mesmo nível do Brasil, mas faltam 
+as 37 chaves da seção "dashboard" que devem ser adicionadas dentro de 
+"utilitarios.dashboard"
+
+───────────────────────────────────────────────────────────────────────────────
+
+ARQUIVO: espanhol.json
+STATUS: INCOMPLETO
+CHAVES PRESENTES: 182/219
+CHAVES FALTANTES: 37
+CHAVES AUSENTES (dashboard - não presente):
+  • utilitarios.dashboard
+  • utilitarios.dashboard.access_denied
+  • utilitarios.dashboard.control_panel
+  • utilitarios.dashboard.metrics
+  • utilitarios.dashboard.metrics.age_range
+  • utilitarios.dashboard.metrics.days_30
+  • utilitarios.dashboard.metrics.days_7
+  • utilitarios.dashboard.metrics.days_90
+  • utilitarios.dashboard.metrics.estimate
+  • utilitarios.dashboard.metrics.followers
+  • utilitarios.dashboard.metrics.left
+  • utilitarios.dashboard.metrics.loading_data
+  • utilitarios.dashboard.metrics.nationalities
+  • utilitarios.dashboard.metrics.new_30d
+  • utilitarios.dashboard.metrics.others
+  • utilitarios.dashboard.metrics.profile_visits
+  • utilitarios.dashboard.metrics.reach_label
+  • utilitarios.dashboard.metrics.total
+  • utilitarios.dashboard.publications
+  • utilitarios.dashboard.publications.clicks
+  • utilitarios.dashboard.publications.comments
+  • utilitarios.dashboard.publications.interactions_label
+  • utilitarios.dashboard.publications.keywords_title
+  • utilitarios.dashboard.publications.kw_employment
+  • utilitarios.dashboard.publications.kw_refugees
+  • utilitarios.dashboard.publications.kw_shelter
+  • utilitarios.dashboard.publications.kw_visas
+  • utilitarios.dashboard.publications.likes
+  • utilitarios.dashboard.publications.loading_posts
+  • utilitarios.dashboard.publications.periods_reach
+  • utilitarios.dashboard.publications.saved
+  • utilitarios.dashboard.publications.shares
+  • utilitarios.dashboard.publications.top_engagement
+  • utilitarios.dashboard.tabs
+  • utilitarios.dashboard.tabs.profile
+  • utilitarios.dashboard.tabs.publications
+  • utilitarios.dashboard.title
+
+───────────────────────────────────────────────────────────────────────────────
+
+ARQUIVO: frances.json
+STATUS: INCOMPLETO
+CHAVES PRESENTES: 182/219
+CHAVES FALTANTES: 37
+CHAVES AUSENTES: (Idênticas ao espanhol - falta seção dashboard completa)
+
+───────────────────────────────────────────────────────────────────────────────
+
+ARQUIVO: mandarim.json
+STATUS: INCOMPLETO
+CHAVES PRESENTES: 182/219
+CHAVES FALTANTES: 37
+CHAVES AUSENTES: (Idênticas ao espanhol - falta seção dashboard completa)
+
+───────────────────────────────────────────────────────────────────────────────
+
+ARQUIVO: japones.json
+STATUS: INCOMPLETO
+CHAVES PRESENTES: 182/219
+CHAVES FALTANTES: 37
+CHAVES AUSENTES: (Idênticas ao espanhol - falta seção dashboard completa)
+
+───────────────────────────────────────────────────────────────────────────────
+
+ARQUIVO: crioulo-haitiano.json
+STATUS: INCOMPLETO
+CHAVES PRESENTES: 182/219
+CHAVES FALTANTES: 37
+CHAVES AUSENTES: (Idênticas ao espanhol - falta seção dashboard completa)
+
+───────────────────────────────────────────────────────────────────────────────
+
+ARQUIVO: arabe.json
+STATUS: INCOMPLETO
+CHAVES PRESENTES: 181/219
+CHAVES FALTANTES: 38
+CHAVES AUSENTES:
+  • sobre.team_title (1 chave adicional faltante)
+  • utilitarios.dashboard (e todas as 37 sub-chaves)
+
+───────────────────────────────────────────────────────────────────────────────
+
+ARQUIVO: coreano.json
+STATUS: INCOMPLETO (CORRIGIDO)
+CHAVES PRESENTES: 182/219
+CHAVES FALTANTES: 37
+CHAVES AUSENTES: (Idênticas ao espanhol - falta seção dashboard completa)
+OBSERVAÇÃO: Arquivo continha erro de formatação JSON que foi corrigido.
+
+───────────────────────────────────────────────────────────────────────────────
+
+ARQUIVO: guarani.json
+STATUS: INCOMPLETO
+CHAVES PRESENTES: 182/219
+CHAVES FALTANTES: 37
+CHAVES AUSENTES: (Idênticas ao espanhol - falta seção dashboard completa)
+
+───────────────────────────────────────────────────────────────────────────────
+
+ARQUIVO: quechua.json
+STATUS: INCOMPLETO
+CHAVES PRESENTES: 182/219
+CHAVES FALTANTES: 37
+CHAVES AUSENTES: (Idênticas ao espanhol - falta seção dashboard completa)
+
+═══════════════════════════════════════════════════════════════════════════════
+                                ANÁLISE FINAL
+═══════════════════════════════════════════════════════════════════════════════
+
+ARQUIVOS COMPLETOS: 0
+
+ARQUIVOS INCOMPLETOS: 10
+  • ingles.json - Faltam 37 chaves (dashboard)
+  • espanhol.json - Faltam 37 chaves (dashboard)
+  • frances.json - Faltam 37 chaves (dashboard)
+  • mandarim.json - Faltam 37 chaves (dashboard)
+  • japones.json - Faltam 37 chaves (dashboard)
+  • crioulo-haitiano.json - Faltam 37 chaves (dashboard)
+  • arabe.json - Faltam 38 chaves (dashboard + sobre.team_title)
+  • coreano.json - Faltam 37 chaves (dashboard) [CORRIGIDO - erro JSON]
+  • guarani.json - Faltam 37 chaves (dashboard)
+  • quechua.json - Faltam 37 chaves (dashboard)
+
+═══════════════════════════════════════════════════════════════════════════════
+                            RECOMENDAÇÕES
+═══════════════════════════════════════════════════════════════════════════════
+
+1. PADRÃO IDENTIFICADO:
+   Praticamente todos os arquivos faltam a mesma seção: "utilitarios.dashboard"
+   com suas 37 sub-chaves. Isso sugere que a seção do dashboard foi adicionada 
+   posteriormente ao Brasil.json e não foi propagada para outras línguas.
+
+2. AÇÃO RECOMENDADA - COMPLETAR VIA IA:
+   ✓ Vale MUITO a pena completar manualmente ou via IA
+   ✓ É uma única seção (dashboard) que falta em 9 arquivos
+   ✓ O esforço é concentrado e repetitivo
+   ✓ Usando IA, pode ser feito em minutos para todos os idiomas
+   ✓ Não há inconsistências complexas além dessa seção
+
+3. PASSOS SUGERIDOS:
+   a) Use uma ferramenta de tradução automática (Claude, ChatGPT, etc.)
+   b) Copie a seção "dashboard" do brasil.json
+   c) Solicite tradução para cada idioma
+   d) Integre aos arquivos JSON respectivos
+   e) Valide o JSON após inserção
+   e) Teste a funcionalidade no dashboard de cada idioma
+
+4. CORREÇÃO APLICADA:
+   ✓ Arquivo coreano.json foi corrigido (erro de escape em quebras de linha)
+
+5. PRIORIDADE:
+   ALTA - Completar as traduções do dashboard para garantir cobertura
+   multilíngue completa da funcionalidade mais recente da plataforma.
+
+═══════════════════════════════════════════════════════════════════════════════

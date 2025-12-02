@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Tutorial — R.U.M.O</title>
+    <title data-i18n="tutorial.title">Tutorial — R.U.M.O</title>
 
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/tutorial.css">
@@ -65,7 +65,7 @@
     <div class="container">
 
         <section class="tutorial-hero">
-            <h1>Olá, <span id="user-greeting">Visitante</span><br><br> Venha aprender como usar nossa plataforma!</h1>
+            <h1><span data-i18n="tutorial.hero_greeting">Olá, </span><span id="user-greeting">Visitante</span><br><br> <span data-i18n="tutorial.hero_text">Venha aprender como usar nossa plataforma!</span></h1>
         </section>
 <br>
 <br>
@@ -74,14 +74,14 @@
         <section class="depth-carousel-section">
             <div class="depth-carousel-wrapper">
 
-                <button class="depth-arrow left" id="prevBtn" aria-label="Anterior">
+                <button class="depth-arrow left" id="prevBtn" aria-label="Anterior" data-i18n="tutorial.previous_button">
                     <i class="fa-solid fa-chevron-left"></i>
                 </button>
 
                 <div class="depth-viewport" id="depthViewport" aria-roledescription="carousel">
                     </div>
 
-                <button class="depth-arrow right" id="nextBtn" aria-label="Próximo">
+                <button class="depth-arrow right" id="nextBtn" aria-label="Próximo" data-i18n="tutorial.next_button">
                     <i class="fa-solid fa-chevron-right"></i>
                 </button>
 
@@ -91,35 +91,35 @@
         </section>
 
         <section class="faq-section">
-            <h2>Perguntas frequentes:</h2>
+            <h2 data-i18n="tutorial.faq_title">Perguntas frequentes:</h2>
 
             <div class="faq-item">
-                <button class="faq-question">
+                <button class="faq-question" data-i18n="tutorial.faq_contact_q">
                     Gostaria de contato com outros imigrantes, a plataforma disponibiliza isso?
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div class="faq-answer">
-                    <p>Sim — há uma área de comunidade para troca de mensagens e grupos temáticos.</p>
+                    <p data-i18n="tutorial.faq_contact_a">Sim — há uma área de comunidade para troca de mensagens e grupos temáticos.</p>
                 </div>
             </div>
 
             <div class="faq-item">
-                <button class="faq-question">
+                <button class="faq-question" data-i18n="tutorial.faq_partnership_q">
                     Sou uma Empresa e gostaria de fazer contato para uma parceria, por onde faze-lo?
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div class="faq-answer">
-                    <p>Use o formulário de contato no rodapé ou a área de parcerias do HUB.</p>
+                    <p data-i18n="tutorial.faq_partnership_a">Use o formulário de contato no rodapé ou a área de parcerias do HUB.</p>
                 </div>
             </div>
 
             <div class="faq-item">
-                <button class="faq-question">
+                <button class="faq-question" data-i18n="tutorial.faq_suggestion_q">
                     Gostaria de sugerir funções da minha perspectiva como imigrante, como faze-lo?
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div class="faq-answer">
-                    <p>Na comunidade existe uma seção de sugestões. Você também pode enviar por e-mail.</p>
+                    <p data-i18n="tutorial.faq_suggestion_a">Na comunidade existe uma seção de sugestões. Você também pode enviar por e-mail.</p>
                 </div>
             </div>
         </section>
@@ -162,7 +162,9 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 
-<script src="js/firebase-config.js"></script> <script src="js/tutorial.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/tutorial.js"></script>
 <script src="js/main-menu.js"></script>
 </body>
 </html>

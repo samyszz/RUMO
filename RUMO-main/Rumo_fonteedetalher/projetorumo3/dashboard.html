@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <title data-i18n="index.title">R.U.M.O - Dashboard</title>
+    <title data-i18n="dashboard.title">R.U.M.O - Dashboard</title>
 
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/dashboard.css">
@@ -29,7 +29,7 @@
 
             <nav id="main-nav">
                 <ul>
-                    <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+                    <li><a href="index.html" data-i18n="nav.home">Início</a></li>
                     <li><a href="hub.html" data-i18n="nav.hub">HUB</a></li>
                     <li><a href="utilitarios.html" data-i18n="nav.tools">Utilidades</a></li>
                     <li><a href="sobre.html" data-i18n="nav.about">Sobre nós</a></li>
@@ -64,7 +64,7 @@
         <div class="container dashboard-container">
 
             <div id="access-denied" style="display:none;">
-                <div class="notification error show" style="position:relative;bottom:auto;left:auto;transform:none;">
+                <div class="notification error show" style="position:relative;bottom:auto;left:auto;transform:none;" data-i18n="dashboard.access_denied">
                     Acesso negado — painel exclusivo para pessoas jurídicas (PJ).
                 </div>
             </div>
@@ -72,11 +72,11 @@
             <section id="pj-dashboard" style="display:none;">
 
                 <div class="dashboard-card header-card">
-                    <h1 class="dashboard-title">Painel de Controle</h1>
+                    <h1 class="dashboard-title" data-i18n="dashboard.control_panel">Painel de Controle</h1>
 
                     <div class="impressao-tabs" role="tablist">
-                        <button id="tab-perfil" class="tab-btn active">Perfil</button>
-                        <button id="tab-publicacoes" class="tab-btn">Publicações</button>
+                        <button id="tab-perfil" class="tab-btn active" data-i18n="dashboard.tabs.profile">Perfil</button>
+                        <button id="tab-publicacoes" class="tab-btn" data-i18n="dashboard.tabs.publications">Publicações</button>
                     </div>
                 </div>
 
@@ -86,17 +86,17 @@
                         <div class="card metrics-card">
                             <div class="metrics-left">
                                 <h3>
-                                    Alcance de perfis nos últimos:
+                                    <span data-i18n="dashboard.metrics.reach_label">Alcance de perfis nos últimos:</span>
                                     <select id="rangeSelect" class="dashboard-select">
-                                        <option value="30">30 dias</option>
-                                        <option value="7">7 dias</option>
-                                        <option value="90">90 dias</option>
+                                        <option value="30" data-i18n="dashboard.metrics.days_30">30 dias</option>
+                                        <option value="7" data-i18n="dashboard.metrics.days_7">7 dias</option>
+                                        <option value="90" data-i18n="dashboard.metrics.days_90">90 dias</option>
                                     </select>
                                 </h3>
 
                                 <div class="profile-visits">
                                     <div class="visits-number">
-                                        <p>Visitas ao perfil:</p>
+                                        <p data-i18n="dashboard.metrics.profile_visits">Visitas ao perfil:</p>
                                         <h2 id="visitsNumber" class="counter-anim">0</h2>
                                     </div>
 
@@ -105,29 +105,32 @@
                                     </div>
 
                                     <div class="followers-stats">
-                                        <p>Seguidores <span class="percent">70%</span></p>
-                                        <p class="muted">Outros <span class="percent-muted">30%</span></p>
+                                        <p><span data-i18n="dashboard.metrics.followers">Seguidores</span> <span class="percent">70%</span></p>
+                                        <p class="muted"><span data-i18n="dashboard.metrics.others">Outros</span> <span class="percent-muted">30%</span></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="card nationality-card">
-                            <h3>Principais Nacionalidades (Usuários):</h3>
+                            <h3 data-i18n="dashboard.metrics.nationalities">Principais Nacionalidades (Usuários):</h3>
                             <ul class="nationality-list">
-                                <li>Carregando dados...</li>
+                                <li data-i18n="dashboard.metrics.loading_data">Carregando dados...</li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="row grid-2">
                         <div class="card followers-card">
-                            <h3>Seguidores <span style="font-size:0.8em; color:#666;">(Estimativa)</span></h3>
+                            <h3>
+                                <span data-i18n="dashboard.metrics.followers">Seguidores</span> 
+                                <span style="font-size:0.8em; color:#666;" data-i18n="dashboard.metrics.estimate">(Estimativa)</span>
+                            </h3>
 
                             <div class="followers-bar-legend">
-                                <div class="legend"><div class="dot dot-total"></div><span id="count-total" class="counter-anim">0</span> Total</div>
-                                <div class="legend"><div class="dot dot-new"></div><span id="count-new" class="counter-anim">0</span> Novos (30d)</div>
-                                <div class="legend"><div class="dot dot-left"></div><span id="count-left">0</span> Saíram</div>
+                                <div class="legend"><div class="dot dot-total"></div><span id="count-total" class="counter-anim">0</span> <span data-i18n="dashboard.metrics.total">Total</span></div>
+                                <div class="legend"><div class="dot dot-new"></div><span id="count-new" class="counter-anim">0</span> <span data-i18n="dashboard.metrics.new_30d">Novos (30d)</span></div>
+                                <div class="legend"><div class="dot dot-left"></div><span id="count-left">0</span> <span data-i18n="dashboard.metrics.left">Saíram</span></div>
                             </div>
 
                             <div class="followers-progress">
@@ -138,7 +141,7 @@
                         </div>
 
                         <div class="card age-card">
-                            <h3>Faixa etária predominante</h3>
+                            <h3 data-i18n="dashboard.metrics.age_range">Faixa etária predominante</h3>
                             <div style="position: relative; height: 250px; width: 100%;">
                                 <canvas id="ageChart"></canvas>
                             </div>
@@ -150,17 +153,17 @@
 
                     <div class="row grid-2">
                         <div class="card keywords-card">
-                            <h3>Palavras-chaves mais usadas:</h3>
+                            <h3 data-i18n="dashboard.publications.keywords_title">Palavras-chaves mais usadas:</h3>
                             <ul class="keywords-list">
-                                <li>Refugiados <div class="kw-bar"><span class="kw-fill" style="width:80%"></span></div></li>
-                                <li>Emprego <div class="kw-bar"><span class="kw-fill" style="width:60%"></span></div></li>
-                                <li>Vistos <div class="kw-bar"><span class="kw-fill" style="width:45%"></span></div></li>
-                                <li>Abrigo <div class="kw-bar"><span class="kw-fill" style="width:30%"></span></div></li>
+                                <li><span data-i18n="dashboard.publications.kw_refugees">Refugiados</span> <div class="kw-bar"><span class="kw-fill" style="width:80%"></span></div></li>
+                                <li><span data-i18n="dashboard.publications.kw_employment">Emprego</span> <div class="kw-bar"><span class="kw-fill" style="width:60%"></span></div></li>
+                                <li><span data-i18n="dashboard.publications.kw_visas">Vistos</span> <div class="kw-bar"><span class="kw-fill" style="width:45%"></span></div></li>
+                                <li><span data-i18n="dashboard.publications.kw_shelter">Abrigo</span> <div class="kw-bar"><span class="kw-fill" style="width:30%"></span></div></li>
                             </ul>
                         </div>
 
                         <div class="card periods-card">
-                            <h3>Períodos com maior alcance:</h3>
+                            <h3 data-i18n="dashboard.publications.periods_reach">Períodos com maior alcance:</h3>
                             <div style="position: relative; height: 250px; width: 100%;">
                                 <canvas id="stackChart"></canvas>
                             </div>
@@ -168,41 +171,46 @@
                     </div>
 
                     <div class="card interactions-card">
-                        <h3>Interações nos últimos: <select id="interRange" class="dashboard-select"><option>30 dias</option></select></h3>
+                        <h3>
+                            <span data-i18n="dashboard.publications.interactions_label">Interações nos últimos:</span> 
+                            <select id="interRange" class="dashboard-select">
+                                <option data-i18n="dashboard.metrics.days_30">30 dias</option>
+                            </select>
+                        </h3>
 
                         <div class="interactions-grid">
                             <div class="interaction">
                                 <i class="fas fa-heart"></i>
                                 <div class="count counter-anim" id="stat-likes">0</div>
-                                <div>Curtidas</div>
+                                <div data-i18n="dashboard.publications.likes">Curtidas</div>
                             </div>
                             <div class="interaction">
                                 <i class="fas fa-bookmark"></i>
                                 <div class="count counter-anim" id="stat-saved">0</div>
-                                <div>Salvos</div>
+                                <div data-i18n="dashboard.publications.saved">Salvos</div>
                             </div>
                             <div class="interaction">
                                 <i class="fas fa-comment-alt"></i>
                                 <div class="count counter-anim" id="stat-comments">0</div>
-                                <div>Comentários</div>
+                                <div data-i18n="dashboard.publications.comments">Comentários</div>
                             </div>
                             <div class="interaction">
                                 <i class="fas fa-share"></i>
                                 <div class="count counter-anim" id="stat-shares">0</div>
-                                <div>Compartilhados</div>
+                                <div data-i18n="dashboard.publications.shares">Compartilhados</div>
                             </div>
                             <div class="interaction wide">
                                 <i class="fas fa-link"></i>
                                 <div class="count counter-anim" id="stat-clicks">0</div>
-                                <div>Clicks externos</div>
+                                <div data-i18n="dashboard.publications.clicks">Clicks externos</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="card posts-grid">
-                        <h3>Posts com maior engajamento:</h3>
+                        <h3 data-i18n="dashboard.publications.top_engagement">Posts com maior engajamento:</h3>
                         <div class="posts-tiles" id="top-posts-container">
-                            <div class="post-tile-empty">Carregando seus posts...</div>
+                            <div class="post-tile-empty" data-i18n="dashboard.publications.loading_posts">Carregando seus posts...</div>
                         </div>
                     </div>
 
@@ -219,18 +227,18 @@
         <div class="footer-container">
             <img src="logo.png" alt="Logo R.U.M.O" class="footer-logo">
             <div class="footer-social">
-                <h4>Redes Sociais</h4>
+                <h4 data-i18n="footer.social.title">Redes Sociais</h4>
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
                     <a href="#"><i class="fab fa-linkedin fa-2x"></i></a>
                 </div>
             </div>
             <div class="footer-contact">
-                <h4>Fale Conosco</h4>
+                <h4 data-i18n="footer.contact.title">Fale Conosco</h4>
                 <form>
-                    <input type="email" placeholder="Seu e-mail">
+                    <input type="email" placeholder="Seu e-mail" data-i18n="[placeholder]footer.contact.email_placeholder">
                     <div class="input-with-button">
-                        <input type="text" placeholder="Mensagem">
+                        <input type="text" placeholder="Mensagem" data-i18n="[placeholder]footer.contact.subject_placeholder">
                         <button type="submit"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </form>
