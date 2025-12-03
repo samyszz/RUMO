@@ -12,9 +12,8 @@
       "current": "Idioma atual",
       "pt_br": "Português (Brasil)",
       "select": "Selecione o idioma de sua preferência"
-        }
-      },
-
+    }
+  },
   "footer": {
     "social": { "title": "Redes Sociais" },
     "contact": {
@@ -69,8 +68,8 @@
     "error_email": "E-mail inválido",
     "error_cnpj": "CNPJ Inválido",
     "error_password_mismatch": "As senhas não coincidem",
-    "terms_prefix": "Li e aceito os "
-    ,"strength_very_weak": "Muito Fraca (Adicione maiúsculas/números)"
+    "terms_prefix": "Li e aceito os ",
+    "strength_very_weak": "Muito Fraca (Adicione maiúsculas/números)"
   },
   "cadastro": {
     "pf": "Pessoa Física",
@@ -86,8 +85,8 @@
     "submit": "Entrar",
     "forgot_question": "Esqueceu a senha?",
     "recover": "Recuperar senha",
-    "overlay_title": "Já tem uma conta?"
-    ,"sign_in_button": "Login"
+    "overlay_title": "Já tem uma conta?",
+    "sign_in_button": "Login"
   },
   "perfil": {
     "title": "Meu Perfil",
@@ -156,10 +155,22 @@
     "intro_text": "A R.U.M.O foi criada com o objetivo de oferecer suporte completo a imigrantes que chegam ao Brasil, facilitando sua adaptação e integração à sociedade. Nossa missão é ajudar na regularização de documentos, garantir a compreensão das leis brasileiras e abrir oportunidades de trabalho e capacitação profissional. A plataforma também oferece informações sobre direitos, assistência jurídica, saúde e outros recursos essenciais. Contamos com localizadores, conversores e notícias atualizadas para manter os imigrantes bem-informados.",
     "team_title": "Nossa Equipe",
     "team": {
-        "samyra": { "name": "Samyra Alves", "role": "Analista de Sistemas<br>Desenvolvedora Full Stack" },
-        "michelly": { "name": "Michelly Moreira", "role": "Web Designer<br>Desenvolvedora Full Stack" },
-        "lucas": { "name": "Lucas Spadottti", "role": "Web Designer<br>Desenvolvedor Front-end" },
-        "kaua": { "name": "Kauã Andrade", "role": "Analista de Sistemas<br>Desenvolvedor Back-end" }
+      "samyra": {
+        "name": "Samyra Alves",
+        "role": "Analista de Sistemas<br>Desenvolvedora Full Stack"
+      },
+      "michelly": {
+        "name": "Michelly Moreira",
+        "role": "Web Designer<br>Desenvolvedora Full Stack"
+      },
+      "lucas": {
+        "name": "Lucas Spadotti",
+        "role": "Web Designer<br>Desenvolvedor Front-end"
+      },
+      "kaua": {
+        "name": "Kauã Andrade",
+        "role": "Analista de Sistemas<br>Desenvolvedor Back-end"
+      }
     }
   },
   "tutorial": {
@@ -223,8 +234,9 @@
     "lang": {
       "title": "Idioma",
       "current_platform": "Idioma atual da plataforma"
-    },
-    "dashboard": {
+    }
+  },
+  "dashboard": {
     "title": "R.U.M.O - Dashboard",
     "access_denied": "Acesso negado — painel exclusivo para pessoas jurídicas (PJ).",
     "control_panel": "Painel de Controle",
@@ -263,7 +275,6 @@
       "clicks": "Clicks externos",
       "top_engagement": "Posts com maior engajamento:",
       "loading_posts": "Carregando seus posts..."
-    }
     }
   },
   "termos": {
@@ -306,5 +317,4 @@
     "section9_title": "9. Contacto",
     "section9_content": "Para dúvidas sobre estes Termos, entre em contacto através do formulário disponível no rodapé do nosso site."
   }
-
 }

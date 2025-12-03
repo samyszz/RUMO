@@ -1,25 +1,25 @@
 {
   "nav": {
     "home": "Accueil",
-    "hub": "HUB",
-    "tools": "Utilitaires",
+    "hub": "Hub",
+    "tools": "Outils",
     "about": "À propos",
-    "profile": "Mon Profil",
+    "profile": "Mon profil",
     "create_account": "Créer un compte"
   },
   "header": {
     "lang": {
       "current": "Langue actuelle",
-      "pt_br": "Portugais",
-      "select": "Sélectionnez votre langue"
+      "pt_br": "Portugais (Brésil)",
+      "select": "Sélectionnez votre langue préférée"
     }
   },
   "footer": {
-    "social": { "title": "Réseaux Sociaux" },
+    "social": { "title": "Réseaux sociaux" },
     "contact": {
-      "title": "Contactez-nous",
-      "email_placeholder": "votre.email@exemple.com",
-      "subject_placeholder": "Sujet"
+      "title": "On discute ?",
+      "email_placeholder": "votre.email@example.com",
+      "subject_placeholder": "De quel sujet souhaitez-vous parler ?"
     }
   },
   "index": {
@@ -28,159 +28,181 @@
       "documents": "Documents",
       "tools": "Outils",
       "bravo": "Projet Bravo",
-      "hub": "Centre d'info"
+      "hub": "Hub"
     },
     "tutorial": {
-      "question": "Comment utiliser ?",
-      "click": "Cliquez ici",
-      "button": "Tutoriel",
-      "question_mobile": "Comment utiliser sur mobile ?"
+      "question": "Vous ne savez pas par où commencer ?",
+      "click": "Cliquez sur le bouton ci-dessous :",
+      "button": "Guide d’utilisation",
+      "question_mobile": "Vous ne savez pas par où commencer ?"
     }
   },
   "hub": {
-    "title": "Centre d'Information",
+    "title": "R.U.M.O - Hub",
     "search_placeholder": "Rechercher...",
-    "new_post": "Nouvelle Publication",
+    "new_post": "+ Nouveau post",
     "filter": {
-      "title": "Filtres",
+      "title": "Filtrer les publications",
       "all": "Tous",
       "news": "Actualités",
-      "ong": "ONG",
+      "ong": "Organisations sociales",
       "government": "Gouvernement",
-      "employment": "Emploi",
+      "employment": "Emploi et opportunités",
       "learning": "Éducation"
     }
   },
   "form": {
-    "register": "S'inscrire",
+    "register": "Créer un compte",
     "login": "Connexion",
-    "social_register": "S'inscrire avec un réseau social",
-    "social_login": "Se connecter avec un réseau social",
-    "name_placeholder": "Nom Complet",
-    "cpf_placeholder": "CPF (Numéro fiscal)",
+    "social_register": "Ou inscrivez-vous avec votre e-mail",
+    "social_login": "Ou connectez-vous avec votre compte",
+    "name_placeholder": "Nom complet",
+    "cpf_placeholder": "CPF (000.000.000-00)",
     "email_placeholder": "E-mail",
     "password_placeholder": "Mot de passe",
     "confirm_password_placeholder": "Confirmer le mot de passe",
-    "company_placeholder": "Nom de l'Entreprise",
-    "cnpj_placeholder": "CNPJ (Numéro d'entreprise)",
-    "email_commercial_placeholder": "E-mail Professionnel"
+    "company_placeholder": "Nom de la société/organisation",
+    "cnpj_placeholder": "CNPJ (00.000.000/0000-00)",
+    "email_commercial_placeholder": "E-mail professionnel",
+    "error_cpf": "Numéro CPF invalide",
+    "error_email": "E-mail invalide",
+    "error_cnpj": "Numéro CNPJ invalide",
+    "error_password_mismatch": "Les mots de passe ne correspondent pas",
+    "terms_prefix": "J’accepte : ",
+    "strength_very_weak": "Très faible (ajoutez des majuscules/chiffres)"
   },
   "cadastro": {
-    "pf": "Particulier",
+    "pf": "Personne physique",
     "pj": "Entreprise",
-    "pf_submit": "S'inscrire",
-    "pj_submit": "Inscrire l'entreprise",
-    "overlay_title": "Créer un compte"
+    "pf_submit": "S’inscrire",
+    "pj_submit": "Enregistrer l’entreprise",
+    "overlay_title": "Vous n’avez pas encore de compte ?",
+    "overlay_login_text": "Connectez-vous pour accéder à la plateforme",
+    "overlay_register_text": "Inscrivez-vous pour commencer votre parcours",
+    "sign_up_button": "Créer un compte"
   },
   "login": {
-    "submit": "Entrer",
+    "submit": "Connexion",
     "forgot_question": "Mot de passe oublié ?",
-    "recover": "Récupérer",
-    "overlay_title": "Bon retour"
+    "recover": "Récupérer le mot de passe",
+    "overlay_title": "Vous avez déjà un compte ?",
+    "sign_in_button": "Se connecter"
   },
   "perfil": {
-    "title": "Mon Profil",
-    "edit_profile": "Modifier le Profil",
-    "saved_posts": "Favoris",
-    "about_me": "À Propos de Moi",
-    "bio_placeholder": "Aucune bio pour l'instant...",
-    "my_posts": "Mes Publications",
-    "no_posts": "Aucune publication."
+    "title": "Mon profil",
+    "edit_profile": "Modifier le profil",
+    "saved_posts": "Publications enregistrées",
+    "about_me": "À propos de moi",
+    "bio_placeholder": "Modifiez votre profil pour ajouter une description.",
+    "my_posts": "Mes publications",
+    "no_posts": "Vous n’avez encore créé aucune publication."
   },
   "editar_perfil": {
     "title": "Paramètres",
-    "h1": "Modifier le Profil",
-    "subtitle": "Mettez à jour vos informations",
-    "change_photo": "Changer la Photo",
-    "username_label": "Nom d'utilisateur",
-    "username_placeholder": "Votre nom d'utilisateur",
-    "bio_label": "Biographie",
-    "bio_placeholder": "Parlez-nous un peu de vous",
-    "objectives_label": "Objectifs",
-    "objectives_placeholder": "Vos objectifs au Brésil",
-    "contact_label": "Contact",
-    "contact_placeholder": "Téléphone ou WhatsApp",
-    "save": "Enregistrer",
-    "delete_account": "Supprimer le compte"
+    "h1": "Modifier le profil",
+    "subtitle": "Gardez vos informations à jour.",
+    "change_photo": "Changer la photo",
+    "username_label": "Nom d’utilisateur",
+    "username_placeholder": "Nom d’utilisateur",
+    "bio_label": "À propos",
+    "bio_placeholder": "Écrivez quelque chose sur vous...",
+    "objectives_label": "Vos objectifs sur la plateforme",
+    "objectives_placeholder": "Que recherchez-vous sur R.U.M.O ?",
+    "contact_label": "Contact (e-mail/tél.)",
+    "contact_placeholder": "Contact public",
+    "save": "Enregistrer les modifications",
+    "delete_account": "Se déconnecter ou supprimer le compte"
   },
   "novo_post": {
-    "title": "Publier",
-    "h1": "Créer une publication",
-    "subtitle": "Partagez avec la communauté",
-    "title_label": "Titre",
-    "title_placeholder": "Titre de la publication",
+    "title": "Nouveau post",
+    "h1": "Créer une nouvelle publication",
+    "subtitle": "Partagez des informations avec la communauté.",
+    "title_label": "Titre de la publication",
+    "title_placeholder": "Ex. : Emploi pour réfugiés...",
     "content_label": "Contenu",
-    "image_label": "URL de l'image",
-    "image_placeholder": "http://...",
+    "image_label": "Lien de l’image de couverture",
+    "image_placeholder": "https://...",
     "category_label": "Catégorie",
-    "source_label": "Source (Optionnel)",
-    "source_placeholder": "Lien d'origine",
+    "source_label": "Lien de la source officielle (optionnel)",
+    "source_placeholder": "https://...",
     "publish": "Publier"
   },
   "perfil_usuario": {
-    "title": "Profil Utilisateur",
-    "bio": "Bio",
+    "title": "Profil de l’utilisateur",
+    "bio": "À propos",
     "posts": "Publications"
   },
   "post_salvo": {
-    "title": "Favoris",
+    "title": "Enregistrés",
     "back_to_profile": "Retour au profil",
     "title_main": "Publications enregistrées"
   },
   "sair_excluir": {
-    "title": "Sortir ou Supprimer",
-    "h2": "Gérer le Compte",
-    "description": "Gérer vos accès",
+    "title": "Gestion du compte",
+    "h2": "Accès et sécurité",
+    "description": "Choisissez l’une des options ci-dessous.",
     "logout_title": "Déconnexion",
-    "logout_desc": "Se déconnecter de cet appareil",
+    "logout_desc": "Vous serez déconnecté de cet appareil.",
     "delete_title": "Supprimer le compte",
-    "delete_desc": "Effacer définitivement vos données"
+    "delete_desc": "Attention : toutes les données seront supprimées définitivement."
   },
   "modal": {
-    "choose_lang": "Choisissez votre langue"
+    "choose_lang": "Choisir une langue"
   },
   "sobre": {
-    "title": "À propos de RUMO",
-    "slogan": "Réseau Unifié de Mobilité et d'Orientation",
-    "intro_text": "R.U.M.O. (Red Unificado de Movilidad y Orientación) a été créé dans le but d'offrir un soutien complet aux immigrants arrivant au Brésil, en facilitant leur adaptation et leur intégration sociale. Notre mission est de faciliter la régularisation de leurs documents, de garantir la compréhension des lois brésiliennes et d'ouvrir des opportunités d'emploi et de formation professionnelle afin qu'ils puissent construire un nouvel avenir dans le pays. La plateforme offre également des informations sur leurs droits, notamment en matière d'assistance juridique, de santé et d'autres ressources essentielles. De plus, nous proposons des outils de localisation, de conversion et des actualités mises à jour pour que les immigrants soient bien informés de tout ce dont ils ont besoin pour vivre en sécurité et dans la dignité au Brésil. Nous croyons qu'une intégration sûre et éclairée est fondamentale pour construire une société plus inclusive, où chacun peut participer activement et avoir accès aux opportunités qu'il mérite.",
-    "team_title": "Notre Équipe",
+    "title": "À propos de R.U.M.O",
+    "slogan": "Réseau Unifié pour la Mobilité et l’Orientation",
+    "intro_text": "R.U.M.O est une plateforme qui aide les immigrants arrivant au Brésil à s’adapter à la société. Elle offre un soutien pour les documents, les lois brésiliennes, les opportunités d’emploi et la formation professionnelle, ainsi que des informations essentielles sur les droits, l’assistance juridique, la santé et d’autres outils utiles.",
+    "team_title": "Notre équipe",
     "team": {
-        "samyra": { "name": "Samyra", "role": "Développeuse" },
-        "michelly": { "name": "Michelly", "role": "Développeuse" },
-        "lucas": { "name": "Lucas", "role": "Développeur" },
-        "kaua": { "name": "Kauã", "role": "Développeur" }
+      "samyra": {
+        "name": "Samyra Alves",
+        "role": "Analyste Systèmes<br>Développeuse Full Stack"
+      },
+      "michelly": {
+        "name": "Michelly Moreira",
+        "role": "Web Designer<br>Développeuse Full Stack"
+      },
+      "lucas": {
+        "name": "Lucas Spadoto",
+        "role": "Web Designer<br>Développeur Front-End"
+      },
+      "kaua": {
+        "name": "Kauã Andrade",
+        "role": "Analyste Systèmes<br>Développeur Back-End"
+      }
     }
   },
   "tutorial": {
-    "title": "Tutoriel — R.U.M.O",
+    "title": "Guide d’utilisation — R.U.M.O",
     "hero_greeting": "Bonjour, ",
-    "hero_text": "Venez apprendre à utiliser notre plateforme!",
+    "hero_text": "Découvrez comment utiliser notre plateforme !",
     "previous_button": "Précédent",
     "next_button": "Suivant",
-    "faq_title": "Questions fréquemment posées:",
-    "faq_contact_q": "J'aimerais entrer en contact avec d'autres immigrants, la plateforme le fournit-elle?",
-    "faq_contact_a": "Oui — il y a une zone communautaire pour la messagerie et les groupes thématiques.",
-    "faq_partnership_q": "Je suis une Entreprise et j'aimerais prendre contact pour un partenariat, comment puis-je le faire?",
-    "faq_partnership_a": "Utilisez le formulaire de contact dans le pied de page ou la zone de partenariats de HUB.",
-    "faq_suggestion_q": "J'aimerais suggérer des fonctionnalités du point de vue d'un immigrant, comment puis-je le faire?",
-    "faq_suggestion_a": "Dans la communauté, il y a une section suggestions. Vous pouvez également l'envoyer par email."
+    "faq_title": "Questions fréquentes :",
+    "faq_contact_q": "Puis-je communiquer avec d’autres immigrants ?",
+    "faq_contact_a": "Oui — il existe un espace communautaire avec messages et groupes.",
+    "faq_partnership_q": "Je représente une entreprise et je veux discuter d’un partenariat. Comment faire ?",
+    "faq_partnership_a": "Utilisez le formulaire de contact en bas de la page ou la section partenariats du Hub.",
+    "faq_suggestion_q": "Je suis immigrant et je veux suggérer une nouvelle fonctionnalité. Comment faire ?",
+    "faq_suggestion_a": "Une section de suggestions existe dans la communauté. Vous pouvez aussi envoyer un e-mail."
   },
   "utilitarios": {
-    "title": "Utilitaires",
-    "title_main": "Boîte à Outils",
+    "title": "Outils",
+    "title_main": "De quel outil avez-vous besoin ?",
     "location": {
       "title": "Localisation",
-      "search_placeholder": "Chercher une adresse...",
-      "search_button": "Chercher",
+      "search_placeholder": "Rechercher une adresse...",
+      "search_button": "Rechercher",
       "address_label": "Adresse",
       "address_loading": "Chargement..."
     },
     "currency": {
-      "title": "Convertisseur de Devises",
+      "title": "Convertisseur de devises",
       "from": "De",
-      "usd": "Dollar (USD)",
+      "usd": "Dollar Américain (USD)",
       "eur": "Euro (EUR)",
-      "brl": "Réal (BRL)",
+      "brl": "Réel Brésilien (BRL)",
       "to": "Vers",
       "amount_label": "Montant",
       "amount_placeholder": "0.00",
@@ -188,111 +210,111 @@
       "result_label": "Résultat"
     },
     "measure": {
-      "title": "Unités de Mesure",
-      "unit_type_label": "Type d'unité",
+      "title": "Convertisseur d’unités",
+      "unit_type_label": "Type d’unité",
       "length": "Longueur",
       "weight": "Poids",
       "temperature": "Température",
       "amount_label": "Valeur",
       "amount_placeholder": "0",
-      "to": "En",
+      "to": "Convertir",
       "convert": "Convertir",
       "result_label": "Résultat"
     },
     "docs": {
-      "title": "Mes Documents",
-      "add_new": "Ajouter un document",
+      "title": "Coffre de documents",
+      "add_new": "Ajouter un nouveau document",
       "type_label": "Type de document",
-      "type_placeholder": "Ex: RNE, CPF, Passeport",
-      "issue_date_label": "Date d'émission",
-      "expiry_date_label": "Date d'expiration",
+      "type_placeholder": "Ex. : Passeport, Visa, CPF",
+      "issue_date_label": "Date d’émission",
+      "expiry_date_label": "Date d’expiration",
       "add": "Ajouter",
-      "your_docs": "Vos documents"
+      "your_docs": "Mes documents"
     },
     "lang": {
       "title": "Langue",
-      "current_platform": "Langue de la plateforme"
+      "current_platform": "Langue actuelle de la plateforme"
     }
   },
   "dashboard": {
-    "title": "R.U.M.O - Tableau de Bord",
-    "access_denied": "Accès refusé — tableau de bord réservé aux personnes morales (PJ).",
-    "control_panel": "Tableau de Bord",
+    "title": "R.U.M.O - Tableau de bord",
+    "access_denied": "Accès refusé — ce tableau de bord est réservé aux entreprises (PJ).",
+    "control_panel": "Panneau de contrôle",
     "tabs": {
       "profile": "Profil",
       "publications": "Publications"
     },
     "metrics": {
-      "reach_label": "Portée du profil sur les derniers:",
+      "reach_label": "Dernière portée :",
       "days_30": "30 jours",
       "days_7": "7 jours",
       "days_90": "90 jours",
-      "profile_visits": "Visites du profil:",
+      "profile_visits": "Visites du profil :",
       "followers": "Abonnés",
       "others": "Autres",
-      "nationalities": "Nationalités Principales (Utilisateurs):",
+      "nationalities": "Nationalités les plus présentes parmi les utilisateurs :",
       "loading_data": "Chargement des données...",
-      "estimate": "(Estimation)",
+      "estimate": "(estimation)",
       "total": "Total",
-      "new_30d": "Nouveaux (30j)",
-      "left": "Désabonnés",
-      "age_range": "Groupe d'âge prédominant"
+      "new_30d": "Nouveaux (30 jours)",
+      "left": "Arrivés",
+      "age_range": "Tranche d’âge la plus courante"
     },
     "publications": {
-      "keywords_title": "Mots-clés les plus utilisés:",
+      "keywords_title": "Mots-clés les plus utilisés :",
       "kw_refugees": "Réfugiés",
-      "kw_employment": "Emplois",
+      "kw_employment": "Emploi",
       "kw_visas": "Visas",
-      "kw_shelter": "Hébergement",
-      "periods_reach": "Périodes avec plus grande portée:",
-      "interactions_label": "Interactions sur les derniers:",
-      "likes": "J'aime",
+      "kw_shelter": "Abris",
+      "periods_reach": "Périodes avec meilleure portée :",
+      "interactions_label": "Dernières interactions :",
+      "likes": "J’aime",
       "saved": "Enregistrés",
       "comments": "Commentaires",
       "shares": "Partages",
       "clicks": "Clics externes",
-      "top_engagement": "Publications avec le plus d'engagement:",
-      "loading_posts": "Chargement de vos publications..."
+      "top_engagement": "Publications avec le plus d’engagement :",
+      "loading_posts": "Chargement des publications..."
     }
   },
   "termos": {
-    "title": "Conditions d'Utilisation",
-    "update_date": "Dernière mise à jour:",
-    "welcome": "Bienvenue sur R.U.M.O",
-    "intro": "Ces conditions régissent l'accès à R.U.M.O.",
-    "section1_title": "1. À Propos",
-    "section1_content": "R.U.M.O offre un soutien aux immigrants au Brésil.",
-    "section2_title": "2. Enregistrement",
-    "section2_intro": "Pour accéder, créez un compte.",
-    "section2_1_title": "2.1. Types de Comptes",
-    "section2_1_pf": "Personne: nom, email et CPF.",
-    "section2_1_pj": "Entité: entreprise, email et CNPJ.",
-    "section2_2_title": "2.2. Information",
-    "section2_2_content": "Toutes les informations doivent être vraies.",
-    "section2_3_title": "2.3. Sécurité",
-    "section2_3_content": "Vous êtes responsable de votre mot de passe.",
-    "section3_title": "3. Utilisation",
-    "section3_1_title": "3.1. HUB",
-    "section3_1_intro": "Le HUB permet de publier.",
-    "section3_1_content": "Vous déclarez posséder les droits du contenu.",
-    "section3_2_title": "3.2. Coffre",
-    "section3_2_intro": "Enregistrez vos documents.",
-    "section3_2_warning": "Pas de validité légale.",
-    "section3_3_title": "3.3. Outils",
-    "section3_3_content": "À titre informatif.",
-    "section4_title": "4. Conduite",
-    "section4_intro": "Contenu offensant interdit.",
-    "section4_content": "Pas d'accès non autorisé.",
-    "section5_title": "5. Propriété",
-    "section5_content": "Tout appartient à R.U.M.O.",
-    "section6_title": "6. Responsabilité",
-    "section6_intro": "Pas responsables des processus.",
-    "section6_content": "Pas responsables des défaillances techniques.",
-    "section7_title": "7. Résiliation",
-    "section7_content": "Demandez la suppression anytime.",
-    "section8_title": "8. Changements",
-    "section8_content": "Les changements continus sont acceptés.",
-    "section9_title": "9. Contact",
-    "section9_content": "Contactez-nous par le formulaire."
+    "title": "Conditions d’utilisation",
+    "update_date": "Dernière mise à jour :",
+    "welcome": "Bienvenue sur R.U.M.O – Réseau Unifié pour la Mobilité et l’Orientation.",
+    "intro": "Ces conditions régissent l’utilisation de la plateforme R.U.M.O, sur le web et mobile. En créant un compte ou en utilisant les services, vous acceptez ces conditions.",
+    "section1_title": "1. À propos de la plateforme",
+    "section1_content": "R.U.M.O aide les immigrants au Brésil grâce à des outils comme cartes, convertisseurs et coffre de documents.",
+    "section2_title": "2. Enregistrement et compte utilisateur",
+    "section2_intro": "Pour créer des publications ou utiliser le coffre de documents, un compte est nécessaire.",
+    "section2_1_title": "2.1. Types de comptes",
+    "section2_1_pf": "Personne physique (PF) : nom complet, e-mail et CPF valide.",
+    "section2_1_pj": "Entreprise (PJ) : nom de l’entreprise, e-mail professionnel et CNPJ valide.",
+    "section2_2_title": "2.2. Exactitude des données",
+    "section2_2_content": "Les informations fournies doivent être exactes et mises à jour.",
+    "section2_3_title": "2.3. Sécurité du compte",
+    "section2_3_content": "Vous êtes responsable de votre mot de passe. R.U.M.O n’est pas responsable des accès non autorisés.",
+    "section3_title": "3. Utilisation des fonctionnalités",
+    "section3_1_title": "3.1. Hub et publications",
+    "section3_1_intro": "Dans le Hub, vous pouvez consulter et créer des publications sur l’actualité, les emplois et les services publics.",
+    "section3_1_content": "Responsabilité : vous devez posséder les droits du contenu publié. R.U.M.O ne garantit pas l’exactitude des contenus externes.",
+    "section3_2_title": "3.2. Coffre de documents",
+    "section3_2_intro": "Vous pouvez enregistrer les dates d’émission et d’expiration de vos documents.",
+    "section3_2_warning": "Important : ces informations servent uniquement à l’organisation personnelle.",
+    "section3_3_title": "3.3. Outils (convertisseurs et cartes)",
+    "section3_3_content": "Les outils sont à titre informatif. Les données peuvent ne pas être exactes en temps réel.",
+    "section4_title": "4. Comportement de l’utilisateur",
+    "section4_intro": "Les actions suivantes sont interdites :",
+    "section4_content": "Contenu offensant, discrimination, fausses informations, utilisation illégale.",
+    "section5_title": "5. Propriété intellectuelle",
+    "section5_content": "Tous les logos, textes et designs sont protégés par le droit d’auteur.",
+    "section6_title": "6. Limites de responsabilité",
+    "section6_intro": "R.U.M.O est une plateforme intermédiaire :",
+    "section6_content": "Elle n’est pas responsable des processus d’immigration, décisions gouvernementales ou erreurs de services externes.",
+    "section7_title": "7. Suppression du compte",
+    "section7_content": "Les comptes peuvent être supprimés dans la section « Gestion du compte ».",
+    "section8_title": "8. Modifications des conditions",
+    "section8_content": "Les conditions peuvent être modifiées à tout moment.",
+    "section9_title": "9. Contactez-nous",
+    "section9_content": "Pour toute question concernant les conditions, utilisez le formulaire de contact en bas de la page."
   }
 }

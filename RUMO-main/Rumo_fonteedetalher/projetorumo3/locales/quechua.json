@@ -1,282 +1,320 @@
 {
   "nav": {
     "home": "Qallariy",
-    "hub": "Chawpi",
-    "tools": "Llamk'anakuna",
-    "about": "Nuqaykumanta",
-    "profile": "Riqsichikuy",
-    "create_account": "Cuentata kichay"
+    "hub": "HUB",
+    "tools": "Ruwanakuna",
+    "about": "Ñuqanchikmanta",
+    "profile": "Qayllu Qillqa",
+    "create_account": "Qillqay cuenta"
   },
   "header": {
     "lang": {
-      "current": "Kunan rimay",
-      "pt_br": "Purtugal simi",
-      "select": "Rimayta akllay"
+      "current": "Kunan simi",
+      "pt_br": "Portugués (Brasil)",
+      "select": "Akllay munasqayki simita"
     }
   },
   "footer": {
-    "social": { "title": "Llikakuna" },
+    "social": { "title": "Llamk'ana redes" },
     "contact": {
-      "title": "Rimanakuy",
-      "email_placeholder": "Correo electrónico",
-      "subject_placeholder": "Imamanta"
+      "title": "Rimarisun?",
+      "email_placeholder": "qampaq.email@qillqa.com",
+      "subject_placeholder": "Imapas rimanaykita munanki?"
     }
   },
   "index": {
-    "title": "RUMO - Red Unificada de Mobilidade e Orientação",
+    "title": "R.U.M.O - Qallariy",
     "card": {
       "documents": "Qillqakuna",
-      "tools": "Llamk'anakuna",
-      "bravo": "Allin kaq",
-      "hub": "Chawpi"
+      "tools": "Ruwanakuna",
+      "bravo": "Proyecto Bravo",
+      "hub": "HUB"
     },
     "tutorial": {
-      "question": "¿Imaynatataq llamk'an?",
-      "click": "Kaypi ñit'iy",
-      "button": "Qallariy",
-      "question_mobile": "¿Imaynatataq celulapi llamk'an?"
+      "question": "Imatam qallarisunki? Mana yachanki?",
+      "click": "Kliky churay kay botonpi:",
+      "button": "Tutorial",
+      "question_mobile": "Mana yachanki imata ruwayta?"
     }
   },
   "hub": {
-    "title": "Willakuy Chawpi",
-    "search_placeholder": "Mask'ay...",
-    "new_post": "Musuq qillqa",
+    "title": "R.U.M.O - Hub",
+    "search_placeholder": "Maskay...",
+    "new_post": "+ Musuq Willay",
     "filter": {
-      "title": "Akllana",
-      "all": "Llapallan",
-      "news": "Willakuykuna",
+      "title": "Filturay willaykuna",
+      "all": "Tukuy",
+      "news": "Willanakuna",
       "ong": "ONG",
-      "government": "Kamachiq",
-      "employment": "Llamk'ay",
-      "learning": "Yachakuy"
+      "government": "Gobierno",
+      "employment": "Llamkaykuna",
+      "learning": "Yachay"
     }
   },
   "form": {
-    "register": "Qillqakuy",
+    "register": "Qillqay",
     "login": "Yaykuy",
-    "social_register": "Llikaykiwan qillqakuy",
-    "social_login": "Llikaykiwan yaykuy",
-    "name_placeholder": "Sutiyki",
-    "cpf_placeholder": "CPF (Kikinpa yupaynin)",
-    "email_placeholder": "Correo electrónico",
-    "password_placeholder": "Kichana (Contraseña)",
-    "confirm_password_placeholder": "Kichanata cheqaqchay",
-    "company_placeholder": "Ruruchip sutin",
-    "cnpj_placeholder": "CNPJ (Ruruchip yupaynin)",
-    "email_commercial_placeholder": "Llamk'anapaq correo"
+    "social_register": "Ima emailniykita churay qillqaypaq",
+    "social_login": "Hinaspa cuenta-nkiwan yaykuy",
+    "name_placeholder": "Sutiyki completo",
+    "cpf_placeholder": "CPF (000.000.000-00)",
+    "email_placeholder": "Email",
+    "password_placeholder": "Simiñiqi",
+    "confirm_password_placeholder": "Simiñiqita kutichiy",
+    "company_placeholder": "Empresa/ONG sutin",
+    "cnpj_placeholder": "CNPJ (00.000.000/0000-00)",
+    "email_commercial_placeholder": "Empresa email",
+    "error_cpf": "CPF manam allinchu",
+    "error_email": "Email manam allinchu",
+    "error_cnpj": "CNPJ manam allinchu",
+    "error_password_mismatch": "Simiñiqikuna mana kikinchu",
+    "terms_prefix": "Ñawpaqta ñanchay:",
+    "strength_very_weak": "Pisilla (Hunt'achiy hatun yupay/Mayor letras)"
   },
   "cadastro": {
     "pf": "Runalla",
-    "pj": "Ruruchi (Empresa)",
-    "pf_submit": "Qillqakuy",
-    "pj_submit": "Ruruchita qillqay",
-    "overlay_title": "Cuentata kichay"
+    "pj": "Empresa / Organización",
+    "pf_submit": "Qillqay",
+    "pj_submit": "Empresata Qillqay",
+    "overlay_title": "Mana cuentasqayki?",
+    "overlay_login_text": "Login ruway platformapi yaykuypaq",
+    "overlay_register_text": "Qillqakuy ñawpaqta llank'ayta qallarispa",
+    "sign_up_button": "Qillqay"
   },
   "login": {
     "submit": "Yaykuy",
-    "forgot_question": "¿Kichanata qunqarunkichu?",
-    "recover": "Kichanata kutichimuy",
-    "overlay_title": "Allinmi hamusqayki"
+    "forgot_question": "Simiñiqi saqerunki?",
+    "recover": "Simiñiqita kutichiy",
+    "overlay_title": "Cuenta kasqan?",
+    "sign_in_button": "Yaykuy"
   },
   "perfil": {
-    "title": "Nuqamanta",
-    "edit_profile": "Allichay",
-    "saved_posts": "Waqaychasqakuna",
-    "about_me": "Nuqamanta",
-    "bio_placeholder": "Manaraq qillqakunchu...",
-    "my_posts": "Qillqasqaykuna",
-    "no_posts": "Manaraq kanchu"
+    "title": "Qayllu Qillqa",
+    "edit_profile": "Qaylluta Ñawpaqmantapis Chiqanchay",
+    "saved_posts": "Imakunapas Waqaychasqa",
+    "about_me": "Ñuqamanta",
+    "bio_placeholder": "Bio nisqata yapay llank'aykita.",
+    "my_posts": "Ñuqapa Willaykuna",
+    "no_posts": "Mana willayta ruwasqayki."
   },
   "editar_perfil": {
-    "title": "Allichay",
-    "h1": "Perfila allichay",
-    "subtitle": "Willakuykunata musuqyachiy",
-    "change_photo": "Fotota tikray",
+    "title": "Ajustes",
+    "h1": "Qayllu Qillqata Chiqanchay",
+    "subtitle": "Kawsay rimanaykita kunan kachariy.",
+    "change_photo": "Wankita Hukmanta churay",
     "username_label": "Suti",
     "username_placeholder": "Sutiyki",
-    "bio_label": "Willakuy",
-    "bio_placeholder": "Pisillapi willakuy",
-    "objectives_label": "Munasqakuna",
-    "objectives_placeholder": "Imatataq munanki Brasilpi",
-    "contact_label": "Rimanakunapaq",
-    "contact_placeholder": "Celular utaq WhatsApp",
-    "save": "Waqaychay",
-    "delete_account": "Cuentata pichay"
+    "bio_label": "Biografía",
+    "bio_placeholder": "Imapas rimayki...",
+    "objectives_label": "Imatam kay platformapi maskanki",
+    "objectives_placeholder": "Imatam R.U.M.O-pi munanki?",
+    "contact_label": "Rimanay (email/teléfono)",
+    "contact_placeholder": "Qampaq rimanay",
+    "save": "Churasqa waqaychay",
+    "delete_account": "Lloqsiy utaq Cuenta wañuchiy"
   },
   "novo_post": {
-    "title": "Willakuy",
-    "h1": "Musuqta qillqay",
-    "subtitle": "Runakunawan willanakuy",
-    "title_label": "Sutin",
-    "title_placeholder": "Imamanta",
-    "content_label": "Sami",
-    "image_label": "Imagen URL",
-    "image_placeholder": "http://...",
-    "category_label": "Kaq",
-    "source_label": "Qallariy (Fuente)",
-    "source_placeholder": "Link",
-    "publish": "Lluqsichiy"
+    "title": "Musuq Willay",
+    "h1": "Musuq willayta ruwachiy",
+    "subtitle": "Aylluykuwan compartiray willaykita.",
+    "title_label": "Willaypa sutin",
+    "title_placeholder": "Chay: Llamkay refugiadoqpata...",
+    "content_label": "Willaypa contenido-nin",
+    "image_label": "Ayaq P'acha URL",
+    "image_placeholder": "https://...",
+    "category_label": "Categoria",
+    "source_label": "Oficial fuente link (Opcional)",
+    "source_placeholder": "https://...",
+    "publish": "Hap'ichiy"
   },
   "perfil_usuario": {
-    "title": "Runap perfilnin",
-    "bio": "Willakuy",
-    "posts": "Qillqasqakuna"
+    "title": "Usuario perfil",
+    "bio": "Biografía",
+    "posts": "Willaykuna"
   },
   "post_salvo": {
     "title": "Waqaychasqa",
-    "back_to_profile": "Kutimuy",
-    "title_main": "Waqaychasqa qillqakuna"
+    "back_to_profile": "Qaylluman kutiy",
+    "title_main": "Waqaychasqayki Willaykuna"
   },
   "sair_excluir": {
-    "title": "Lluqsiy utaq Pichay",
-    "h2": "Cuentata kamachiy",
-    "description": "Yaykunata kamachiy",
-    "logout_title": "Lluqsiy",
-    "logout_desc": "Kaymanta lluqsiy",
-    "delete_title": "Cuentata pichay",
-    "delete_desc": "Wiñaypaq pichay"
+    "title": "Cuenta Kamachiypa",
+    "h2": "Yaykuy & Seguridad",
+    "description": "Akllay mana imata munanki.",
+    "logout_title": "Lloqsiy Cuenta",
+    "logout_desc": "Kay dispositivopi llouqsisqa kanki.",
+    "delete_title": "Cuenta wañuchiy",
+    "delete_desc": "Kikinka: Tukuy datosniykita kaqman chinkachkan."
   },
   "modal": {
-    "choose_lang": "Simita akllay"
+    "choose_lang": "Akllay Simita"
   },
   "sobre": {
-    "title": "RUMO-manta",
-    "slogan": "Red Unificada de Mobilidade e Orientação",
-    "intro_text": "Li R.U.M.O (Red Unificado de Movilidad y Orientación) kiyiib'amank rik'in li ajom re xk'eeb'al li tenq' chi tz'aqal re ru reheb' li jalan tenamit li neke'chalk sa' li tenamit Brasil, re naq te'xk'ulub'a rib' ut te'xk'ulub'a rib' sa' komonil.\n\nLi qak'anjel a'an xseeb'ob'resinkil li xjek'inkil li hu, xk'eeb'al chi nawe'k li chaq'rab' re li tenamit Brasil ut xteeb'al li ak'il k'anjel ut li k'anjel sa' li kutan chalel tenamit.\n\nLi k’anjelob’aal naxk’e aj wi’ li esilal chi rix li k’ulub’ej, jo’ li tenq’ank sa’ li chaq’rab’, li kawilal ut jalan chik li k’anjelob’aal aajel ru. te’tz’aqonq chi kaw ut te’ruuq chi ok sa’ li hoonal li k’ulub’ejeb’ wi’.",
-    "team_title": "Llamk'aqkuna",
+    "title": "R.U.M.O-manta",
+    "slogan": "Kawsaymanta Ruray & Yanapay",
+    "intro_text": "R.U.M.O rurasqa imigrantekunata yanapanchikpaq Brasilman hamuspa. Yanapay kachkan qillqakunapi, ley nisqapi, llank'ay maskaspa, yachaykunapi chaymi sumaqta tinkuykusun. Llank'ananpaq mapa, convertidor, y willanakuna churasqa kallpachay imigrantekuna.",
+    "team_title": "Llamk'aq Ayllu",
     "team": {
-        "samyra": { "name": "Samyra", "role": "Ruraq (Dev)" },
-        "michelly": { "name": "Michelly", "role": "Ruraq (Dev)" },
-        "lucas": { "name": "Lucas", "role": "Ruraq (Dev)" },
-        "kaua": { "name": "Kauã", "role": "Ruraq (Dev)" }
+      "samyra": {
+        "name": "Samyra Alves",
+        "role": "Sistemas Analista<br>Desarrolladora Full Stack"
+      },
+      "michelly": {
+        "name": "Michelly Moreira",
+        "role": "Web Diseñadora<br>Desarrolladora Full Stack"
+      },
+      "lucas": {
+        "name": "Lucas Spadotti",
+        "role": "Web Diseñador<br>Desarrollador Front-end"
+      },
+      "kaua": {
+        "name": "Kauã Andrade",
+        "role": "Sistemas Analista<br>Desarrollador Back-end"
+      }
     }
   },
   "tutorial": {
-    "title": "Yachakuy — R.U.M.O",
-    "hero_greeting": "Allinllachu, ",
-    "hero_text": "Ama ripuyta hap'iakunayki! Aynamanata yachakuy plataformapita!",
-    "previous_button": "Ñawpa",
-    "next_button": "Pampana",
-    "faq_title": "Llapan kunan tapukunakuna:",
-    "faq_contact_q": "Hukkunata migradorniyukta rimakuy munaykuni, plataformapita kaychu?",
-    "faq_contact_a": "Ari — comunidad lawita rimakuynin ayllukuna kaqtin.",
-    "faq_partnership_q": "Emplisada kaniyim, kawsakuyniywan rimakuy munaykuni, imanata ruwaytaq?",
-    "faq_partnership_a": "Paita rimapuy t'aqtay rimachiy formulariota llaq'inpi o ayllu HUB lawita.",
-    "faq_suggestion_q": "Migrador hina kaypi yachakuyta munaykim, imanata ruwayta?",
-    "faq_suggestion_a": "Comunidadpi suggerencia suyuntin kayqa. Emailpi apachikuyta atinkichu."
+    "title": "Tutorial — R.U.M.O",
+    "hero_greeting": "Rimaykullayki, ",
+    "hero_text": "Yachay kay platformata imayna ruwankita!",
+    "previous_button": "Ñawpaq",
+    "next_button": "Hamuq",
+    "faq_title": "Tapukuna:",
+    "faq_contact_q": "Imigrantekunawan rimanay munani, kay plataformaqa huk nisqata churanchu?",
+    "faq_contact_a": "Arí — comunidad nisqapi rimanakuy, grupo temáticokunapas kachkan.",
+    "faq_partnership_q": "Empresa kani, rimanay munani alianza ruwaspa. Maypi ruwasaq?",
+    "faq_partnership_a": "Footer-pi qillqanay formulario utaq HUB alianzakunapi.",
+    "faq_suggestion_q": "Imigrante kaspa sugiriyta munani, imayna ruwasaq?",
+    "faq_suggestion_a": "Comunidadpi sugiriy sección kachkan. Email-wanpas apachikun."
   },
   "utilitarios": {
-    "title": "Llamk'anakuna",
-    "title_main": "Yanapanakuna",
+    "title": "Ruwanakuna",
+    "title_main": "Imakunatam munanki yanapachiy?",
     "location": {
-      "title": "Maypi kay",
-      "search_placeholder": "Maypitas mask'anki...",
-      "search_button": "Mask'ay",
-      "address_label": "Tiyay (Dirección)",
-      "address_loading": "Mask'achkan..."
+      "title": "Ubiqación",
+      "search_placeholder": "Dirección maskay...",
+      "search_button": "Maskay",
+      "address_label": "Dirección",
+      "address_loading": "Cargando..."
     },
     "currency": {
-      "title": "Qullqi tikray",
+      "title": "Moneda Convertidor",
       "from": "Kaymanta",
-      "usd": "Dólar (USD)",
+      "usd": "Dólar Americano (USD)",
       "eur": "Euro (EUR)",
-      "brl": "Real (BRL)",
+      "brl": "Real Brasileño (BRL)",
       "to": "Kayman",
-      "amount_label": "Hayka",
-      "amount_placeholder": "0.00",
-      "convert": "Tikray",
-      "result_label": "Lluqsiynin"
+      "amount_label": "Valor",
+      "amount_placeholder": "0,00",
+      "convert": "Convertir",
+      "result_label": "Resultado"
     },
     "measure": {
-      "title": "Tupu tikray",
-      "unit_type_label": "Imayna tupu",
-      "length": "Largo",
-      "weight": "Llasa",
-      "temperature": "Q'uñi",
-      "amount_label": "Hayka",
+      "title": "Medida Convertidor",
+      "unit_type_label": "Unidad tipo",
+      "length": "Sayay (Largo)",
+      "weight": "Pisan (Peso)",
+      "temperature": "Chiri / Rupay",
+      "amount_label": "Valor",
       "amount_placeholder": "0",
       "to": "Kayman",
-      "convert": "Tikray",
-      "result_label": "Lluqsiynin"
+      "convert": "Convertir",
+      "result_label": "Resultado"
     },
     "docs": {
-      "title": "Qillqakuna (Documentos)",
-      "add_new": "Musuqta yapay",
-      "type_label": "Ima qillqa",
-      "type_placeholder": "Ahina: RNE, CPF, Pasaporte",
-      "issue_date_label": "Qallariy p'unchaw",
-      "expiry_date_label": "Tukuynin p'unchaw",
+      "title": "Qillqakuna Coffre",
+      "add_new": "Musuq Qillqata Yapay",
+      "type_label": "Qillqa tipo",
+      "type_placeholder": "Ej: Pasaporte, Visa, CPF",
+      "issue_date_label": "Qillqay p'unchaw",
+      "expiry_date_label": "Puchukay p'unchaw",
       "add": "Yapay",
-      "your_docs": "Qillqaykikuna"
+      "your_docs": "Qillqaykuna"
     },
     "lang": {
       "title": "Simi",
-      "current_platform": "Plataformap simin"
+      "current_platform": "Platforma simi"
     }
   },
   "dashboard": {
-    "title": "R.U.M.O - Rikuchina Tabla",
-    "access_denied": "Yaykuyta ama kachay — rikuchina tabla tantya kamayoc (PJ) sapallap.",
-    "control_panel": "Rikuchina Tabla",
+    "title": "R.U.M.O - Panel",
+    "access_denied": "Mana atinqa — panelqa empresa (PJ) sapaqmi.",
+    "control_panel": "Control Panel",
     "tabs": {
-      "profile": "Riqsichikuy",
-      "publications": "Qillqakuna"
+      "profile": "Perfil",
+      "publications": "Willaykuna"
     },
     "metrics": {
-      "reach_label": "Riqsichikuy chaskiy:",
-      "days_30": "30 p'unchaw",
-      "days_7": "7 p'unchaw",
-      "days_90": "90 p'unchaw",
-      "profile_visits": "Riqsichikuy rikuy:",
-      "followers": "Chayana",
-      "others": "Huksniyki",
-      "nationalities": "Llaq'iy Llaqllamanta (Llamk'ayoc):",
-      "loading_data": "Datos chayana...",
-      "estimate": "(Imaymana)",
-      "total": "Llapallan",
-      "new_30d": "Musuq (30 p'unchaw)",
-      "left": "Chayantaray",
-      "age_range": "Wata kaynapak llaq'iy"
+      "reach_label": "Kunan qhipa kutichisqa: ",
+      "days_30": "30 p’unchaw",
+      "days_7": "7 p’unchaw",
+      "days_90": "90 p’unchaw",
+      "profile_visits": "Perfil visitakuna:",
+      "followers": "Qatiqkuna",
+      "others": "Hukkunapas",
+      "nationalities": "Hatun Nacionalidadkuna (Usuarios):",
+      "loading_data": "Datos cargando...",
+      "estimate": "(Taqyay)",
+      "total": "Tukuy",
+      "new_30d": "Musuq (30d)",
+      "left": "Lloqsisqa",
+      "age_range": "Hatun Edad rango"
     },
     "publications": {
-      "keywords_title": "Aswan llamk'akuq rimakuna:",
-      "kw_refugees": "Allinmanta kayamuq",
-      "kw_employment": "Llamk'ay",
-      "kw_visas": "Visa",
-      "kw_shelter": "Tiyaywan",
-      "periods_reach": "Aswan rikuykusqan p'unchawkuna:",
-      "interactions_label": "Tinkiyay:",
-      "likes": "Allin",
-      "saved": "Wañusqa",
-      "comments": "Rimaykunakuna",
-      "shares": "Qatiy",
-      "clicks": "Pukllaypi ñit'iy",
-      "top_engagement": "Aswan tinkisqa qillqakuna:",
-      "loading_posts": "Qillqakuyikita chayana..."
-    },
-    "termos": {
-      "title": "Llamk'ay Kaynin",
-      "update_date": "Qatiq tikrayachisqa:",
-      "welcome": "Sulpayki RUMO llaqtapi!",
-      "intro": "Ama hina kaychu ore llamk'ay kaynin niyaspa.",
-      "section1_title": "1. Llamk'aypa rimaykachiy",
-      "section1_content": "RUMO tiksi llamk'ay kuna kimsayocta rimaykakunami.",
-      "section2_title": "2. Rikch'aqkuna responsibilidad",
-      "section2_content": "Qam ancha kawsay rimaykunapa responsable.",
-      "section3_title": "3. Ama ruwana llapa",
-      "section3_content": "Ama antikuna o ama kallpakuna rimaykunata qillqachiy.",
-      "section4_title": "4. Rikch'aq rimaykunapa",
-      "section4_content": "RUMO rimaykunapas copyright yupaychasqa.",
-      "section5_title": "5. Rikch'aqmi imaykunapi",
-      "section5_content": "Qam rimaykunapas ama sinchi kawsayta qaparispa.",
-      "section6_title": "6. Ama intiyoq yupaychaspa",
-      "section6_content": "Ore ama allinchu llamk'ay kikinpi.",
-      "section7_title": "7. Llamk'ay kaynin tikrampuy",
-      "section7_content": "Ore llamk'ay kaynin tikrayachiwayku kaypi.",
-      "section8_title": "8. Cuenta qatiy",
-      "section8_content": "Qam rimaykunapa qatiywan kawsay.",
-      "section9_title": "9. Tupanakuy",
-      "section9_content": "Tapuruspayki ore email llaqtapi."
+      "keywords_title": "Aswan rimay qillqakuna:",
+      "kw_refugees": "Refugiados",
+      "kw_employment": "Llamkay",
+      "kw_visas": "Visas",
+      "kw_shelter": "Wasi / Abrigo",
+      "periods_reach": "Aswan qhawasqa periodos:",
+      "interactions_label": "Interacciones qhipa:",
+      "likes": "Allin nirka",
+      "saved": "Waqaychasqa",
+      "comments": "Nispaykuna",
+      "shares": "Kastillay",
+      "clicks": "Clicks externos",
+      "top_engagement": "Aswan llapaq willaykuna:",
+      "loading_posts": "Willaykikuna cargando..."
     }
+  },
+  "termos": {
+    "title": "Uso Kamachiykuna",
+    "update_date": "Qhipa kunanchay:",
+    "welcome": "Allin hamuysiki R.U.M.O-man — Kawsay Unificación red.",
+    "intro": "Kay kamachiykuna R.U.M.O plataforma ruwanata kamachikun. Cuenta ruway utaq plataforma ruway kaykam allinta kasukuy. Mana munaspaqa, ama ruwaychu.",
+    "section1_title": "1. Plataforma Manta",
+    "section1_content": "R.U.M.O yanapanchik imigrantekunata Brasilpi. Qillqakuna, mapa, convertidor, llank'ay, yachaykunata qhawanapaq.",
+    "section2_title": "2. Cuenta Kamachiy",
+    "section2_intro": "Huk imaykuna, como HUB willaykuna manaraq cuenta kaspaqa mana atinki.",
+    "section2_1_title": "2.1. Cuenta Tipo",
+    "section2_1_pf": "Runalla: Suti, email y CPF.",
+    "section2_1_pj": "Empresa/ONG: Empresa suti, email, CNPJ.",
+    "section2_2_title": "2.2. Cheqay Qillqakuna",
+    "section2_2_content": "Tukuy qillqaykuna cheqanmi kanan. Qillqa llullaqa suspendisqa kachkan.",
+    "section2_3_title": "2.3. Seguridad",
+    "section2_3_content": "Simiñiqiyki waqaychay. R.U.M.O mana hinaña chay llakisqakunata riqsichkanchu.",
+    "section3_title": "3. Herramientas & Ruwanakuna",
+    "section3_1_title": "3.1. HUB Willaykuna",
+    "section3_1_intro": "HUBqa noticiakunata, llank'aykunata, ONG y Gobierno willayta churay.",
+    "section3_1_content": "Willaymanta: contenido kaykitaqa allinmi kanan. R.U.M.O mana chay contenido cheqanmi nirqanchu.",
+    "section3_2_title": "3.2. Qillqakuna Coffre",
+    "section3_2_intro": "Documentos qillqakuna emisión y p'unchaw puchukayñanpaq.",
+    "section3_2_warning": "Kay qillqakuna mana validez legalniyoqchu.",
+    "section3_3_title": "3.3. Convertidores & Mapa",
+    "section3_3_content": "Herramientaskuna informativam kan. Mana 100% preciso kayncanchu.",
+    "section4_title": "4. Usuariopa Kamachiy",
+    "section4_intro": "Mana atillan:",
+    "section4_content": "Imapas ch'ulla, llulla, kananqanta chinkachisqa ruwana. Delito ruwana. Sistema chinkayta munaykuna.",
+    "section5_title": "5. Propiedad Intelectual",
+    "section5_content": "Diseño, logo, qillqakuna R.U.M.O patrimonionmi. Mana yuyaykamaqa ama apaychu.",
+    "section6_title": "6. Responsabilidad Limite",
+    "section6_intro": "R.U.M.Oqa informativo sapaqmi:",
+    "section6_content": "Migración procesos. Llamkay allinmanchu. Internet fallas.",
+    "section7_title": "7. Cuenta Chinkachiy",
+    "section7_content": "Usuarioqa cuenta chinkachiyta munaspa kasukuy. R.U.M.Oqa violación kanman suspendin.",
+    "section8_title": "8. Cambios Kamachiykuna",
+    "section8_content": "Kamachiykunaqa kunanman hukmanta tukuyta atinki. Platforma apaykuypi kasukuyqa haspay kasukuy.",
+    "section9_title": "9. Rimanakuy",
+    "section9_content": "Kaykam tapukuykuna footerpi qillqanay formulariowanta rimanakuy."
   }
 }

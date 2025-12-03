@@ -1,298 +1,320 @@
 {
   "nav": {
     "home": "Akèy",
-    "hub": "Sant Enfòmasyon",
+    "hub": "Hub",
     "tools": "Zouti",
-    "about": "Apwopo",
-    "profile": "Pwofil Mwen",
-    "create_account": "Kreye Kont"
+    "about": "Sou nou",
+    "profile": "Pwofil mwen",
+    "create_account": "Kreye kont"
   },
   "header": {
     "lang": {
       "current": "Lang aktyèl",
-      "pt_br": "Pòtigè",
-      "select": "Chwazi lang"
+      "pt_br": "Pòtigè (Brezil)",
+      "select": "Chwazi lang ou prefere a"
     }
   },
   "footer": {
     "social": { "title": "Rezo Sosyal" },
     "contact": {
-      "title": "Kontakte Nou",
-      "email_placeholder": "Imèl ou",
-      "subject_placeholder": "Sijè"
+      "title": "Ann pale?",
+      "email_placeholder": "your.email@example.com",
+      "subject_placeholder": "Ki sijè ou ta renmen pale sou li?"
     }
   },
   "index": {
-    "title": "RUMO - Rezo Inifye Mobilite ak Oryantasyon",
+    "title": "R.U.M.O - Akèy",
     "card": {
       "documents": "Dokiman",
       "tools": "Zouti",
       "bravo": "Pwojè Bravo",
-      "hub": "Sant"
+      "hub": "Hub"
     },
     "tutorial": {
-      "question": "Kijan pou itilize?",
-      "click": "Klike la a",
-      "button": "Titoryèl",
-      "question_mobile": "Kijan pou itilize sou telefòn?"
+      "question": "Ou pa konnen ki kote pou kòmanse?",
+      "click": "Klike sou bouton ki anba a:",
+      "button": "Gid itilizasyon",
+      "question_mobile": "Ou pa konnen ki kote pou kòmanse?"
     }
   },
   "hub": {
-    "title": "Sant Enfòmasyon",
+    "title": "R.U.M.O - Hub",
     "search_placeholder": "Chèche...",
-    "new_post": "Nouvo Piblikasyon",
+    "new_post": "+ Nouvo pòs",
     "filter": {
-      "title": "Filtre",
+      "title": "Filtre pòs yo",
       "all": "Tout",
       "news": "Nouvèl",
-      "ong": "ONG",
+      "ong": "Òganizasyon sosyal",
       "government": "Gouvènman",
-      "employment": "Travay",
+      "employment": "Travay ak opòtinite",
       "learning": "Edikasyon"
     }
   },
   "form": {
-    "register": "Enskri",
-    "login": "Konekte",
-    "social_register": "Enskri ak rezo sosyal",
-    "social_login": "Konekte ak rezo sosyal",
+    "register": "Kreye kont",
+    "login": "Antre",
+    "social_register": "Oswa anrejistre ak imèl ou",
+    "social_login": "Oswa konekte ak kont ou",
     "name_placeholder": "Non konplè",
-    "cpf_placeholder": "CPF (Dokiman Pèsonèl)",
+    "cpf_placeholder": "CPF (000.000.000-00)",
     "email_placeholder": "Imèl",
     "password_placeholder": "Modpas",
     "confirm_password_placeholder": "Konfime modpas",
-    "company_placeholder": "Non Konpayi a",
-    "cnpj_placeholder": "CNPJ (Dokiman Konpayi)",
-    "email_commercial_placeholder": "Imèl Pwofesyonèl"
+    "company_placeholder": "Non konpayi/òganizasyon",
+    "cnpj_placeholder": "CNPJ (00.000.000/0000-00)",
+    "email_commercial_placeholder": "Imèl pwofesyonèl",
+    "error_cpf": "Nimewo CPF pa valab",
+    "error_email": "Imèl pa valab",
+    "error_cnpj": "Nimewo CNPJ pa valab",
+    "error_password_mismatch": "Modpas yo pa menm",
+    "terms_prefix": "Mwen dakò ak: ",
+    "strength_very_weak": "Trè fèb (ajoute lèt majiskil/chif)"
   },
   "cadastro": {
-    "pf": "Moun (Fizik)",
-    "pj": "Konpayi (Jiridik)",
-    "pf_submit": "Enskri Moun",
-    "pj_submit": "Enskri Konpayi",
-    "overlay_title": "Kreye kont ou"
+    "pf": "Moun fizik",
+    "pj": "Konpayi",
+    "pf_submit": "Anrejistre",
+    "pj_submit": "Anrejistre konpayi",
+    "overlay_title": "Ou poko gen yon kont?",
+    "overlay_login_text": "Konekte pou jwenn aksè nan platfòm la",
+    "overlay_register_text": "Anrejistre pou kòmanse vwayaj ou",
+    "sign_up_button": "Enskri"
   },
   "login": {
     "submit": "Antre",
-    "forgot_question": "Ou bliye modpas ou?",
-    "recover": "Rekipere",
-    "overlay_title": "Byenveni ankò"
+    "forgot_question": "Bliye modpas ou?",
+    "recover": "Rekipere modpas",
+    "overlay_title": "Ou deja gen yon kont?",
+    "sign_in_button": "Konekte"
   },
   "perfil": {
-    "title": "Pwofil Mwen",
-    "edit_profile": "Modifye Pwofil",
-    "saved_posts": "Ki anrejistre",
-    "about_me": "Apwopo de mwen",
-    "bio_placeholder": "Poko gen biyografi...",
-    "my_posts": "Piblikasyon mwen",
-    "no_posts": "Pa gen piblikasyon"
+    "title": "Pwofil mwen",
+    "edit_profile": "Modifye pwofil",
+    "saved_posts": "Pòs sove yo",
+    "about_me": "Sou mwen",
+    "bio_placeholder": "Modifye pwofil ou pou ajoute yon deskripsyon.",
+    "my_posts": "Pòs mwen yo",
+    "no_posts": "Ou poko kreye okenn pòs."
   },
   "editar_perfil": {
-    "title": "Konfigirasyon",
-    "h1": "Modifye Pwofil",
-    "subtitle": "Mete done ou ajou",
+    "title": "Anviwònman",
+    "h1": "Modifye pwofil",
+    "subtitle": "Kenbe enfòmasyon ou yo ajou.",
     "change_photo": "Chanje foto",
     "username_label": "Non itilizatè",
-    "username_placeholder": "Non itilizatè ou",
-    "bio_label": "Biyografi",
-    "bio_placeholder": "Pale nou de ou",
-    "objectives_label": "Objektif",
-    "objectives_placeholder": "Objektif ou nan Brezil",
-    "contact_label": "Kontak",
-    "contact_placeholder": "Telefòn oswa WhatsApp",
-    "save": "Anrejistre",
-    "delete_account": "Efase kont"
+    "username_placeholder": "Non itilizatè",
+    "bio_label": "Sou ou",
+    "bio_placeholder": "Ekri yon ti bagay sou ou...",
+    "objectives_label": "Objektif ou sou platfòm la",
+    "objectives_placeholder": "Kisa w ap chèche sou R.U.M.O?",
+    "contact_label": "Enfòmasyon kontak (imèl/tèl.)",
+    "contact_placeholder": "Kontak piblik",
+    "save": "Sove chanjman yo",
+    "delete_account": "Dekonekte oswa efase kont"
   },
   "novo_post": {
-    "title": "Pibliye",
+    "title": "Nouvo pòs",
     "h1": "Kreye yon nouvo pòs",
-    "subtitle": "Pataje avèk kominote a",
-    "title_label": "Tit",
-    "title_placeholder": "Tit piblikasyon an",
+    "subtitle": "Pataje enfòmasyon ak kominote a.",
+    "title_label": "Tit pòs la",
+    "title_placeholder": "Eg.: Travay pou refijye...",
     "content_label": "Kontni",
-    "image_label": "URL Imaj",
-    "image_placeholder": "http://...",
+    "image_label": "Lyen imaj kouvèti",
+    "image_placeholder": "https://...",
     "category_label": "Kategori",
-    "source_label": "Sous (Si genyen)",
-    "source_placeholder": "Lyen orijinal",
+    "source_label": "Lyen sous ofisyèl (opsyonèl)",
+    "source_placeholder": "https://...",
     "publish": "Pibliye"
   },
   "perfil_usuario": {
-    "title": "Pwofil Itilizatè",
-    "bio": "Biyografi",
-    "posts": "Piblikasyon"
+    "title": "Pwofil itilizatè",
+    "bio": "Sou li",
+    "posts": "Pòs"
   },
   "post_salvo": {
-    "title": "Favori",
+    "title": "Sove",
     "back_to_profile": "Retounen nan pwofil",
-    "title_main": "Piblikasyon ki anrejistre"
+    "title_main": "Pòs sove yo"
   },
   "sair_excluir": {
-    "title": "Dekonekte oswa Efase",
-    "h2": "Jere Kont",
-    "description": "Jere aksè ou",
+    "title": "Jesyon kont",
+    "h2": "Aksè ak sekirite",
+    "description": "Chwazi youn nan opsyon ki anba yo.",
     "logout_title": "Dekonekte",
-    "logout_desc": "Soti nan aparèy sa a",
+    "logout_desc": "Ou pral dekonekte sou aparèy sa a.",
     "delete_title": "Efase kont",
-    "delete_desc": "Efase done ou nèt"
+    "delete_desc": "Atansyon: Tout done yo pral efase pou tout tan."
   },
   "modal": {
-    "choose_lang": "Chwazi lang ou"
+    "choose_lang": "Chwazi yon lang"
   },
   "sobre": {
-    "title": "Apwopo RUMO",
-    "slogan": "Rezo Inifye Mobilite ak Oryantasyon",
-    "intro_text": "Platfòm sa a te kreye pou sipòte imigran ki rive nan peyi Brezil.",
-    "team_title": "Ekip Nou",
+    "title": "Sou R.U.M.O",
+    "slogan": "Rezo Ini pou Mobilite ak Oryantasyon",
+    "intro_text": "R.U.M.O se yon platfòm ki ede imigran ki rive Brezil adapte yo ak sosyete a. Li ofri sipò pou dokiman, lwa brezilyen, opòtinite travay ak fòmasyon pwofesyonèl, ansanm ak enfòmasyon esansyèl sou dwa, asistans legal, sante, ak lòt zouti itil.",
+    "team_title": "Ekip nou an",
     "team": {
-        "samyra": { "name": "Samyra", "role": "Devlopè" },
-        "michelly": { "name": "Michelly", "role": "Devlopè" },
-        "lucas": { "name": "Lucas", "role": "Devlopè" },
-        "kaua": { "name": "Kauã", "role": "Devlopè" }
+      "samyra": {
+        "name": "Samyra Alves",
+        "role": "Analist Sistèm<br>Devlopè Full Stack"
+      },
+      "michelly": {
+        "name": "Michelly Moreira",
+        "role": "Web Designer<br>Devlopè Full Stack"
+      },
+      "lucas": {
+        "name": "Lucas Spadoto",
+        "role": "Web Designer<br>Devlopè Front-End"
+      },
+      "kaua": {
+        "name": "Kauã Andrade",
+        "role": "Analist Sistèm<br>Devlopè Back-End"
+      }
     }
   },
   "tutorial": {
-    "title": "Tutoryal — R.U.M.O",
+    "title": "Gid itilizasyon — R.U.M.O",
     "hero_greeting": "Bonjou, ",
-    "hero_text": "Vini aprann kijan pou itilize platfòm nou!",
+    "hero_text": "Aprann kijan pou w itilize platfòm nou an!",
     "previous_button": "Anvan",
-    "next_button": "Apre",
-    "faq_title": "Kesyon yo souvent poze:",
-    "faq_contact_q": "Mwen ta vle kontakte imigran ki sot, èske platfòm nan bay sèvis sa a?",
-    "faq_contact_a": "Wi — genyen yon zòn kominote pou mesaj ak gwoup tematik.",
-    "faq_partnership_q": "Mwen se yon Konpayi epi mwen ta vle fè kontak pou yon asosyasyon, kijan mwen ka fè li?",
-    "faq_partnership_a": "Sèvi ak fòm kontak nan pye paj la oswa zòn asosyasyon HUB la.",
-    "faq_suggestion_q": "Mwen ta vle sigjere karakteristik nan pèspektiv mwen kòm imigran, kijan mwen ka fè li?",
-    "faq_suggestion_a": "Nan kominote a gen yon seksyon sigjèstyon. Ou ka tou voye li pa imèl."
+    "next_button": "Pwochen",
+    "faq_title": "Kesyon ki poze souvan:",
+    "faq_contact_q": "Èske m ka kominike ak lòt imigran?",
+    "faq_contact_a": "Wi — gen yon espas kominotè ak mesaj ak gwoup.",
+    "faq_partnership_q": "Mwen se yon konpayi e mwen vle pale sou patenarya. Ki jan mwen fè sa?",
+    "faq_partnership_a": "Sèvi ak fòm kontak ki anba paj la oswa seksyon patenarya nan Hub la.",
+    "faq_suggestion_q": "Mwen se yon imigran e mwen vle sijere yon nouvo fonksyon. Ki jan mwen fè sa?",
+    "faq_suggestion_a": "Gen yon seksyon sijesyon andedan kominote a. Ou ka voye pa imèl tou."
   },
   "utilitarios": {
     "title": "Zouti",
-    "title_main": "Bwat Zouti",
+    "title_main": "Ki zouti ou bezwen?",
     "location": {
       "title": "Lokalizasyon",
-      "search_placeholder": "Chèche adrès...",
+      "search_placeholder": "Chèche yon adrès...",
       "search_button": "Chèche",
       "address_label": "Adrès",
-      "address_loading": "Chaje adrès..."
+      "address_loading": "Chajman..."
     },
     "currency": {
-      "title": "Konvètisè Lajan",
-      "from": "De",
-      "usd": "Dola (USD)",
-      "eur": "Ewò (EUR)",
-      "brl": "Real (BRL)",
-      "to": "Pou",
+      "title": "Konvètisè lajan",
+      "from": "Soti nan lajan",
+      "usd": "Dola Ameriken (USD)",
+      "eur": "Ero (EUR)",
+      "brl": "Real Brezilyen (BRL)",
+      "to": "Pou lajan",
       "amount_label": "Kantite",
       "amount_placeholder": "0.00",
       "convert": "Konvèti",
       "result_label": "Rezilta"
     },
     "measure": {
-      "title": "Konvètisè Mezi",
+      "title": "Konvètisè inite",
       "unit_type_label": "Kalite inite",
       "length": "Longè",
       "weight": "Pwa",
       "temperature": "Tanperati",
-      "amount_label": "Kantite",
+      "amount_label": "Valè",
       "amount_placeholder": "0",
-      "to": "An",
+      "to": "Konvèti",
       "convert": "Konvèti",
       "result_label": "Rezilta"
     },
     "docs": {
-      "title": "Jere Dokiman",
+      "title": "Depo Dokiman",
       "add_new": "Ajoute nouvo dokiman",
       "type_label": "Kalite dokiman",
-      "type_placeholder": "Eg: RNE, CPF, Paspò",
+      "type_placeholder": "Eg.: Paspo, Viza, CPF",
       "issue_date_label": "Dat emisyon",
       "expiry_date_label": "Dat ekspirasyon",
       "add": "Ajoute",
-      "your_docs": "Dokiman ou yo"
+      "your_docs": "Dokiman mwen yo"
     },
     "lang": {
       "title": "Lang",
-      "current_platform": "Lang platfòm nan"
+      "current_platform": "Lang aktyèl platfòm la"
     }
   },
   "dashboard": {
-    "title": "R.U.M.O - Tablo Kontwòl",
-    "access_denied": "Aksè refize — tablo kontwòl eksklizif pou antite lajal (PJ).",
-    "control_panel": "Tablo Kontwòl",
+    "title": "R.U.M.O - Dashboard",
+    "access_denied": "Aksè refize — Dashboard lan sèlman pou konpayi (PJ).",
+    "control_panel": "Panèl Kontwòl",
     "tabs": {
       "profile": "Pwofil",
       "publications": "Piblikasyon"
     },
     "metrics": {
-      "reach_label": "Reyaj pwofil sou dènye:",
+      "reach_label": "Dènye pousantaj rive:",
       "days_30": "30 jou",
       "days_7": "7 jou",
       "days_90": "90 jou",
       "profile_visits": "Vizit pwofil:",
-      "followers": "Sivi",
+      "followers": "Swivè",
       "others": "Lòt",
-      "nationalities": "Nasyonalite Prensipal (Itilizatè):",
+      "nationalities": "Nasyonalite ki pi prezan nan itilizatè yo:",
       "loading_data": "Chajman done...",
-      "estimate": "(Estimasyon)",
+      "estimate": "(estimasyon)",
       "total": "Total",
-      "new_30d": "Nouvo (30j)",
-      "left": "Pa sivi ankò",
-      "age_range": "Gwoup aj predominan"
+      "new_30d": "Nouvo (30 jou)",
+      "left": "Ateri",
+      "age_range": "Gwoup laj ki pi komen"
     },
     "publications": {
-      "keywords_title": "Mo kle yo itilize plis:",
-      "kw_refugees": "Refiji",
+      "keywords_title": "Mo kle ki pi itilize yo:",
+      "kw_refugees": "Refijye",
       "kw_employment": "Travay",
       "kw_visas": "Viza",
       "kw_shelter": "Abri",
-      "periods_reach": "Peryòd yo gen plis reyaj:",
-      "interactions_label": "Entèaksyon sou dènye:",
-      "likes": "J'aime",
+      "periods_reach": "Peryòd ki te gen pi bon rive:",
+      "interactions_label": "Dènye entèraksyon:",
+      "likes": "Like",
       "saved": "Sove",
       "comments": "Kòmantè",
-      "shares": "Pataj",
-      "clicks": "Klik ekstèn",
-      "top_engagement": "Piblikasyon ki gen plis angajman:",
-      "loading_posts": "Chajman piblikasyon ou yo..."
+      "shares": "Pataje",
+      "clicks": "Klike ekstèn",
+      "top_engagement": "Pòs ki te gen plis angajman:",
+      "loading_posts": "Chajman pòs..."
     }
   },
   "termos": {
-    "title": "Kondisyon Itilizasyon",
-    "update_date": "Dènyè aktualizasyon:",
-    "welcome": "Byenvini nan R.U.M.O",
-    "intro": "Kondisyon sa yo règle aksè nan R.U.M.O.",
-    "section1_title": "1. Sou Platform",
-    "section1_content": "R.U.M.O sipòte imigran nan Brezil.",
-    "section2_title": "2. Enskripsyon",
-    "section2_intro": "Kreye yon kont pou aksede.",
-    "section2_1_title": "2.1. Tip Kont",
-    "section2_1_pf": "Moun: non, imel, CPF.",
-    "section2_1_pj": "Entite: konpayi, imel, CNPJ.",
-    "section2_2_title": "2.2. Enfòmasyon",
-    "section2_2_content": "Tout enfòmasyon dwe vre.",
-    "section2_3_title": "2.3. Sigirité",
-    "section2_3_content": "Ou responsab pou pase ou a.",
-    "section3_title": "3. Itilizasyon",
-    "section3_1_title": "3.1. HUB",
-    "section3_1_intro": "HUB pèmèt postaj.",
-    "section3_1_content": "Ou deklare ou posede dwa kontni a.",
-    "section3_2_title": "3.2. Fiye",
-    "section3_2_intro": "Anrejistre dokiman ou yo.",
-    "section3_2_warning": "Pa gen validite legal.",
-    "section3_3_title": "3.3. Zouti",
-    "section3_3_content": "Pou referans sèlman.",
-    "section4_title": "4. Kondwit",
-    "section4_intro": "Kontni ofansif entèdi.",
-    "section4_content": "Aksè san otorite entèdi.",
-    "section5_title": "5. Dwa Otè",
-    "section5_content": "Tout se pwopriyete R.U.M.O.",
-    "section6_title": "6. Responsabilite",
-    "section6_intro": "Pa responsab pou pwosesis.",
-    "section6_content": "Pa responsab pou eche teknik.",
-    "section7_title": "7. Reziliyasyon",
-    "section7_content": "Mande delesyon nenpòt tan.",
-    "section8_title": "8. Chanjman",
-    "section8_content": "Aksepte chanjman kontini.",
-    "section9_title": "9. Kontak",
-    "section9_content": "Kontakte nou pa fòm."
+    "title": "Tèm Itilizasyon",
+    "update_date": "Dènye ajou:",
+    "welcome": "Byenveni sou R.U.M.O – Rezo Ini pou Mobilite ak Oryantasyon.",
+    "intro": "Tèm itilizasyon sa yo regle itilizasyon platfòm R.U.M.O a sou entènèt ak mobil. Lè ou kreye yon kont oswa itilize sèvis yo, ou dakò ak tèm sa yo.",
+    "section1_title": "1. Sou platfòm la",
+    "section1_content": "R.U.M.O ede imigran ki rive Brezil ak zouti tankou kat, konvètisè, ak depo dokiman.",
+    "section2_title": "2. Anrejistreman ak kont itilizatè",
+    "section2_intro": "Pou kreye pòs oswa itilize depo dokiman an, ou bezwen yon kont.",
+    "section2_1_title": "2.1. Kalite kont",
+    "section2_1_pf": "Moun fizik (PF): non konplè, imèl, ak CPF valab.",
+    "section2_1_pj": "Konpayi (PJ): non konpayi, imèl pwofesyonèl, ak CNPJ valab.",
+    "section2_2_title": "2.2. Egzakite done yo",
+    "section2_2_content": "Enfòmasyon ou bay yo dwe egzak e ajou.",
+    "section2_3_title": "2.3. Sekirite kont",
+    "section2_3_content": "Ou responsab pou modpas ou. R.U.M.O pa responsab pou aksè san otorizasyon.",
+    "section3_title": "3. Itilizasyon fonksyon yo",
+    "section3_1_title": "3.1. Hub ak pòs yo",
+    "section3_1_intro": "Nan Hub la, ou ka wè e kreye pòs sou nouvèl, travay, ak sèvis piblik.",
+    "section3_1_content": "Responsablite: Ou dwe posede dwa kontni ou pibliye. R.U.M.O pa garanti presizyon kontni ekstèn.",
+    "section3_2_title": "3.2. Depo dokiman",
+    "section3_2_intro": "Ou ka anrejistre dat emisyon ak ekspirasyon dokiman yo.",
+    "section3_2_warning": "Enpòtan: Enfòmasyon ki sove yo se pou òganizasyon pèsonèl.",
+    "section3_3_title": "3.3. Zouti (konvètisè ak kat)",
+    "section3_3_content": "Zouti yo se pou enfòmasyon. Done yo ka pa egzat an tan reyèl.",
+    "section4_title": "4. Konpòtman itilizatè",
+    "section4_intro": "Aksyon sa yo entèdi:",
+    "section4_content": "Kontni ofansif, diskriminasyon, enfòmasyon fo, itilizasyon ilegal.",
+    "section5_title": "5. Pwopriyete entelektyèl",
+    "section5_content": "Tout logo, tèks ak konsepsyon yo pwoteje pa dwa otè.",
+    "section6_title": "6. Limit responsabilite",
+    "section6_intro": "R.U.M.O se yon platfòm entèmedyè:",
+    "section6_content": "Pa responsab pou pwosesis imigrasyon, desizyon gouvènman, oswa erè sèvis ekstèn.",
+    "section7_title": "7. Efase kont",
+    "section7_content": "Kont yo ka efase nan seksyon 'Jesyon kont'.",
+    "section8_title": "8. Chanjman nan tèm yo",
+    "section8_content": "Tèm yo ka modifye nenpòt ki lè.",
+    "section9_title": "9. Kontakte nou",
+    "section9_content": "Pou kesyon sou tèm yo, itilize fòm kontak ki anba paj la."
   }
 }

@@ -1,120 +1,130 @@
 {
   "nav": {
     "home": "首页",
-    "hub": "资讯中心",
-    "tools": "实用工具",
+    "hub": "中心",
+    "tools": "工具",
     "about": "关于我们",
-    "profile": "个人资料",
+    "profile": "我的资料",
     "create_account": "创建账户"
   },
   "header": {
     "lang": {
       "current": "当前语言",
-      "pt_br": "葡萄牙语",
-      "select": "选择语言"
+      "pt_br": "葡萄牙语（巴西）",
+      "select": "选择您偏好的语言"
     }
   },
   "footer": {
     "social": { "title": "社交媒体" },
     "contact": {
-      "title": "联系我们",
-      "email_placeholder": "您的电子邮箱",
-      "subject_placeholder": "主题"
+      "title": "来聊聊？",
+      "email_placeholder": "seu.email@exemplo.com",
+      "subject_placeholder": "您想聊什么？"
     }
   },
   "index": {
-    "title": "RUMO - 统一移动与导向网络",
+    "title": "R.U.M.O - 首页",
     "card": {
-      "documents": "文档",
+      "documents": "文件",
       "tools": "工具",
-      "bravo": "精选",
+      "bravo": "Bravo 项目",
       "hub": "中心"
     },
     "tutorial": {
-      "question": "如何使用？",
-      "click": "点击这里",
-      "button": "开始",
-      "question_mobile": "如何在手机上使用？"
+      "question": "不知道从哪里开始？",
+      "click": "点击下方按钮：",
+      "button": "教程",
+      "question_mobile": "不知道从哪里开始？"
     }
   },
   "hub": {
-    "title": "资讯中心",
+    "title": "R.U.M.O - 中心",
     "search_placeholder": "搜索...",
-    "new_post": "新帖子",
+    "new_post": "+ 新发布",
     "filter": {
-      "title": "筛选",
+      "title": "筛选帖子",
       "all": "全部",
       "news": "新闻",
-      "ong": "非政府组织 (ONG)",
-      "government": "政府",
-      "employment": "就业",
+      "ong": "非政府组织",
+      "government": "政府机构",
+      "employment": "工作与招聘",
       "learning": "学习"
     }
   },
   "form": {
     "register": "注册",
     "login": "登录",
-    "social_register": "通过社交账号注册",
-    "social_login": "通过社交账号登录",
+    "social_register": "或使用您的电子邮件注册",
+    "social_login": "或使用您的账号",
     "name_placeholder": "全名",
-    "cpf_placeholder": "CPF (个人税号)",
-    "email_placeholder": "电子邮箱",
+    "cpf_placeholder": "CPF（000.000.000-00）",
+    "email_placeholder": "电子邮件",
     "password_placeholder": "密码",
-    "confirm_password_placeholder": "确认密码",
-    "company_placeholder": "公司名称",
-    "cnpj_placeholder": "CNPJ (公司税号)",
-    "email_commercial_placeholder": "商务邮箱"
+    "confirm_password_placeholder": "重复密码",
+    "company_placeholder": "公司/机构名称",
+    "cnpj_placeholder": "CNPJ（00.000.000/0000-00）",
+    "email_commercial_placeholder": "商业电子邮件",
+    "error_cpf": "无效的 CPF",
+    "error_email": "无效的电子邮件",
+    "error_cnpj": "无效的 CNPJ",
+    "error_password_mismatch": "密码不一致",
+    "terms_prefix": "我已阅读并同意 ",
+    "strength_very_weak": "非常弱（请添加大写字母/数字）"
   },
   "cadastro": {
-    "pf": "个人",
-    "pj": "企业",
-    "pf_submit": "注册个人",
-    "pj_submit": "注册企业",
-    "overlay_title": "创建您的账户"
+    "pf": "个人用户",
+    "pj": "机构用户",
+    "pf_submit": "注册",
+    "pj_submit": "注册公司",
+    "overlay_title": "还没有账户？",
+    "overlay_login_text": "登录以访问平台",
+    "overlay_register_text": "注册以开始您的旅程",
+    "sign_up_button": "注册"
   },
   "login": {
-    "submit": "进入",
-    "forgot_question": "忘记密码了？",
-    "recover": "恢复密码",
-    "overlay_title": "欢迎回来"
+    "submit": "登录",
+    "forgot_question": "忘记密码？",
+    "recover": "找回密码",
+    "overlay_title": "已经有账号？",
+    "sign_in_button": "登录"
   },
   "perfil": {
     "title": "我的资料",
     "edit_profile": "编辑资料",
-    "saved_posts": "收藏的帖子",
+    "saved_posts": "已保存的帖子",
     "about_me": "关于我",
-    "bio_placeholder": "尚未填写简介...",
+    "bio_placeholder": "编辑您的资料以添加简介。",
     "my_posts": "我的帖子",
-    "no_posts": "暂无帖子"
+    "no_posts": "您还没有发布任何内容。"
   },
   "editar_perfil": {
     "title": "设置",
     "h1": "编辑资料",
-    "subtitle": "更新您的个人信息",
+    "subtitle": "保持您的信息最新。",
     "change_photo": "更换照片",
     "username_label": "用户名",
     "username_placeholder": "您的用户名",
-    "bio_label": "简介",
-    "bio_placeholder": "简单介绍一下自己",
-    "objectives_label": "目标",
-    "objectives_placeholder": "您在巴西的目标",
-    "contact_label": "联系方式",
-    "contact_placeholder": "电话或WhatsApp",
+    "bio_label": "个人简介",
+    "bio_placeholder": "介绍一下您自己…",
+    "objectives_label": "您在平台上的目标",
+    "objectives_placeholder": "您希望在 R.U.M.O 中找到什么？",
+    "contact_label": "联系方式（邮箱/电话）",
+    "contact_placeholder": "您的公开联系方式",
     "save": "保存更改",
-    "delete_account": "删除账户"
+    "delete_account": "退出或删除账户"
   },
   "novo_post": {
-    "title": "发布内容",
-    "h1": "创建新帖子",
-    "subtitle": "与社区分享信息",
-    "title_label": "标题",
-    "title_placeholder": "帖子标题",
+    "title": "新发布",
+    "h1": "创建新发布",
+    "subtitle": "与社区分享信息。",
+    "title_label": "发布标题",
+    "title_placeholder": "例如：给难民的工作机会…",
     "content_label": "内容",
-    "image_label": "图片 URL",
-    "image_placeholder": "http://...",
+    "image_label": "封面图片链接",
+    "image_placeholder": "https://...",
     "category_label": "类别",
-    "source_label": "来源 (可选)",
-    "source_placeholder": "原始链接",
+    "source_label": "官方来源链接（可选）",
+    "source_placeholder": "https://...",
     "publish": "发布"
   },
   "perfil_usuario": {
@@ -123,67 +133,79 @@
     "posts": "帖子"
   },
   "post_salvo": {
-    "title": "收藏夹",
-    "back_to_profile": "返回资料页",
-    "title_main": "保存的帖子"
+    "title": "已保存",
+    "back_to_profile": "返回资料",
+    "title_main": "您保存的发布"
   },
   "sair_excluir": {
-    "title": "退出或删除",
-    "h2": "账户管理",
-    "description": "管理您的访问权限",
-    "logout_title": "退出登录",
-    "logout_desc": "断开与此设备的连接",
+    "title": "账户管理",
+    "h2": "访问与安全",
+    "description": "请选择以下选项。",
+    "logout_title": "退出账户（注销）",
+    "logout_desc": "您将在此设备上注销。",
     "delete_title": "删除账户",
-    "delete_desc": "永久删除您的数据"
+    "delete_desc": "注意：您的所有数据将被永久删除。"
   },
   "modal": {
-    "choose_lang": "选择您的语言"
+    "choose_lang": "选择语言"
   },
   "sobre": {
-    "title": "关于 RUMO",
-    "slogan": "统一移动与导向网络",
-    "intro_text": "我们的平台旨在帮助移民融入巴西社会。",
+    "title": "关于 R.U.M.O",
+    "slogan": "统一的移民与信息支持网络",
+    "intro_text": "R.U.M.O 旨在为抵达巴西的移民提供全面支持，帮助他们适应并融入社会。我们的使命是协助移民处理文件、了解巴西法律、寻找工作与专业培训机会。平台还提供关于权利、法律服务、健康及其他重要资源的信息，并包含定位工具、转换工具和最新新闻，帮助移民保持充分了解情况。",
     "team_title": "我们的团队",
     "team": {
-        "samyra": { "name": "Samyra", "role": "开发人员" },
-        "michelly": { "name": "Michelly", "role": "开发人员" },
-        "lucas": { "name": "Lucas", "role": "开发人员" },
-        "kaua": { "name": "Kauã", "role": "开发人员" }
+      "samyra": {
+        "name": "Samyra Alves",
+        "role": "系统分析师<br>全栈开发者"
+      },
+      "michelly": {
+        "name": "Michelly Moreira",
+        "role": "网页设计师<br>全栈开发者"
+      },
+      "lucas": {
+        "name": "Lucas Spadotti",
+        "role": "网页设计师<br>前端开发者"
+      },
+      "kaua": {
+        "name": "Kauã Andrade",
+        "role": "系统分析师<br>后端开发者"
+      }
     }
   },
   "tutorial": {
     "title": "教程 — R.U.M.O",
     "hero_greeting": "你好，",
     "hero_text": "来学习如何使用我们的平台！",
-    "previous_button": "上一页",
-    "next_button": "下一页",
+    "previous_button": "上一步",
+    "next_button": "下一步",
     "faq_title": "常见问题：",
-    "faq_contact_q": "我想与其他移民联系，该平台提供吗？",
-    "faq_contact_a": "是的——有一个社区区域用于消息传递和主题小组。",
-    "faq_partnership_q": "我是一家公司，我想联系进行合作，我该如何做？",
-    "faq_partnership_a": "使用页脚中的联系表格或 HUB 合作伙伴关系区域。",
-    "faq_suggestion_q": "我想从移民的角度提出功能建议，我该如何做？",
-    "faq_suggestion_a": "在社区中有一个建议部分。您也可以通过电子邮件发送。"
+    "faq_contact_q": "我想联系其他移民，平台提供这种功能吗？",
+    "faq_contact_a": "是的 —— 有一个社区区域用于消息交流和主题群组。",
+    "faq_partnership_q": "我是企业，想联系合作，应通过哪里？",
+    "faq_partnership_a": "使用页脚的联系表单或中心的合作区域。",
+    "faq_suggestion_q": "我想从移民的角度提出功能建议，如何提交？",
+    "faq_suggestion_a": "社区内有一个建议区域。您也可以通过电子邮件提交。"
   },
   "utilitarios": {
-    "title": "实用工具",
-    "title_main": "移民工具箱",
+    "title": "工具",
+    "title_main": "我们可以帮您什么？",
     "location": {
-      "title": "位置",
+      "title": "定位",
       "search_placeholder": "搜索地址...",
       "search_button": "搜索",
       "address_label": "地址",
-      "address_loading": "正在加载地址..."
+      "address_loading": "加载中..."
     },
     "currency": {
       "title": "货币转换",
       "from": "从",
-      "usd": "美元 (USD)",
-      "eur": "欧元 (EUR)",
-      "brl": "巴西雷亚尔 (BRL)",
+      "usd": "美元（USD）",
+      "eur": "欧元（EUR）",
+      "brl": "巴西雷亚尔（BRL）",
       "to": "到",
-      "amount_label": "金额",
-      "amount_placeholder": "0.00",
+      "amount_label": "数值",
+      "amount_placeholder": "0,00",
       "convert": "转换",
       "result_label": "结果"
     },
@@ -195,19 +217,19 @@
       "temperature": "温度",
       "amount_label": "数值",
       "amount_placeholder": "0",
-      "to": "转换为",
+      "to": "到",
       "convert": "转换",
       "result_label": "结果"
     },
     "docs": {
-      "title": "文档管理",
-      "add_new": "添加新文档",
-      "type_label": "文档类型",
-      "type_placeholder": "例如：RNE, CPF, 护照",
+      "title": "文件保险柜",
+      "add_new": "添加新文件",
+      "type_label": "文件类型",
+      "type_placeholder": "例如：护照、签证、CPF",
       "issue_date_label": "签发日期",
-      "expiry_date_label": "有效期至",
+      "expiry_date_label": "有效期",
       "add": "添加",
-      "your_docs": "您的文档"
+      "your_docs": "您的文件"
     },
     "lang": {
       "title": "语言",
@@ -215,84 +237,84 @@
     }
   },
   "dashboard": {
-    "title": "R.U.M.O - 仪表板",
-    "access_denied": "访问被拒绝 — 仪表板仅供法人 (PJ) 使用。",
+    "title": "R.U.M.O - 控制面板",
+    "access_denied": "访问被拒绝 — 面板仅限机构用户（PJ）。",
     "control_panel": "控制面板",
     "tabs": {
-      "profile": "个人资料",
-      "publications": "发布"
+      "profile": "资料",
+      "publications": "发布内容"
     },
     "metrics": {
-      "reach_label": "最近的个人资料覆盖范围:",
+      "reach_label": "最近的覆盖范围：",
       "days_30": "30 天",
       "days_7": "7 天",
       "days_90": "90 天",
-      "profile_visits": "个人资料访问:",
-      "followers": "粉丝",
+      "profile_visits": "资料访问量：",
+      "followers": "关注者",
       "others": "其他",
-      "nationalities": "主要国籍（用户）:",
-      "loading_data": "正在加载数据...",
-      "estimate": "（估计值）",
-      "total": "总数",
-      "new_30d": "新增（30天）",
-      "left": "取消关注",
+      "nationalities": "主要国籍（用户）：",
+      "loading_data": "正在加载数据…",
+      "estimate": "（估计）",
+      "total": "总计",
+      "new_30d": "新增（30 天）",
+      "left": "离开",
       "age_range": "主要年龄段"
     },
     "publications": {
-      "keywords_title": "最常用的关键词:",
+      "keywords_title": "最常用的关键词：",
       "kw_refugees": "难民",
       "kw_employment": "就业",
       "kw_visas": "签证",
-      "kw_shelter": "住所",
-      "periods_reach": "覆盖范围最高的时间段:",
-      "interactions_label": "最近的互动:",
-      "likes": "喜欢",
+      "kw_shelter": "庇护",
+      "periods_reach": "覆盖率最高的时期：",
+      "interactions_label": "最近的互动：",
+      "likes": "点赞",
       "saved": "已保存",
       "comments": "评论",
       "shares": "分享",
       "clicks": "外部点击",
-      "top_engagement": "参与度最高的帖子:",
-      "loading_posts": "正在加载您的帖子..."
+      "top_engagement": "互动最多的帖子：",
+      "loading_posts": "正在加载您的帖子…"
     }
   },
   "termos": {
-    "title": "使用条款",
-    "update_date": "最后更新:",
-    "welcome": "欢迎来到R.U.M.O",
-    "intro": "这些条款规定了对R.U.M.O的访问。",
-    "section1_title": "1. 关于",
-    "section1_content": "R.U.M.O为巴西的移民提供支持。",
-    "section2_title": "2. 注册",
-    "section2_intro": "创建账户来访问。",
+    "title": "使用条款和条件",
+    "update_date": "最新更新：",
+    "welcome": "欢迎来到 R.U.M.O - 统一的移民与信息支持网络。",
+    "intro": "本使用条款（“条款”）规范对 R.U.M.O 平台（“平台”）的访问和使用。通过创建账户或使用我们的服务，您（“您”，“用户”）即表示同意遵守这些条款。如果您不同意任何部分，请不要使用本平台。",
+    "section1_title": "1. 关于平台",
+    "section1_content": "R.U.M.O 的使命是为抵达巴西的移民提供全面支持，帮助他们适应并融入社会。平台提供信息服务、实用工具（如转换器和地图）以及文档管理和工作机会的支援网络。",
+    "section2_title": "2. 注册与用户账户",
+    "section2_intro": "要访问某些功能（如在中心发布内容或使用文件保险柜），您需要创建一个账户。",
     "section2_1_title": "2.1. 账户类型",
-    "section2_1_pf": "个人:名字、邮箱和CPF。",
-    "section2_1_pj": "实体:公司、邮箱和CNPJ。",
-    "section2_2_title": "2.2. 信息",
-    "section2_2_content": "所有信息必须真实。",
-    "section2_3_title": "2.3. 安全",
-    "section2_3_content": "您负责您的密码。",
-    "section3_title": "3. 使用",
-    "section3_1_title": "3.1. HUB",
-    "section3_1_intro": "HUB允许发布。",
-    "section3_1_content": "您声称拥有内容权利。",
-    "section3_2_title": "3.2. 文件库",
-    "section3_2_intro": "记录您的文件。",
-    "section3_2_warning": "无法律效力。",
-    "section3_3_title": "3.3. 工具",
-    "section3_3_content": "仅供参考。",
-    "section4_title": "4. 行为",
-    "section4_intro": "禁止冒犯内容。",
-    "section4_content": "禁止未授权访问。",
+    "section2_1_pf": "个人用户：需要提供全名、电子邮件和有效 CPF。",
+    "section2_1_pj": "机构用户（NGO/公司）：需要提供公司名称、商业电子邮件和有效 CNPJ。",
+    "section2_2_title": "2.2. 信息真实性",
+    "section2_2_content": "您保证所有注册时提供的信息均真实、准确且最新。使用伪造或第三方文件可能导致账户立即暂停并采取法律措施。",
+    "section2_3_title": "2.3. 账户安全",
+    "section2_3_content": "您有责任保持密码机密。对于因未经授权访问您的账户而造成的损失，R.U.M.O 概不负责。",
+    "section3_title": "3. 功能与工具的使用",
+    "section3_1_title": "3.1. 中心与发布内容",
+    "section3_1_intro": "中心允许浏览和发布新闻、工作机会以及 NGO 和政府信息。",
+    "section3_1_content": "用户内容：发布“新发布”时，您需声明拥有内容的权利或已获授权分享。责任：R.U.M.O 不保证第三方发布的工作机会或新闻的真实性。建议谨慎验证来源。必填信息：NGO 和政府机构的发布必须包含可验证的联系方式和位置信息。",
+    "section3_2_title": "3.2. 文件保险柜",
+    "section3_2_intro": "“文件保险柜”工具允许登记个人文件（如护照、签证）的签发和有效期信息。",
+    "section3_2_warning": "重要提示：存入保险柜的数据仅用于个人管理，不具备法律效力，不能作为正式身份证明。",
+    "section3_3_title": "3.3. 工具（转换器和地图）",
+    "section3_3_content": "货币、单位及定位工具仅供参考。R.U.M.O 不保证实时汇率或地理数据的准确性，亦不对因使用这些工具而做出的财务决定负责。",
+    "section4_title": "4. 用户行为规范",
+    "section4_intro": "严禁以下行为：",
+    "section4_content": "发布攻击性、歧视性、虚假或侵犯第三方权利的内容；将平台用于非法或欺诈活动；尝试访问系统受限区域或未经同意收集其他用户数据。",
     "section5_title": "5. 知识产权",
-    "section5_content": "一切属于R.U.M.O。",
-    "section6_title": "6. 责任",
-    "section6_intro": "对政府流程不负责。",
-    "section6_content": "对技术故障不负责。",
-    "section7_title": "7. 终止",
-    "section7_content": "随时请求删除。",
-    "section8_title": "8. 变更",
-    "section8_content": "接受持续更改。",
-    "section9_title": "9. 联系",
-    "section9_content": "通过表格联系我们。"
+    "section5_content": "平台的所有设计、标志（包括 R.U.M.O 品牌）、机构文本和源代码均属于 R.U.M.O 开发者或其许可方。未经授权不得使用。",
+    "section6_title": "6. 责任限制",
+    "section6_intro": "R.U.M.O 作为信息与连接的促进者，不对以下情况负责：",
+    "section6_content": "移民法律程序或政府决策；第三方发布的工作机会的质量或安全性；互联网或用户设备的技术故障。",
+    "section7_title": "7. 账户关闭",
+    "section7_content": "您可随时通过“账户管理”页面请求删除账户。数据不会立即删除，您会在最终删除前收到电子邮件通知。R.U.M.O 保留暂停违反条款的账户的权利。",
+    "section8_title": "8. 条款变更",
+    "section8_content": "R.U.M.O 可随时更改这些条款以反映法律或平台功能的更新。继续使用平台即表示接受新的条款。",
+    "section9_title": "9. 联系方式",
+    "section9_content": "如对本条款有疑问，请通过网站页脚的表单联系我们。"
   }
 }

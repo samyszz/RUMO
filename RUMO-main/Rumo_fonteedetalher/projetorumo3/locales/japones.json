@@ -1,298 +1,179 @@
 {
   "nav": {
     "home": "ホーム",
-    "hub": "情報ハブ",
-    "tools": "便利ツール",
+    "hub": "ハブ",
+    "tools": "ユーティリティ",
     "about": "私たちについて",
-    "profile": "プロフィール",
+    "profile": "マイプロフィール",
     "create_account": "アカウント作成"
   },
   "header": {
     "lang": {
       "current": "現在の言語",
-      "pt_br": "ポルトガル語",
-      "select": "言語を選択"
+      "pt_br": "ポルトガル語（ブラジル）",
+      "select": "希望の言語を選択してください"
     }
   },
   "footer": {
     "social": { "title": "ソーシャルメディア" },
     "contact": {
       "title": "お問い合わせ",
-      "email_placeholder": "メールアドレス",
-      "subject_placeholder": "件名"
+      "email_placeholder": "あなたの.email@例.com",
+      "subject_placeholder": "ご相談内容は？"
     }
   },
   "index": {
-    "title": "RUMO - 統一モビリティ・オリエンテーション・ネットワーク",
+    "title": "R.U.M.O - ホーム",
     "card": {
-      "documents": "書類ガイド",
-      "tools": "ツール",
-      "bravo": "おすすめ",
-      "hub": "情報センター"
+      "documents": "ドキュメント",
+      "tools": "ユーティリティ",
+      "bravo": "ブラボー・プロジェクト",
+      "hub": "ハブ"
     },
     "tutorial": {
-      "question": "使い方は？",
-      "click": "ここをクリック",
-      "button": "スタート",
-      "question_mobile": "スマホでの使い方は？"
+      "question": "どこから始めればいいかわかりませんか？",
+      "click": "下のボタンをクリックしてください：",
+      "button": "チュートリアル",
+      "question_mobile": "どこから始めればいいかわかりませんか？"
     }
   },
   "hub": {
-    "title": "情報ハブ",
+    "title": "R.U.M.O - ハブ",
     "search_placeholder": "検索...",
-    "new_post": "新しい投稿",
+    "new_post": "+ 新しい投稿",
     "filter": {
-      "title": "フィルター",
+      "title": "投稿をフィルタ",
       "all": "すべて",
       "news": "ニュース",
-      "ong": "NGO (非政府組織)",
-      "government": "行政・政府",
+      "ong": "NGO",
+      "government": "連邦機関",
       "employment": "求人・仕事",
-      "learning": "学習・教育"
+      "learning": "学習"
     }
   },
   "form": {
     "register": "登録",
     "login": "ログイン",
-    "social_register": "ソーシャルアカウントで登録",
-    "social_login": "ソーシャルアカウントでログイン",
+    "social_register": "またはメールを使用して登録",
+    "social_login": "またはアカウントを使用",
     "name_placeholder": "氏名",
-    "cpf_placeholder": "CPF (納税者番号)",
+    "cpf_placeholder": "CPF（000.000.000-00）",
     "email_placeholder": "メールアドレス",
     "password_placeholder": "パスワード",
-    "confirm_password_placeholder": "パスワード確認",
-    "company_placeholder": "会社名",
-    "cnpj_placeholder": "CNPJ (法人番号)",
-    "email_commercial_placeholder": "ビジネス用メール"
+    "confirm_password_placeholder": "パスワードの確認",
+    "company_placeholder": "企業/NGO名",
+    "cnpj_placeholder": "CNPJ（00.000.000/0000-00）",
+    "email_commercial_placeholder": "商用メール",
+    "error_cpf": "CPFが無効です",
+    "error_email": "メールが無効です",
+    "error_cnpj": "CNPJが無効です",
+    "error_password_mismatch": "パスワードが一致しません",
+    "terms_prefix": "私は以下の内容を読み、同意します： ",
+    "strength_very_weak": "とても弱い（大文字/数字を追加してください）"
   },
   "cadastro": {
     "pf": "個人",
     "pj": "法人",
-    "pf_submit": "個人登録",
-    "pj_submit": "法人登録",
-    "overlay_title": "アカウントを作成"
+    "pf_submit": "登録",
+    "pj_submit": "企業登録",
+    "overlay_title": "まだアカウントをお持ちではありませんか？",
+    "overlay_login_text": "ログインしてプラットフォームにアクセス",
+    "overlay_register_text": "登録して私たちと一緒に旅を始めましょう",
+    "sign_up_button": "登録"
   },
   "login": {
     "submit": "ログイン",
-    "forgot_question": "パスワードをお忘れですか？",
-    "recover": "パスワード再設定",
-    "overlay_title": "おかえりなさい"
+    "forgot_question": "パスワードを忘れましたか？",
+    "recover": "パスワードを復旧",
+    "overlay_title": "すでにアカウントをお持ちですか？",
+    "sign_in_button": "ログイン"
   },
   "perfil": {
     "title": "マイプロフィール",
     "edit_profile": "プロフィール編集",
-    "saved_posts": "保存済み",
-    "about_me": "自己紹介",
-    "bio_placeholder": "まだ自己紹介がありません...",
+    "saved_posts": "保存した投稿",
+    "about_me": "私について",
+    "bio_placeholder": "バイオを追加するにはプロフィールを編集してください。",
     "my_posts": "自分の投稿",
-    "no_posts": "投稿はまだありません"
-  },
-  "editar_perfil": {
-    "title": "設定",
-    "h1": "プロフィール編集",
-    "subtitle": "登録情報を更新する",
-    "change_photo": "写真を変更",
-    "username_label": "ユーザー名",
-    "username_placeholder": "ユーザー名を入力",
-    "bio_label": "自己紹介",
-    "bio_placeholder": "自分について少し書いてみましょう",
-    "objectives_label": "目的",
-    "objectives_placeholder": "ブラジルでの目標",
-    "contact_label": "連絡先",
-    "contact_placeholder": "電話番号またはWhatsApp",
-    "save": "変更を保存",
-    "delete_account": "アカウント削除"
-  },
-  "novo_post": {
-    "title": "投稿",
-    "h1": "新しい投稿を作成",
-    "subtitle": "コミュニティと情報を共有",
-    "title_label": "タイトル",
-    "title_placeholder": "投稿のタイトル",
-    "content_label": "内容",
-    "image_label": "画像URL",
-    "image_placeholder": "http://...",
-    "category_label": "カテゴリー",
-    "source_label": "情報元 (任意)",
-    "source_placeholder": "リンク元",
-    "publish": "公開する"
-  },
-  "perfil_usuario": {
-    "title": "ユーザー情報",
-    "bio": "紹介文",
-    "posts": "投稿一覧"
-  },
-  "post_salvo": {
-    "title": "保存済み",
-    "back_to_profile": "プロフィールに戻る",
-    "title_main": "保存した投稿"
-  },
-  "sair_excluir": {
-    "title": "ログアウト / 削除",
-    "h2": "アカウント管理",
-    "description": "アクセス設定の管理",
-    "logout_title": "ログアウト",
-    "logout_desc": "この端末からログアウトします",
-    "delete_title": "アカウント削除",
-    "delete_desc": "データを完全に削除します"
-  },
-  "modal": {
-    "choose_lang": "言語を選択してください"
-  },
-  "sobre": {
-    "title": "RUMOについて",
-    "slogan": "統一モビリティ・オリエンテーション・ネットワーク",
-    "intro_text": "当プラットフォームは、ブラジルに来る移民の方々を支援することを目的としています。",
-    "team_title": "開発チーム",
-    "team": {
-        "samyra": { "name": "Samyra", "role": "開発者" },
-        "michelly": { "name": "Michelly", "role": "開発者" },
-        "lucas": { "name": "Lucas", "role": "開発者" },
-        "kaua": { "name": "Kauã", "role": "開発者" }
-    }
-  },
-  "tutorial": {
-    "title": "チュートリアル — R.U.M.O",
-    "hero_greeting": "こんにちは、",
-    "hero_text": "当社のプラットフォームの使用方法を学びましょう！",
-    "previous_button": "前へ",
-    "next_button": "次へ",
-    "faq_title": "よくある質問：",
-    "faq_contact_q": "他の移民と連絡を取りたいのですが、プラットフォームはそれを提供していますか？",
-    "faq_contact_a": "はい — メッセージングとテーマ別グループ用のコミュニティエリアがあります。",
-    "faq_partnership_q": "私は会社です。パートナーシップのために連絡したいのですが、どうすればいいですか？",
-    "faq_partnership_a": "フッターの連絡フォームを使用するか、HUB のパートナーシップエリアを使用してください。",
-    "faq_suggestion_q": "移民の観点から機能を提案したいのですが、どうすればいいですか？",
-    "faq_suggestion_a": "コミュニティには提案セクションがあります。電子メールで送信することもできます。"
-  },
-  "utilitarios": {
-    "title": "便利ツール",
-    "title_main": "移民用ツールキット",
-    "location": {
-      "title": "現在地・場所",
-      "search_placeholder": "住所を検索...",
-      "search_button": "検索",
-      "address_label": "住所",
-      "address_loading": "住所を読み込み中..."
-    },
-    "currency": {
-      "title": "通貨換算",
-      "from": "元通貨",
-      "usd": "米ドル (USD)",
-      "eur": "ユーロ (EUR)",
-      "brl": "ブラジルレアル (BRL)",
-      "to": "換算先",
-      "amount_label": "金額",
-      "amount_placeholder": "0.00",
-      "convert": "換算する",
-      "result_label": "結果"
-    },
-    "measure": {
-      "title": "単位変換",
-      "unit_type_label": "単位の種類",
-      "length": "長さ",
-      "weight": "重さ",
-      "temperature": "温度",
-      "amount_label": "数値",
-      "amount_placeholder": "0",
-      "to": "変換先",
-      "convert": "変換する",
-      "result_label": "結果"
-    },
-    "docs": {
-      "title": "書類管理",
-      "add_new": "新しい書類を追加",
-      "type_label": "書類の種類",
-      "type_placeholder": "例：RNE (外国人登録証), CPF, パスポート",
-      "issue_date_label": "発行日",
-      "expiry_date_label": "有効期限",
-      "add": "追加",
-      "your_docs": "あなたの書類"
-    },
-    "lang": {
-      "title": "言語設定",
-      "current_platform": "現在の表示言語"
-    }
-  },
-  "dashboard": {
-    "title": "R.U.M.O - ダッシュボード",
-    "access_denied": "アクセス拒否 — ダッシュボードは法人 (PJ) のみです。",
-    "control_panel": "コントロールパネル",
-    "tabs": {
-      "profile": "プロフィール",
-      "publications": "投稿"
-    },
-    "metrics": {
-      "reach_label": "プロフィールリーチ（過去）:",
-      "days_30": "30 日間",
-      "days_7": "7 日間",
-      "days_90": "90 日間",
-      "profile_visits": "プロフィールへのアクセス:",
-      "followers": "フォロワー",
-      "others": "その他",
-      "nationalities": "主な国籍（ユーザー）:",
-      "loading_data": "データを読み込み中...",
-      "estimate": "（推定値）",
-      "total": "合計",
-      "new_30d": "新規（30日）",
-      "left": "フォロー解除",
-      "age_range": "主な年齢層"
-    },
-    "publications": {
-      "keywords_title": "最も使用されたキーワード:",
-      "kw_refugees": "難民",
-      "kw_employment": "求人・仕事",
-      "kw_visas": "ビザ",
-      "kw_shelter": "シェルター",
-      "periods_reach": "リーチが最も高い時間帯:",
-      "interactions_label": "最後のインタラクション:",
-      "likes": "いいね",
-      "saved": "保存済み",
-      "comments": "コメント",
-      "shares": "シェア",
-      "clicks": "外部クリック",
-      "top_engagement": "最も高いエンゲージメント:",
-      "loading_posts": "読み込み中..."
-    }
-  },
-  "termos": {
-    "title": "利用規約",
-    "update_date": "最後更新:",
-    "welcome": "R.U.M.Oへようこそ",
-    "intro": "これらの規約はR.U.M.Oへのアクセスを規制します。",
-    "section1_title": "1. について",
-    "section1_content": "R.U.M.Oはブラジルの移民をサポートします。",
-    "section2_title": "2. 登録",
-    "section2_intro": "アクセスするにはアカウントを作成してください。",
-    "section2_1_title": "2.1. アカウント種別",
-    "section2_1_pf": "個人:名前、メール、CPF。",
-    "section2_1_pj": "エンティティ:会社、メール、CNPJ。",
-    "section2_2_title": "2.2. 情報",
-    "section2_2_content": "すべての情報は真実である必要があります。",
-    "section2_3_title": "2.3. セキュリティ",
-    "section2_3_content": "パスワードの責任は自分にあります。",
-    "section3_title": "3. 使用",
-    "section3_1_title": "3.1. HUB",
-    "section3_1_intro": "HUBは投稿を許可します。",
-    "section3_1_content": "コンテンツの権利を所有していることを宣言します。",
-    "section3_2_title": "3.2. ファイル",
-    "section3_2_intro": "ファイルを記録してください。",
-    "section3_2_warning": "法的効力はありません。",
-    "section3_3_title": "3.3. ツール",
-    "section3_3_content": "参考用のみ。",
-    "section4_title": "4. 行為",
-    "section4_intro": "攻撃的コンテンツは禁止。",
-    "section4_content": "不正アクセスは禁止。",
-    "section5_title": "5. 知的財産",
-    "section5_content": "すべてはR.U.M.Oのもの。",
-    "section6_title": "6. 責任",
-    "section6_intro": "政府手続きは責任外。",
-    "section6_content": "技術的故障は責任外。",
-    "section7_title": "7. 終了",
-    "section7_content": "いつでも削除をリクエスト。",
-    "section8_title": "8. 変更",
-    "section8_content": "継続的な変更を受け入れます。",
-    "section9_title": "9. 連絡",
-    "section9_content": "フォームで連絡してください。"
+    "no_posts": "まだ投稿がありません。"
   }
 }
+  "cadastro": {
+    "pf": "個人",
+    "pj": "法人",
+    "pf_submit": "登録",
+    "pj_submit": "企業を登録",
+    "overlay_title": "まだアカウントをお持ちではありませんか？",
+    "overlay_login_text": "ログインしてプラットフォームにアクセス",
+    "overlay_register_text": "登録して、私たちと一緒に旅を始めましょう",
+    "sign_up_button": "登録"
+  },
+  "login": {
+    "submit": "ログイン",
+    "forgot_question": "パスワードを忘れましたか？",
+    "recover": "パスワードを復旧",
+    "overlay_title": "すでにアカウントをお持ちですか？",
+    "sign_in_button": "ログイン"
+  },
+  "perfil": {
+    "title": "マイプロフィール",
+    "edit_profile": "プロフィール編集",
+    "saved_posts": "保存した投稿",
+    "about_me": "自己紹介",
+    "bio_placeholder": "プロフィールを編集してバイオを追加してください。",
+    "my_posts": "自分の投稿",
+    "no_posts": "まだ投稿がありません。"
+  },
+  "forum": {
+    "title": "R.U.M.O - コミュニティ",
+    "search_placeholder": "検索...",
+    "new_post": "+ 新規投稿",
+    "filter": {
+      "title": "投稿をフィルター",
+      "all": "すべて",
+      "news": "ニュース",
+      "ong": "NGO",
+      "government": "政府機関",
+      "employment": "求人・仕事",
+      "learning": "学習"
+    },
+    "post": {
+      "read_more": "続きを読む",
+      "comments": "コメント",
+      "share": "共有",
+      "save": "保存",
+      "saved": "保存済み",
+      "delete": "削除",
+      "edit": "編集"
+    },
+    "empty": "まだ投稿がありません。"
+  },
+  "new_post": {
+    "title": "新規投稿",
+    "label_title": "タイトル",
+    "label_category": "カテゴリ",
+    "label_content": "内容",
+    "placeholder_title": "投稿のタイトルを入力",
+    "placeholder_content": "投稿内容を入力…",
+    "button_publish": "公開",
+    "button_cancel": "キャンセル"
+  },
+  "messages": {
+    "title": "メッセージ",
+    "search_placeholder": "ユーザーを検索...",
+    "empty": "まだメッセージがありません。",
+    "send": "送信",
+    "placeholder_message": "メッセージを入力..."
+  },
+  "saved": {
+    "title": "保存した投稿",
+    "empty": "まだ保存した投稿がありません。"
+  },
+  "edit_profile": {
+    "title": "プロフィール編集",
+    "name_label": "氏名",
+    "bio_label": "自己紹介",
+    "email_label": "メール",
+    "save_button": "保存",
+    "cancel_button": "キャンセル"
+  },

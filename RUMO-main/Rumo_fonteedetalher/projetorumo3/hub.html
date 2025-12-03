@@ -76,9 +76,11 @@
                 </div>
 
                 <div class="filter-container">
-                    <button class="filter-btn" id="filter-btn-icon" title="Filtrar posts" data-i18n="hub.filter.title">
+                    <button class="filter-btn" id="filter-btn-icon" title="Filtrar posts">
                         <i class="fas fa-filter"></i>
+                        <span data-i18n="hub.filter.title" style="display: none;">Filtrar posts</span>
                     </button>
+
                     <div class="filter-dropdown" id="filter-options">
                         <a href="#" class="filter-option" data-filter="all" data-i18n="hub.filter.all">Todos</a>
                         <a href="#" class="filter-option" data-filter="noticia" data-i18n="hub.filter.news">Notícia</a>
@@ -119,7 +121,6 @@
                 <form>
                     <input type="email" name="email" placeholder="Seu e-mail@exemplo.com" data-i18n="footer.contact.email_placeholder" required>
 
-                    <!-- Novo container para o input com o botão dentro -->
                     <div class="input-with-button">
                         <input type="text" name="assunto" placeholder="Sobre o que quer falar?" data-i18n="footer.contact.subject_placeholder" required>
                         <button type="submit" aria-label="Enviar"><i class="fas fa-paper-plane"></i></button>

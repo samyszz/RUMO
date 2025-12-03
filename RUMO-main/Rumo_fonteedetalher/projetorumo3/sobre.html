@@ -8,7 +8,7 @@
     <title data-i18n="sobre.title">R.U.M.O - Sobre nós</title>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/sobre.css">
-     <link rel="icon" type="image/png" href="logo.png">
+    <link rel="icon" type="image/png" href="logo.png">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -17,101 +17,103 @@
     <div id="loading-screen">
         <img src="Design sem nome.gif" alt="Carregando...">
     </div>
-<header id="main-header">
-    <div class="container">
-        <a href="index.html"><img src="logo.png" alt="Logo R.U.M.O" class="logo"></a>
-<nav id="main-nav">
-    
-    <ul>
-        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
-        <li><a href="hub.html" data-i18n="nav.hub">HUB</a></li>
-        <li><a href="utilitarios.html" data-i18n="nav.tools">Utilidades</a></li>
-        <li><a href="sobre.html" data-i18n="nav.about">Sobre nós</a></li>
-        <li id="nav-profile-item" style="display: none;"><a href="perfil.html" class="create-account-btn" data-i18n="nav.profile">Meu Perfil</a></li>
-        <li id="nav-login-item"><a href="auth.html" class="create-account-btn" data-i18n="nav.create_account">Criar conta</a></li>
-    </ul>
-</nav>
 
-        <div class="header-right-icons">
-            <button id="accessibility-btn" class="accessibility-btn" aria-label="Abrir menu de acessibilidade">
-                <i class="fas fa-universal-access"></i>
-            </button>
-            <div class="header-lang-container" id="header-lang-container">
-                <button id="lang-dropdown-btn" class="lang-dropdown-btn" aria-label="Alterar idioma">
-                    <i class="fas fa-language"></i>
+    <header id="main-header">
+        <div class="container">
+            <a href="index.html"><img src="logo.png" alt="Logo R.U.M.O" class="logo"></a>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+                    <li><a href="hub.html" data-i18n="nav.hub">HUB</a></li>
+                    <li><a href="utilitarios.html" data-i18n="nav.tools">Utilidades</a></li>
+                    <li><a href="sobre.html" data-i18n="nav.about">Sobre nós</a></li>
+                    <li id="nav-profile-item" style="display: none;"><a href="perfil.html" class="create-account-btn" data-i18n="nav.profile">Meu Perfil</a></li>
+                    <li id="nav-login-item"><a href="auth.html" class="create-account-btn" data-i18n="nav.create_account">Criar conta</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-right-icons">
+                <button id="accessibility-btn" class="accessibility-btn" aria-label="Abrir menu de acessibilidade">
+                    <i class="fas fa-universal-access"></i>
                 </button>
-                <div id="lang-dropdown-content" class="lang-dropdown-content" style="display: none;">
-                    <p data-i18n="header.lang.current">Idioma atual: <strong data-i18n="header.lang.pt_br">Português (Brasil)</strong></p>
-                    <form>
-                        <label for="language-select-header" data-i18n="header.lang.select">Selecione o idioma de sua preferência:</label>
-                        <select id="language-select-header"></select>
-                    </form>
+                <div class="header-lang-container" id="header-lang-container">
+                    <button id="lang-dropdown-btn" class="lang-dropdown-btn" aria-label="Alterar idioma">
+                        <i class="fas fa-language"></i>
+                    </button>
+                    <div id="lang-dropdown-content" class="lang-dropdown-content" style="display: none;">
+                        <p data-i18n="header.lang.current">Idioma atual: <strong data-i18n="header.lang.pt_br">Português (Brasil)</strong></p>
+                        <form>
+                            <label for="language-select-header" data-i18n="header.lang.select">Selecione o idioma de sua preferência:</label>
+                            <select id="language-select-header"></select>
+                        </form>
+                    </div>
                 </div>
+                <button id="theme-toggle-btn-desktop" class="theme-toggle-btn" aria-label="Alternar tema">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+                <a href="perfil.html" id="profile-bubble" class="profile-bubble" style="display: none;">
+                    <img src="assets/imagens/avatar-padrao.png" alt="Foto de Perfil" id="profile-bubble-img">
+                </a>
             </div>
-            <button id="theme-toggle-btn-desktop" class="theme-toggle-btn" aria-label="Alternar tema">
-                <i class="fas fa-moon"></i>
-                <i class="fas fa-sun"></i>
+
+            <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu" aria-controls="main-nav" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
-            <a href="perfil.html" id="profile-bubble" class="profile-bubble" style="display: none;">
-                <img src="assets/imagens/avatar-padrao.png" alt="Foto de Perfil" id="profile-bubble-img">
-            </a>
         </div>
+    </header>
 
-        <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu" aria-controls="main-nav" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</header>
-     <section id="quem-somos" class="intro-section">
-            <div class="intro-content">
-                <div class="intro-text-content">
-                    <h1 id="slogan" class="slogan" data-i18n="sobre.slogan">R.U.M.O</h1>
-                    <p data-i18n="sobre.intro_text">A R.U.M.O (Rede Unificada de Mobilidade e Orientação) foi criada com o objetivo de oferecer suporte completo a imigrantes que chegam ao Brasil, facilitando sua adaptação e integração à sociedade.
-Nossa missão é ajudar na regularização de documentos, garantir a compreensão das leis brasileiras, e abrir oportunidades de trabalho e capacitação profissional, para que possam construir um novo futuro no país.
+    <section id="quem-somos" class="intro-section">
+        <div class="intro-content">
+            <div class="intro-text-content">
+                <h1 id="slogan" class="slogan" data-i18n="sobre.slogan">R.U.M.O</h1>
+                <p data-i18n="sobre.intro_text">A R.U.M.O (Rede Unificada de Mobilidade e Orientação) foi criada com o objetivo de oferecer suporte completo a imigrantes que chegam ao Brasil, facilitando sua adaptação e integração à sociedade.
+                    Nossa missão é ajudar na regularização de documentos, garantir a compreensão das leis brasileiras, e abrir oportunidades de trabalho e capacitação profissional, para que possam construir um novo futuro no país.
 
-A plataforma também oferece informações sobre direitos, como assistência jurídica, saúde e outros recursos essenciais. Além disso, contamos com localizadores, conversores e notícias atualizadas para manter os imigrantes bem-informados sobre tudo o que precisam para viver com segurança e dignidade no Brasil.
+                    A plataforma também oferece informações sobre direitos, como assistência jurídica, saúde e outros recursos essenciais. Além disso, contamos com localizadores, conversores e notícias atualizadas para manter os imigrantes bem-informados sobre tudo o que precisam para viver com segurança e dignidade no Brasil.
 
-Acreditamos que a integração segura e informada é fundamental para a construção de uma sociedade mais inclusiva, onde todos possam participar ativamente e ter acesso às oportunidades que merecem.</p>
-                    
-                </div>
+                    Acreditamos que a integração segura e informada é fundamental para a construção de uma sociedade mais inclusiva, onde todos possam participar ativamente e ter acesso às oportunidades que merecem.</p>
             </div>
-        </section>
-
+        </div>
+    </section>
 
     <section id="equipe">
-            <h2 class="section-title fade-in-element" data-i18n="sobre.team_title">Nossa Equipe</h2>
+        <h2 class="section-title fade-in-element" data-i18n="sobre.team_title">Nossa Equipe</h2>
 
-            <div class="team-cards">
-                <div class="team-cardi fade-in-element">
-                    <div class="team-img"><img src="membros/samyra.jpeg" alt="Samyra"></div>
-                    <h4 data-i18n="sobre.team.samyra.name">Samyra Alves</h4>
-                    <p data-i18n="sobre.team.samyra">Analista de Sistemas<br>Desenvolvedora Full Stack</p>
-                </div>
-                <div class="team-card fade-in-element">
-                    <div class="team-img"><img src="membros/michelly.jpg" alt="Michelly"></div>
-                    <h4 data-i18n="sobre.team.michelly.name">Michelly Moreira</h4>
-                    <p data-i18n="sobre.team.michelly">Web Designer<br>Desenvolvedora Full Stack </p>
-                </div>
-                <div class="team-card fade-in-element">
-                    <div class="team-img"><img src="membros/lucas.jpeg" alt="Lucas"></div>
-                    <h4 data-i18n="sobre.team.lucas.name">Lucas Spadottti</h4>
-                    <p data-i18n="sobre.team.lucas">Web Designer<br>Desenvolvedor Front-end</p>
-                </div>
-                <div class="team-cardi fade-in-element">
-                    <div class="team-img"><img src="membros/kaua.jpeg" alt="Kauã"></div>
-                    <h4 data-i18n="sobre.team.kaua.name">Kauã Andrade</h4>
-                    <p data-i18n="sobre.team.kaua">Analista de Sistemas<br>Desenvolvedor Back-end</p>
-                </div>
+        <div class="team-cards">
+            <div class="team-card fade-in-element">
+                <div class="team-img"><img src="membros/samyra.jpeg" alt="Samyra"></div>
+                <h4 data-i18n="sobre.team.samyra.name">Samyra Alves</h4>
+                <p data-i18n="sobre.team.samyra.role">Analista de Sistemas<br>Desenvolvedora Full Stack</p>
             </div>
-        </section>
 
+            <div class="team-card fade-in-element">
+                <div class="team-img"><img src="membros/michelly.jpg" alt="Michelly"></div>
+                <h4 data-i18n="sobre.team.michelly.name">Michelly Moreira</h4>
+                <p data-i18n="sobre.team.michelly.role">Web Designer<br>Desenvolvedora Full Stack</p>
+            </div>
 
-         <img src="ondacima.png" class="ondacima" id="onda-cima">
+            <div class="team-card fade-in-element">
+                <div class="team-img"><img src="membros/lucas.jpeg" alt="Lucas"></div>
+                <h4 data-i18n="sobre.team.lucas.name">Lucas Spadotti</h4>
+                <p data-i18n="sobre.team.lucas.role">Web Designer<br>Desenvolvedor Front-end</p>
+            </div>
+
+            <div class="team-card fade-in-element">
+                <div class="team-img"><img src="membros/kaua.jpeg" alt="Kauã"></div>
+                <h4 data-i18n="sobre.team.kaua.name">Kauã Andrade</h4>
+                <p data-i18n="sobre.team.kaua.role">Analista de Sistemas<br>Desenvolvedor Back-end</p>
+            </div>
+        </div>
+    </section>
+
+    <img src="ondacima.png" class="ondacima" id="onda-cima" alt="">
     <footer class="ondinha">
-        <img src="ondabaixo.png" class="ondabaixo" id="onda-baixo">
+        <img src="ondabaixo.png" class="ondabaixo" id="onda-baixo" alt="">
     </footer>
+    
     <footer>
         <div class="footer-container">
             <img src="logo.png" alt="Logo R.U.M.O no rodapé" class="footer-logo">
@@ -137,29 +139,30 @@ Acreditamos que a integração segura e informada é fundamental para a constru�
             </div>
         </div>
     </footer>
+
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
     <script src="js/firebase-config.js"></script>
-<script src="js/i18n.js"></script>
+    <script src="js/i18n.js"></script>
 
     <script src="js/main-menu.js"></script>
     <script src="js/auth-state.js"></script>
     <script src="js/dark-mode.js"></script>
     <script src="js/loader.js"></script>
 
-
     <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-        <div class="vw-plugin-top-wrapper"></div>
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
     </div>
-</div>
-<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-<script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-</script>
-<script src="js/map-widget.js"></script>
-<script src="https://cdn.userway.org/widget.js" data-account="UIgNDRCaqf"></script>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="js/map-widget.js"></script>
+    <script src="https://cdn.userway.org/widget.js" data-account="UIgNDRCaqf"></script>
 </body>
+
 </html>

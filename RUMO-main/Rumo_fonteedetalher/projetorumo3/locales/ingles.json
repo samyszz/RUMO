@@ -1,183 +1,195 @@
 {
   "nav": {
     "home": "Home",
-    "hub": "HUB",
-    "tools": "Utilities",
+    "hub": "Hub",
+    "tools": "Tools",
     "about": "About us",
-    "profile": "My Profile",
-    "create_account": "Create account"
+    "profile": "My profile",
+    "create_account": "Create an account"
   },
   "header": {
     "lang": {
       "current": "Current language",
-      "pt_br": "Portuguese (Brazil)",
-      "select": "Select your language"
+      "pt_br": "Brazilian Portuguese",
+      "select": "Choose your preferred language"
     }
   },
   "footer": {
-    "social": { "title": "Social Networks" },
+    "social": { "title": "Social networks" },
     "contact": {
-      "title": "Contact us",
+      "title": "Shall we talk?",
       "email_placeholder": "your.email@example.com",
-      "subject_placeholder": "Subject"
+      "subject_placeholder": "What would you like to talk about?"
     }
   },
   "index": {
     "title": "R.U.M.O - Home",
     "card": {
       "documents": "Documents",
-      "tools": "Utilities",
-      "bravo": "Bravo Project",
-      "hub": "HUB"
+      "tools": "Tools",
+      "bravo": "Project Bravo",
+      "hub": "Hub"
     },
     "tutorial": {
-      "question": "Don't know where to start?",
-      "click": "Click here",
-      "button": "Tutorial",
-      "question_mobile": "Don't know where to start?"
+      "question": "Don’t know where to start?",
+      "click": "Click this button:",
+      "button": "Tools guide",
+      "question_mobile": "Don’t know where to start?"
     }
   },
   "hub": {
     "title": "R.U.M.O - Hub",
     "search_placeholder": "Search...",
-    "new_post": "+ New Post",
+    "new_post": "+ New post",
     "filter": {
-      "title": "Filter posts",
+      "title": "Filter information",
       "all": "All",
       "news": "News",
-      "ong": "NGO",
+      "ong": "Social organization",
       "government": "Government",
-      "employment": "Jobs & Employment",
+      "employment": "Jobs & work",
       "learning": "Learning"
     }
   },
   "form": {
-    "register": "Register",
-    "login": "Login",
-    "social_register": "Or register with email",
-    "social_login": "Or login with account",
-    "name_placeholder": "Full Name",
-    "cpf_placeholder": "CPF (Tax ID)",
+    "register": "Create account",
+    "login": "Log in",
+    "social_register": "Or sign up with your email",
+    "social_login": "Or enter your account",
+    "name_placeholder": "Full name",
+    "cpf_placeholder": "CPF (000.000.000-00)",
     "email_placeholder": "Email",
     "password_placeholder": "Password",
-    "confirm_password_placeholder": "Confirm Password",
-    "company_placeholder": "Company/NGO Name",
-    "cnpj_placeholder": "CNPJ (Company Tax ID)",
-    "email_commercial_placeholder": "Business Email",
+    "confirm_password_placeholder": "Confirm password",
+    "company_placeholder": "Company/organization name",
+    "cnpj_placeholder": "CNPJ (00.000.000/0000-00)",
+    "email_commercial_placeholder": "Professional email",
     "error_cpf": "Invalid CPF",
     "error_email": "Invalid email",
     "error_cnpj": "Invalid CNPJ",
     "error_password_mismatch": "Passwords do not match",
-    "terms_prefix": "I have read and accept the "
-    ,"strength_very_weak": "Very Weak (Add uppercase/numbers)"
+    "terms_prefix": "I accept the terms:",
+    "strength_very_weak": "Very weak (add uppercase letters or numbers)"
   },
   "cadastro": {
     "pf": "Individual",
-    "pj": "Legal Entity",
+    "pj": "Company",
     "pf_submit": "Register",
-    "pj_submit": "Register Company",
-    "overlay_title": "Don't have an account?",
-    "overlay_login_text": "Log in to access the platform",
-    "overlay_register_text": "Register to start your journey with us",
-    "sign_up_button": "Sign Up"
+    "pj_submit": "Register company",
+    "overlay_title": "Already have an account?",
+    "overlay_login_text": "Log in to use the platform",
+    "overlay_register_text": "Register to get started",
+    "sign_up_button": "Create account"
   },
   "login": {
-    "submit": "Enter",
-    "forgot_question": "Forgot password?",
+    "submit": "Log in",
+    "forgot_question": "Forgot your password?",
     "recover": "Recover password",
-    "overlay_title": "Already have an account?"
-    ,"sign_in_button": "Login"
+    "overlay_title": "Don’t have an account yet?",
+    "sign_in_button": "Log in"
   },
   "perfil": {
-    "title": "My Profile",
-    "edit_profile": "Edit Profile",
-    "saved_posts": "Saved Posts",
-    "about_me": "About Me",
-    "bio_placeholder": "Edit your profile to add a bio.",
-    "my_posts": "My Posts",
-    "no_posts": "You haven't posted anything yet."
+    "title": "My profile",
+    "edit_profile": "Edit my profile",
+    "saved_posts": "Saved posts",
+    "about_me": "About me",
+    "bio_placeholder": "Update your profile information.",
+    "my_posts": "My posts",
+    "no_posts": "You haven't created any posts yet."
   },
   "editar_perfil": {
     "title": "Settings",
-    "h1": "Edit Profile",
-    "subtitle": "Keep your information up to date.",
-    "change_photo": "Change Photo",
+    "h1": "Edit my profile",
+    "subtitle": "Manage your information.",
+    "change_photo": "Change photo",
     "username_label": "Username",
-    "username_placeholder": "Your username",
-    "bio_label": "Bio",
-    "bio_placeholder": "Tell us a bit about yourself...",
-    "objectives_label": "Goals on the platform",
-    "objectives_placeholder": "What are you looking for in R.U.M.O?",
-    "contact_label": "Contact (Email/Phone)",
-    "contact_placeholder": "Your public contact",
-    "save": "Save Changes",
-    "delete_account": "Logout or delete account"
+    "username_placeholder": "Username",
+    "bio_label": "About me",
+    "bio_placeholder": "Write something about yourself...",
+    "objectives_label": "Your goal on the platform",
+    "objectives_placeholder": "What are you looking for on R.U.M.O?",
+    "contact_label": "Contact (email/phone)",
+    "contact_placeholder": "Public contact",
+    "save": "Save changes",
+    "delete_account": "Log out or delete account"
   },
   "novo_post": {
-    "title": "New Post",
-    "h1": "Create new post",
+    "title": "New post",
+    "h1": "Create a new post",
     "subtitle": "Share information with the community.",
-    "title_label": "Post Title",
-    "title_placeholder": "Ex: Job openings for refugees...",
+    "title_label": "Post title",
+    "title_placeholder": "Example: Job for refugees...",
     "content_label": "Content",
-    "image_label": "Cover Image URL",
+    "image_label": "Image URL",
     "image_placeholder": "https://...",
     "category_label": "Category",
-    "source_label": "Source Link (Optional)",
+    "source_label": "Official source (optional)",
     "source_placeholder": "https://...",
     "publish": "Publish"
   },
   "perfil_usuario": {
-    "title": "User Profile",
-    "bio": "Bio",
+    "title": "User profile",
+    "bio": "About",
     "posts": "Posts"
   },
   "post_salvo": {
     "title": "Saved",
     "back_to_profile": "Back to profile",
-    "title_main": "Your Saved Posts"
+    "title_main": "Saved posts"
   },
   "sair_excluir": {
-    "title": "Manage Account",
-    "h2": "Access and Security",
+    "title": "Account management",
+    "h2": "Login & security",
     "description": "Choose one of the options below.",
-    "logout_title": "Logout",
-    "logout_desc": "You will be disconnected from this device.",
+    "logout_title": "Log out",
+    "logout_desc": "You will log out from this device.",
     "delete_title": "Delete account",
-    "delete_desc": "Warning: All your data will be permanently deleted."
+    "delete_desc": "Warning! All your data will be deleted permanently."
   },
   "modal": {
-    "choose_lang": "Select Language"
+    "choose_lang": "Choose a language"
   },
   "sobre": {
     "title": "About R.U.M.O",
-    "slogan": "Unified Mobility and Orientation Network",
-    "intro_text": "R.U.M.O was created with the goal of offering comprehensive support to immigrants arriving in Brazil, facilitating their adaptation and integration into society. Our mission is to help with document regularization, ensure understanding of Brazilian laws, and open opportunities for work and professional training. The platform also offers information on rights, legal assistance, health, and other essential resources. We provide locators, converters, and updated news to keep immigrants well-informed.",
-    "team_title": "Our Team",
+    "slogan": "Unified Network of Mobility and Orientation",
+    "intro_text": "R.U.M.O supports immigrants arriving in Brazil and needing access to reliable information, documents, jobs, rights and other essential assistance.",
+    "team_title": "Our team",
     "team": {
-        "samyra": { "name": "Samyra Alves", "role": "Systems Analyst<br>Full Stack Developer" },
-        "michelly": { "name": "Michelly Moreira", "role": "Web Designer<br>Full Stack Developer" },
-        "lucas": { "name": "Lucas Spadottti", "role": "Web Designer<br>Front-end Developer" },
-        "kaua": { "name": "Kauã Andrade", "role": "Systems Analyst<br>Back-end Developer" }
+      "samyra": {
+        "name": "Samyra Alves",
+        "role": "Systems analyst<br>Full Stack Developer"
+      },
+      "michelly": {
+        "name": "Michelly Moreira",
+        "role": "Web designer<br>Full Stack Developer"
+      },
+      "lucas": {
+        "name": "Lucas Spadoto",
+        "role": "Web designer<br>Front-End Developer"
+      },
+      "kaua": {
+        "name": "Kauã Andrade",
+        "role": "Systems analyst<br>Back-End Developer"
+      }
     }
   },
   "tutorial": {
-    "title": "Tutorial — R.U.M.O",
+    "title": "Tools guide — R.U.M.O",
     "hero_greeting": "Hello, ",
-    "hero_text": "Come learn how to use our platform!",
+    "hero_text": "Learn how to use our platform!",
     "previous_button": "Previous",
     "next_button": "Next",
     "faq_title": "Frequently asked questions:",
-    "faq_contact_q": "I would like to contact other immigrants, does the platform provide that?",
-    "faq_contact_a": "Yes — there is a community area for messaging and thematic groups.",
-    "faq_partnership_q": "I am a Company and would like to make contact for a partnership, how can I do it?",
-    "faq_partnership_a": "Use the contact form in the footer or the HUB partnerships area.",
-    "faq_suggestion_q": "I would like to suggest features from my perspective as an immigrant, how can I do it?",
-    "faq_suggestion_a": "In the community there is a suggestions section. You can also send it by email."
+    "faq_contact_q": "Can I talk to other immigrants?",
+    "faq_contact_a": "Yes — there is a community and group section.",
+    "faq_partnership_q": "I represent a company. How can I request a partnership?",
+    "faq_partnership_a": "Use the form available on the side menu or the Hub partnership area.",
+    "faq_suggestion_q": "I'm an immigrant and want to suggest a new feature.",
+    "faq_suggestion_a": "There's a suggestions section in the community. You can also send an email."
   },
   "utilitarios": {
-    "title": "Utilities",
-    "title_main": "How can we help you?",
+    "title": "Tools",
+    "title_main": "Which tool do you want?",
     "location": {
       "title": "Location",
       "search_placeholder": "Search address...",
@@ -186,7 +198,7 @@
       "address_loading": "Loading..."
     },
     "currency": {
-      "title": "Currency Converter",
+      "title": "Currency converter",
       "from": "From",
       "usd": "US Dollar (USD)",
       "eur": "Euro (EUR)",
@@ -198,8 +210,8 @@
       "result_label": "Result"
     },
     "measure": {
-      "title": "Unit Converter",
-      "unit_type_label": "Unit Type",
+      "title": "Unit converter",
+      "unit_type_label": "Unit type",
       "length": "Length",
       "weight": "Weight",
       "temperature": "Temperature",
@@ -210,99 +222,99 @@
       "result_label": "Result"
     },
     "docs": {
-      "title": "Document Vault",
-      "add_new": "Add New Document",
-      "type_label": "Document Type",
-      "type_placeholder": "Ex: Passport, Visa, ID",
-      "issue_date_label": "Issue Date",
-      "expiry_date_label": "Expiry Date",
+      "title": "Document vault",
+      "add_new": "Add new document",
+      "type_label": "Document type",
+      "type_placeholder": "Ex.: Passport, Visa, CPF",
+      "issue_date_label": "Issue date",
+      "expiry_date_label": "Expiration date",
       "add": "Add",
-      "your_docs": "Your Documents"
+      "your_docs": "My documents"
     },
     "lang": {
       "title": "Language",
-      "current_platform": "Current platform language"
+      "current_platform": "Platform language"
     }
   },
   "dashboard": {
     "title": "R.U.M.O - Dashboard",
-    "access_denied": "Access denied — dashboard exclusive to legal entities (PJ).",
-    "control_panel": "Control Panel",
+    "access_denied": "Access denied — this dashboard is for companies (PJ).",
+    "control_panel": "Control panel",
     "tabs": {
       "profile": "Profile",
       "publications": "Publications"
     },
     "metrics": {
-      "reach_label": "Profile reach in the last:",
+      "reach_label": "Last reach:",
       "days_30": "30 days",
       "days_7": "7 days",
       "days_90": "90 days",
       "profile_visits": "Profile visits:",
       "followers": "Followers",
       "others": "Others",
-      "nationalities": "Main Nationalities (Users):",
+      "nationalities": "Most common nationalities on the platform:",
       "loading_data": "Loading data...",
-      "estimate": "(Estimate)",
+      "estimate": "(estimate)",
       "total": "Total",
-      "new_30d": "New (30d)",
-      "left": "Unfollowed",
-      "age_range": "Predominant age group"
+      "new_30d": "New (30 days)",
+      "left": "Arrived",
+      "age_range": "Most viewed age ranges"
     },
     "publications": {
       "keywords_title": "Most used keywords:",
-      "kw_refugees": "Refugees",
-      "kw_employment": "Jobs",
-      "kw_visas": "Visas",
+      "kw_refugees": "Refugee",
+      "kw_employment": "Employment",
+      "kw_visas": "Visa",
       "kw_shelter": "Shelter",
       "periods_reach": "Periods with highest reach:",
-      "interactions_label": "Interactions in the last:",
+      "interactions_label": "Highest interactions:",
       "likes": "Likes",
       "saved": "Saved",
       "comments": "Comments",
       "shares": "Shares",
       "clicks": "External clicks",
-      "top_engagement": "Posts with highest engagement:",
-      "loading_posts": "Loading your posts..."
+      "top_engagement": "Top engagement posts:",
+      "loading_posts": "Loading posts..."
     }
   },
   "termos": {
-    "title": "Terms and Conditions of Use",
+    "title": "Terms of use",
     "update_date": "Last updated:",
-    "welcome": "Welcome to R.U.M.O - Unified Mobility and Orientation Network.",
-    "intro": "These Terms and Conditions of Use (\"Terms\") govern the access and use of the R.U.M.O platform (\"Platform\"), accessible via web and mobile devices. By creating an account or using our services, the user (\"You\", \"User\") agrees to comply with these Terms. If you do not agree with any part of these terms, you should not use the Platform.",
-    "section1_title": "1. About the Platform",
-    "section1_content": "R.U.M.O aims to offer comprehensive support to immigrants arriving in Brazil, facilitating their adaptation and integration. The Platform offers information services, utilities (such as converters and maps), and a support network for document regularization and employment opportunities.",
-    "section2_title": "2. Registration and User Account",
-    "section2_intro": "To access certain features, such as posting on the HUB or using the Document Vault, you must create an account.",
-    "section2_1_title": "2.1. Types of Accounts",
-    "section2_1_pf": "Individual: Requires the provision of full name, email, and valid CPF (Tax ID).",
-    "section2_1_pj": "Legal Entity (NGOs/Companies): Requires the provision of company name, business email, and valid CNPJ (Company Tax ID).",
-    "section2_2_title": "2.2. Accuracy of Information",
-    "section2_2_content": "You warrant that all information provided during registration is true, accurate, and current. The use of false or third-party documents may result in immediate account suspension and applicable legal action.",
-    "section2_3_title": "2.3. Account Security",
-    "section2_3_content": "You are responsible for maintaining the confidentiality of your password. R.U.M.O is not responsible for any loss or damage resulting from unauthorized access to your account.",
-    "section3_title": "3. Use of Features and Tools",
-    "section3_1_title": "3.1. HUB and Publications",
-    "section3_1_intro": "The HUB allows viewing and posting news, employment opportunities, and information from NGOs and Government.",
-    "section3_1_content": "User Content: When creating a \"New Post\", you declare that you own the rights to the content or have authorization to share it. Responsibility: R.U.M.O does not guarantee the accuracy of job offers or news posted by third parties. We recommend caution and source verification. Required Information: Publications from NGOs and Federal Bodies must include verifiable contact and location information.",
-    "section3_2_title": "3.2. Document Vault",
-    "section3_2_intro": "The \"Document Vault\" tool allows you to record issue and expiry dates of personal documents (e.g., Passport, Visa) for personal management.",
-    "section3_2_warning": "Important Notice: Data entered in the Vault is exclusively for personal deadline organization. These records do NOT replace original documents and do NOT have legal validity as official identification before authorities.",
-    "section3_3_title": "3.3. Utilities (Converters and Maps)",
-    "section3_3_content": "Currency conversion, measurement, and location tools are provided for informational purposes. R.U.M.O does not guarantee real-time accuracy of exchange rates or geolocation data and is not responsible for financial decisions made based on these tools.",
-    "section4_title": "4. User Conduct",
-    "section4_intro": "It is strictly prohibited to:",
-    "section4_content": "Post offensive, discriminatory, false, or third-party rights-violating content. Use the platform for illegal or fraudulent activities. Attempt to access restricted system areas or collect data from other users without consent.",
-    "section5_title": "5. Intellectual Property",
-    "section5_content": "All design, logos (including the R.U.M.O brand), institutional texts, and Platform source code are exclusive property of R.U.M.O developers or their licensors. Unauthorized use of these materials is prohibited.",
-    "section6_title": "6. Limitation of Liability",
-    "section6_intro": "R.U.M.O acts as a facilitator of information and connections. We are not responsible for:",
-    "section6_content": "Immigration legal processes or government decisions. The quality or safety of jobs posted by third parties. Technical failures in internet or user devices.",
-    "section7_title": "7. Account Termination",
-    "section7_content": "You may request account deletion at any time through the \"Manage Account\" page. Data deletion is not immediate, and you will be notified by email before final removal. R.U.M.O reserves the right to suspend accounts that violate these Terms.",
-    "section8_title": "8. Changes to Terms",
-    "section8_content": "R.U.M.O may change these Terms at any time to reflect changes in legislation or our tools. Continued use of the Platform after such changes constitutes your acceptance of the new Terms.",
+    "welcome": "Welcome to R.U.M.O — Unified Network of Mobility and Orientation.",
+    "intro": "These terms govern the use of our web and mobile platform.",
+    "section1_title": "1. About the platform",
+    "section1_content": "R.U.M.O supports immigrants living in Brazil.",
+    "section2_title": "2. Registration and account",
+    "section2_intro": "To post or use the document vault, you need an account.",
+    "section2_1_title": "2.1. Account types",
+    "section2_1_pf": "Individual: full name, email and CPF.",
+    "section2_1_pj": "Company: company name, professional email and CNPJ.",
+    "section2_2_title": "2.2. True information",
+    "section2_2_content": "All information must be accurate and up to date.",
+    "section2_3_title": "2.3. Security",
+    "section2_3_content": "Your password is your responsibility.",
+    "section3_title": "3. Using the platform",
+    "section3_1_title": "3.1. Hub and posts",
+    "section3_1_intro": "You can view and create information posts.",
+    "section3_1_content": "We are not responsible for external content.",
+    "section3_2_title": "3.2. Document vault",
+    "section3_2_intro": "You can store dates related to your documents.",
+    "section3_2_warning": "This personal data remains private.",
+    "section3_3_title": "3.3. Tools",
+    "section3_3_content": "Tools are for reference only.",
+    "section4_title": "4. Prohibited behavior",
+    "section4_intro": "The following is not allowed:",
+    "section4_content": "Offensive language, discrimination, fake news or any abusive behavior.",
+    "section5_title": "5. Copyright",
+    "section5_content": "All design elements and logos belong to us.",
+    "section6_title": "6. Limit of responsibility",
+    "section6_intro": "R.U.M.O is an intermediary platform:",
+    "section6_content": "We are not responsible for governmental or external services.",
+    "section7_title": "7. Delete account",
+    "section7_content": "You can delete your account at any time in settings.",
+    "section8_title": "8. Changes in terms",
+    "section8_content": "Terms may change at any time.",
     "section9_title": "9. Contact",
-    "section9_content": "For questions about these Terms, please contact us through the form available in the footer of our website."
+    "section9_content": "Use the form on our Contact page."
   }
 }

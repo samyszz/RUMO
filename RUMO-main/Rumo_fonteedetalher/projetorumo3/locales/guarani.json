@@ -1,282 +1,320 @@
 {
   "nav": {
-    "home": "Ñepyrũ",
-    "hub": "Mba'ekuaa Renda",
-    "tools": "Tembiporu",
-    "about": "Ore rehegua",
-    "profile": "Che Renda",
-    "create_account": "Emoheñói kuenta"
+    "home": "Óga guasu",
+    "hub": "Hub",
+    "tools": "Tembe’yrembi",
+    "about": "Mávapa ore",
+    "profile": "Che rérape",
+    "create_account": "Emoheñói peteĩ mba’ete"
   },
   "header": {
     "lang": {
-      "current": "Ñe'ẽ ko'ag̃agua",
-      "pt_br": "Português",
-      "select": "Eiporavo ñe'ẽ"
+      "current": "Ñe'ẽ ojepurúva ko’ág̃a",
+      "pt_br": "Poytuga Brasilpegua",
+      "select": "Eiporavo ne ñe'ẽ porãvéva"
     }
   },
   "footer": {
-    "social": { "title": "Redes Sociais" },
+    "social": { "title": "Redes sociales" },
     "contact": {
-      "title": "Ñe'ẽrã",
-      "email_placeholder": "Ne correo",
-      "subject_placeholder": "Mba'e rehegua"
+      "title": "¿Jañe’ẽpa?",
+      "email_placeholder": "nde.email@example.com",
+      "subject_placeholder": "¿Mba’e rehepa eñe’ẽse?"
     }
   },
   "index": {
-    "title": "RUMO - Red Unificada de Mobilidade e Orientação",
+    "title": "R.U.M.O - Ñepyrũ",
     "card": {
       "documents": "Kuatia",
-      "tools": "Tembiporu",
-      "bravo": "Iporãva",
-      "hub": "Mba'ekuaa"
+      "tools": "Tembe’yrembi",
+      "bravo": "Proyecto Bravo",
+      "hub": "Hub"
     },
     "tutorial": {
-      "question": "Mba'éichapa oiko?",
-      "click": "Eikutu ko'ápe",
-      "button": "Ñepyrũ",
-      "question_mobile": "Mba'éichapa oiko celulárpe?"
+      "question": "¿Neremomba’eporãi moõguipa eñepyrũ?",
+      "click": "Eikutu ko votõme:",
+      "button": "Guia rembipuru",
+      "question_mobile": "¿Neremomba’eporãi moõguipa eñepyrũ?"
     }
   },
   "hub": {
-    "title": "Mba'ekuaa Renda",
-    "search_placeholder": "Heka...",
-    "new_post": "Marandu pyahu",
+    "title": "R.U.M.O - Hub",
+    "search_placeholder": "Eheka...",
+    "new_post": "+ Post pyahu",
     "filter": {
-      "title": "Mbogua",
+      "title": "Eipe’a umi marandu",
       "all": "Opavave",
       "news": "Marandu",
-      "ong": "ONG",
-      "government": "Gobierno",
-      "employment": "Mba'apo",
-      "learning": "Ñemoarandu"
+      "ong": "Organización social",
+      "government": "Governo",
+      "employment": "Mba’apo ha tembiapo",
+      "learning": "Temimbo’e"
     }
   },
   "form": {
-    "register": "Ñemboheraguapy",
-    "login": "Jeike",
-    "social_register": "Eike ne redes sociales-pe",
-    "social_login": "Eike ne redes sociales-pe",
-    "name_placeholder": "Téra ha Térajoapy",
-    "cpf_placeholder": "CPF (Documento)",
-    "email_placeholder": "Correo electrónico",
-    "password_placeholder": "Contraseña (Ñe'ẽñemi)",
-    "confirm_password_placeholder": "Emboaje ne contraseña",
-    "company_placeholder": "Empresa réra",
-    "cnpj_placeholder": "CNPJ (Empresa documento)",
-    "email_commercial_placeholder": "Correo comercial"
+    "register": "Emoheñói mba’ete",
+    "login": "Eike",
+    "social_register": "Térã eike nde email rupive",
+    "social_login": "Térã eheja eike nde mba’etépe",
+    "name_placeholder": "Téra completo",
+    "cpf_placeholder": "CPF (000.000.000-00)",
+    "email_placeholder": "Korreo electrónico",
+    "password_placeholder": "Ñe’ẽñemi",
+    "confirm_password_placeholder": "Ehekopyahu ñanduti ñe’ẽñemi",
+    "company_placeholder": "Tetrã/empresa réra",
+    "cnpj_placeholder": "CNPJ (00.000.000/0000-00)",
+    "email_commercial_placeholder": "Correo profesional",
+    "error_cpf": "CPF ndoikói",
+    "error_email": "Correo ndoikói",
+    "error_cnpj": "CNPJ ndoikói",
+    "error_password_mismatch": "Ñe’ẽñemi ndojoguái",
+    "terms_prefix": "Añe’ẽme’ẽ:",
+    "strength_very_weak": "Hatã’ỹ (emoĩta mayúscula térã papapy)"
   },
   "cadastro": {
-    "pf": "Ava (Pessoa Física)",
-    "pj": "Mba'apoha (Empresa)",
-    "pf_submit": "Ñemboheraguapy",
-    "pj_submit": "Empresa ñemboheraguapy",
-    "overlay_title": "Emoheñói ne kuenta"
+    "pf": "Tapicha",
+    "pj": "Empresa",
+    "pf_submit": "Eñemboheraguapy",
+    "pj_submit": "Emonguatia empresa",
+    "overlay_title": "¿Nereguerekoichépa mba’ete?",
+    "overlay_login_text": "Eike eipuru hag̃ua plataforma",
+    "overlay_register_text": "Eñemboheraguapy eñepyrũ hag̃ua",
+    "sign_up_button": "Emoheñói mba’ete"
   },
   "login": {
     "submit": "Eike",
-    "forgot_question": "Nderesaráipa ne contraseña?",
-    "recover": "Gueru jey",
-    "overlay_title": "Tereg̃uahẽ porã jey"
+    "forgot_question": "¿Nderesaraipa ñemiguáre?",
+    "recover": "Erekupera ñe’ẽñemi",
+    "overlay_title": "¿Reguereko máramo mba’ete?",
+    "sign_in_button": "Eike"
   },
   "perfil": {
-    "title": "Che Renda",
-    "edit_profile": "Myatyrõ",
-    "saved_posts": "Oñeñongatúva",
+    "title": "Che rérape",
+    "edit_profile": "Emohenda che rérape",
+    "saved_posts": "Post ñongatupyre",
     "about_me": "Che rehegua",
-    "bio_placeholder": "Ne'ĩra ehai mba'eve...",
-    "my_posts": "Che marandu",
-    "no_posts": "Ndaipóri marandu"
+    "bio_placeholder": "Embohekopyahu ne perfil emoĩ hag̃ua marandu.",
+    "my_posts": "Che remimandu'a",
+    "no_posts": "Nandemoheñói gueteri post."
   },
   "editar_perfil": {
-    "title": "Ñemyatyrõ",
-    "h1": "Myatyrõ Perfil",
-    "subtitle": "Emoambue ne datos",
-    "change_photo": "Emoambue foto",
+    "title": "Configuración",
+    "h1": "Emohenda che rérape",
+    "subtitle": "Eñangareko ne marandu rehe.",
+    "change_photo": "Emoambue ta’ãnga",
     "username_label": "Téra usuario",
-    "username_placeholder": "Ne téra usuario",
-    "bio_label": "Bio",
-    "bio_placeholder": "Eñe'ẽ mimi nde rehe",
-    "objectives_label": "Meta",
-    "objectives_placeholder": "Mba'épa rejapose Brasil-pe",
-    "contact_label": "Contacto",
-    "contact_placeholder": "Teléfono térã WhatsApp",
-    "save": "Ñongatu",
-    "delete_account": "Mbogue kuenta"
+    "username_placeholder": "Usuario",
+    "bio_label": "Che rehegua",
+    "bio_placeholder": "Ehai ambue mba’e nde rehe...",
+    "objectives_label": "Nde remikotevẽ plataforma-pe",
+    "objectives_placeholder": "¿Mba’épa reheka R.U.M.O-pe?",
+    "contact_label": "Contacto (correo/teléfono)",
+    "contact_placeholder": "Contacto público",
+    "save": "Eñongatu moambuepyre",
+    "delete_account": "Esẽ térã emboguete mba’ete"
   },
   "novo_post": {
-    "title": "Marandu",
-    "h1": "Haimi marandu pyahu",
-    "subtitle": "Emboja'o lo mitã ndive",
-    "title_label": "Título",
-    "title_placeholder": "Marandu título",
-    "content_label": "He'iséva",
-    "image_label": "Ta'anga URL",
-    "image_placeholder": "http://...",
-    "category_label": "Categoría",
-    "source_label": "Ykua (Fuente)",
-    "source_placeholder": "Moõguipa osẽ",
-    "publish": "Moherakuã"
+    "title": "Post pyahu",
+    "h1": "Emoheñói post pyahu",
+    "subtitle": "Embohasa marandu comunidad-pe.",
+    "title_label": "Títulos del post",
+    "title_placeholder": "Ej.: Tembiapo refugiado-pe g̃uarã...",
+    "content_label": "Contenido",
+    "image_label": "URL ta’ãnga",
+    "image_placeholder": "https://...",
+    "category_label": "Tendápe",
+    "source_label": "Fuente oficial (opcional)",
+    "source_placeholder": "https://...",
+    "publish": "Emoherakuã"
   },
   "perfil_usuario": {
-    "title": "Usuario Renda",
-    "bio": "Bio",
-    "posts": "Marandu"
+    "title": "Perfil usuario rehegua",
+    "bio": "Che rehegua",
+    "posts": "Post"
   },
   "post_salvo": {
     "title": "Ñongatupyre",
-    "back_to_profile": "Eho jey perfil-pe",
-    "title_main": "Marandu oñeñongatúva"
+    "back_to_profile": "Eju jey perfil-pe",
+    "title_main": "Post ñongatupyre"
   },
   "sair_excluir": {
-    "title": "Sẽ térã Mbogue",
-    "h2": "Kuenta ñangareko",
-    "description": "Ehecha mba'épa rejapose",
-    "logout_title": "Sẽ",
-    "logout_desc": "Ejei ko dispositivo-gui",
-    "delete_title": "Mbogue kuenta",
-    "delete_desc": "Ehundiite ne datos"
+    "title": "Mba’ete ñangareko",
+    "h2": "Jeike ha seguridad",
+    "description": "Eiporavo peteĩva ko’ãva apytégui.",
+    "logout_title": "Esẽ",
+    "logout_desc": "Esẽta ko dispositivo-gui.",
+    "delete_title": "Emboguete mba’ete",
+    "delete_desc": "¡Jesareko! Opaite marandu oñemboguepaitéta."
   },
   "modal": {
-    "choose_lang": "Eiporavo ne ñe'ẽ"
+    "choose_lang": "Eiporavo ñe'ẽ"
   },
   "sobre": {
-    "title": "RUMO rehegua",
-    "slogan": "Red Unificada de Mobilidade e Orientação",
-    "intro_text": "R.U.M.O (Red Unificada de Movilidad y Orientación) se creó con el objetivo de ofrecer apoyo integral a los inmigrantes que llegan a Brasil, facilitando su adaptación e integración social.\n\nNuestra misión es facilitar la regularización de documentos, asegurar la comprensión de las leyes brasileñas y abrir oportunidades de trabajo y formación profesional para que puedan construir un nuevo futuro en el país.\n\nLa plataforma también ofrece información sobre derechos, como asistencia jurídica, salud y otros recursos esenciales. Además, contamos con localizadores, convertidores y noticias actualizadas para mantener a los inmigrantes bien informados sobre todo lo que necesitan para vivir con seguridad y dignidad en Brasil.\n\nCreemos que una integración segura e informada es fundamental para construir una sociedad más inclusiva, donde todos puedan participar activamente y tener acceso a las oportunidades que merecen.",
-    "team_title": "Ore equipo",
+    "title": "R.U.M.O rehegua",
+    "slogan": "Red Unificada de Movilidad y Orientación",
+    "intro_text": "R.U.M.O ombopytyvõ umi inmigrante oúvape Brasil-pe ha oikotevẽva marandu hekorosã, kuatia, tembiapo, derecho ha ambueve ñangareko.",
+    "team_title": "Ore atyguasu",
     "team": {
-        "samyra": { "name": "Samyra", "role": "Apohára (Dev)" },
-        "michelly": { "name": "Michelly", "role": "Apohára (Dev)" },
-        "lucas": { "name": "Lucas", "role": "Apohára (Dev)" },
-        "kaua": { "name": "Kauã", "role": "Apohára (Dev)" }
+      "samyra": {
+        "name": "Samyra Alves",
+        "role": "Analista de sistemas<br>Desarrolladora Full Stack"
+      },
+      "michelly": {
+        "name": "Michelly Moreira",
+        "role": "Diseñadora web<br>Desarrolladora Full Stack"
+      },
+      "lucas": {
+        "name": "Lucas Spadoto",
+        "role": "Diseñador web<br>Desarrollador Front-End"
+      },
+      "kaua": {
+        "name": "Kauã Andrade",
+        "role": "Analista de sistemas<br>Desarrollador Back-End"
+      }
     }
   },
   "tutorial": {
-    "title": "Enseñanza — R.U.M.O",
-    "hero_greeting": "Hola, ",
-    "hero_text": "¡Ven a aprender cómo usar nuestra plataforma!",
-    "previous_button": "Anterior",
-    "next_button": "Próximo",
-    "faq_title": "Preguntas frecuentes:",
-    "faq_contact_q": "Me gustaría contactar a otros inmigrantes, ¿la plataforma lo proporciona?",
-    "faq_contact_a": "Sí — hay un área de comunidad para mensajería y grupos temáticos.",
-    "faq_partnership_q": "Soy una Empresa y me gustaría hacer contacto para una asociación, ¿cómo puedo hacerlo?",
-    "faq_partnership_a": "Use el formulario de contacto en el pie de página o el área de asociaciones de HUB.",
-    "faq_suggestion_q": "Me gustaría sugerir características desde mi perspectiva como inmigrante, ¿cómo puedo hacerlo?",
-    "faq_suggestion_a": "En la comunidad hay una sección de sugerencias. También puede enviarlo por correo electrónico."
+    "title": "Guia rembipuru — R.U.M.O",
+    "hero_greeting": "Mba’éichapa, ",
+    "hero_text": "Eikuaave mba’éichapa eipuru ore plataforma!",
+    "previous_button": "Mboyvegua",
+    "next_button": "Upeigua",
+    "faq_title": "Porandu hetaiguáva:",
+    "faq_contact_q": "¿Aikatu añe’ẽ ambue inmigrante ndive?",
+    "faq_contact_a": "Héẽ — oĩ comunidad oñomongeta ha grupo rehegua.",
+    "faq_partnership_q": "Che empresa gua, ¿mba’éichapa aikuaauka alianza?",
+    "faq_partnership_a": "Eipuru formulario oĩva kupe gotyo térã Hub peg̃uarã alianza ndive.",
+    "faq_suggestion_q": "Che inmigrante ha aipota amombe’u peteĩ tembiapo pyahu.",
+    "faq_suggestion_a": "Oĩ peteĩ sección sugerencia comunidad-pe. Ikatu avei rehai email."
   },
   "utilitarios": {
-    "title": "Tembiporu",
-    "title_main": "Imigrante rembiporu",
+    "title": "Tembe’yrembi",
+    "title_main": "¿Máva tembe’yrembi eipota?",
     "location": {
       "title": "Tenda",
-      "search_placeholder": "Heka dirección...",
-      "search_button": "Heka",
+      "search_placeholder": "Eheka dirección...",
+      "search_button": "Eheka",
       "address_label": "Dirección",
-      "address_loading": "Oheka hína..."
+      "address_loading": "Oñemyenyhẽ..."
     },
     "currency": {
-      "title": "Viru ñembohasa",
-      "from": "Ko'águi",
-      "usd": "Dólar (USD)",
+      "title": "Convertidor moneda",
+      "from": "Guive",
+      "usd": "Dólar estadounidense (USD)",
       "eur": "Euro (EUR)",
-      "brl": "Real (BRL)",
-      "to": "Ko'ápe",
-      "amount_label": "Mboýpa",
+      "brl": "Real brasileño (BRL)",
+      "to": "Gotyo",
+      "amount_label": "Tuicha",
       "amount_placeholder": "0.00",
-      "convert": "Mbohasa",
-      "result_label": "Opytáva"
+      "convert": "Econverti",
+      "result_label": "Apopyre"
     },
     "measure": {
-      "title": "Ra'ãha",
-      "unit_type_label": "Mba'eichagua",
-      "length": "Pukukue (Comprimento)",
-      "weight": "Pohyikue (Peso)",
-      "temperature": "Hakukue (Temperatura)",
-      "amount_label": "Mboýpa",
+      "title": "Convertidor unidad",
+      "unit_type_label": "Tipo unidad",
+      "length": "Puku",
+      "weight": "Pohy",
+      "temperature": "Tepy",
+      "amount_label": "Valor",
       "amount_placeholder": "0",
-      "to": "Ko'ápe",
-      "convert": "Mbohasa",
-      "result_label": "Opytáva"
+      "to": "Oiko",
+      "convert": "Econverti",
+      "result_label": "Apopyre"
     },
     "docs": {
-      "title": "Kuatia ñangareko",
-      "add_new": "Emoinge kuatia pyahu",
-      "type_label": "Mba'eichagua kuatia",
-      "type_placeholder": "Techapyrã: RNE, CPF, Pasaporte",
-      "issue_date_label": "Fecha oñeguenohẽ hague",
-      "expiry_date_label": "Fecha opáta",
-      "add": "Moinge",
-      "your_docs": "Ne kuatiakuéra"
+      "title": "Kuatia ñongatuha",
+      "add_new": "Embojuaju kuatia pyahu",
+      "type_label": "Tipo kuatia",
+      "type_placeholder": "Ej.: Pasaporte, Visa, CPF",
+      "issue_date_label": "Arapo’ã ñesẽ",
+      "expiry_date_label": "Arapo’ã opava",
+      "add": "Emoĩ",
+      "your_docs": "Che kuatia"
     },
     "lang": {
       "title": "Ñe'ẽ",
-      "current_platform": "Plataforma ñe'ẽ"
+      "current_platform": "Ñe'ẽ plataforma-pe"
     }
   },
   "dashboard": {
-    "title": "R.U.M.O - Tapecharã",
-    "access_denied": "Ñembyaty ñemoneĩ — tapecharã iñ rekove pe tapicha reko mba'e peguarã (PJ) rupi.",
-    "control_panel": "Tapecharã",
+    "title": "R.U.M.O - Tablero",
+    "access_denied": "Jeike ndogueremoneĩ — ko tablero empresa-pe g̃uarã (PJ).",
+    "control_panel": "Panel de control",
     "tabs": {
-      "profile": "Che Renda",
-      "publications": "Piblikasyon"
+      "profile": "Perfil",
+      "publications": "Publicación"
     },
     "metrics": {
-      "reach_label": "Renda peguare reyaje aguã:",
-      "days_30": "30 ara",
-      "days_7": "7 ara",
-      "days_90": "90 ara",
-      "profile_visits": "Renda rehe reko:",
-      "followers": "Oiko che rembiapo",
-      "others": "Ambue",
-      "nationalities": "Tetã rehegua iñ rehegua (Ñe'ẽpysõi):",
-      "loading_data": "Datos ñemboguata...",
-      "estimate": "(Tekotihe)",
+      "reach_label": "Última alcance:",
+      "days_30": "30 ára",
+      "days_7": "7 ára",
+      "days_90": "90 ára",
+      "profile_visits": "Visita perfil rehegua:",
+      "followers": "Tapykuerigua",
+      "others": "Ambueve",
+      "nationalities": "Tetãnguéra oĩvéva plataforma-pe:",
+      "loading_data": "Oñemyenyhẽ marandu...",
+      "estimate": "(jehupyty)",
       "total": "Opavave",
-      "new_30d": "Pyahu (30 ara)",
-      "left": "Noreco asy",
-      "age_range": "Ára rehegua iñ rehegua"
+      "new_30d": "Pyahu (30 ára)",
+      "left": "Oguahẽva",
+      "age_range": "Ary ñemoambue ojehecha hetave"
     },
     "publications": {
-      "keywords_title": "Tembiapo ñe'ẽ rehegua itavogue:",
-      "kw_refugees": "Ñonde apy'aguõ",
-      "kw_employment": "Mba'apo",
+      "keywords_title": "Ñe’ẽ kyre’ỹ ojeipuruve:",
+      "kw_refugees": "Refugiado",
+      "kw_employment": "Mba’apo",
       "kw_visas": "Visa",
-      "kw_shelter": "Tógui",
-      "periods_reach": "Ara pyahu peve reya itavogue:",
-      "interactions_label": "Tembiapo reko aguã:",
-      "likes": "Iiporã",
-      "saved": "Sombiapo",
-      "comments": "Moñe'ẽ",
-      "shares": "Ipyta",
-      "clicks": "Klik pyhe'a",
-      "top_engagement": "Piblikasyon itavogue tembiapo:",
-      "loading_posts": "Nde piblikasyon ñemboguata..."
-    },
-    "termos": {
-      "title": "Ñe'ẽjeri Rembiapo",
-      "update_date": "Paha'i ndasãi:",
-      "welcome": "Ore jatemiandu RUMO pétavape!",
-      "intro": "Reka py ore ñe'ẽje rembiapo ko'ã.",
-      "section1_title": "1. Moõ karai rembiapo ko'ã",
-      "section1_content": "RUMO omokõi tembiporu mbya peguare ne ñandujapyre rehegua mba'ekuaa oipytyvõ.",
-      "section2_title": "2. Che rembiapo tapichakue",
-      "section2_content": "Nde responsable ha'e mba'ekuaa oiko hague rehegua.",
-      "section3_title": "3. Ndaipóriva ojoguata",
-      "section3_content": "Ndaipóriva opubliká mba'ekuaa hasy pe ha ndahasyva.",
-      "section4_title": "4. Che rembiapo regua",
-      "section4_content": "Opaite RUMO pytyvõ regua ha derechu omerêva.",
-      "section5_title": "5. Raguãichagua rehegua",
-      "section5_content": "Nde raguãichagua oñangapa ha oñjaike ha'e ore rembiapo ague.",
-      "section6_title": "6. Orumía jekoviavépe",
-      "section6_content": "Ore ndaipóriva responsible javýva pire ojepóva rembiapo'a.",
-      "section7_title": "7. Ñe'ẽjeri ñembosako",
-      "section7_content": "Ore reiko joguape ñe'ẽjeri ñembosako ha oñepytyvõta opaichagua.",
-      "section8_title": "8. Kuenta jokuti",
-      "section8_content": "Remoikua reñoike ha jokuti nde mba'ekuaa oñakãta.",
-      "section9_title": "9. Ñepytyvõ",
-      "section9_content": "Erorãta ore email guasu peguape."
+      "kw_shelter": "Ogapy",
+      "periods_reach": "Periodo oikovevéva:",
+      "interactions_label": "Interacción ramovéva:",
+      "likes": "Iporã",
+      "saved": "Ñongatupyre",
+      "comments": "Comentarios",
+      "shares": "Oñembohasa",
+      "clicks": "Click externo",
+      "top_engagement": "Post oguereko añetegua interacción:",
+      "loading_posts": "Oñemyenyhẽ post..."
     }
+  },
+  "termos": {
+    "title": "Condición de uso",
+    "update_date": "Ñembopyahu ramóva:",
+    "welcome": "Eguahẽporã R.U.M.O — Red Unificada de Movilidad y Orientación.",
+    "intro": "Ko condición ogoverna ojepuru hag̃ua plataforma web ha móvil rehegua.",
+    "section1_title": "1. Plataforma rehegua",
+    "section1_content": "R.U.M.O ombopytyvõ inmigrante-kuérape Brasil-pe.",
+    "section2_title": "2. Mboheraguapy ha mba’ete",
+    "section2_intro": "Emoheñói hag̃ua post térã eipuru kuatia ñongatuha, tekotevẽ mba’ete.",
+    "section2_1_title": "2.1. Tipo mba’ete",
+    "section2_1_pf": "Tapicha: téra completo, correo ha CPF.",
+    "section2_1_pj": "Empresa: téra empresa, correo profesional ha CNPJ.",
+    "section2_2_title": "2.2. Marandu añetegua",
+    "section2_2_content": "Opa marandu emyengovia añetéva ha ipyahúva.",
+    "section2_3_title": "2.3. Seguridad",
+    "section2_3_content": "Nde rembiporurã ñemiguápe nderehe ae oñangareko.",
+    "section3_title": "3. Oipuru hag̃ua plataforma",
+    "section3_1_title": "3.1. Hub ha post",
+    "section3_1_intro": "Ikatu ehecha ha emoheñói post marandu rehegua.",
+    "section3_1_content": "Ore ndoroguerekói responsabilidad contenido externo rehe.",
+    "section3_2_title": "3.2. Kuatia ñongatuha",
+    "section3_2_intro": "Ikatu eñongatu arapokõindy kuatia rehegua.",
+    "section3_2_warning": "Ko’ã marandu personal oiko añoite.",
+    "section3_3_title": "3.3. Tembe’yrembi",
+    "section3_3_content": "Marandu referencial añoite.",
+    "section4_title": "4. Jeyvy ñemomba’e",
+    "section4_intro": "Ndovaléi ko’ã mba’e:",
+    "section4_content": "Ñe’ẽ vai, ñemomba’e ivaíva, marandu japu ha mba’eícha ñemomba’e ñorairõ.",
+    "section5_title": "5. Derechos autor rehegua",
+    "section5_content": "Opamba’e diseño ha logo ore mba’ete.",
+    "section6_title": "6. Responsabilidad rembe’y",
+    "section6_intro": "R.U.M.O plataforma mbyte añoite:",
+    "section6_content": "Ndaikatúi emoĩ responsabilidad Estado térã servicio externo rehe.",
+    "section7_title": "7. Emboguete mba’ete",
+    "section7_content": "Ikatu emboguete mba’ete configuración-pe.",
+    "section8_title": "8. Omoambue condición",
+    "section8_content": "Ikatu oñemoambue opa ára.",
+    "section9_title": "9. Contacto",
+    "section9_content": "Eipuru formulario ore página kupe gotyo."
   }
 }
