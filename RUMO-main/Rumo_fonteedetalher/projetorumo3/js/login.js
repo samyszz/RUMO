@@ -41,53 +41,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- LÓGICA DE LOGIN SOCIAL (Google e Facebook) ---
     
     // Função centralizada para tratar login social
-    const handleSocialLogin = (provider) => {
-        auth.signInWithPopup(provider)
-            .then(async (result) => {
-                // Login social bem-sucedido
-                const user = result.user;
-                
-                // Verifica se é um novo usuário (Primeiro acesso)
-                if (result.additionalUserInfo.isNewUser) {
-                    console.log("Novo usuário social detectado. Registrando como Pessoa Física...");
-                    
-                    // Se for novo, salva informações básicas no Firestore
-                    // REGRA: Login social é automaticamente 'pf'
-                    try {
-                        await db.collection('users').doc(user.uid).set({
-                            nome: user.displayName,
-                            nomeCompleto: user.displayName,
-                            email: user.email,
-                            userType: 'pf', // Automático para login social
-                            username: generateUsername(user.displayName || user.email),
-                            profilePicture: user.photoURL || 'assets/imagens/avatar-padrao.png',
-                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                        }, { merge: true });
-                    } catch (firestoreError) {
-                        console.error("Erro ao salvar usuário no Firestore:", firestoreError);
-                    }
-                }
-                
-                // Redireciona para o hub
-                window.location.href = 'hub.html';
-                
-            }).catch((error) => {
-                console.error("Erro no login social:", error);
-                
-                let msg = 'Erro ao tentar login social: ' + error.message;
-                
-                if (error.code === 'auth/account-exists-with-different-credential') {
-                    msg = 'Já existe uma conta com este e-mail associada a outro método de login (ex: Facebook/Senha). Use o método original.';
-                } else if (error.code === 'auth/popup-closed-by-user') {
-                    msg = 'O login foi cancelado.';
-                } else if (error.code === 'auth/cancelled-popup-request') {
-                    return; // Ignora múltiplos cliques
-                }
-                
-                alert(msg);
-            });
-    };
+    // js/login.js - Substitua a função handleSocialLogin por esta:
 
+const handleSocialLogin = (provider) => {
+    auth.signInWithPopup(provider)
+        .then(async (result) => {
+            // SIMPLES: Se entrou por rede social, GRAVA que é PF no banco agora.
+            await db.collection('users').doc(result.user.uid).set({
+                userType: 'pf', // <--- O carimbo de Pessoa Física
+                email: result.user.email,
+                nome: result.user.displayName || "Usuário",
+                photoURL: result.user.photoURL
+            }, { merge: true }); // 'merge' garante que não apague outros dados se já existirem
+
+            // Tudo certo, manda pro Hub
+            window.location.href = 'hub.html';
+        })
+        .catch((error) => {
+            console.error("Erro no login:", error);
+            alert("Não foi possível entrar com a rede social.");
+        });
+};
     // Configuração dos Botões Google
     const googleLoginButtons = document.querySelectorAll('.google-login-btn');
     googleLoginButtons.forEach(button => {

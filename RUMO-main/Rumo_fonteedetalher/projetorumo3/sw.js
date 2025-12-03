@@ -1,6 +1,6 @@
 // sw.js (Versão 5 - Offline Completo)
 
-const CACHE_NAME = 'rumo-v6'; // Versão atualizada
+const CACHE_NAME = 'rumo-v7'; // Versão atualizada
 const URLS_TO_CACHE = [
     // --- PÁGINAS PRINCIPAIS (HTML) ---
     './',
