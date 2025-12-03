@@ -1133,3 +1133,104 @@ body.dark-mode .ver-mais-modal-footer .btn-primary:hover {
   color: #007bff;
   /* Cor do ícone quando salvo */
 }
+/* ==========================================================
+   FORMATAÇÃO FALTANTE: ÍCONES DE CONTATO E LOCAL NO MODAL
+   ========================================================== */
+
+/* 1. Transforma o rodapé em Flexbox para separar os lados */
+.ver-mais-modal-footer {
+  display: flex !important; /* Força o flexbox */
+  justify-content: space-between; /* Ícones na esquerda, Botão na direita */
+  align-items: center;
+  gap: 15px;
+  text-align: left; /* Reseta o alinhamento antigo */
+}
+
+/* 2. Container dos ícones (lado esquerdo) */
+.modal-actions-left {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* 3. Estilo base da bolinha do botão */
+.modal-action-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%; /* Faz ficar redondo */
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+  background-color: #c5deee; 
+  color: #0a4849;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.modal-action-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* 4. Cor específica para CONTATO (Verde) */
+.modal-action-btn.contact {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+.modal-action-btn.contact:hover {
+  background-color: #34d399;
+  color: #022c22;
+}
+
+/* 5. Cor específica para LOCAL (Vermelho) */
+.modal-action-btn.location {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+.modal-action-btn.location:hover {
+  background-color: #f87171;
+  color: #450a0a;
+}
+
+/* --- MODO ESCURO (Dark Mode) --- */
+body.dark-mode .modal-action-btn {
+  background-color: #1a5c5c; /* Fundo padrão escuro */
+  color: #e5feff;
+  box-shadow: none;
+}
+
+/* Contato no Dark Mode */
+body.dark-mode .modal-action-btn.contact {
+  background-color: #064e3b;
+  color: #6ee7b7;
+}
+body.dark-mode .modal-action-btn.contact:hover {
+  background-color: #059669;
+  color: #ffffff;
+}
+
+/* Local no Dark Mode */
+body.dark-mode .modal-action-btn.location {
+  background-color: #7f1d1d;
+  color: #fca5a5;
+}
+body.dark-mode .modal-action-btn.location:hover {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+/* Ajuste para telas pequenas (celular) */
+@media (max-width: 480px) {
+  .ver-mais-modal-footer {
+    flex-direction: column-reverse; /* Inverte a ordem: botão em cima, ícones embaixo */
+    gap: 15px;
+  }
+  
+  .modal-actions-left {
+    width: 100%;
+    justify-content: center; /* Centraliza os ícones no celular */
+  }
+}
