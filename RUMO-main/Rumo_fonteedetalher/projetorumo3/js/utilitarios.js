@@ -1,4 +1,4 @@
-/* js/utilitarios.js - Ferramentas (Mapa, Moedas, Medidas, Idiomas, Docs) */
+/* js/utilitarios.js - Ferramentas (Mapa, Moedas, Medidas, Tradutor, Docs) */
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const mapContainer = document.getElementById('map');
         if (!mapContainer) return;
 
-        // Inicializa o mapa com Leaflet
         map = L.map('map').setView([0, 0], 2);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
@@ -86,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             const addrEl = document.getElementById('user-address');
             if(addrEl) {
-                // Tradução do erro
                 if (window.i18n && typeof i18n.translateText === 'function') {
                     i18n.translateText('Geolocalização não suportada pelo navegador.').then(t => addrEl.textContent = t);
                 } else {
@@ -102,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function () {
             lng: position.coords.longitude
         };
         
-        // Centraliza e adiciona marcador
         map.setView([userCoords.lat, userCoords.lng], 15);
         
         let popupText = 'Você está aqui!';
@@ -119,7 +116,6 @@ document.addEventListener('DOMContentLoaded', function () {
              addrEl.textContent = loadingText;
         }
 
-        // Tenta buscar o endereço (Reverse Geocoding)
         const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${userCoords.lat}&lon=${userCoords.lng}&addressdetails=1`;
 
         fetch(url)
@@ -145,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
             .catch(async error => {
-                console.warn("Aviso: Não foi possível obter o endereço textual (provavelmente bloqueio CORS em localhost).");
+                console.warn("Aviso: Não foi possível obter o endereço textual.");
                 const errorText = await (window.i18n ? i18n.translateText("Localização obtida (Endereço indisponível offline/local).") : "Localização obtida (Endereço indisponível offline/local).");
                 if (addrEl) addrEl.textContent = errorText;
             });
@@ -181,14 +177,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
             
-            // Limpa marcadores anteriores
             searchMarkers.forEach(marker => map.removeLayer(marker));
             searchMarkers = [];
             
             const searchingMsg = await (window.i18n ? i18n.translateText("Buscando...") : "Buscando...");
             resultsList.innerHTML = `<p style="padding:10px;">${searchingMsg}</p>`;
             
-            // Área de busca próxima ao usuário
             const viewbox = [userCoords.lng - 0.1, userCoords.lat + 0.1, userCoords.lng + 0.1, userCoords.lat - 0.1].join(',');
             const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&viewbox=${viewbox}&bounded=1&limit=5&addressdetails=1`;
             
@@ -358,7 +352,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ==================================================
-    // 5. IDIOMAS (PADRONIZADO)
+    // 5. TRADUTOR RÁPIDO (SUBSTITUI SELEÇÃO DE IDIOMA)
     // ==================================================
     const languages = [
         { code: "pt", name: "Português", flag: "🇧🇷" },
@@ -374,34 +368,68 @@ document.addEventListener('DOMContentLoaded', function () {
         { code: "gn", name: "Guarani",   flag: "🇵🇾" }
     ];
     
-    function populateUtilsLanguageDropdown() {
-        const dropdown = document.getElementById('language-select-utils');
-        if (dropdown) {
-            dropdown.innerHTML = '<option value="" disabled>Selecione um idioma...</option>';
-            
-            let currentLang = localStorage.getItem('rumo_lang') || 'pt';
-            if(currentLang.includes('-')) currentLang = currentLang.split('-')[0];
+    function initTranslatorTool() {
+        const sourceSelect = document.getElementById('lang-source');
+        const targetSelect = document.getElementById('lang-target');
+        const transForm = document.getElementById('translator-form');
+        const resultSpan = document.getElementById('translator-result');
+        const inputArea = document.getElementById('translator-text');
 
+        if (sourceSelect && targetSelect) {
+            // Popula Source (inclui 'auto')
+            // O 'auto' já está no HTML, então adicionamos os outros
             languages.forEach(lang => {
                 const option = document.createElement('option');
                 option.value = lang.code;
                 option.textContent = `${lang.flag} ${lang.name}`;
-                if (lang.code === currentLang) option.selected = true;
-                dropdown.appendChild(option);
+                sourceSelect.appendChild(option);
             });
 
-            dropdown.addEventListener('change', () => {
-                const selectedLang = dropdown.value;
-                if (typeof window.setLanguage === 'function') {
-                    window.setLanguage(selectedLang);
-                } else {
-                    localStorage.setItem('rumo_lang', selectedLang);
-                    location.reload();
+            // Popula Target
+            languages.forEach(lang => {
+                const option = document.createElement('option');
+                option.value = lang.code;
+                option.textContent = `${lang.flag} ${lang.name}`;
+                if (lang.code === 'pt') option.selected = true; // Padrão PT
+                targetSelect.appendChild(option);
+            });
+        }
+
+        if (transForm) {
+            transForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const text = inputArea.value.trim();
+                const source = sourceSelect.value;
+                const target = targetSelect.value;
+
+                if (!text) {
+                    alert('Digite algum texto para traduzir.');
+                    return;
+                }
+
+                resultSpan.textContent = 'Traduzindo...';
+
+                try {
+                    // Usa a mesma API não oficial do Google que usamos no i18n.js
+                    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${source}&tl=${target}&dt=t&q=${encodeURIComponent(text)}`;
+                    const res = await fetch(url);
+                    const data = await res.json();
+                    
+                    if (data && data[0]) {
+                        // Junta os pedaços da tradução
+                        const translatedText = data[0].map(part => part[0]).join('');
+                        resultSpan.textContent = translatedText;
+                    } else {
+                        resultSpan.textContent = 'Erro ao traduzir.';
+                    }
+                } catch (error) {
+                    console.error("Erro na tradução:", error);
+                    resultSpan.textContent = 'Erro de conexão.';
                 }
             });
         }
     }
-    populateUtilsLanguageDropdown();
+    initTranslatorTool();
 
     // ==================================================
     // 6. COFRE DE DOCUMENTOS (CRUD COM TRADUÇÃO)
@@ -410,7 +438,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const docList = document.getElementById('doc-list');
     const savedDocs = JSON.parse(localStorage.getItem('userDocuments')) || [];
 
-    // Função renderDocs agora é assíncrona para traduzir status
     const renderDocs = async () => {
         if (!docList) return;
         

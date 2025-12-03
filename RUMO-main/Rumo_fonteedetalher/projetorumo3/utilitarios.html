@@ -185,15 +185,31 @@
             <div class="tool-dropdown">
                 <button class="tool-header lang-header">
                     <i class="fa-solid fa-language"></i> 
-                    <span data-i18n="utilitarios.lang.title">Alterar o idioma</span>
-            </button>
+                    <span data-i18n="utilitarios.lang.title">Tradutor Rápido</span>
+                </button>
                 <div class="tool-content lang-content" style="display: none;">
-                    <p data-i18n="utilitarios.lang.current_platform">Idioma atual da plataforma: <strong data-i18n="header.lang.pt_br">Português (Brasil)</strong></p>
-                    <form class="converter-form">
-                        <label for="language-select-utils" data-i18n="header.lang.select">Selecione o idioma de sua preferência:</label>
-                        <select id="language-select-utils"></select>
+                    <form class="converter-form" id="translator-form">
+                        <label for="translator-text">Digite o texto:</label>
+                        <textarea id="translator-text" rows="2" placeholder="O que deseja traduzir?" style="width:100%; padding:10px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;"></textarea>
+                        
+                        <div class="measure-selects" style="margin-bottom: 10px;">
+                            <select id="lang-source">
+                                <option value="auto">Detectar Idioma</option>
+                                </select>
+                            <span style="margin: 0 10px;">Para:</span>
+                            <select id="lang-target">
+                                </select>
+                        </div>
+
+                        <button type="submit" class="btn-converter">Traduzir</button>
+
+                        <div class="result-box" style="margin-top: 15px;">
+                            <strong>Resultado:</strong>
+                            <span id="translator-result" style="color: var(--primary-color); font-weight:bold;">...</span>
+                        </div>
                     </form>
                 </div>
+            </div>
             </div>
         </div>
     </div>

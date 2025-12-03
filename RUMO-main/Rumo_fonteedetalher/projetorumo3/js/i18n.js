@@ -97,7 +97,7 @@ class I18N {
     }
 
     updateDropdowns() {
-        const dropdowns = document.querySelectorAll('.language-selector, #language-select-header, #language-select-pf, #language-select-pj, #language-select-utils');
+        const dropdowns = document.querySelectorAll('.language-selector, #language-select-header, #language-select-pf, #language-select-pj, #language-select-auth'); 
         dropdowns.forEach(select => {
             if (select.options.length === 0) {
                 this.populateLanguageSelect(select);

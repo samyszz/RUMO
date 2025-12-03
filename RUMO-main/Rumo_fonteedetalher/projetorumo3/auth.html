@@ -31,11 +31,25 @@
         .auth-utils-btn:hover { background-color: rgba(255, 255, 255, 0.1); transform: translateY(-2px); }
         .social { border-radius: 0 !important; border: none !important; }
 
+        /* Dropdown de Idioma (Estilo Header) adaptado para Auth (Abre para Cima) */
+        .auth-lang-container { position: relative; display: inline-block; }
+        .auth-lang-content {
+            display: none; position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%);
+            background-color: var(--card-bg, #fff); color: var(--text-color, #333);
+            border: 1px solid #ccc; border-radius: 8px; padding: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); min-width: 200px; z-index: 1000; text-align: left;
+        }
+        .auth-lang-content.active { display: block; }
+        .auth-lang-content p { margin: 0 0 8px 0; font-size: 0.9em; color: inherit; }
+        .auth-lang-content select { width: 100%; padding: 5px; border-radius: 4px; border: 1px solid #ddd; background: #fff; color: #333; }
+        
+        /* Dark Mode Ajustes para Dropdown */
+        body.dark-mode .auth-lang-content { background-color: #2d3748; border-color: #4a5568; color: #e2e8f0; }
+        body.dark-mode .auth-lang-content select { background-color: #4a5568; border-color: #718096; color: #fff; }
+
         /* Back Link */
         .back-link { position: absolute; left: 20px; top: 25px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; z-index: 10; color: var(--text-color); font-family: var(--font-primary, sans-serif); }
         @media (max-width: 920px) { .back-link span { display: none; } }
-
-        
     </style>
 </head>
 <body class="fullscreen-auth">
@@ -131,21 +145,44 @@
                     <h3 data-i18n="login.overlay_title">Já tem uma conta?</h3>
                     <p data-i18n="cadastro.overlay_login_text">Faça login para acessar a plataforma</p>
                     <button class="btn-overlay" id="signIn" data-i18n="login.sign_in_button">Login</button>
+                    
                     <div class="auth-utils">
                         <button type="button" class="auth-utils-btn theme-toggle-auth" aria-label="Alternar tema"><i class="fas fa-moon"></i></button>
                         <button type="button" class="auth-utils-btn accessibility-btn-auth" id="accessibility-btn" aria-label="Acessibilidade"><i class="fas fa-universal-access"></i></button>
-                        <button type="button" class="auth-utils-btn lang-btn-auth" aria-label="Idioma"><i class="fas fa-language"></i></button>
+                        
+                        <div class="auth-lang-container">
+                            <button type="button" class="auth-utils-btn auth-lang-btn" aria-label="Idioma"><i class="fas fa-language"></i></button>
+                            <div class="auth-lang-content">
+                                <p data-i18n="header.lang.current">Idioma atual: <strong data-i18n="header.lang.pt_br">Português (Brasil)</strong></p>
+                                <form>
+                                    <label data-i18n="header.lang.select" style="font-size:0.8em; display:block; margin-bottom:5px;">Selecione:</label>
+                                    <select class="language-select-auth"></select>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
                 <div class="overlay-panel overlay-right">
                     <img src="assets/imagens/logo.png" alt="Logo R.U.M.O">
                     <h3 data-i18n="cadastro.overlay_title">Ainda não tem conta?</h3>
                     <p data-i18n="cadastro.overlay_register_text">Cadastre-se para começar sua jornada conosco</p>
                     <button class="btn-overlay" id="signUp" data-i18n="cadastro.sign_up_button">Cadastro</button>
+                    
                     <div class="auth-utils">
                         <button type="button" class="auth-utils-btn theme-toggle-auth" aria-label="Alternar tema"><i class="fas fa-moon"></i></button>
                         <button type="button" class="auth-utils-btn accessibility-btn-auth" id="accessibility-btn" aria-label="Acessibilidade"><i class="fas fa-universal-access"></i></button>
-                        <button type="button" class="auth-utils-btn lang-btn-auth" aria-label="Idioma"><i class="fas fa-language"></i></button>
+                        
+                        <div class="auth-lang-container">
+                            <button type="button" class="auth-utils-btn auth-lang-btn" aria-label="Idioma"><i class="fas fa-language"></i></button>
+                            <div class="auth-lang-content">
+                                <p data-i18n="header.lang.current">Idioma atual: <strong data-i18n="header.lang.pt_br">Português (Brasil)</strong></p>
+                                <form>
+                                    <label data-i18n="header.lang.select" style="font-size:0.8em; display:block; margin-bottom:5px;">Selecione:</label>
+                                    <select class="language-select-auth"></select>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -157,8 +194,6 @@
 <img src="ondabaixo.png" class="ondabaixo" id="onda-baixo">
 
 <footer id="main-footer"></footer>
-
-
 
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
@@ -172,37 +207,66 @@
 <script src="https://cdn.userway.org/widget.js" data-account="UIgNDRCaqf"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // --- CONTROLE DO MODAL DE IDIOMA ---
-        const modal = document.getElementById('languageModal');
-        const modalContent = document.getElementById('langModalContent');
-
-        window.openLangModal = () => {
-            // Renderiza o conteúdo do modal usando o i18n
-            if(window.i18nInstance && window.i18nInstance.getModalHTML) {
-                modalContent.innerHTML = window.i18nInstance.getModalHTML();
-            }
-            modal.classList.add('active');
-        };
-
-        window.closeLangModal = () => {
-            modal.classList.remove('active');
-        };
-
-        // Event Listeners nos botões de idioma
-        const langBtns = document.querySelectorAll('.lang-btn-auth');
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- LOGICA DO DROPDOWN DE IDIOMA NO AUTH ---
+        const langBtns = document.querySelectorAll('.auth-lang-btn');
+        const langContents = document.querySelectorAll('.auth-lang-content');
+        
+        // Toggle Dropdown
         langBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                openLangModal();
+                e.stopPropagation();
+                // Fecha todos os outros primeiro
+                langContents.forEach(c => {
+                    if (c !== btn.nextElementSibling) c.classList.remove('active');
+                });
+                const content = btn.nextElementSibling;
+                content.classList.toggle('active');
             });
         });
 
         // Fechar ao clicar fora
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeLangModal();
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.auth-lang-container')) {
+                langContents.forEach(c => c.classList.remove('active'));
+            }
         });
 
+        // Popula os selects de idioma manualmente para garantir funcionamento independente
+        const langSelects = document.querySelectorAll('.language-select-auth');
+        const languagesAuth = [
+            { code: "pt", name: "Português", flag: "🇧🇷" },
+            { code: "es", name: "Espanhol",  flag: "🇪🇸" },
+            { code: "en", name: "Inglês",    flag: "🇺🇸" },
+            { code: "fr", name: "Francês",   flag: "🇫🇷" },
+            { code: "zh", name: "Mandarim",  flag: "🇨🇳" },
+            { code: "ja", name: "Japonês",   flag: "🇯🇵" },
+            { code: "ht", name: "Crioulo",   flag: "🇭🇹" },
+            { code: "qu", name: "Quéchua",   flag: "🇧🇴" },
+            { code: "ar", name: "Árabe",     flag: "🇸🇾" },
+            { code: "ko", name: "Coreano",   flag: "🇰🇷" },
+            { code: "gn", name: "Guarani",   flag: "🇵🇾" }
+        ];
+
+        langSelects.forEach(select => {
+            select.innerHTML = '<option value="" disabled selected>Selecione...</option>';
+            languagesAuth.forEach(lang => {
+                const opt = document.createElement('option');
+                opt.value = lang.code;
+                opt.textContent = `${lang.flag} ${lang.name}`;
+                select.appendChild(opt);
+            });
+
+            // Muda o idioma usando o i18n global
+            select.addEventListener('change', () => {
+                if (window.setLanguage) {
+                    window.setLanguage(select.value);
+                } else {
+                    localStorage.setItem('rumo_lang', select.value);
+                    location.reload();
+                }
+            });
+        });
 
         // --- ONDAS E TEMA ---
         const ondaCima = document.getElementById('onda-cima');
