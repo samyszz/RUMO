@@ -145,6 +145,22 @@ async function t(text) {
     return text;
 }
 
+// --- FUNÇÃO PARA CALCULAR IDADE ---
+function calcularIdade(dataString) {
+    if (!dataString) return 0;
+    const hoje = new Date();
+    const nascimento = new Date(dataString);
+    let idade = hoje.getFullYear() - nascimento.getFullYear();
+    const m = hoje.getMonth() - nascimento.getMonth();
+    
+    // Ajusta a idade se ainda não fez aniversário este ano
+    if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) {
+        idade--;
+    }
+    return idade;
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const registerContainer = document.querySelector('.register-container');
     if (!registerContainer) return;
@@ -359,6 +375,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const nomeVal = formPF.querySelector('input[name="nome"]').value;
             const idiomaVal = selectPF.value;
 
+            // --- NOVO: Captura Data de Nascimento e Valida Idade ---
+            const nascimentoVal = document.getElementById('nascimento-pf').value;
+            const idadeUsuario = calcularIdade(nascimentoVal);
+
             // Verificações
             if (!validarCPF(cpfVal)) { 
                 const msg = await t('CPF Inválido. Corrija antes de continuar.');
@@ -380,6 +400,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert(msg); 
                 return; 
             }
+            
+            // --- NOVA VALIDAÇÃO DE IDADE ---
+            if (!nascimentoVal) {
+                const msg = await t('Por favor, preencha sua data de nascimento.');
+                alert(msg);
+                return;
+            }
+            if (idadeUsuario < 16) {
+                const msg = await t('Desculpe, é necessário ter pelo menos 16 anos para criar uma conta.');
+                alert(msg);
+                return; // Bloqueia o cadastro
+            }
 
             // Tudo certo, prossegue
             btnSubmit.innerText = await t('Criando conta...');
@@ -387,6 +419,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             try {
                 const userCredential = await auth.createUserWithEmailAndPassword(emailVal, passVal);
+                
+                // Salva no Firestore incluindo a data de nascimento e idade
                 await db.collection('users').doc(userCredential.user.uid).set({
                     nome: nomeVal,
                     nomeCompleto: nomeVal,
@@ -396,6 +430,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     userType: 'pf',
                     username: generateUsername(nomeVal || emailVal),
                     profilePicture: 'assets/imagens/avatar-padrao.png',
+                    dataNascimento: nascimentoVal, // <--- CAMPO NOVO
+                    idade: idadeUsuario,           // <--- CAMPO NOVO (Opcional, mas útil)
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
                 

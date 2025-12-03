@@ -644,3 +644,21 @@ body.dark-mode #main-nav select {
     body.dark-mode .auth-utils-btn {
         color: #8ac2c2 !important; /* Mesma cor do desktop dark mode */
     }
+    /* --- FIX DATE INPUT NO DARK MODE --- */
+
+/* No modo light, mantém o padrão */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* No modo dark, inverte a cor do ícone nativo para branco */
+body.dark-mode input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.8;
+}
