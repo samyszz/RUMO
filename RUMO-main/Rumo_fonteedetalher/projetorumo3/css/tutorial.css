@@ -335,3 +335,85 @@
         margin-top: 25px;
     }
 }
+/* =========================================
+   MODO ESCURO - TUTORIAL (OFICIAL R.U.M.O)
+   ========================================= */
+
+/* 1. Redefinição das Variáveis Globais */
+body.dark-mode {
+    --bg-color: #053536;
+    --header-bg: #0e3b3b;
+    --text-color: #cce5e2;
+    --card-bg: #2c4c4c;
+    --card-border: #4a6a6a;
+    --card-hub-bg: #2a5a5a;
+    --card-hub-border: #1a4a4a;
+    --form-input-bg: #1e3b3b;
+    --form-input-border: #6a8a8a;
+    --border-color: #0e3b3b;
+    
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* 2. Ajuste do Título HERO (Caixinha) */
+body.dark-mode .tutorial-hero h1 {
+    /* Fundo mais escuro para destacar o texto */
+    background-color: var(--card-hub-bg); 
+    border-color: var(--card-hub-border);
+    color: #ffffff; /* Texto branco puro para contraste */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* 3. Ajuste do Carrossel */
+/* Os slides já usam var(--card-bg), então só precisamos ajustar as setas */
+body.dark-mode .depth-arrow {
+    background: var(--card-bg);
+    color: var(--text-color);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .depth-arrow:hover {
+    background: var(--card-hub-border);
+    color: #fff;
+}
+
+/* Bolinhas da paginação */
+body.dark-mode .depth-dot {
+    background: rgba(204, 229, 226, 0.2); /* Cor clara transparente */
+}
+body.dark-mode .depth-dot.active {
+    background: #76cebf; /* Verde destaque da marca */
+    box-shadow: 0 0 8px rgba(118, 206, 191, 0.6);
+}
+
+/* 4. Ajuste do FAQ (Perguntas e Respostas) */
+/* Atualmente elas têm cores fixas (#c9ece6), precisamos forçar o dark mode */
+
+body.dark-mode .faq-question {
+    background-color: var(--card-hub-bg);
+    border-color: var(--card-hub-border);
+    color: #fff;
+}
+
+body.dark-mode .faq-answer {
+    background-color: var(--form-input-bg); /* Um tom diferente para a resposta */
+    border-color: var(--card-hub-border);
+    color: var(--text-color);
+}
+
+body.dark-mode .faq-section h2 {
+    color: var(--text-color);
+}
+
+/* Ícone da seta do FAQ */
+body.dark-mode .faq-question i {
+    color: #76cebf;
+}
+/* Escurecer as ondas no modo noturno */
+body.dark-mode .ondacima,
+body.dark-mode .ondabaixo {
+    filter: brightness(0.2) sepia(1) hue-rotate(120deg) saturate(3);
+    /* Isso tinge a imagem branca para um tom esverdeado escuro */
+    opacity: 0.8;
+}

@@ -1,6 +1,6 @@
-// sw.js (Versão 4 - Offline Robust)
+// sw.js (Versão 5 - Offline Completo)
 
-const CACHE_NAME = 'rumo-v4'; // Atualize a versão sempre que atualizar assets
+const CACHE_NAME = 'rumo-v6'; // Versão atualizada
 const URLS_TO_CACHE = [
     // --- PÁGINAS PRINCIPAIS (HTML) ---
     './',
@@ -15,8 +15,14 @@ const URLS_TO_CACHE = [
     'perfil-usuario.html',
     'post-salvo.html',
     'sair-excluir-conta.html',
+    'tutorial.html',
+    'dashboard.html',
+    'termosecondicoes.html',
 
-    // --- ESTILOS PRINCIPAIS (CSS) ---
+    // --- ARQUIVOS DE CONFIGURAÇÃO ---
+    'manifest.json',
+
+    // --- ESTILOS (CSS) ---
     'css/base.css',
     'css/home.css',
     'css/hub.css',
@@ -32,8 +38,11 @@ const URLS_TO_CACHE = [
     'css/sair-excluir-conta.css',
     'css/sobre.css',
     'css/utils.css',
+    'css/dashboard.css',
+    'css/style.css',
+    'css/tutorial.css',
 
-    // --- SCRIPTS PRINCIPAIS (JS) ---
+    // --- SCRIPTS (JS) ---
     'js/main-menu.js',
     'js/dark-mode.js',
     'js/auth-state.js',
@@ -53,148 +62,167 @@ const URLS_TO_CACHE = [
     'js/post-salvo.js',
     'js/sair-excluir-conta.js',
     'js/utilitarios.js',
+    'js/dashboard.js',
+    'js/loader.js',
+    'js/tutorial.js',
 
-    // --- IMAGENS E ATIVOS ---
+    // --- IMAGENS NA RAIZ ---
     'logo.png',
     'banner3 (2).png',
+    'banner3.png',
     'tutorial.png',
+    'icarocurioso.png',
+    'Design sem nome.gif',
+    'fundosite.png',
+    'file.svg',
+    
+    // --- ONDAS E DECORAÇÕES (Incluindo Dark Mode) ---
     'ondacima.png',
     'ondabaixo.png',
+    'ondacimadark.png',
+    'ondabaixodark.png',
+    'ondacimamenor.png',
+    'ondabaixomenor.png',
+
+    // --- BANNERS DE IDIOMAS ---
+    'banner-arabe.png',
+    'banner-coreano.png',
+    'banner-crioulo.png',
+    'banner-espanhol.png',
+    'banner-frances.png',
+    'banner-guarani.png',
+    'banner-ingles.png',
+    'banner-japones.png',
+    'banner-mandarim.png',
+    'banner-quechua.png',
+    // Adicione outros banners de idioma se existirem na pasta raiz
+
+    // --- ASSETS/IMAGENS ---
     'assets/imagens/avatar-padrao.png',
     'assets/imagens/isologo BRAVO.png',
+    'assets/imagens/COMUNIDADE.png',
+    'assets/imagens/file.svg',
+    'assets/imagens/logo.png',
+    'assets/imagens/tutorial.png',
+    
+    // --- MEMBROS ---
     'membros/kaua.jpeg',
     'membros/lucas.jpeg',
     'membros/michelly.jpg',
     'membros/samyra.jpeg',
 
-    // --- FONTES ---
+    // --- FONTES (Nunito) ---
+    // Adicionei as principais variações para garantir carregamento
     'assets/fonts/Nunito/static/Nunito-Black.ttf',
+    'assets/fonts/Nunito/static/Nunito-Bold.ttf',
+    'assets/fonts/Nunito/static/Nunito-Regular.ttf',
+    'assets/fonts/Nunito/static/Nunito-SemiBold.ttf',
 
     // --- TRADUÇÕES (JSON) ---
-    'locales/portugues.json',
+    'locales/brasil.json', // Corrigido de portugues.json para brasil.json conforme seus arquivos
     'locales/ingles.json',
     'locales/espanhol.json',
     'locales/crioulo-haitiano.json',
     'locales/arabe.json',
-    'locales/brasil.json',
     'locales/coreano.json',
     'locales/frances.json',
     'locales/guarani.json',
     'locales/japones.json',
     'locales/mandarim.json',
-    'locales/mexico.json',
-    'locales/quechua.json',
-    'locales/venezuela.json'
+    'locales/quechua.json'
+    // Adicione outros jsons da pasta locales se houver
 ];
 
-// 1. Evento de Instalação: Salva todos os arquivos da lista.
+// 1. Evento de Instalação
 self.addEventListener('install', (event) => {
-    // Force the waiting worker to become the active worker
     self.skipWaiting();
 
     event.waitUntil((async () => {
         const cache = await caches.open(CACHE_NAME);
-        console.log('SW install - cache aberto:', CACHE_NAME);
-        // Tenta adicionar todos os recursos, mas não falha totalmente se algum der 404
+        console.log('SW install - cacheando arquivos...');
+        
         const results = await Promise.allSettled(URLS_TO_CACHE.map(async (url) => {
             try {
+                // Tenta buscar o arquivo
                 const response = await fetch(url, { cache: 'no-cache' });
-                if (!response.ok) throw new Error('Fetch failed ' + response.status + ' ' + url);
+                if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+                
                 await cache.put(url, response.clone());
                 return { url, ok: true };
             } catch (err) {
-                console.warn('Não foi possível cachear', url, err);
+                // Loga o erro mas não quebra a instalação inteira
+                console.warn(`Falha ao cachear ${url}:`, err.message);
                 return { url, ok: false, err };
             }
         }));
-        const failed = results.filter(r => r.status === 'fulfilled' && r.value && r.value.ok === false);
-        if (failed.length) console.log('Alguns arquivos não foram cacheados (ok):', failed.map(f => f.value.url));
-    })());
-});
-
-// Escuta mensagens do client (por exemplo, pedir para ativar imediatamente)
-self.addEventListener('message', (event) => {
-    if (!event.data) return;
-    if (event.data.type === 'SKIP_WAITING') {
-        console.log('SW: received SKIP_WAITING message');
-        self.skipWaiting();
-    }
-});
-
-// 2. Evento de Ativação: Limpa caches antigos e toma controle dos clients.
-self.addEventListener('activate', (event) => {
-    event.waitUntil((async () => {
-        // Remove caches antigos
-        const cacheNames = await caches.keys();
-        await Promise.all(cacheNames.map((cacheName) => {
-            if (cacheName !== CACHE_NAME) {
-                console.log('Ativação: apagando cache antigo', cacheName);
-                return caches.delete(cacheName);
-            }
-            return null;
-        }));
-
-        // Toma controle imediato dos clients
-        if (self.clients && clients.claim) {
-            await clients.claim();
-            console.log('Clients claimed');
+        
+        // Relatório opcional de falhas
+        const failed = results.filter(r => r.status === 'fulfilled' && !r.value.ok);
+        if (failed.length > 0) {
+            console.log('Arquivos que não puderam ser cacheados:', failed.map(f => f.value.url));
         }
     })());
 });
 
-// 3. Evento de Fetch: Estratégia híbrida (network-first para navegações, cache-first para assets)
+// 2. Evento de Ativação
+self.addEventListener('activate', (event) => {
+    event.waitUntil((async () => {
+        const cacheNames = await caches.keys();
+        await Promise.all(cacheNames.map((cacheName) => {
+            if (cacheName !== CACHE_NAME) {
+                console.log('Removendo cache antigo:', cacheName);
+                return caches.delete(cacheName);
+            }
+        }));
+        await clients.claim();
+    })());
+});
+
+// 3. Evento de Fetch
 self.addEventListener('fetch', (event) => {
-    // Apenas intercepte requisições GET
     if (event.request.method !== 'GET') return;
 
-    // Se for uma requisição para o Firebase ou gstatic, vá direto para a rede
-    if (event.request.url.includes('firebase') || event.request.url.includes('gstatic')) {
-        return event.respondWith(fetch(event.request));
+    // Ignora requests do Firebase/Google (não funcionam offline mesmo)
+    const url = event.request.url;
+    if (url.includes('firebase') || url.includes('gstatic') || url.includes('googleapis')) {
+        return; 
     }
 
-    // Para navegações (entradas do app) aplicamos network-first para garantir atualizações
+    // Estratégia para Navegação (HTML): Network First, depois Cache
     if (event.request.mode === 'navigate') {
         event.respondWith((async () => {
             try {
                 const networkResponse = await fetch(event.request);
-                // Atualiza o cache da página de navegação
                 const cache = await caches.open(CACHE_NAME);
-                if (networkResponse && networkResponse.status === 200) await cache.put(event.request, networkResponse.clone());
+                cache.put(event.request, networkResponse.clone());
                 return networkResponse;
-            } catch (err) {
+            } catch (error) {
                 const cached = await caches.match(event.request);
-                if (cached) return cached;
-                // fallback para index.html se disponível
-                const fallback = await caches.match('index.html') || await caches.match('./');
-                return fallback || new Response('Offline', { status: 503, statusText: 'Offline' });
+                return cached || caches.match('index.html') || caches.match('./');
             }
         })());
         return;
     }
 
-    // Para assets estáticos: cache-first com atualização em background (stale-while-revalidate)
+    // Estratégia para Assets (Imagens, CSS, JS): Cache First, depois Network (com atualização em background)
     event.respondWith((async () => {
         const cachedResponse = await caches.match(event.request);
+        
         const fetchPromise = fetch(event.request).then(async (networkResponse) => {
             if (networkResponse && networkResponse.status === 200) {
                 const cache = await caches.open(CACHE_NAME);
-                cache.put(event.request, networkResponse.clone()).catch(() => { /* ignore */ });
+                cache.put(event.request, networkResponse.clone());
             }
             return networkResponse;
         }).catch(() => null);
 
-        // Se existir em cache, retorna imediatamente e atualiza em background
-        if (cachedResponse) {
-            // dispara atualização em background
-            fetchPromise;
-            return cachedResponse;
-        }
-
-        // Se não tem no cache, aguarda a rede e tenta retornar
-        const net = await fetchPromise;
-        if (net) return net;
-
-        // última tentativa: retorna alguma coisa do cache (p.ex. index.html)
-        return await caches.match('index.html') || await caches.match('./') || new Response('Offline', { status: 503, statusText: 'Offline' });
+        return cachedResponse || await fetchPromise;
     })());
+});
+
+// Escuta mensagem para pular espera (caso precise forçar update via JS)
+self.addEventListener('message', (event) => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        self.skipWaiting();
+    }
 });
