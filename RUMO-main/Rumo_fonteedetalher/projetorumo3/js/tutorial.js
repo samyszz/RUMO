@@ -6,15 +6,27 @@
 
 // Lista para Pessoa Física (e visitantes)
 const videosPF = [
-    { id: 'ZQM1GS3uDz8', title: 'Como editar Perfil PF', url: 'https://www.youtube.com/watch?v=ZQM1GS3uDz8' },
-    { id: 'ZQM1GS3uDz8', title: 'Navegando no Hub', url: 'https://www.youtube.com/watch?v=ZQM1GS3uDz8' },
-    { id: 'ZQM1GS3uDz8', title: 'Entrando em Comunidades', url: 'https://www.youtube.com/watch?v=ZQM1GS3uDz8' }
+    { id: 'JBybPFLMF3c', title: 'Tutorial R.U.M.O - Tela Inicial', url: 'https://www.youtube.com/watch?v=JBybPFLMF3c' },
+    { id: 'MIEYRhxXwbo', title: 'Tutorial R.U.M.O - Sobre nós', url: 'https://www.youtube.com/watch?v=MIEYRhxXwbo' },
+    { id: 'y8BbwhljXs0', title: 'Tutorial R.U.M.O - Perfil de Usuário', url: 'https://youtu.be/y8BbwhljXs0?si=893kC-_qk6wifV5n' },
+    { id: 'rsdLlE3s0VE', title: 'Tutorial R.U.M.O - Cadastro e Login', url: 'https://www.youtube.com/watch?v=ZQM1GS3uDz8' },
+    { id: 'l_9WGFPuUTs', title: 'Tutorial R.U.M.O - HUB', url: 'https://youtu.be/l_9WGFPuUTs?si=GnRzG714T_oI9xxi' },
+    { id: 'P2T2sFII_0k', title: 'Tutorial R.U.M.O - Editar Perfil', url: 'https://youtu.be/P2T2sFII_0k?si=ZplLjSG1KdIpD0i8' },
+    { id: '7z_vkwg2Ois', title: 'Tutorial R.U.M.O - Utilidades', url: 'https://youtu.be/7z_vkwg2Ois?si=Zq0Rj-E0fIh7UCgY' }
+   
 ];
 
 // Lista para Pessoa Jurídica
 const videosPJ = [
-    { id: 'ZQM1GS3uDz8', title: 'Cadastrando sua Empresa', url: 'https://www.youtube.com/watch?v=ZQM1GS3uDz8' },
-    { id: 'ZQM1GS3uDz8', title: 'Gerenciando Vagas', url: 'https://www.youtube.com/watch?v=ZQM1GS3uDz8' }
+   { id: 'JBybPFLMF3c', title: 'Tutorial R.U.M.O - Tela Inicial', url: 'https://www.youtube.com/watch?v=JBybPFLMF3c' },
+   { id: 'MIEYRhxXwbo', title: 'Tutorial R.U.M.O - Sobre nós', url: 'https://www.youtube.com/watch?v=MIEYRhxXwbo' },
+     { id: 'yZV3h4tmyXQ', title: 'Tutorial R.U.M.O - Dashboard', url: 'https://youtu.be/yZV3h4tmyXQ?si=4S4ke3UI0GAXy5nQ' },
+    { id: 'y8BbwhljXs0', title: 'Tutorial R.U.M.O - Perfil de Usuário', url: 'https://youtu.be/y8BbwhljXs0?si=893kC-_qk6wifV5n' },
+     { id: 'tSZ9mWpzrCU', title: 'Tutorial R.U.M.O - Novo Post', url: 'https://youtu.be/tSZ9mWpzrCU?si=KAE48xI8rD2D_dnw' },
+     { id: 'rsdLlE3s0VE', title: 'Tutorial R.U.M.O - Cadastro e Login', url: 'https://www.youtube.com/watch?v=ZQM1GS3uDz8' },
+    { id: 'l_9WGFPuUTs', title: 'Tutorial R.U.M.O - HUB', url: 'https://youtu.be/l_9WGFPuUTs?si=GnRzG714T_oI9xxi' },
+    { id: 'P2T2sFII_0k', title: 'Tutorial R.U.M.O - Editar Perfil', url: 'https://youtu.be/P2T2sFII_0k?si=ZplLjSG1KdIpD0i8' },
+    { id: '7z_vkwg2Ois', title: 'Tutorial R.U.M.O - Utilidades', url: 'https://youtu.be/7z_vkwg2Ois?si=Zq0Rj-E0fIh7UCgY' }
 ];
 
 // Variáveis globais
