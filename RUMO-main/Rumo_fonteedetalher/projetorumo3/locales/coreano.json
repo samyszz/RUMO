@@ -5,7 +5,8 @@
     "tools": "도구",
     "about": "소개",
     "profile": "내 프로필",
-    "create_account": "계정 만들기"
+    "create_account": "계정 만들기",
+    "panel": "패널"
   },
   "header": {
     "lang": {
@@ -51,25 +52,29 @@
       "learning": "교육"
     }
   },
-  "form": {
-    "register": "계정 만들기",
+ "form": {
+    "register": "회원가입",
     "login": "로그인",
-    "social_register": "또는 이메일로 가입하기",
+    "social_register": "또는 이메일로 가입",
     "social_login": "또는 계정으로 로그인",
-    "name_placeholder": "전체 이름",
+    "name_placeholder": "이름 (전체)",
     "cpf_placeholder": "CPF (000.000.000-00)",
     "email_placeholder": "이메일",
     "password_placeholder": "비밀번호",
     "confirm_password_placeholder": "비밀번호 확인",
-    "company_placeholder": "회사/기관 이름",
+    "company_placeholder": "회사/단체명",
     "cnpj_placeholder": "CNPJ (00.000.000/0000-00)",
     "email_commercial_placeholder": "업무용 이메일",
-    "error_cpf": "유효하지 않은 CPF 번호입니다",
-    "error_email": "유효하지 않은 이메일입니다",
-    "error_cnpj": "유효하지 않은 CNPJ 번호입니다",
+    "error_cpf": "유효하지 않은 CPF",
+    "error_email": "유효하지 않은 이메일",
+    "error_cnpj": "유효하지 않은 CNPJ",
     "error_password_mismatch": "비밀번호가 일치하지 않습니다",
-    "terms_prefix": "저는 다음 내용에 동의합니다: ",
-    "strength_very_weak": "매우 약함 (대문자/숫자를 추가하세요)"
+    "terms_prefix": "다음 내용을 읽고 동의합니다: ",
+    "strength_very_weak": "매우 약함",
+    "strength_weak": "약함",
+    "strength_medium": "보통",
+    "strength_strong": "강함",
+    "strength_very_strong": "매우 강함"
   },
   "cadastro": {
     "pf": "개인",

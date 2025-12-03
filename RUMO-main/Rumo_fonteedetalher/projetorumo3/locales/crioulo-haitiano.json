@@ -5,7 +5,8 @@
     "tools": "Zouti",
     "about": "Sou nou",
     "profile": "Pwofil mwen",
-    "create_account": "Kreye kont"
+    "create_account": "Kreye kont",
+    "panel": "Panèl"
   },
   "header": {
     "lang": {
@@ -51,25 +52,29 @@
       "learning": "Edikasyon"
     }
   },
-  "form": {
-    "register": "Kreye kont",
-    "login": "Antre",
-    "social_register": "Oswa anrejistre ak imèl ou",
-    "social_login": "Oswa konekte ak kont ou",
+"form": {
+    "register": "Enskri",
+    "login": "Konekte",
+    "social_register": "Oswa itilize imèl ou pou enskri",
+    "social_login": "Oswa itilize kont ou",
     "name_placeholder": "Non konplè",
     "cpf_placeholder": "CPF (000.000.000-00)",
     "email_placeholder": "Imèl",
     "password_placeholder": "Modpas",
-    "confirm_password_placeholder": "Konfime modpas",
-    "company_placeholder": "Non konpayi/òganizasyon",
+    "confirm_password_placeholder": "Repete modpas la",
+    "company_placeholder": "Non Konpayi/ONG",
     "cnpj_placeholder": "CNPJ (00.000.000/0000-00)",
-    "email_commercial_placeholder": "Imèl pwofesyonèl",
-    "error_cpf": "Nimewo CPF pa valab",
-    "error_email": "Imèl pa valab",
-    "error_cnpj": "Nimewo CNPJ pa valab",
-    "error_password_mismatch": "Modpas yo pa menm",
-    "terms_prefix": "Mwen dakò ak: ",
-    "strength_very_weak": "Trè fèb (ajoute lèt majiskil/chif)"
+    "email_commercial_placeholder": "Imèl Komèsyal",
+    "error_cpf": "CPF pa valid",
+    "error_email": "Imèl pa valid",
+    "error_cnpj": "CNPJ pa valid",
+    "error_password_mismatch": "Modpas yo pa matche",
+    "terms_prefix": "Mwen li epi mwen aksepte ",
+    "strength_very_weak": "Trè fèb",
+    "strength_weak": "Fèb",
+    "strength_medium": "Mwayen",
+    "strength_strong": "Fò",
+    "strength_very_strong": "Trè fò"
   },
   "cadastro": {
     "pf": "Moun fizik",

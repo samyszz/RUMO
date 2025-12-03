@@ -5,7 +5,8 @@
     "tools": "Outils",
     "about": "À propos",
     "profile": "Mon profil",
-    "create_account": "Créer un compte"
+    "create_account": "Créer un compte",
+    "panel": "Panneau"
   },
   "header": {
     "lang": {
@@ -52,24 +53,28 @@
     }
   },
   "form": {
-    "register": "Créer un compte",
+    "register": "S'inscrire",
     "login": "Connexion",
-    "social_register": "Ou inscrivez-vous avec votre e-mail",
-    "social_login": "Ou connectez-vous avec votre compte",
-    "name_placeholder": "Nom complet",
+    "social_register": "Ou s'inscrire par e-mail",
+    "social_login": "Ou se connecter avec un compte",
+    "name_placeholder": "Nom Complet",
     "cpf_placeholder": "CPF (000.000.000-00)",
     "email_placeholder": "E-mail",
     "password_placeholder": "Mot de passe",
-    "confirm_password_placeholder": "Confirmer le mot de passe",
-    "company_placeholder": "Nom de la société/organisation",
+    "confirm_password_placeholder": "Répétez le mot de passe",
+    "company_placeholder": "Nom de l'Entreprise/ONG",
     "cnpj_placeholder": "CNPJ (00.000.000/0000-00)",
-    "email_commercial_placeholder": "E-mail professionnel",
-    "error_cpf": "Numéro CPF invalide",
+    "email_commercial_placeholder": "E-mail Professionnel",
+    "error_cpf": "CPF invalide",
     "error_email": "E-mail invalide",
-    "error_cnpj": "Numéro CNPJ invalide",
+    "error_cnpj": "CNPJ invalide",
     "error_password_mismatch": "Les mots de passe ne correspondent pas",
-    "terms_prefix": "J’accepte : ",
-    "strength_very_weak": "Très faible (ajoutez des majuscules/chiffres)"
+    "terms_prefix": "J'ai lu et j'accepte les ",
+    "strength_very_weak": "Très faible",
+    "strength_weak": "Faible",
+    "strength_medium": "Moyenne",
+    "strength_strong": "Forte",
+    "strength_very_strong": "Très forte"
   },
   "cadastro": {
     "pf": "Personne physique",

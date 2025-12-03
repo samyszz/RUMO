@@ -5,7 +5,8 @@
     "tools": "工具",
     "about": "关于我们",
     "profile": "我的资料",
-    "create_account": "创建账户"
+    "create_account": "创建账户",
+    "panel": "面板"
   },
   "header": {
     "lang": {
@@ -54,22 +55,26 @@
   "form": {
     "register": "注册",
     "login": "登录",
-    "social_register": "或使用您的电子邮件注册",
-    "social_login": "或使用您的账号",
+    "social_register": "或使用邮箱注册",
+    "social_login": "或使用账号登录",
     "name_placeholder": "全名",
-    "cpf_placeholder": "CPF（000.000.000-00）",
-    "email_placeholder": "电子邮件",
+    "cpf_placeholder": "CPF (000.000.000-00)",
+    "email_placeholder": "电子邮箱",
     "password_placeholder": "密码",
-    "confirm_password_placeholder": "重复密码",
-    "company_placeholder": "公司/机构名称",
-    "cnpj_placeholder": "CNPJ（00.000.000/0000-00）",
-    "email_commercial_placeholder": "商业电子邮件",
-    "error_cpf": "无效的 CPF",
-    "error_email": "无效的电子邮件",
-    "error_cnpj": "无效的 CNPJ",
-    "error_password_mismatch": "密码不一致",
-    "terms_prefix": "我已阅读并同意 ",
-    "strength_very_weak": "非常弱（请添加大写字母/数字）"
+    "confirm_password_placeholder": "确认密码",
+    "company_placeholder": "公司/NGO名称",
+    "cnpj_placeholder": "CNPJ (00.000.000/0000-00)",
+    "email_commercial_placeholder": "商务邮箱",
+    "error_cpf": "CPF 无效",
+    "error_email": "电子邮箱无效",
+    "error_cnpj": "CNPJ 无效",
+    "error_password_mismatch": "密码不匹配",
+    "terms_prefix": "我已阅读并接受 ",
+    "strength_very_weak": "非常弱",
+    "strength_weak": "弱",
+    "strength_medium": "中等",
+    "strength_strong": "强",
+    "strength_very_strong": "非常强"
   },
   "cadastro": {
     "pf": "个人用户",

@@ -5,7 +5,8 @@
     "tools": "Tools",
     "about": "About us",
     "profile": "My profile",
-    "create_account": "Create an account"
+    "create_account": "Create an account",
+    "panel": "Panel"
   },
   "header": {
     "lang": {
@@ -52,24 +53,28 @@
     }
   },
   "form": {
-    "register": "Create account",
-    "login": "Log in",
-    "social_register": "Or sign up with your email",
-    "social_login": "Or enter your account",
-    "name_placeholder": "Full name",
+    "register": "Register",
+    "login": "Login",
+    "social_register": "Or register with email",
+    "social_login": "Or login with account",
+    "name_placeholder": "Full Name",
     "cpf_placeholder": "CPF (000.000.000-00)",
     "email_placeholder": "Email",
     "password_placeholder": "Password",
-    "confirm_password_placeholder": "Confirm password",
-    "company_placeholder": "Company/organization name",
+    "confirm_password_placeholder": "Repeat Password",
+    "company_placeholder": "Company/NGO Name",
     "cnpj_placeholder": "CNPJ (00.000.000/0000-00)",
-    "email_commercial_placeholder": "Professional email",
+    "email_commercial_placeholder": "Business Email",
     "error_cpf": "Invalid CPF",
     "error_email": "Invalid email",
     "error_cnpj": "Invalid CNPJ",
     "error_password_mismatch": "Passwords do not match",
-    "terms_prefix": "I accept the terms:",
-    "strength_very_weak": "Very weak (add uppercase letters or numbers)"
+    "terms_prefix": "I have read and accept the ",
+    "strength_very_weak": "Very Weak",
+    "strength_weak": "Weak",
+    "strength_medium": "Medium",
+    "strength_strong": "Strong",
+    "strength_very_strong": "Very Strong"
   },
   "cadastro": {
     "pf": "Individual",

@@ -10,10 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const modalBtn = document.getElementById('docs-modal-confirm-btn');
     const modalCheck = document.getElementById('docs-modal-check');
     
-    let map; 
-    let userMarker;
-    let searchMarkers = [];
-    let userCoords;
+    let map, userMarker, searchMarkers = [], userCoords;
 
     function openDropdown(header) {
         const content = header.nextElementSibling;
@@ -72,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     // ==================================================
-    // 2. MAPA (Com tratamento de erro CORS)
+    // 2. MAPA (Com tradução dinâmica)
     // ==================================================
     function initMap() {
         const mapContainer = document.getElementById('map');
@@ -88,11 +85,18 @@ document.addEventListener('DOMContentLoaded', function () {
             navigator.geolocation.getCurrentPosition(onLocationSuccess, onLocationError);
         } else {
             const addrEl = document.getElementById('user-address');
-            if(addrEl) addrEl.textContent = 'Geolocalização não suportada pelo navegador.';
+            if(addrEl) {
+                // Tradução do erro
+                if (window.i18n && typeof i18n.translateText === 'function') {
+                    i18n.translateText('Geolocalização não suportada pelo navegador.').then(t => addrEl.textContent = t);
+                } else {
+                    addrEl.textContent = 'Geolocalização não suportada pelo navegador.';
+                }
+            }
         }
     }
 
-    function onLocationSuccess(position) {
+    async function onLocationSuccess(position) {
         userCoords = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -100,14 +104,22 @@ document.addEventListener('DOMContentLoaded', function () {
         
         // Centraliza e adiciona marcador
         map.setView([userCoords.lat, userCoords.lng], 15);
+        
+        let popupText = 'Você está aqui!';
+        if (window.i18n && typeof i18n.translateText === 'function') {
+            popupText = await i18n.translateText(popupText);
+        }
+
         userMarker = L.marker([userCoords.lat, userCoords.lng]).addTo(map)
-            .bindPopup('<b>Você está aqui!</b>').openPopup();
+            .bindPopup(`<b>${popupText}</b>`).openPopup();
         
         const addrEl = document.getElementById('user-address');
-        if (addrEl) addrEl.textContent = "Buscando endereço...";
+        if (addrEl) {
+             const loadingText = await (window.i18n ? i18n.translateText("Buscando endereço...") : "Buscando endereço...");
+             addrEl.textContent = loadingText;
+        }
 
         // Tenta buscar o endereço (Reverse Geocoding)
-        // NOTA: Em localhost, isso pode falhar por CORS (bloqueio do navegador).
         const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${userCoords.lat}&lon=${userCoords.lng}&addressdetails=1`;
 
         fetch(url)
@@ -115,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!response.ok) throw new Error("Erro na resposta da API");
                 return response.json();
             })
-            .then(data => {
+            .then(async data => {
                 if (!addrEl) return;
                 if (data && data.address) {
                     const addr = data.address;
@@ -124,50 +136,57 @@ document.addEventListener('DOMContentLoaded', function () {
                     const bairro = addr.suburb || "";
                     const cidade = addr.city || addr.town || "";
                     
-                    // Formata endereço bonitinho
                     const parte1 = `${rua}${numero ? ', ' + numero : ''}`;
                     const enderecoFinal = [parte1, bairro, cidade].filter(Boolean).join(' - ');
                     addrEl.textContent = enderecoFinal || data.display_name;
                 } else {
-                    addrEl.textContent = data.display_name || 'Endereço não encontrado.';
+                    const notFoundText = await (window.i18n ? i18n.translateText('Endereço não encontrado.') : 'Endereço não encontrado.');
+                    addrEl.textContent = data.display_name || notFoundText;
                 }
             })
-            .catch(error => {
-                // Tratamento silencioso do erro CORS para não sujar o console com vermelho
-                console.warn("Aviso: Não foi possível obter o endereço textual (provavelmente bloqueio CORS em localhost). O mapa visual continua funcionando.");
-                if (addrEl) addrEl.textContent = "Localização obtida (Endereço indisponível offline/local).";
+            .catch(async error => {
+                console.warn("Aviso: Não foi possível obter o endereço textual (provavelmente bloqueio CORS em localhost).");
+                const errorText = await (window.i18n ? i18n.translateText("Localização obtida (Endereço indisponível offline/local).") : "Localização obtida (Endereço indisponível offline/local).");
+                if (addrEl) addrEl.textContent = errorText;
             });
     }
 
-    function onLocationError(error) {
-        // Erro ao obter permissão de GPS
+    async function onLocationError(error) {
         const addrEl = document.getElementById('user-address');
         let msg = "Erro desconhecido.";
         if (error.code === 1) msg = "Permissão de localização negada.";
         if (error.code === 2) msg = "Localização indisponível.";
         if (error.code === 3) msg = "Tempo limite esgotado.";
         
-        if(addrEl) addrEl.textContent = msg;
-        console.warn(`Erro Geolocation: ${msg}`);
+        if(addrEl) {
+            if (window.i18n && typeof i18n.translateText === 'function') {
+                addrEl.textContent = await i18n.translateText(msg);
+            } else {
+                addrEl.textContent = msg;
+            }
+        }
     }
     
     // Busca no Mapa
     const searchForm = document.getElementById('search-form-map');
     if(searchForm) {
-        searchForm.addEventListener('submit', function(event) {
+        searchForm.addEventListener('submit', async function(event) {
             event.preventDefault();
             const query = document.getElementById('search-input-map').value;
             const resultsList = document.getElementById('search-results-list');
             
             if (!query || !userCoords) {
-                alert('Aguarde a localização ser detectada para buscar locais próximos.');
+                const alertMsg = await (window.i18n ? i18n.translateText('Aguarde a localização ser detectada para buscar locais próximos.') : 'Aguarde a localização ser detectada.');
+                alert(alertMsg);
                 return;
             }
             
             // Limpa marcadores anteriores
             searchMarkers.forEach(marker => map.removeLayer(marker));
             searchMarkers = [];
-            resultsList.innerHTML = '<p style="padding:10px;">Buscando...</p>';
+            
+            const searchingMsg = await (window.i18n ? i18n.translateText("Buscando...") : "Buscando...");
+            resultsList.innerHTML = `<p style="padding:10px;">${searchingMsg}</p>`;
             
             // Área de busca próxima ao usuário
             const viewbox = [userCoords.lng - 0.1, userCoords.lat + 0.1, userCoords.lng + 0.1, userCoords.lat - 0.1].join(',');
@@ -175,11 +194,12 @@ document.addEventListener('DOMContentLoaded', function () {
             
             fetch(url)
                 .then(res => res.json())
-                .then(data => {
-                    resultsList.innerHTML = ''; // Limpa "Buscando..."
+                .then(async data => {
+                    resultsList.innerHTML = ''; 
                     
                     if (data.length === 0) {
-                        resultsList.innerHTML = '<p style="padding: 10px;">Sem resultados próximos.</p>';
+                        const noResMsg = await (window.i18n ? i18n.translateText("Sem resultados próximos.") : "Sem resultados próximos.");
+                        resultsList.innerHTML = `<p style="padding: 10px;">${noResMsg}</p>`;
                         return;
                     }
                     
@@ -189,7 +209,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         
                         const listItem = document.createElement('div');
                         listItem.className = 'result-item';
-                        // Pega o nome mais relevante (loja, amenidade ou turismo)
                         const placeName = place.address.amenity || place.address.shop || place.address.tourism || place.display_name.split(',')[0];
                         
                         listItem.innerHTML = `<h5>${placeName}</h5><p style="font-size:0.8rem; color:#666;">${place.display_name}</p>`;
@@ -200,13 +219,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         resultsList.appendChild(listItem);
                     });
                     
-                    // Ajusta zoom para mostrar todos os resultados
                     const group = new L.featureGroup(searchMarkers.concat(userMarker));
                     map.fitBounds(group.getBounds().pad(0.2));
                 })
-                .catch(err => {
+                .catch(async err => {
                     console.warn("Erro na busca (CORS):", err);
-                    resultsList.innerHTML = '<p style="padding: 10px; color: red;">Erro ao buscar (Bloqueio de segurança do navegador).</p>';
+                    const errorMsg = await (window.i18n ? i18n.translateText("Erro ao buscar (Bloqueio de segurança do navegador).") : "Erro ao buscar.");
+                    resultsList.innerHTML = `<p style="padding: 10px; color: red;">${errorMsg}</p>`;
                 });
         });
     }
@@ -220,7 +239,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const convertButton = document.querySelector('.currency-content .btn-converter');
     const resultCurrencyBox = document.querySelector('.currency-content .result-box span');
 
-    // Função auxiliar para buscar taxas
     async function fetchRates(base) {
         try {
             const res = await fetch(`https://api.frankfurter.app/latest?from=${base}`);
@@ -243,16 +261,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
             
-            // Texto de carregamento
             if(resultCurrencyBox) resultCurrencyBox.textContent = "...";
 
             let rate = 1; 
-            // Tenta buscar taxa real se estiver online
             if(navigator.onLine && from !== to) {
                  const rates = await fetchRates(from);
                  if(rates && rates[to]) rate = rates[to];
                  else {
-                     // Fallback manual simples se a API falhar (apenas exemplo)
                      if(from === 'USD' && to === 'BRL') rate = 5.0;
                      if(from === 'BRL' && to === 'USD') rate = 0.2;
                      if(from === 'EUR' && to === 'BRL') rate = 5.5;
@@ -276,7 +291,6 @@ document.addEventListener('DOMContentLoaded', function () {
         temperature: [ { label: 'Celsius (°C)', value: 'C' }, { label: 'Fahrenheit (°F)', value: 'F' }, { label: 'Kelvin (K)', value: 'K' } ]
     };
     
-    // Fatores de conversão (baseado na unidade padrão de cada tipo: m, kg, C)
     const lengthFactors = { m: 1, km: 1000, cm: 0.01 };
     const weightFactors = { kg: 1, g: 0.001, t: 1000 };
 
@@ -307,11 +321,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         if (type === 'temperature') {
             let c = amt;
-            // Converte tudo para Celsius primeiro
             if (from === 'F') c = (amt - 32) * 5/9;
             if (from === 'K') c = amt - 273.15;
             
-            // De Celsius para destino
             if (to === 'F') return c * 9/5 + 32;
             if (to === 'K') return c + 273.15;
             return c;
@@ -392,34 +404,51 @@ document.addEventListener('DOMContentLoaded', function () {
     populateUtilsLanguageDropdown();
 
     // ==================================================
-    // 6. COFRE DE DOCUMENTOS (CRUD)
+    // 6. COFRE DE DOCUMENTOS (CRUD COM TRADUÇÃO)
     // ==================================================
     const docForm = document.getElementById('add-doc-form');
     const docList = document.getElementById('doc-list');
     const savedDocs = JSON.parse(localStorage.getItem('userDocuments')) || [];
 
-    const renderDocs = () => {
+    // Função renderDocs agora é assíncrona para traduzir status
+    const renderDocs = async () => {
         if (!docList) return;
-        docList.innerHTML = savedDocs.length === 0 ? '<p>Nenhum documento.</p>' : '';
-        savedDocs.forEach((doc, index) => {
+        
+        const emptyMsg = await (window.i18n ? i18n.translateText('Nenhum documento.') : 'Nenhum documento.');
+        docList.innerHTML = savedDocs.length === 0 ? `<p>${emptyMsg}</p>` : '';
+        
+        for (const [index, doc] of savedDocs.entries()) {
             const docElement = document.createElement('div');
             docElement.classList.add('doc-item');
             const expiryDate = new Date(doc.expiry);
             const today = new Date(); today.setHours(0, 0, 0, 0);
             
-            let statusClass = 'ok', statusText = 'Válido';
-            if (expiryDate < today) { statusClass = 'expired'; statusText = 'Expirado'; } 
+            let statusClass = 'ok';
+            let statusText = 'Válido';
             
+            if (expiryDate < today) { 
+                statusClass = 'expired'; 
+                statusText = 'Expirado'; 
+            }
+            
+            let translatedStatus = statusText;
+            let translatedLabel = "Validade:";
+            
+            if (window.i18n && typeof i18n.translateText === 'function') {
+                translatedStatus = await i18n.translateText(statusText);
+                translatedLabel = await i18n.translateText("Validade:");
+            }
+
             docElement.innerHTML = `
                 <div class="doc-info">
                     <h4>${doc.type}</h4>
-                    <p>Validade: ${expiryDate.toLocaleDateString()}</p>
+                    <p>${translatedLabel} ${expiryDate.toLocaleDateString()}</p>
                 </div>
-                <div class="doc-status ${statusClass}">${statusText}</div>
+                <div class="doc-status ${statusClass}">${translatedStatus}</div>
                 <button class="btn-delete-doc" data-index="${index}"><i class="fas fa-trash-alt"></i></button>
             `;
             docList.appendChild(docElement);
-        });
+        }
     };
 
     if (docForm) {
@@ -437,10 +466,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (docList) {
-        docList.addEventListener('click', (e) => {
+        docList.addEventListener('click', async (e) => {
             const button = e.target.closest('.btn-delete-doc');
             if (button) {
-                if (confirm('Deseja excluir este documento?')) {
+                const confirmMsg = await (window.i18n ? i18n.translateText('Deseja excluir este documento?') : 'Deseja excluir este documento?');
+                if (confirm(confirmMsg)) {
                     savedDocs.splice(button.getAttribute('data-index'), 1);
                     localStorage.setItem('userDocuments', JSON.stringify(savedDocs));
                     renderDocs();

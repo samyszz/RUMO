@@ -5,7 +5,8 @@
     "tools": "الأدوات",
     "about": "من نحن",
     "profile": "ملفي الشخصي",
-    "create_account": "إنشاء حساب"
+    "create_account": "إنشاء حساب",
+    "panel": "لوحة التحكم"
   },
   "header": {
     "lang": {
@@ -51,25 +52,29 @@
       "learning": "تعليم"
     }
   },
-  "form": {
-    "register": "إنشاء حساب",
-    "login": "تسجيل الدخول",
-    "social_register": "أو استخدم بريدك الإلكتروني للتسجيل",
-    "social_login": "أو استخدم حسابك",
+ "form": {
+    "register": "تسجيل",
+    "login": "دخول",
+    "social_register": "أو سجل عبر البريد الإلكتروني",
+    "social_login": "أو سجل الدخول بحسابك",
     "name_placeholder": "الاسم الكامل",
     "cpf_placeholder": "CPF (000.000.000-00)",
     "email_placeholder": "البريد الإلكتروني",
     "password_placeholder": "كلمة المرور",
-    "confirm_password_placeholder": "أعد إدخال كلمة المرور",
+    "confirm_password_placeholder": "تأكيد كلمة المرور",
     "company_placeholder": "اسم الشركة/المنظمة",
     "cnpj_placeholder": "CNPJ (00.000.000/0000-00)",
-    "email_commercial_placeholder": "البريد التجاري",
+    "email_commercial_placeholder": "البريد الإلكتروني التجاري",
     "error_cpf": "رقم CPF غير صالح",
     "error_email": "بريد إلكتروني غير صالح",
     "error_cnpj": "رقم CNPJ غير صالح",
-    "error_password_mismatch": "كلمتا المرور غير متطابقتين",
-    "terms_prefix": "لقد قرأت وأوافق على ",
-    "strength_very_weak": "ضعيفة جدًا (أضف حروفًا كبيرة/أرقامًا)"
+    "error_password_mismatch": "كلمات المرور غير متطابقة",
+    "terms_prefix": "قرأت وأوافق على ",
+    "strength_very_weak": "ضعيفة جداً",
+    "strength_weak": "ضعيفة",
+    "strength_medium": "متوسطة",
+    "strength_strong": "قوية",
+    "strength_very_strong": "قوية جداً"
   },
   "cadastro": {
     "pf": "شخص طبيعي",

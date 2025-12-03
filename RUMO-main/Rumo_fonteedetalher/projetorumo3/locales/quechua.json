@@ -5,7 +5,8 @@
     "tools": "Ruwanakuna",
     "about": "Ñuqanchikmanta",
     "profile": "Qayllu Qillqa",
-    "create_account": "Qillqay cuenta"
+    "create_account": "Qillqay cuenta",
+    "panel": "Panka"
   },
   "header": {
     "lang": {
@@ -52,24 +53,28 @@
     }
   },
   "form": {
-    "register": "Qillqay",
+    "register": "Qillqakuy",
     "login": "Yaykuy",
-    "social_register": "Ima emailniykita churay qillqaypaq",
-    "social_login": "Hinaspa cuenta-nkiwan yaykuy",
-    "name_placeholder": "Sutiyki completo",
+    "social_register": "Utaq correoykiwan qillqakuy",
+    "social_login": "Utaq cuentaykiwan yaykuy",
+    "name_placeholder": "Sutiyki",
     "cpf_placeholder": "CPF (000.000.000-00)",
-    "email_placeholder": "Email",
-    "password_placeholder": "Simiñiqi",
-    "confirm_password_placeholder": "Simiñiqita kutichiy",
-    "company_placeholder": "Empresa/ONG sutin",
+    "email_placeholder": "Correo electrónico",
+    "password_placeholder": "Kichana (Contraseña)",
+    "confirm_password_placeholder": "Kichanata cheqaqchay",
+    "company_placeholder": "Ruruchi/ONG sutin",
     "cnpj_placeholder": "CNPJ (00.000.000/0000-00)",
-    "email_commercial_placeholder": "Empresa email",
+    "email_commercial_placeholder": "Llamk'anapaq correo",
     "error_cpf": "CPF manam allinchu",
-    "error_email": "Email manam allinchu",
+    "error_email": "Correo manam allinchu",
     "error_cnpj": "CNPJ manam allinchu",
-    "error_password_mismatch": "Simiñiqikuna mana kikinchu",
-    "terms_prefix": "Ñawpaqta ñanchay:",
-    "strength_very_weak": "Pisilla (Hunt'achiy hatun yupay/Mayor letras)"
+    "error_password_mismatch": "Kichanakuna manam tupaninchu",
+    "terms_prefix": "Ñawinchani hinaspa chaskini ",
+    "strength_very_weak": "Ancha pisi",
+    "strength_weak": "Pisi",
+    "strength_medium": "Chawpi",
+    "strength_strong": "Sinchi",
+    "strength_very_strong": "Ancha sinchi"
   },
   "cadastro": {
     "pf": "Runalla",

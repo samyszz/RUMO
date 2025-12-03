@@ -5,7 +5,8 @@
     "tools": "Utilidades",
     "about": "Sobre nosotros",
     "profile": "Mi Perfil",
-    "create_account": "Crear cuenta"
+    "create_account": "Crear cuenta",
+    "panel": "Panel"
   },
   "header": {
     "lang": {
@@ -51,25 +52,29 @@
       "learning": "Aprendizaje"
     }
   },
-  "form": {
-    "register": "Regístrate",
+ "form": {
+    "register": "Registrarse",
     "login": "Iniciar sesión",
-    "social_register": "O usa tu correo electrónico para registrarte",
-    "social_login": "O usa tu cuenta",
-    "name_placeholder": "Nombre Completo",
+    "social_register": "O regístrese con correo",
+    "social_login": "O ingrese con su cuenta",
+    "name_placeholder": "Nombre completo",
     "cpf_placeholder": "CPF (000.000.000-00)",
     "email_placeholder": "Correo electrónico",
     "password_placeholder": "Contraseña",
-    "confirm_password_placeholder": "Repite la contraseña",
+    "confirm_password_placeholder": "Repetir contraseña",
     "company_placeholder": "Nombre de la Empresa/ONG",
     "cnpj_placeholder": "CNPJ (00.000.000/0000-00)",
-    "email_commercial_placeholder": "Correo Comercial",
-    "error_cpf": "CPF Inválido",
+    "email_commercial_placeholder": "Correo comercial",
+    "error_cpf": "CPF inválido",
     "error_email": "Correo inválido",
-    "error_cnpj": "CNPJ Inválido",
+    "error_cnpj": "CNPJ inválido",
     "error_password_mismatch": "Las contraseñas no coinciden",
-    "terms_prefix": "He leído y acepto los ",
-    "strength_very_weak": "Muy Débil (Añade mayúsculas/números)"
+    "terms_prefix": "Leí y acepto los ",
+    "strength_very_weak": "Muy débil",
+    "strength_weak": "Débil",
+    "strength_medium": "Media",
+    "strength_strong": "Fuerte",
+    "strength_very_strong": "Muy fuerte"
   },
   "cadastro": {
     "pf": "Persona Física",

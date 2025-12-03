@@ -1,3 +1,5 @@
+/* js/cadastro.js */
+
 // --- Definição Simplificada dos Idiomas ---
 const languages = [
     { code: "pt", name: "Português", flag: "🇧🇷" },
@@ -8,20 +10,27 @@ const languages = [
     { code: "ja", name: "Japonês",   flag: "🇯🇵" },
     { code: "ht", name: "Crioulo",   flag: "🇭🇹" },
     { code: "qu", name: "Quéchua",   flag: "🇧🇴" },
-    { code: "ar", name: "Árabe",     flag: "🇸🇾" }, // Bandeira representativa
+    { code: "ar", name: "Árabe",     flag: "🇸🇾" },
     { code: "ko", name: "Coreano",   flag: "🇰🇷" },
     { code: "gn", name: "Guarani",   flag: "🇵🇾" }
 ];
 
-function populateLanguageDropdown(selectElement) {
+// Agora é async para traduzir o "Selecione..."
+async function populateLanguageDropdown(selectElement) {
     if (!selectElement) return;
     
     selectElement.innerHTML = '';
     
+    // Tradução do placeholder
+    let defaultText = 'Selecione o idioma...';
+    if (window.i18n && typeof i18n.translateText === 'function') {
+        defaultText = await i18n.translateText(defaultText);
+    }
+
     // Opção padrão
     const defaultOption = document.createElement('option');
     defaultOption.value = '';
-    defaultOption.textContent = 'Selecione o idioma...';
+    defaultOption.textContent = defaultText;
     defaultOption.disabled = true;
     defaultOption.selected = true;
     selectElement.appendChild(defaultOption);
@@ -39,8 +48,6 @@ function populateLanguageDropdown(selectElement) {
          if (selectElement.value !== '') defaultOption.disabled = true;
     });
 }
-
-// ... O RESTANTE DO ARQUIVO (validações, masks, submits) PERMANECE IGUAL ...
 
 // --- FUNÇÕES DE VALIDAÇÃO (MATEMÁTICAS E REGEX) ---
 
@@ -130,6 +137,14 @@ function toggleError(elementId, show, message = '') {
     }
 }
 
+// Função auxiliar para traduzir texto se a API estiver disponível
+async function t(text) {
+    if (window.i18n && typeof i18n.translateText === 'function') {
+        return await i18n.translateText(text);
+    }
+    return text;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const registerContainer = document.querySelector('.register-container');
     if (!registerContainer) return;
@@ -146,10 +161,9 @@ document.addEventListener('DOMContentLoaded', function() {
     populateLanguageDropdown(selectPF);
     populateLanguageDropdown(selectPJ);
 
-    // --- Lógica da Barra de Senha ---
-    // Esta função atualiza a cor e o texto em tempo real
-    const atualizarBarraSenha = (input, bar, text) => {
-        const handler = () => {
+    // --- Lógica da Barra de Senha (COM TRADUÇÃO) ---
+    const atualizarBarraSenha = (input, bar, textEl) => {
+        const handler = async () => {
             const senha = input.value;
             const forca = verificarForcaSenha(senha);
             
@@ -157,30 +171,40 @@ document.addEventListener('DOMContentLoaded', function() {
             if (senha.length === 0) {
                 bar.style.width = '0%';
                 bar.style.backgroundColor = 'transparent'; 
-                text.textContent = '';
+                textEl.textContent = '';
                 return;
             }
 
-            // Lógica de cores: Vermelho (Fraca/Bloqueante), Laranja (Média), Verde (Forte)
+            let msg = '';
+            let color = '';
+            let width = '';
+
+            // Lógica de cores e textos
             if (forca < 3) {
-                bar.style.width = '30%';
-                bar.style.backgroundColor = '#d32f2f'; // Vermelho
-                text.textContent = 'Muito Fraca (Adicione maiúsculas/números)';
-                text.style.color = '#d32f2f';
+                width = '30%';
+                color = '#d32f2f'; // Vermelho
+                msg = 'Muito Fraca (Adicione maiúsculas/números)';
             } else if (forca >= 3 && forca < 5) {
-                bar.style.width = '60%';
-                bar.style.backgroundColor = '#f57c00'; // Laranja
-                text.textContent = 'Média';
-                text.style.color = '#f57c00';
+                width = '60%';
+                color = '#f57c00'; // Laranja
+                msg = 'Média';
             } else {
-                bar.style.width = '100%';
-                bar.style.backgroundColor = '#2ecc71'; // Verde
-                text.textContent = 'Forte';
-                text.style.color = '#2ecc71';
+                width = '100%';
+                color = '#2ecc71'; // Verde
+                msg = 'Forte';
             }
+
+            // Aplica estilos visuais (instantâneo)
+            bar.style.width = width;
+            bar.style.backgroundColor = color;
+            textEl.style.color = color;
+
+            // Aplica tradução no texto (assíncrono)
+            const translatedMsg = await t(msg);
+            textEl.textContent = translatedMsg;
         };
         input.addEventListener('input', handler);
-        input.addEventListener('keyup', handler); // Garante update rápido
+        input.addEventListener('keyup', handler);
     };
 
     // Aplica aos campos de senha
@@ -194,20 +218,19 @@ document.addEventListener('DOMContentLoaded', function() {
     if (cpfInput) {
         cpfInput.addEventListener('input', (e) => {
             e.target.value = mascaraCPF(e.target.value);
-            // Remove erro enquanto digita se o formato ainda for incompleto
             if(e.target.value.length < 14) {
                 cpfInput.classList.remove('invalid');
                 toggleError('error-cpf', false);
             }
         });
         
-        // Valida pra valer no BLUR (quando sai do campo) ou se completou 14 chars
-        const validarCpfHandler = () => {
+        const validarCpfHandler = async () => {
             if (cpfInput.value.length === 14) {
                 if (!validarCPF(cpfInput.value)) {
                     cpfInput.classList.add('invalid');
                     cpfInput.classList.remove('valid');
-                    toggleError('error-cpf', true, 'CPF Inválido. Verifique os dígitos.');
+                    const msg = await t('CPF Inválido. Verifique os dígitos.');
+                    toggleError('error-cpf', true, msg);
                 } else {
                     cpfInput.classList.remove('invalid');
                     cpfInput.classList.add('valid');
@@ -220,10 +243,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Validação em Tempo Real: Email ---
     const validarEmailVisual = (input, errorId) => {
-        input.addEventListener('blur', () => {
+        input.addEventListener('blur', async () => {
             if(input.value && !validarEmail(input.value)) {
                 input.classList.add('invalid');
-                toggleError(errorId, true, 'Formato de e-mail inválido.');
+                const msg = await t('Formato de e-mail inválido.');
+                toggleError(errorId, true, msg);
             } else {
                 input.classList.remove('invalid');
                 toggleError(errorId, false);
@@ -237,17 +261,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const validarConfSenha = (passId, confId, errorId) => {
         const pass = document.getElementById(passId);
         const conf = document.getElementById(confId);
-        const check = () => {
+        const check = async () => {
             if(conf.value && pass.value !== conf.value) {
                 conf.classList.add('invalid');
-                toggleError(errorId, true, 'As senhas não conferem.');
+                const msg = await t('As senhas não conferem.');
+                toggleError(errorId, true, msg);
             } else {
                 conf.classList.remove('invalid');
                 toggleError(errorId, false);
             }
         };
         conf.addEventListener('input', check);
-        pass.addEventListener('input', check); // Checa se mudar a senha original também
+        pass.addEventListener('input', check);
     };
     validarConfSenha('senha-pf', 'conf-senha-pf', 'error-conf-senha-pf');
     validarConfSenha('senha-pj', 'conf-senha-pj', 'error-conf-senha-pj');
@@ -269,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         cnpjInput.addEventListener('blur', async () => {
             if (cnpjInput.value.length === 18) {
-                statusCnpj.textContent = 'Verificando na Receita...';
+                statusCnpj.textContent = await t('Verificando na Receita...');
                 statusCnpj.classList.add('visible');
                 
                 const res = await consultarCNPJ(cnpjInput.value);
@@ -278,14 +303,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     cnpjInput.classList.add('invalid');
                     cnpjInput.classList.remove('valid');
                     statusCnpj.textContent = ''; 
-                    toggleError('error-cnpj', true, res.msg); // Mostra o erro vermelho
+                    const msgErro = await t(res.msg);
+                    toggleError('error-cnpj', true, msgErro); 
                 } else {
                     cnpjInput.classList.remove('invalid');
                     cnpjInput.classList.add('valid');
                     toggleError('error-cnpj', false);
                     statusCnpj.style.color = '#2ecc71';
-                    statusCnpj.textContent = `Válido: ${res.dados.razao_social}`;
-                    // Preenche nome
+                    const validoTxt = await t('Válido');
+                    statusCnpj.textContent = `${validoTxt}: ${res.dados.razao_social}`;
+                    
                     const nomeEmpresa = document.getElementById('nome-empresa');
                     if(nomeEmpresa && !nomeEmpresa.value) {
                         nomeEmpresa.value = res.dados.nome_fantasia || res.dados.razao_social;
@@ -305,7 +332,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const contentId = tab.getAttribute('data-tab');
             document.getElementById(contentId).classList.add('active');
             
-            // Esconde social se for PJ (Controla visibilidade, a lógica está no login.js)
             const social = document.querySelector('.social-container');
             const socialTxt = document.querySelector('.social-text');
             if(contentId === 'pj') {
@@ -318,12 +344,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // --- SUBMIT PF (COM BLOQUEIO SE HOUVER ERRO) ---
+    // --- SUBMIT PF (COM BLOQUEIO E TRADUÇÃO) ---
     if (formPF) {
         formPF.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const btnSubmit = document.getElementById('btn-submit-pf');
+            const originalBtnText = btnSubmit.innerText; // Guarda texto original (ex: Cadastrar)
+            
             const cpfVal = document.getElementById('cpf-input').value;
             const passVal = document.getElementById('senha-pf').value;
             const confVal = document.getElementById('conf-senha-pf').value;
@@ -331,27 +359,33 @@ document.addEventListener('DOMContentLoaded', function() {
             const nomeVal = formPF.querySelector('input[name="nome"]').value;
             const idiomaVal = selectPF.value;
 
-            // Verificação Final antes de enviar
+            // Verificações
             if (!validarCPF(cpfVal)) { 
-                toggleError('error-cpf', true, 'CPF Inválido. Corrija antes de continuar.'); 
+                const msg = await t('CPF Inválido. Corrija antes de continuar.');
+                toggleError('error-cpf', true, msg); 
                 return; 
             }
             if (verificarForcaSenha(passVal) < 3) {
-                alert('Sua senha é muito fraca. O cadastro foi bloqueado por segurança.');
+                const msg = await t('Sua senha é muito fraca. O cadastro foi bloqueado por segurança.');
+                alert(msg);
                 return;
             }
             if (passVal !== confVal) {
-                toggleError('error-conf-senha-pf', true, 'Senhas não conferem.');
+                const msg = await t('Senhas não conferem.');
+                toggleError('error-conf-senha-pf', true, msg);
                 return;
             }
-            if (!idiomaVal) { alert('Selecione um idioma.'); return; }
+            if (!idiomaVal) { 
+                const msg = await t('Selecione um idioma.');
+                alert(msg); 
+                return; 
+            }
 
             // Tudo certo, prossegue
-            btnSubmit.innerText = 'Criando conta...';
+            btnSubmit.innerText = await t('Criando conta...');
             btnSubmit.disabled = true;
 
             try {
-                // Criação manual (E-mail/Senha)
                 const userCredential = await auth.createUserWithEmailAndPassword(emailVal, passVal);
                 await db.collection('users').doc(userCredential.user.uid).set({
                     nome: nomeVal,
@@ -364,23 +398,27 @@ document.addEventListener('DOMContentLoaded', function() {
                     profilePicture: 'assets/imagens/avatar-padrao.png',
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
-                alert('Cadastro realizado com sucesso!');
+                
+                const msgSucesso = await t('Cadastro realizado com sucesso!');
+                alert(msgSucesso);
                 window.location.href = 'hub.html';
             } catch (error) {
                 console.error(error);
-                btnSubmit.innerText = 'Cadastrar';
+                btnSubmit.innerText = originalBtnText;
                 btnSubmit.disabled = false;
-                tratarErrosFirebase(error);
+                await tratarErrosFirebase(error);
             }
         });
     }
 
-    // --- SUBMIT PJ ---
+    // --- SUBMIT PJ (COM BLOQUEIO E TRADUÇÃO) ---
     if (formPJ) {
         formPJ.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const btnSubmit = document.getElementById('btn-submit-pj');
+            const originalBtnText = btnSubmit.innerText;
+
             const cnpjVal = document.getElementById('cnpj-input').value;
             const passVal = document.getElementById('senha-pj').value;
             const confVal = document.getElementById('conf-senha-pj').value;
@@ -390,28 +428,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Verifica senha
             if (verificarForcaSenha(passVal) < 3) {
-                alert('Sua senha é muito fraca. Cadastro bloqueado.');
+                const msg = await t('Sua senha é muito fraca. Cadastro bloqueado.');
+                alert(msg);
                 return;
             }
             if (passVal !== confVal) {
-                toggleError('error-conf-senha-pj', true, 'Senhas não conferem.');
+                const msg = await t('Senhas não conferem.');
+                toggleError('error-conf-senha-pj', true, msg);
                 return;
             }
 
-            // Verifica CNPJ novamente (bloqueante)
-            btnSubmit.innerText = 'Verificando CNPJ...';
+            // Verifica CNPJ
+            btnSubmit.innerText = await t('Verificando CNPJ...');
             btnSubmit.disabled = true;
             
             const resCnpj = await consultarCNPJ(cnpjVal);
             if(resCnpj.erro) {
-                toggleError('error-cnpj', true, 'CNPJ inválido/inativo. Cadastro bloqueado.');
-                btnSubmit.innerText = 'Cadastrar';
+                const msg = await t('CNPJ inválido/inativo. Cadastro bloqueado.');
+                toggleError('error-cnpj', true, msg);
+                btnSubmit.innerText = originalBtnText;
                 btnSubmit.disabled = false;
                 return;
             }
 
             try {
-                // Criação manual PJ
                 const userCredential = await auth.createUserWithEmailAndPassword(emailVal, passVal);
                 await db.collection('users').doc(userCredential.user.uid).set({
                     nome: nomeVal,
@@ -425,13 +465,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     profilePicture: 'assets/imagens/avatar-padrao.png',
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
-                alert('Cadastro PJ realizado!');
+                
+                const msgSucesso = await t('Cadastro PJ realizado!');
+                alert(msgSucesso);
                 window.location.href = 'hub.html';
             } catch (error) {
                 console.error(error);
-                btnSubmit.innerText = 'Cadastrar';
+                btnSubmit.innerText = originalBtnText;
                 btnSubmit.disabled = false;
-                tratarErrosFirebase(error);
+                await tratarErrosFirebase(error);
             }
         });
     }
@@ -442,8 +484,20 @@ function generateUsername(val) {
     return val.split('@')[0].toLowerCase().replace(/[^a-z0-9]/g, '') + Math.floor(Math.random()*9000);
 }
 
-function tratarErrosFirebase(error) {
-    if (error.code === 'auth/email-already-in-use') alert('E-mail já cadastrado.');
-    else if (error.code === 'auth/weak-password') alert('Senha fraca (Firebase).');
-    else alert('Erro: ' + error.message);
+async function tratarErrosFirebase(error) {
+    let msg = 'Erro: ' + error.message;
+    
+    // Mensagens comuns traduzidas na hora
+    if (error.code === 'auth/email-already-in-use') {
+        msg = 'E-mail já cadastrado.';
+    } else if (error.code === 'auth/weak-password') {
+        msg = 'Senha fraca (Firebase).';
+    } else if (error.code === 'auth/invalid-email') {
+        msg = 'E-mail inválido.';
+    }
+
+    if (window.i18n && typeof i18n.translateText === 'function') {
+        msg = await i18n.translateText(msg);
+    }
+    alert(msg);
 }

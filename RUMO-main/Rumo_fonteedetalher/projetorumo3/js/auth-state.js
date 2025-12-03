@@ -1,3 +1,5 @@
+/* js/auth-state.js */
+
 document.addEventListener('DOMContentLoaded', () => {
     const auth = firebase.auth();
     const db = firebase.firestore();
@@ -39,14 +41,20 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (!existingPanelLink && navUl) {
                             const li = document.createElement('li');
                             li.id = 'nav-painel-item';
-                            // Insere o link. A classe create-account-btn é opcional, remove se quiser link simples.
-                            li.innerHTML = '<a href="dashboard.html" style="font-weight: bold; color: var(--primary-color);">Painel</a>';
+                            
+                            // ATUALIZAÇÃO 1: Adicionado o atributo data-i18n
+                            li.innerHTML = '<a href="dashboard.html" style="font-weight: bold; color: var(--primary-color);" data-i18n="nav.panel">Painel</a>';
                             
                             // Insere antes do botão "Meu Perfil" se existir, para organização
                             if(profileItem) {
                                 navUl.insertBefore(li, profileItem);
                             } else {
                                 navUl.appendChild(li);
+                            }
+
+                            // ATUALIZAÇÃO 2: Força a tradução do novo elemento criado
+                            if (window.i18n && typeof i18n.applyTranslations === 'function') {
+                                i18n.applyTranslations();
                             }
                         }
                         
@@ -77,8 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (!existingPanelLink && navUl) {
                             const li = document.createElement('li');
                             li.id = 'nav-painel-item';
-                            li.innerHTML = '<a href="dashboard.html" style="font-weight: bold;">Painel</a>';
+                            // ATUALIZAÇÃO NO OFFLINE TAMBÉM
+                            li.innerHTML = '<a href="dashboard.html" style="font-weight: bold;" data-i18n="nav.panel">Painel</a>';
                             navUl.insertBefore(li, profileItem);
+
+                            if (window.i18n && typeof i18n.applyTranslations === 'function') {
+                                i18n.applyTranslations();
+                            }
                         }
                     } else {
                         if (newPostButton) newPostButton.style.display = 'none';

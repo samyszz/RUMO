@@ -5,7 +5,8 @@
     "tools": "Tembe’yrembi",
     "about": "Mávapa ore",
     "profile": "Che rérape",
-    "create_account": "Emoheñói peteĩ mba’ete"
+    "create_account": "Emoheñói peteĩ mba’ete",
+    "panel": "Mbojupapy"
   },
   "header": {
     "lang": {
@@ -52,24 +53,28 @@
     }
   },
   "form": {
-    "register": "Emoheñói mba’ete",
-    "login": "Eike",
-    "social_register": "Térã eike nde email rupive",
-    "social_login": "Térã eheja eike nde mba’etépe",
-    "name_placeholder": "Téra completo",
+    "register": "Ñemboheraguapy",
+    "login": "Jeike",
+    "social_register": "Térã eipuru ne correo",
+    "social_login": "Térã eike ne kuenta reheve",
+    "name_placeholder": "Téra ha Térajoapy",
     "cpf_placeholder": "CPF (000.000.000-00)",
-    "email_placeholder": "Korreo electrónico",
-    "password_placeholder": "Ñe’ẽñemi",
-    "confirm_password_placeholder": "Ehekopyahu ñanduti ñe’ẽñemi",
-    "company_placeholder": "Tetrã/empresa réra",
+    "email_placeholder": "Correo electrónico",
+    "password_placeholder": "Contraseña",
+    "confirm_password_placeholder": "Jey ne contraseña",
+    "company_placeholder": "Empresa/ONG réra",
     "cnpj_placeholder": "CNPJ (00.000.000/0000-00)",
-    "email_commercial_placeholder": "Correo profesional",
+    "email_commercial_placeholder": "Correo comercial",
     "error_cpf": "CPF ndoikói",
     "error_email": "Correo ndoikói",
     "error_cnpj": "CNPJ ndoikói",
-    "error_password_mismatch": "Ñe’ẽñemi ndojoguái",
-    "terms_prefix": "Añe’ẽme’ẽ:",
-    "strength_very_weak": "Hatã’ỹ (emoĩta mayúscula térã papapy)"
+    "error_password_mismatch": "Contraseña ndojojái",
+    "terms_prefix": "Amoñe'ẽ ha amboaje ",
+    "strength_very_weak": "Kangy eterei",
+    "strength_weak": "Kangy",
+    "strength_medium": "Mbyte",
+    "strength_strong": "Mbarete",
+    "strength_very_strong": "Mbarete eterei"
   },
   "cadastro": {
     "pf": "Tapicha",

@@ -5,7 +5,8 @@
     "tools": "ユーティリティ",
     "about": "私たちについて",
     "profile": "マイプロフィール",
-    "create_account": "アカウント作成"
+    "create_account": "アカウント作成",
+    "panel": "パネル"
   },
   "header": {
     "lang": {
@@ -51,25 +52,29 @@
       "learning": "学習"
     }
   },
-  "form": {
+"form": {
     "register": "登録",
     "login": "ログイン",
-    "social_register": "またはメールを使用して登録",
-    "social_login": "またはアカウントを使用",
+    "social_register": "またはメールで登録",
+    "social_login": "またはアカウントでログイン",
     "name_placeholder": "氏名",
-    "cpf_placeholder": "CPF（000.000.000-00）",
+    "cpf_placeholder": "CPF (000.000.000-00)",
     "email_placeholder": "メールアドレス",
     "password_placeholder": "パスワード",
-    "confirm_password_placeholder": "パスワードの確認",
-    "company_placeholder": "企業/NGO名",
-    "cnpj_placeholder": "CNPJ（00.000.000/0000-00）",
-    "email_commercial_placeholder": "商用メール",
-    "error_cpf": "CPFが無効です",
-    "error_email": "メールが無効です",
-    "error_cnpj": "CNPJが無効です",
+    "confirm_password_placeholder": "パスワード確認",
+    "company_placeholder": "会社/NGO名",
+    "cnpj_placeholder": "CNPJ (00.000.000/0000-00)",
+    "email_commercial_placeholder": "ビジネス用メール",
+    "error_cpf": "無効なCPF",
+    "error_email": "無効なメールアドレス",
+    "error_cnpj": "無効なCNPJ",
     "error_password_mismatch": "パスワードが一致しません",
-    "terms_prefix": "私は以下の内容を読み、同意します： ",
-    "strength_very_weak": "とても弱い（大文字/数字を追加してください）"
+    "terms_prefix": "利用規約を読み、同意します ",
+    "strength_very_weak": "非常に弱い",
+    "strength_weak": "弱い",
+    "strength_medium": "普通",
+    "strength_strong": "強い",
+    "strength_very_strong": "非常に強い"
   },
   "cadastro": {
     "pf": "個人",
@@ -88,42 +93,15 @@
     "overlay_title": "すでにアカウントをお持ちですか？",
     "sign_in_button": "ログイン"
   },
-  "perfil": {
-    "title": "マイプロフィール",
-    "edit_profile": "プロフィール編集",
-    "saved_posts": "保存した投稿",
-    "about_me": "私について",
-    "bio_placeholder": "バイオを追加するにはプロフィールを編集してください。",
-    "my_posts": "自分の投稿",
-    "no_posts": "まだ投稿がありません。"
-  }
-}
-  "cadastro": {
-    "pf": "個人",
-    "pj": "法人",
-    "pf_submit": "登録",
-    "pj_submit": "企業を登録",
-    "overlay_title": "まだアカウントをお持ちではありませんか？",
-    "overlay_login_text": "ログインしてプラットフォームにアクセス",
-    "overlay_register_text": "登録して、私たちと一緒に旅を始めましょう",
-    "sign_up_button": "登録"
-  },
-  "login": {
-    "submit": "ログイン",
-    "forgot_question": "パスワードを忘れましたか？",
-    "recover": "パスワードを復旧",
-    "overlay_title": "すでにアカウントをお持ちですか？",
-    "sign_in_button": "ログイン"
-  },
-  "perfil": {
-    "title": "マイプロフィール",
-    "edit_profile": "プロフィール編集",
-    "saved_posts": "保存した投稿",
-    "about_me": "自己紹介",
-    "bio_placeholder": "プロフィールを編集してバイオを追加してください。",
-    "my_posts": "自分の投稿",
-    "no_posts": "まだ投稿がありません。"
-  },
+"perfil": {
+  "title": "マイプロフィール",
+  "edit_profile": "プロフィール編集",
+  "saved_posts": "保存した投稿",
+  "about_me": "私について",
+  "bio_placeholder": "バイオを追加するにはプロフィールを編集してください。",
+  "my_posts": "自分の投稿",
+  "no_posts": "まだ投稿がありません。"
+},
   "forum": {
     "title": "R.U.M.O - コミュニティ",
     "search_placeholder": "検索...",
@@ -177,3 +155,51 @@
     "save_button": "保存",
     "cancel_button": "キャンセル"
   },
+  "tools": {
+    "title": "ユーティリティ",
+    "search_placeholder": "ユーティリティを検索...",
+    "converter": "コンバーター",
+    "documents": "ドキュメント",
+    "misc": "その他",
+    "empty": "まだユーティリティがありません。"
+  },
+  "tutorial": {
+    "title": "R.U.M.O - チュートリアル",
+    "intro_title": "R.U.M.Oへようこそ！",
+    "intro_text": "ここでは、プラットフォームを最大限活用するためのステップバイステップガイドをご紹介します。",
+    "section_documents": {
+      "title": "デジタルドキュメント保管庫",
+      "text": "重要書類を保存し、有効期限についての通知を受け取ることができます。"
+    },
+    "section_tools": {
+      "title": "ユーティリティ",
+      "text": "換算ツール、ガイド、実用的な計算機などを利用できます。"
+    },
+    "section_hub": {
+      "title": "情報ハブ",
+      "text": "コミュニティ投稿、ニュース、NGO、政府情報など、信頼できる情報を閲覧できます。"
+    },
+    "section_community": {
+      "title": "コミュニティ",
+      "text": "投稿を作成し、ユーザーと交流したり、メッセージやコメントを行うことができます。"
+    },
+    "button_next": "次へ",
+    "button_back": "戻る"
+  },
+  "documents": {
+    "title": "私のドキュメント",
+    "upload_button": "ドキュメントをアップロード",
+    "empty": "まだ保存されたドキュメントはありません。",
+    "expires_in": "有効期限：",
+    "view": "表示",
+    "delete": "削除"
+  },
+  "converter": {
+    "title": "通貨コンバーター",
+    "amount_label": "金額",
+    "from_label": "から",
+    "to_label": "へ",
+    "convert_button": "変換",
+    "result": "結果："
+  }
+}

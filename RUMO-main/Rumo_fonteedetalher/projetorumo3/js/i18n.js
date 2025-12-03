@@ -42,7 +42,6 @@ class I18N {
     async init() {
         // Se o localStorage tiver códigos antigos (ex: pt-brasil), converte para o novo (pt)
         if (this.currentLang.includes('-') && this.currentLang !== 'pt-br') { 
-             // Lógica simples de fallback se necessário, mas vamos forçar a limpeza:
              const simpleCode = this.currentLang.split('-')[0];
              if (this.fileMap[simpleCode]) this.currentLang = simpleCode;
         }
@@ -98,24 +97,17 @@ class I18N {
     }
 
     updateDropdowns() {
-        // Popula e atualiza todos os selects de idioma presentes na página
         const dropdowns = document.querySelectorAll('.language-selector, #language-select-header, #language-select-pf, #language-select-pj, #language-select-utils');
-        
         dropdowns.forEach(select => {
-            // Se o select está vazio, popula com as opções
             if (select.options.length === 0) {
                 this.populateLanguageSelect(select);
             }
-            // Define o valor atual
             select.value = this.currentLang;
         });
     }
 
     populateLanguageSelect(select) {
-        // Limpa o select
         select.innerHTML = '';
-        
-        // Mapeamento de idiomas com seus nomes em português
         const langNames = {
             'pt': 'Português (Brasil)',
             'es': 'Español (Español)',
@@ -129,8 +121,6 @@ class I18N {
             'gn': 'Guarani (Guarani)',
             'qu': 'Quechua (Quechua)'
         };
-
-        // Adiciona as opções ao select
         for (const [code, name] of Object.entries(langNames)) {
             const option = document.createElement('option');
             option.value = code;
@@ -140,7 +130,6 @@ class I18N {
     }
 
     updateHeaderDisplay(langCode) {
-        // Atualiza texto visual no header (ex: "PT", "EN")
         const displayElement = document.querySelector('[data-i18n="header.lang.current"] strong');
         if (displayElement) {
             displayElement.textContent = langCode.toUpperCase();
@@ -150,15 +139,61 @@ class I18N {
     updateBannerImage(langCode) {
         const bannerImg = document.getElementById('main-banner-img');
         if (!bannerImg) return;
-        const newImageSrc = `assets/imagens/${this.bannerImageMap[langCode] || 'banner3 (2).png'}`;
-        // Ajuste de caminho caso a imagem esteja na raiz ou pasta assets (verifiquei sua estrutura)
-        // Se suas imagens estao na raiz (como no código antigo), use:
-        // bannerImg.src = this.bannerImageMap[langCode] || 'banner3 (2).png';
-        
-        // Baseado no seu TREE, as imagens estão soltas na raiz DE FATO? 
-        // No tree aparece "projetorumo3/banner-arabe.png".
-        // Então o src direto deve funcionar se o HTML estiver na mesma pasta.
         bannerImg.src = this.bannerImageMap[langCode] || 'banner3 (2).png'; 
+    }
+
+    // --- NOVA FUNÇÃO DE TRADUÇÃO DINÂMICA (API) ---
+    async translateText(text) {
+        if (!text || !text.trim()) return text;
+        
+        // Se for português ou idioma não definido, retorna original
+        if (this.currentLang.startsWith('pt')) return text;
+
+        const targetLang = this.currentLang.split('-')[0];
+        
+        // Divide textos muito longos para não quebrar a API
+        const CHUNK_SIZE = 1000;
+        if (text.length > CHUNK_SIZE) {
+             const sentences = text.match(/[^.!?]+[.!?]+|\s*$/g) || [text];
+             let chunks = [], currentChunk = "";
+             for (const s of sentences) {
+                 if ((currentChunk + s).length > CHUNK_SIZE) { chunks.push(currentChunk); currentChunk = s; }
+                 else { currentChunk += s; }
+             }
+             if (currentChunk.trim()) chunks.push(currentChunk);
+             const translatedChunks = await Promise.all(chunks.map(c => this._fetchTranslationApi(c, targetLang)));
+             return translatedChunks.join(" ");
+        }
+
+        return await this._fetchTranslationApi(text, targetLang);
+    }
+
+    async _fetchTranslationApi(text, isoCode) {
+        try {
+            // Tenta Google Translate (API não oficial client-side)
+            const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=pt&tl=${isoCode}&dt=t&q=${encodeURIComponent(text)}`;
+            const res = await fetch(url);
+            const data = await res.json();
+            if (data && data[0]) {
+                return data[0].map(part => part[0]).join('');
+            }
+        } catch (e) {
+            // Silencioso
+        }
+
+        try {
+            // Backup MyMemory
+            const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=pt|${isoCode}`;
+            const res = await fetch(url);
+            const data = await res.json();
+            const translated = data.responseData.translatedText;
+             if (translated.includes("MYMEMORY WARNING") || translated.includes("ISIT HTTPS")) {
+                return text; 
+            }
+            return translated;
+        } catch (e) {
+            return text;
+        }
     }
 }
 

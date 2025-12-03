@@ -1,76 +1,12 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // js/perfil-usuario.js
 
-// Usando o SDK v8 global do Firebase, compatível com seu projeto
 document.addEventListener('DOMContentLoaded', () => {
     // --- ELEMENTOS DA PÁGINA ---
     const profileName = document.getElementById('profile-name');
     const profileBio = document.getElementById('profile-bio');
     const profileAvatar = document.getElementById('profile-avatar');
     const feedContainer = document.getElementById('profile-feed-container');
-    const followBtn = document.getElementById('follow-btn'); // Botão correto do HTML
+    const followBtn = document.getElementById('follow-btn');
 
     let currentUserId = null;
     let profileUserId = null;
@@ -85,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (!profileUserId) {
-            alert("ID de usuário não encontrado na URL.");
+            alert(await i18n.translateText("ID de usuário não encontrado na URL."));
             window.location.href = 'hub.html';
             return;
         }
@@ -110,79 +46,90 @@ document.addEventListener('DOMContentLoaded', () => {
             const displayName = data.nomeCompleto || data.nome || 'Usuário';
 
             profileName.textContent = displayName;
-            profileBio.textContent = data.bio || 'Sem biografia.';
+            
+            // TRADUÇÃO DA BIOGRAFIA
+            let bioText = data.bio || 'Sem biografia.';
+            if (i18n && !i18n.currentLang.startsWith('pt')) {
+                // Se a bio existir, traduz. Se for o placeholder, traduz também.
+                bioText = await i18n.translateText(bioText);
+            }
+            profileBio.textContent = bioText;
+
             if (data.photoURL) profileAvatar.src = data.photoURL;
 
-            // Set username with @ prefix to logged-in user's username
+            // CORREÇÃO: Mostra o username do PERFIL VISITADO (data), não do usuário logado
             const profileUsername = document.getElementById('profile-username');
             if (profileUsername) {
-                if (currentUserId) {
-                    const currentUserRef = firebase.firestore().collection("users").doc(currentUserId);
-                    currentUserRef.get().then((doc) => {
-                        if (doc.exists) {
-                            const currentUserData = doc.data();
-                            profileUsername.textContent = '@' + (currentUserData.username || 'usuario');
-                        } else {
-                            profileUsername.textContent = '@usuario';
-                        }
-                    }).catch(() => {
-                        profileUsername.textContent = '@usuario';
-                    });
-                } else {
-                    profileUsername.textContent = '@usuario';
-                }
+                profileUsername.textContent = '@' + (data.username || 'usuario');
             }
 
-            // Set user type badge with green dot
+            // TRADUÇÃO DO TIPO DE USUÁRIO
             const profileUserType = document.getElementById('profile-user-type');
             if (profileUserType) {
-                // Map userType codes to full names
                 const userTypeMap = {
                     'pj': 'Pessoa Jurídica',
                     'pf': 'Pessoa Física'
                 };
-                const userTypeText = userTypeMap[data.userType] || data.userType || '';
+                let userTypeText = userTypeMap[data.userType] || data.userType || '';
+                
+                if (userTypeText) {
+                    userTypeText = await i18n.translateText(userTypeText);
+                }
+                
                 profileUserType.textContent = userTypeText;
                 profileUserType.style.display = userTypeText ? 'inline-block' : 'none';
             }
 
-            // Lógica para mostrar e configurar o botão "Seguir"
-            // Mostra apenas se for um perfil de PJ e não for o perfil do próprio usuário
+            // TRADUÇÃO DO BOTÃO SEGUIR
             if (currentUserId && currentUserId !== profileUserId && data.userType === 'pj') {
                 followBtn.style.display = 'block';
                 if ((data.followers || []).includes(currentUserId)) {
-                    followBtn.textContent = 'Deixar de Seguir';
+                    followBtn.textContent = await i18n.translateText('Deixar de Seguir');
                     followBtn.classList.add('unfollow-btn');
                 } else {
-                    followBtn.textContent = 'Seguir';
+                    followBtn.textContent = await i18n.translateText('Seguir');
                     followBtn.classList.remove('unfollow-btn');
                 }
             } else {
-                followBtn.style.display = 'none'; // Garante que o botão fique escondido em perfis PF
+                followBtn.style.display = 'none';
             }
         } else {
             console.error("Usuário não encontrado no Firestore!");
-            alert("Usuário não encontrado!");
+            alert(await i18n.translateText("Usuário não encontrado!"));
         }
     }
 
     async function carregarPostsDoUsuario() {
-        feedContainer.innerHTML = 'Carregando publicações...';
+        feedContainer.innerHTML = await i18n.translateText('Carregando publicações...');
+        
         const postsRef = firebase.firestore().collection("posts");
         const querySnapshot = await postsRef.where("creatorId", "==", profileUserId).orderBy("createdAt", "desc").get();
 
         if (querySnapshot.empty) {
-            feedContainer.innerHTML = '<p>Este usuário ainda não fez nenhuma publicação.</p>';
+            const emptyMsg = await i18n.translateText('Este usuário ainda não fez nenhuma publicação.');
+            feedContainer.innerHTML = `<p>${emptyMsg}</p>`;
             return;
         }
 
         feedContainer.innerHTML = '';
-        querySnapshot.forEach((docSnap) => {
+        
+        // Renderiza os posts (usando loop for...of para permitir await na tradução)
+        for (const docSnap of querySnapshot.docs) {
             const post = docSnap.data();
             const postElement = document.createElement('div');
-            postElement.classList.add('info-card-wrapper'); // Reutiliza a classe do hub para consistência
+            postElement.classList.add('info-card-wrapper');
 
             const postDate = post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleDateString() : '';
+            
+            // TRADUÇÃO DO TÍTULO E DESCRIÇÃO
+            let displayTitle = post.title;
+            let displayDesc = (post.description || '').substring(0, 150) + '...';
+            
+            if (!i18n.currentLang.startsWith('pt')) {
+                displayTitle = await i18n.translateText(displayTitle);
+                displayDesc = await i18n.translateText((post.description || '').substring(0, 150));
+                displayDesc += '...';
+            }
 
             postElement.innerHTML = `
                 <div class="info-card">
@@ -192,18 +139,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="info-card-body">
                          ${post.image ? `<img src="${post.image}" alt="Imagem do post" class="card-image">` : ''}
-                        <h3>${post.title}</h3>
-                        <p>${(post.description || '').substring(0, 150)}...</p>
+                        <h3>${displayTitle}</h3>
+                        <p>${displayDesc}</p>
                     </div>
                 </div>
             `;
             feedContainer.appendChild(postElement);
-        });
+        }
     }
 
     async function toggleFollow() {
         if (!currentUserId) {
-            alert('Você precisa estar logado para seguir alguém.');
+            alert(await i18n.translateText('Você precisa estar logado para seguir alguém.'));
             return;
         }
         const loggedInUserRef = firebase.firestore().collection("users").doc(currentUserId);
@@ -214,24 +161,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const updateAction = isFollowing ? 'arrayRemove' : 'arrayUnion';
 
         try {
-            // Atualiza a lista de 'seguindo' do usuário logado
             await loggedInUserRef.update({ following: firebase.firestore.FieldValue[updateAction](profileUserId) });
-            // Atualiza a lista de 'seguidores' do perfil visitado
             await profileUserRef.update({ followers: firebase.firestore.FieldValue[updateAction](currentUserId) });
 
-            // Recarrega os dados do perfil para atualizar a contagem e o texto do botão
             await carregarDadosDoPerfil();
         } catch (error) {
             console.error("Erro ao seguir/deixar de seguir:", error);
-            alert("Ocorreu um erro. Tente novamente.");
+            alert(await i18n.translateText("Ocorreu um erro. Tente novamente."));
         }
     }
 
-    // Adiciona o evento de clique diretamente no botão
     if (followBtn) {
         followBtn.addEventListener('click', toggleFollow);
     }
 
+    // Modal de Seguidores/Seguindo (Se existir na interface)
     async function showFollowListModal(userId, listType) {
         const userRef = firebase.firestore().collection("users").doc(userId);
         const userSnap = await userRef.get();
@@ -239,7 +183,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const userData = userSnap.data();
         const idList = listType === 'followers' ? (userData.followers || []) : (userData.following || []);
-        const modalTitle = listType === 'followers' ? 'Seguidores' : 'Seguindo';
+        
+        let modalTitle = listType === 'followers' ? 'Seguidores' : 'Seguindo';
+        modalTitle = await i18n.translateText(modalTitle);
 
         const backdrop = document.createElement('div');
         backdrop.className = 'follow-list-modal-backdrop';
@@ -263,11 +209,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (idList.length === 0) {
-            listBody.innerHTML = `<p class="follow-list-empty">Nenhum usuário encontrado.</p>`;
+            listBody.innerHTML = `<p class="follow-list-empty">${await i18n.translateText("Nenhum usuário encontrado.")}</p>`;
             return;
         }
 
-        listBody.innerHTML = `<p class="follow-list-empty">Carregando...</p>`;
+        listBody.innerHTML = `<p class="follow-list-empty">${await i18n.translateText("Carregando...")}</p>`;
         const usersDocs = await Promise.all(idList.map(id => firebase.firestore().collection("users").doc(id).get()));
 
         listBody.innerHTML = '';
