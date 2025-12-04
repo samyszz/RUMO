@@ -74,7 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
 
         try {
-            let photoURL = currentUserData.photoURL || null;
+    // CORREÇÃO AQUI:
+    // Verifica se currentUserData existe antes de tentar ler a propriedade.
+    let photoURL = (currentUserData && currentUserData.photoURL) ? currentUserData.photoURL : null;
 
             // 1. Se uma nova foto foi selecionada, faz o upload para o Cloudinary
             if (newAvatarFile) {
